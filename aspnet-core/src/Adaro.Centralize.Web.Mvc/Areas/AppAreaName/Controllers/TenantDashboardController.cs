@@ -1,0 +1,26 @@
+﻿using Abp.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Adaro.Centralize.Authorization;
+using Adaro.Centralize.DashboardCustomization;
+using System.Threading.Tasks;
+using Adaro.Centralize.Web.Areas.AppAreaName.Startup;
+
+namespace Adaro.Centralize.Web.Areas.AppAreaName.Controllers
+{
+    [Area("AppAreaName")]
+    [AbpMvcAuthorize(AppPermissions.Pages_Tenant_Dashboard)]
+    public class TenantDashboardController : CustomizableDashboardControllerBase
+    {
+        public TenantDashboardController(DashboardViewConfiguration dashboardViewConfiguration, 
+            IDashboardCustomizationAppService dashboardCustomizationAppService) 
+            : base(dashboardViewConfiguration, dashboardCustomizationAppService)
+        {
+
+        }
+
+        public async Task<ActionResult> Index()
+        {
+            return await GetView(CentralizeDashboardCustomizationConsts.DashboardNames.DefaultTenantDashboard);
+        }
+    }
+}
