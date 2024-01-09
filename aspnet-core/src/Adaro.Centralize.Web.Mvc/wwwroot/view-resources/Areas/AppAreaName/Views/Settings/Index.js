@@ -202,7 +202,7 @@
 
     $('#SettingsLightLogoUploadForm button[type=reset]').click(function () {
       _tenantSettingsService.clearLightLogo().done(function () {
-        refreshLogo(abp.appPath + 'Common/Images/app-logo-on-light.svg', 'light');
+          refreshLogo(abp.appPath + 'Common/Images/app-logo-on-light.png', 'light');
         $('.brand-light-logo-preview-area').css('display', 'none');
         $('#ApplicationLightLogoImageLabel').text(app.localize('ChooseAFile'));
 
@@ -257,7 +257,7 @@
 
     $('#SettingsDarkLogoUploadForm button[type=reset]').click(function () {
       _tenantSettingsService.clearDarkLogo().done(function () {
-        refreshLogo(abp.appPath + 'Common/Images/app-logo-on-dark.svg','dark');
+          refreshLogo(abp.appPath + 'Common/Images/app-logo-on-dark.png','dark');
         $('.brand-dark-logo-preview-area').css('display', 'none');
         $('#ApplicationDarkLogoImageLabel').text(app.localize('ChooseAFile'));
 

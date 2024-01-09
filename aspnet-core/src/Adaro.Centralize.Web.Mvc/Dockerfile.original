@@ -3,4 +3,4 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
 COPY . .
 
-ENTRYPOINT ["dotnet", "MyCompanyName.AbpZeroTemplate.Web.Mvc.dll"]
+ENTRYPOINT ["dotnet", "Adaro.Centralize.Web.Mvc.dll"]

@@ -15,7 +15,7 @@ namespace Adaro.Centralize.Web.Views.Shared.Components.AccountLogo
         {
             if (LoginInformations?.Tenant == null || !LoginInformations.Tenant.HasLogo())
             {
-                return appPath + "Common/Images/app-logo-on-" + skin + ".svg?";
+                return appPath + "Common/Images/app-logo-on-" + skin + ".png?";
             }
 
             return appPath + "TenantCustomization/GetTenantLogo?tenantId=" + LoginInformations?.Tenant?.Id + "&skin=" + skin;

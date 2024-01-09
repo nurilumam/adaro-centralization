@@ -8,6 +8,6 @@
 }
 
 <a href="@Url.Action("Index", "Home", new {area = string.Empty})">
-    @await Component.InvokeAsync(typeof(AppAreaNameLogoViewComponent), new {logoSkin = skin, logoClass = "h-25px app-sidebar-logo-default"})
-    @await Component.InvokeAsync(typeof(AppAreaNameLogoViewComponent), new {logoSkin = skin + "-sm", logoClass = "h-20px app-sidebar-logo-minimize"})
+    @await Component.InvokeAsync(typeof(AppAreaNameLogoViewComponent), new {logoSkin = skin, logoClass = "h-100px app-sidebar-logo-default"})
+    @await Component.InvokeAsync(typeof(AppAreaNameLogoViewComponent), new {logoSkin = skin + "-sm", logoClass = "h-50px app-sidebar-logo-minimize"})
 </a>

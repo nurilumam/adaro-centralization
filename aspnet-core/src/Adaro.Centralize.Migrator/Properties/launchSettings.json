@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "MyCompanyName.AbpZeroTemplate.Migrator": {
+    "Adaro.Centralize.Migrator": {
       "commandName": "Project"
     },
     "Docker": {

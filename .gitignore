@@ -25,3 +25,4 @@ aspnet-core/src/MyCompanyName.AbpZeroTemplate.Web.Host/App_Data/AuditLogsBackups
 
 # Ignore Playwright screenshots
 ui-tests-playwright/**/*.png
+/aspnet-core/src/Adaro.Centralize.Web.Mvc/node_modules

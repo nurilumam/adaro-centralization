@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "MyCompanyName.AbpZeroTemplate.Web.FrontEnd": {
+    "Adaro.Centralize.Web.FrontEnd": {
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "https://localhost:44303",

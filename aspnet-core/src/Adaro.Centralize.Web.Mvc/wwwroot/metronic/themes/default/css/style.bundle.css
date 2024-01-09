@@ -47285,11 +47285,17 @@ html:not([data-theme=dark]) {
   [dir=rtl] .app-sidebar-toggle.active .svg-icon {
     transform: rotateZ(0deg) !important;
   }
+
+  [data-kt-app-sidebar-minimize=on][data-kt-app-sidebar-hoverable=true] .app-sidebar:not(:hover) .app-sidebar-logo {
+    height: 70px;
+    margin-bottom: 55px;
+  }
+
   .app-sidebar-logo {
-    height: var(--kt-app-header-height);
+    height: 125px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     position: relative;
     flex-shrink: 0;
   }
@@ -47375,7 +47381,7 @@ html:not([data-theme=dark]) {
   }
 }
 [data-kt-app-layout=dark-sidebar] .app-sidebar {
-  background-color: #1e1e2d;
+  background-color: #337362;
   border-right: 0 !important;
 }
 [data-kt-app-layout=dark-sidebar] .app-sidebar .hover-scroll-overlay-y {
@@ -47396,8 +47402,13 @@ html:not([data-theme=dark]) {
 [data-kt-app-layout=dark-sidebar] .app-sidebar .hover-scroll-overlay-y:hover::-webkit-scrollbar-corner {
   background-color: transparent;
 }
+
+[data-kt-app-sidebar-minimize=on][data-kt-app-sidebar-hoverable=true] .app-sidebar:not(:hover) .app-sidebar-logo {
+  border-bottom: 1px dashed #dddddd;
+}
+
 [data-kt-app-layout=dark-sidebar] .app-sidebar .app-sidebar-logo {
-  border-bottom: 1px dashed #393945;
+  /* border-bottom: 1px dashed #393945; */
 }
 [data-kt-app-layout=dark-sidebar] .app-sidebar .btn-custom {
   color: #B5B5C3;
@@ -47418,10 +47429,10 @@ html:not([data-theme=dark]) {
   color: #646477 !important;
 }
 [data-kt-app-layout=dark-sidebar] .app-sidebar .menu .menu-item .menu-link {
-  color: #9D9DA6;
+  color: #DBDFE9;
 }
 [data-kt-app-layout=dark-sidebar] .app-sidebar .menu .menu-item .menu-link .menu-title {
-  color: #9D9DA6;
+  color: #DBDFE9;
 }
 [data-kt-app-layout=dark-sidebar] .app-sidebar .menu .menu-item .menu-link .menu-icon,
 [data-kt-app-layout=dark-sidebar] .app-sidebar .menu .menu-item .menu-link .menu-icon .svg-icon,
@@ -47552,7 +47563,7 @@ html:not([data-theme=dark]) {
 }
 [data-kt-app-layout=dark-sidebar] .app-sidebar .menu .menu-item .menu-link.active {
   transition: color 0.2s ease;
-  background-color: #2A2A3C;
+  background-color: #125146;
   color: var(--kt-primary-inverse);
 }
 [data-kt-app-layout=dark-sidebar] .app-sidebar .menu .menu-item .menu-link.active .menu-title {
