@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_TravelRequests = "Pages.TravelRequests";
+        public const string Pages_TravelRequests_Create = "Pages.TravelRequests.Create";
+        public const string Pages_TravelRequests_Edit = "Pages.TravelRequests.Edit";
+        public const string Pages_TravelRequests_Delete = "Pages.TravelRequests.Delete";
+
         public const string Pages_Airports = "Pages.Airports";
         public const string Pages_Airports_Create = "Pages.Airports.Create";
         public const string Pages_Airports_Edit = "Pages.Airports.Edit";

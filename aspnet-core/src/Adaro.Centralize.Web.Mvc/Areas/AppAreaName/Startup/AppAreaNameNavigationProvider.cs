@@ -23,6 +23,14 @@ namespace Adaro.Centralize.Web.Areas.AppAreaName.Startup
                     )
                 )
                 .AddItem(new MenuItemDefinition(
+                        AppAreaNamePageNames.Common.TravelRequests,
+                        L("TravelRequests"),
+                        url: "AppAreaName/TravelRequests",
+                        icon: "flaticon-more",
+                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_TravelRequests)
+                    )
+                )
+                .AddItem(new MenuItemDefinition(
                         AppAreaNamePageNames.Common.Airports,
                         L("Airports"),
                         url: "AppAreaName/Airports",

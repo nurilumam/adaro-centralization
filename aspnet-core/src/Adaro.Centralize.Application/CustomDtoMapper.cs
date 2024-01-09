@@ -50,6 +50,8 @@ namespace Adaro.Centralize
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditTravelRequestDto, TravelRequest>().ReverseMap();
+            configuration.CreateMap<TravelRequestDto, TravelRequest>().ReverseMap();
             configuration.CreateMap<CreateOrEditAirportDto, Airport>().ReverseMap();
             configuration.CreateMap<AirportDto, Airport>().ReverseMap();
             //Inputs

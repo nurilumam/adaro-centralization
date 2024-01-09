@@ -1,0 +1,74 @@
+﻿@using Adaro.Centralize.Web.Areas.AppAreaName.Startup
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.TravelRequests
+@model TravelRequestViewModel
+@using Adaro.Centralize.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppAreaNamePageNames.Common.TravelRequests;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/AppAreaName/Views/TravelRequests/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+@{
+var breadcrumbs = new List<BreadcrumbItem>()
+    {
+    new BreadcrumbItem("/AppAreaName/TravelRequests", L("TravelRequests")),
+    new BreadcrumbItem(L("Details")),
+    };
+    }
+    <abp-page-subheader title='@L("Details")' breadcrumbs="breadcrumbs">
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class=" card card-custom gutter-b">
+            <div class=" card-body">
+                <div id="TravelRequestInformationsTab">
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <h6>@L("RequestNo") :</h6>
+                            @Model.TravelRequest.RequestNo
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("TravelStatus") :</h6>
+                            @L("Enum_TravelStatus_" + (int)Model.TravelRequest.TravelStatus)
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("TravelType") :</h6>
+                            @L("Enum_TravelType_" + (int)Model.TravelRequest.TravelType)
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("RequestDate") :</h6>
+                            @Model.TravelRequest.RequestDate
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("Camp") :</h6>
+                            @Model.TravelRequest.Camp
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("TransportBus") :</h6>
+                            @Model.TravelRequest.TransportBus
+                        </div>
+
+                        <div class="col-6 mb-3">
+                            <h6>(@L("User")) @L("Name") :</h6>
+                            @Model.UserName
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>(@L("Airport")) @L("DisplayProperty") :</h6>
+                            @Model.AirportDisplayProperty
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>(@L("Airport")) @L("DisplayProperty") :</h6>
+                            @Model.AirportDisplayProperty2
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>(@L("User")) @L("Name") :</h6>
+                            @Model.UserName2
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

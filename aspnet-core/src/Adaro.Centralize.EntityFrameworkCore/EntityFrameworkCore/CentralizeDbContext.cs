@@ -16,6 +16,8 @@ namespace Adaro.Centralize.EntityFrameworkCore
 {
     public class CentralizeDbContext : AbpZeroDbContext<Tenant, Role, User, CentralizeDbContext>
     {
+        public virtual DbSet<TravelRequest> TravelRequests { get; set; }
+
         public virtual DbSet<Airport> Airports { get; set; }
 
         /* Define an IDbSet for each entity of the application */
@@ -48,10 +50,14 @@ namespace Adaro.Centralize.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Airport>(a =>
+            modelBuilder.Entity<TravelRequest>(t =>
             {
-                a.HasIndex(e => new { e.TenantId });
+                t.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<Airport>(a =>
+                       {
+                           a.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<BinaryObject>(b =>
                        {
                            b.HasIndex(e => new { e.TenantId });

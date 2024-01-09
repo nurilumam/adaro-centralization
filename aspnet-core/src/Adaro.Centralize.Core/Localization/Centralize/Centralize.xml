@@ -1,6 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="Travel">Travel</text>
+  <texts>    <text name="TravelRequest">Travel request</text>
+    <text name="Adaro.Centralize.Travel.TravelRequest">TravelRequest</text>
+    <text name="RequestNo">Request no</text>
+    <text name="TravelStatus">Travel status</text>
+    <text name="TravelType">Travel type</text>
+    <text name="RequestDate">Request date</text>
+    <text name="RequestPlanDate">Request plan date</text>
+    <text name="Camp">Camp</text>
+    <text name="TransportBus">Transport bus</text>
+    <text name="CreatedDate">Created date</text>
+    <text name="TravelRequestsHeaderInfo">Travel requests header info</text>
+    <text name="CreateNewTravelRequest">Create new travel request</text>
+    <text name="EditTravelRequest">Edit travel request</text>
+    <text name="DeleteTravelRequest">Delete travel request</text>
+    <text name="TravelRequests">Travel requests</text>
+    <text name="Enum_TravelStatus_0">New</text>
+    <text name="Enum_TravelStatus_1">Submitted</text>
+    <text name="Enum_TravelStatus_2">Booking</text>
+    <text name="Enum_TravelStatus_3">Scheduled</text>
+    <text name="Enum_TravelStatus_4">Completed</text>
+    <text name="Enum_TravelType_0">OffSite</text>
+    <text name="Enum_TravelType_1">OnSite</text>
+    <text name="PickUser">Pick user</text>
+    <text name="PickAirport">Pick airport</text>
+    <text name="RequestDateRange">Request date range</text>
+    <text name="RequestPlanDateRange">Request plan date range</text>
+    <text name="CreatedDateRange">Created date range</text>
+    <text name="Travel">Travel</text>
     <text name="Airport">Airport</text>
     <text name="Adaro.Centralize.Travel.Airport">Airport</text>
     <text name="AirportName">Airport name</text>

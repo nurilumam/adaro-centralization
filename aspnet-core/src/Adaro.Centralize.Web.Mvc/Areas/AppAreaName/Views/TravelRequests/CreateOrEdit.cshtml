@@ -1,0 +1,177 @@
+﻿@using Adaro.Centralize.Travel;
+
+@using System.Globalization
+@using Adaro.Centralize.Authorization
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.TravelRequests
+@using Adaro.Centralize.Web.Areas.AppAreaName.Startup
+@model CreateOrEditTravelRequestViewModel
+@using Abp.Extensions
+@using Adaro.Centralize.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppAreaNamePageNames.Common.TravelRequests;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/AppAreaName/Views/TravelRequests/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+@{
+var breadcrumbs = new List<BreadcrumbItem>()
+    {
+    new BreadcrumbItem("/AppAreaName/TravelRequests", L("TravelRequests")),
+    new BreadcrumbItem(Model.IsEditMode ? L("Edit") : L("Create"))
+    };
+    }
+    <abp-page-subheader title='@(Model.IsEditMode ? (L("EditTravelRequest")) : L("CreateNewTravelRequest"))' breadcrumbs="breadcrumbs">
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <form name="TravelRequestInformationsForm" role="form" novalidate class="form-validation">
+                <div class="card-body">
+                    <div class="form">
+                        <div id="TravelRequestInformationsTab">
+                            @if (Model.IsEditMode)
+                            {
+                            <input type="hidden" name="id" value="@Model.TravelRequest.Id" />
+                            }
+
+                            <div class="my-3">
+                                <label class="form-label" for="UserName">@L("User")</label>
+                                <div class="input-group">
+                                    <input class="form-control" id="UserName" name="userName" value="@Model.UserName" type="text" disabled>
+                                    <button class="btn btn-primary blue" id="OpenUserLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                    <button class="btn btn-danger btn-icon" type="button" id="ClearUserNameButton"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+
+                            @if (Model.IsEditMode)
+                            {
+                            <input class="form-control" id="TravelRequest_UserTravel" value="@Model.TravelRequest.UserTravel" type="text" name="userTravel" hidden />
+                            }
+                            else
+                            {
+                            <input class="form-control" id="TravelRequest_UserTravel" value="" type="text" name="userTravel" hidden />
+                            }
+
+                            <div class="my-3">
+                                <label class="form-label" for="AirportDisplayProperty">@L("Airport")</label>
+                                <div class="input-group">
+                                    <input class="form-control" id="AirportDisplayProperty" name="airportDisplayProperty" value="@Model.AirportDisplayProperty" type="text" disabled>
+                                    <button class="btn btn-primary blue" id="OpenAirportLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                    <button class="btn btn-danger btn-icon" type="button" id="ClearAirportDisplayPropertyButton"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+
+                            @if (Model.IsEditMode)
+                            {
+                            <input class="form-control" id="TravelRequest_AirportFrom" value="@Model.TravelRequest.AirportFrom" type="text" name="airportFrom" hidden />
+                            }
+                            else
+                            {
+                            <input class="form-control" id="TravelRequest_AirportFrom" value="" type="text" name="airportFrom" hidden />
+                            }
+
+                            <div class="my-3">
+                                <label class="form-label" for="AirportDisplayProperty2">@L("Airport")</label>
+                                <div class="input-group">
+                                    <input class="form-control" id="AirportDisplayProperty2" name="airportDisplayProperty2" value="@Model.AirportDisplayProperty2" type="text" disabled>
+                                    <button class="btn btn-primary blue" id="OpenAirport2LookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                    <button class="btn btn-danger btn-icon" type="button" id="ClearAirportDisplayProperty2Button"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+
+                            @if (Model.IsEditMode)
+                            {
+                            <input class="form-control" id="TravelRequest_AirportTo" value="@Model.TravelRequest.AirportTo" type="text" name="airportTo" hidden />
+                            }
+                            else
+                            {
+                            <input class="form-control" id="TravelRequest_AirportTo" value="" type="text" name="airportTo" hidden />
+                            }
+
+                            <div class="my-3">
+                                <label class="form-label" for="UserName2">@L("User")</label>
+                                <div class="input-group">
+                                    <input class="form-control" id="UserName2" name="userName2" value="@Model.UserName2" type="text" disabled>
+                                    <button class="btn btn-primary blue" id="OpenUser2LookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                    <button class="btn btn-danger btn-icon" type="button" id="ClearUserName2Button"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+
+                            @if (Model.IsEditMode)
+                            {
+                            <input class="form-control" id="TravelRequest_CreatedBy" value="@Model.TravelRequest.CreatedBy" type="text" name="createdBy" hidden />
+                            }
+                            else
+                            {
+                            <input class="form-control" id="TravelRequest_CreatedBy" value="" type="text" name="createdBy" hidden />
+                            }
+
+                            <div class="my-3">
+                                <label class="form-label" for="TravelRequest_RequestNo">@L("RequestNo")</label>
+                                <input class="form-control" id="TravelRequest_RequestNo" value="@Model.TravelRequest.RequestNo" type="text" name="requestNo" required />
+                            </div>
+
+                            @{
+                            var selectListTravelStatus = Html.GetEnumSelectList(typeof(TravelStatus));
+                            foreach (var selectOption in selectListTravelStatus) { selectOption.Text = L("Enum_TravelStatus_" + selectOption.Value); }
+                            }
+                            <div class="my-3 m-form__group">
+                                <label class="form-label" for="TravelRequest_TravelStatus">@L("TravelStatus")</label>
+                                <select class="form-select m-input m-input--square" name="travelStatus" id="TravelRequest_TravelStatus" asp-for="@Model.TravelRequest.TravelStatus" asp-items="@selectListTravelStatus">
+                                </select>
+                            </div>
+
+                            @{
+                            var selectListTravelType = Html.GetEnumSelectList(typeof(TravelType));
+                            foreach (var selectOption in selectListTravelType) { selectOption.Text = L("Enum_TravelType_" + selectOption.Value); }
+                            }
+                            <div class="my-3 m-form__group">
+                                <label class="form-label" for="TravelRequest_TravelType">@L("TravelType")</label>
+                                <select class="form-select m-input m-input--square" name="travelType" id="TravelRequest_TravelType" asp-for="@Model.TravelRequest.TravelType" asp-items="@selectListTravelType">
+                                </select>
+                            </div>
+
+                            <div class="my-3 position-relative">
+                                <label class="form-label" for="TravelRequest_RequestDate">@L("RequestDate")</label>
+                                <input class="form-control m-input date-picker" id="TravelRequest_RequestDate" type="text" name="requestDate" value="@Model.TravelRequest.RequestDate" />
+                            </div>
+
+                            <div class="my-3 position-relative">
+                                <label class="form-label" for="TravelRequest_RequestPlanDate">@L("RequestPlanDate")</label>
+                                <input class="form-control m-input date-picker" id="TravelRequest_RequestPlanDate" type="text" name="requestPlanDate" value="@Model.TravelRequest.RequestPlanDate" />
+                            </div>
+
+                            <div class="my-3">
+                                <label class="form-label" for="TravelRequest_Camp">@L("Camp")</label>
+                                <input class="form-control" id="TravelRequest_Camp" value="@Model.TravelRequest.Camp" type="text" name="camp" />
+                            </div>
+
+                            <div class="my-3">
+                                <label class="form-label" for="TravelRequest_TransportBus">@L("TransportBus")</label>
+                                <input class="form-control" id="TravelRequest_TransportBus" value="@Model.TravelRequest.TransportBus" type="text" name="transportBus" />
+                            </div>
+
+                            <div class="my-3 position-relative">
+                                <label class="form-label" for="TravelRequest_CreatedDate">@L("CreatedDate")</label>
+                                <input class="form-control m-input date-picker" id="TravelRequest_CreatedDate" type="text" name="createdDate" value="@Model.TravelRequest.CreatedDate" />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <button type="button" id="saveBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                            @if (!Model.IsEditMode)
+                            {
+                            <button type="button" id="saveAndNewBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("SaveAndNew")</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>

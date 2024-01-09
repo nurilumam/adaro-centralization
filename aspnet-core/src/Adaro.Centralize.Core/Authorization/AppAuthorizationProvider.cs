@@ -30,6 +30,11 @@ namespace Adaro.Centralize.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var travelRequests = pages.CreateChildPermission(AppPermissions.Pages_TravelRequests, L("TravelRequests"));
+            travelRequests.CreateChildPermission(AppPermissions.Pages_TravelRequests_Create, L("CreateNewTravelRequest"));
+            travelRequests.CreateChildPermission(AppPermissions.Pages_TravelRequests_Edit, L("EditTravelRequest"));
+            travelRequests.CreateChildPermission(AppPermissions.Pages_TravelRequests_Delete, L("DeleteTravelRequest"));
+
             var airports = pages.CreateChildPermission(AppPermissions.Pages_Airports, L("Airports"));
             airports.CreateChildPermission(AppPermissions.Pages_Airports_Create, L("CreateNewAirport"));
             airports.CreateChildPermission(AppPermissions.Pages_Airports_Edit, L("EditAirport"));

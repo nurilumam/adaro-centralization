@@ -4,6 +4,7 @@
     {
         public static class Common
         {
+            public const string TravelRequests = "Travel.TravelRequests";
             public const string Airports = "Travel.Airports";
             public const string Administration = "Administration";
             public const string Roles = "Administration.Roles";
