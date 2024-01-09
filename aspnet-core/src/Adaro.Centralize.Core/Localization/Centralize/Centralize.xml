@@ -1,6 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>
+  <texts>    <text name="Travel">Travel</text>
+    <text name="Airport">Airport</text>
+    <text name="Adaro.Centralize.Travel.Airport">Airport</text>
+    <text name="AirportName">Airport name</text>
+    <text name="IATA">I a t a</text>
+    <text name="City">City</text>
+    <text name="Category">Category</text>
+    <text name="AirportsHeaderInfo">Airports header info</text>
+    <text name="CreateNewAirport">Create new airport</text>
+    <text name="EditAirport">Edit airport</text>
+    <text name="DeleteAirport">Delete airport</text>
+    <text name="Airports">Airports</text>
+    <text name="{0}IsRequired">{0} is required.</text>
+    <text name="View">View</text>
+    <text name="Details">Details</text>
+    <text name="Pick">Pick</text>
+    <text name="True">True</text>
+    <text name="False">False</text>
+    <text name="MinValue">Min</text>
+    <text name="MaxValue">Max</text>
+
     <text name="HomePage">Home page</text>
     <text name="AboutUs">About us</text>
     <text name="Administration">Administration</text>

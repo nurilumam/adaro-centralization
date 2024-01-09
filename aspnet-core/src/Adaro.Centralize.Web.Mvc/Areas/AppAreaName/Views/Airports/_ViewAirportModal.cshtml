@@ -1,0 +1,34 @@
+﻿
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.Common.Modals
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.Airports
+@model AirportViewModel
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="AirportInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("AirportName") :</h6>
+                @Model.Airport.AirportName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("IATA") :</h6>
+                @Model.Airport.IATA
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("City") :</h6>
+                @Model.Airport.City
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Category") :</h6>
+                @Model.Airport.Category
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithClose.cshtml")

@@ -1,4 +1,5 @@
-﻿using Abp.Zero.EntityFrameworkCore;
+﻿using Adaro.Centralize.Travel;
+using Abp.Zero.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Adaro.Centralize.Authorization.Delegation;
 using Adaro.Centralize.Authorization.Roles;
@@ -15,6 +16,8 @@ namespace Adaro.Centralize.EntityFrameworkCore
 {
     public class CentralizeDbContext : AbpZeroDbContext<Tenant, Role, User, CentralizeDbContext>
     {
+        public virtual DbSet<Airport> Airports { get; set; }
+
         /* Define an IDbSet for each entity of the application */
 
         public virtual DbSet<BinaryObject> BinaryObjects { get; set; }
@@ -29,11 +32,10 @@ namespace Adaro.Centralize.EntityFrameworkCore
 
         public virtual DbSet<Invoice> Invoices { get; set; }
 
-
         public virtual DbSet<SubscriptionPaymentExtensionData> SubscriptionPaymentExtensionDatas { get; set; }
 
         public virtual DbSet<UserDelegation> UserDelegations { get; set; }
-        
+
         public virtual DbSet<RecentPassword> RecentPasswords { get; set; }
 
         public CentralizeDbContext(DbContextOptions<CentralizeDbContext> options)
@@ -46,10 +48,14 @@ namespace Adaro.Centralize.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<BinaryObject>(b =>
+            modelBuilder.Entity<Airport>(a =>
             {
-                b.HasIndex(e => new { e.TenantId });
+                a.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<BinaryObject>(b =>
+                       {
+                           b.HasIndex(e => new { e.TenantId });
+                       });
 
             modelBuilder.Entity<ChatMessage>(b =>
             {

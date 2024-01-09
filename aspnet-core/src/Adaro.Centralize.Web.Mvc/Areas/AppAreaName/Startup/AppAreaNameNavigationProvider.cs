@@ -21,6 +21,14 @@ namespace Adaro.Centralize.Web.Areas.AppAreaName.Startup
                         icon: "flaticon-line-graph",
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Host_Dashboard)
                     )
+                )
+                .AddItem(new MenuItemDefinition(
+                        AppAreaNamePageNames.Common.Airports,
+                        L("Airports"),
+                        url: "AppAreaName/Airports",
+                        icon: "flaticon-more",
+                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Airports)
+                    )
                 ).AddItem(new MenuItemDefinition(
                         AppAreaNamePageNames.Host.Tenants,
                         L("Tenants"),
