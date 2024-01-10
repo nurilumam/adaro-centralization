@@ -1,7 +1,7 @@
 ﻿(function () {
   $(function () {
     var _$unspsCsTable = $('#UNSPSCsTable');
-    var _unspsCsService = abp.services.app.unspsCs;
+    var _unspsCsService = abp.services.app.uNSPSCs;
 
     var $selectedDate = {
       startDate: null,
@@ -89,6 +89,7 @@
             uNSPSC_CodeFilter: $('#UNSPSC_CodeFilterId').val(),
             descriptionFilter: $('#DescriptionFilterId').val(),
             accountCodeFilter: $('#AccountCodeFilterId').val(),
+            descriptionIdFilter: $('#DescriptionIdFilterId').val(),
           };
         },
       },
@@ -199,6 +200,7 @@
           uNSPSC_CodeFilter: $('#UNSPSC_CodeFilterId').val(),
           descriptionFilter: $('#DescriptionFilterId').val(),
           accountCodeFilter: $('#AccountCodeFilterId').val(),
+          descriptionIdFilter: $('#DescriptionIdFilterId').val(),
         })
         .done(function (result) {
           app.downloadTempFile(result);

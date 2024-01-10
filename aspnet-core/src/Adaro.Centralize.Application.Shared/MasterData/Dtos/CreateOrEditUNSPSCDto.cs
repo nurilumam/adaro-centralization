@@ -16,5 +16,7 @@ namespace Adaro.Centralize.MasterData.Dtos
         [StringLength(UNSPSCConsts.MaxAccountCodeLength, MinimumLength = UNSPSCConsts.MinAccountCodeLength)]
         public string AccountCode { get; set; }
 
+        public string DescriptionId { get; set; }
+
     }
 }

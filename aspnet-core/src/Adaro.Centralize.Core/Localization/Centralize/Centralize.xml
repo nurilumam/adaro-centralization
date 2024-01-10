@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="MaterialGroup">Material group</text>
+  <texts>    <text name="DescriptionId">Description id</text>
+    <text name="MaterialGroup">Material group</text>
     <text name="Adaro.Centralize.MasterData.MaterialGroup">MaterialGroup</text>
     <text name="MaterialGroupCode">Material group code</text>
     <text name="MaterialGroupName">Material group name</text>

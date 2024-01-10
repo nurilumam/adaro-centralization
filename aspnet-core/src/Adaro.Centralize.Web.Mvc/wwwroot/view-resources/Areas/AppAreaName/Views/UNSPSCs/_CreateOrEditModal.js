@@ -1,6 +1,6 @@
 ﻿(function ($) {
   app.modals.CreateOrEditUNSPSCModal = function () {
-    var _unspsCsService = abp.services.app.unspsCs;
+    var _unspsCsService = abp.services.app.uNSPSCs;
 
     var _modalManager;
     var _$unspscInformationForm = null;

@@ -30,6 +30,11 @@
                 <input class="form-control" id="UNSPSC_AccountCode" value="@Model.UNSPSC.AccountCode" type="text" name="accountCode" maxlength="@Adaro.Centralize.MasterData.UNSPSCConsts.MaxAccountCodeLength" minlength="@Adaro.Centralize.MasterData.UNSPSCConsts.MinAccountCodeLength" />
             </div>
 
+            <div class="my-3">
+                <label class="form-label" for="UNSPSC_DescriptionId">@L("DescriptionId")</label>
+                <input class="form-control" id="UNSPSC_DescriptionId" value="@Model.UNSPSC.DescriptionId" type="text" name="descriptionId" />
+            </div>
+
         </form>
     </div>
 </div>

@@ -13,5 +13,7 @@ namespace Adaro.Centralize.MasterData.Dtos
 
         public string AccountCodeFilter { get; set; }
 
+        public string DescriptionIdFilter { get; set; }
+
     }
 }

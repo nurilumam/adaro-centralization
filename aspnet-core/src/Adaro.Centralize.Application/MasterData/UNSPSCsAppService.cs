@@ -35,10 +35,11 @@ namespace Adaro.Centralize.MasterData
         {
 
             var filteredUNSPSCs = _unspscRepository.GetAll()
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.UNSPSC_Code.Contains(input.Filter) || e.Description.Contains(input.Filter) || e.AccountCode.Contains(input.Filter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.UNSPSC_Code.Contains(input.Filter) || e.Description.Contains(input.Filter) || e.AccountCode.Contains(input.Filter) || e.DescriptionId.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.UNSPSC_CodeFilter), e => e.UNSPSC_Code.Contains(input.UNSPSC_CodeFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DescriptionFilter), e => e.Description.Contains(input.DescriptionFilter))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.AccountCodeFilter), e => e.AccountCode.Contains(input.AccountCodeFilter));
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.AccountCodeFilter), e => e.AccountCode.Contains(input.AccountCodeFilter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.DescriptionIdFilter), e => e.DescriptionId.Contains(input.DescriptionIdFilter));
 
             var pagedAndFilteredUNSPSCs = filteredUNSPSCs
                 .OrderBy(input.Sorting ?? "id asc")
@@ -146,10 +147,11 @@ namespace Adaro.Centralize.MasterData
         {
 
             var filteredUNSPSCs = _unspscRepository.GetAll()
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.UNSPSC_Code.Contains(input.Filter) || e.Description.Contains(input.Filter) || e.AccountCode.Contains(input.Filter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.UNSPSC_Code.Contains(input.Filter) || e.Description.Contains(input.Filter) || e.AccountCode.Contains(input.Filter) || e.DescriptionId.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.UNSPSC_CodeFilter), e => e.UNSPSC_Code.Contains(input.UNSPSC_CodeFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DescriptionFilter), e => e.Description.Contains(input.DescriptionFilter))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.AccountCodeFilter), e => e.AccountCode.Contains(input.AccountCodeFilter));
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.AccountCodeFilter), e => e.AccountCode.Contains(input.AccountCodeFilter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.DescriptionIdFilter), e => e.DescriptionId.Contains(input.DescriptionIdFilter));
 
             var query = (from o in filteredUNSPSCs
                          select new GetUNSPSCForViewDto()

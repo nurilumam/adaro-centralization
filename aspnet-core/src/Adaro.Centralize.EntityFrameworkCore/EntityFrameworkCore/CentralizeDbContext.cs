@@ -55,10 +55,14 @@ namespace Adaro.Centralize.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<MaterialGroup>(m =>
+            modelBuilder.Entity<UNSPSC>(u =>
             {
-                m.HasIndex(e => new { e.TenantId });
+                u.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<MaterialGroup>(m =>
+                       {
+                           m.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<UNSPSC>(u =>
                        {
                            u.HasIndex(e => new { e.TenantId });
