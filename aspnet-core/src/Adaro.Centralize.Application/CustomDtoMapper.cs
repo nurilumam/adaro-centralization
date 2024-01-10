@@ -1,4 +1,6 @@
-﻿using Adaro.Centralize.Travel.Dtos;
+﻿using Adaro.Centralize.MasterData.Dtos;
+using Adaro.Centralize.MasterData;
+using Adaro.Centralize.Travel.Dtos;
 using Adaro.Centralize.Travel;
 using Abp.Application.Editions;
 using Abp.Application.Features;
@@ -50,6 +52,10 @@ namespace Adaro.Centralize
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditMaterialGroupDto, MaterialGroup>().ReverseMap();
+            configuration.CreateMap<MaterialGroupDto, MaterialGroup>().ReverseMap();
+            configuration.CreateMap<CreateOrEditUNSPSCDto, UNSPSC>().ReverseMap();
+            configuration.CreateMap<UNSPSCDto, UNSPSC>().ReverseMap();
             configuration.CreateMap<CreateOrEditTravelRequestDto, TravelRequest>().ReverseMap();
             configuration.CreateMap<TravelRequestDto, TravelRequest>().ReverseMap();
             configuration.CreateMap<CreateOrEditAirportDto, Airport>().ReverseMap();

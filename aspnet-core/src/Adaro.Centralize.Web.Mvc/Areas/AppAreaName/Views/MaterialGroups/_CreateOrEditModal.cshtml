@@ -1,0 +1,42 @@
+﻿
+@using System.Globalization
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.Common.Modals
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.MaterialGroups
+@model CreateOrEditMaterialGroupModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditMaterialGroup")) : L("CreateNewMaterialGroup")))
+
+<div class="modal-body">
+    <div id="MaterialGroupInformationsTab">
+        <form name="MaterialGroupInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.MaterialGroup.Id" />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="MaterialGroup_MaterialGroupCode">@L("MaterialGroupCode")</label>
+                <input class="form-control" id="MaterialGroup_MaterialGroupCode" value="@Model.MaterialGroup.MaterialGroupCode" type="text" name="materialGroupCode" required maxlength="@Adaro.Centralize.MasterData.MaterialGroupConsts.MaxMaterialGroupCodeLength" minlength="@Adaro.Centralize.MasterData.MaterialGroupConsts.MinMaterialGroupCodeLength" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="MaterialGroup_MaterialGroupName">@L("MaterialGroupName")</label>
+                <input class="form-control" id="MaterialGroup_MaterialGroupName" value="@Model.MaterialGroup.MaterialGroupName" type="text" name="materialGroupName" required maxlength="@Adaro.Centralize.MasterData.MaterialGroupConsts.MaxMaterialGroupNameLength" minlength="@Adaro.Centralize.MasterData.MaterialGroupConsts.MinMaterialGroupNameLength" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="MaterialGroup_MaterialGroupDescription">@L("MaterialGroupDescription")</label>
+                <input class="form-control" id="MaterialGroup_MaterialGroupDescription" value="@Model.MaterialGroup.MaterialGroupDescription" type="text" name="materialGroupDescription" required maxlength="@Adaro.Centralize.MasterData.MaterialGroupConsts.MaxMaterialGroupDescriptionLength" minlength="@Adaro.Centralize.MasterData.MaterialGroupConsts.MinMaterialGroupDescriptionLength" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="MaterialGroup_Language">@L("Language")</label>
+                <input class="form-control" id="MaterialGroup_Language" value="@Model.MaterialGroup.Language" type="text" name="language" required maxlength="@Adaro.Centralize.MasterData.MaterialGroupConsts.MaxLanguageLength" minlength="@Adaro.Centralize.MasterData.MaterialGroupConsts.MinLanguageLength" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

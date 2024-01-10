@@ -1,4 +1,5 @@
-﻿using Adaro.Centralize.Travel;
+﻿using Adaro.Centralize.MasterData;
+using Adaro.Centralize.Travel;
 using Abp.Zero.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Adaro.Centralize.Authorization.Delegation;
@@ -16,6 +17,10 @@ namespace Adaro.Centralize.EntityFrameworkCore
 {
     public class CentralizeDbContext : AbpZeroDbContext<Tenant, Role, User, CentralizeDbContext>
     {
+        public virtual DbSet<MaterialGroup> MaterialGroups { get; set; }
+
+        public virtual DbSet<UNSPSC> UNSPSCs { get; set; }
+
         public virtual DbSet<TravelRequest> TravelRequests { get; set; }
 
         public virtual DbSet<Airport> Airports { get; set; }
@@ -50,10 +55,18 @@ namespace Adaro.Centralize.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<TravelRequest>(t =>
+            modelBuilder.Entity<MaterialGroup>(m =>
             {
-                t.HasIndex(e => new { e.TenantId });
+                m.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<UNSPSC>(u =>
+                       {
+                           u.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<TravelRequest>(t =>
+                       {
+                           t.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<Airport>(a =>
                        {
                            a.HasIndex(e => new { e.TenantId });

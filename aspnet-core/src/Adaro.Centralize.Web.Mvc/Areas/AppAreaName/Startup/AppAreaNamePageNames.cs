@@ -4,6 +4,8 @@
     {
         public static class Common
         {
+            public const string MaterialGroups = "MasterData.MaterialGroups";
+            public const string UNSPSCs = "MasterData.UNSPSCs";
             public const string TravelRequests = "Travel.TravelRequests";
             public const string Airports = "Travel.Airports";
             public const string Administration = "Administration";

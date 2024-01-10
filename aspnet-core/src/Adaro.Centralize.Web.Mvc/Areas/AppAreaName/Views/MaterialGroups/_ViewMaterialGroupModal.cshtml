@@ -1,0 +1,34 @@
+﻿
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.Common.Modals
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.MaterialGroups
+@model MaterialGroupViewModel
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="MaterialGroupInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("MaterialGroupCode") :</h6>
+                @Model.MaterialGroup.MaterialGroupCode
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("MaterialGroupName") :</h6>
+                @Model.MaterialGroup.MaterialGroupName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("MaterialGroupDescription") :</h6>
+                @Model.MaterialGroup.MaterialGroupDescription
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Language") :</h6>
+                @Model.MaterialGroup.Language
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithClose.cshtml")

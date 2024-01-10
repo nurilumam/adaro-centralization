@@ -6,6 +6,16 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_MaterialGroups = "Pages.MaterialGroups";
+        public const string Pages_MaterialGroups_Create = "Pages.MaterialGroups.Create";
+        public const string Pages_MaterialGroups_Edit = "Pages.MaterialGroups.Edit";
+        public const string Pages_MaterialGroups_Delete = "Pages.MaterialGroups.Delete";
+
+        public const string Pages_UNSPSCs = "Pages.UNSPSCs";
+        public const string Pages_UNSPSCs_Create = "Pages.UNSPSCs.Create";
+        public const string Pages_UNSPSCs_Edit = "Pages.UNSPSCs.Edit";
+        public const string Pages_UNSPSCs_Delete = "Pages.UNSPSCs.Delete";
+
         public const string Pages_TravelRequests = "Pages.TravelRequests";
         public const string Pages_TravelRequests_Create = "Pages.TravelRequests.Create";
         public const string Pages_TravelRequests_Edit = "Pages.TravelRequests.Edit";

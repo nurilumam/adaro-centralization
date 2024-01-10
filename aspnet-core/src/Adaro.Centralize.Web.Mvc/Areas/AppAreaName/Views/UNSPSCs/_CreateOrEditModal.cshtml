@@ -1,0 +1,37 @@
+﻿
+@using System.Globalization
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.Common.Modals
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.UNSPSCs
+@model CreateOrEditUNSPSCModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditUNSPSC")) : L("CreateNewUNSPSC")))
+
+<div class="modal-body">
+    <div id="UNSPSCInformationsTab">
+        <form name="UNSPSCInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.UNSPSC.Id" />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="UNSPSC_UNSPSC_Code">@L("UNSPSC_Code")</label>
+                <input class="form-control" id="UNSPSC_UNSPSC_Code" value="@Model.UNSPSC.UNSPSC_Code" type="text" name="unspsC_Code" maxlength="@Adaro.Centralize.MasterData.UNSPSCConsts.MaxUNSPSC_CodeLength" minlength="@Adaro.Centralize.MasterData.UNSPSCConsts.MinUNSPSC_CodeLength" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="UNSPSC_Description">@L("Description")</label>
+                <input class="form-control" id="UNSPSC_Description" value="@Model.UNSPSC.Description" type="text" name="description" maxlength="@Adaro.Centralize.MasterData.UNSPSCConsts.MaxDescriptionLength" minlength="@Adaro.Centralize.MasterData.UNSPSCConsts.MinDescriptionLength" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="UNSPSC_AccountCode">@L("AccountCode")</label>
+                <input class="form-control" id="UNSPSC_AccountCode" value="@Model.UNSPSC.AccountCode" type="text" name="accountCode" maxlength="@Adaro.Centralize.MasterData.UNSPSCConsts.MaxAccountCodeLength" minlength="@Adaro.Centralize.MasterData.UNSPSCConsts.MinAccountCodeLength" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")

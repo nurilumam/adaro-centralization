@@ -1,6 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="TravelRequest">Travel request</text>
+  <texts>    <text name="MaterialGroup">Material group</text>
+    <text name="Adaro.Centralize.MasterData.MaterialGroup">MaterialGroup</text>
+    <text name="MaterialGroupCode">Material group code</text>
+    <text name="MaterialGroupName">Material group name</text>
+    <text name="MaterialGroupDescription">Material group description</text>
+    <text name="MaterialGroupsHeaderInfo">Material groups header info</text>
+    <text name="CreateNewMaterialGroup">Create new material group</text>
+    <text name="EditMaterialGroup">Edit material group</text>
+    <text name="DeleteMaterialGroup">Delete material group</text>
+    <text name="MaterialGroups">Material groups</text>
+    <text name="MasterData">Master data</text>
+    <text name="UNSPSC">U n s p s c</text>
+    <text name="Adaro.Centralize.MasterData.UNSPSC">UNSPSC</text>
+    <text name="UNSPSC_Code">U n s p s c _ code</text>
+    <text name="Description">Description</text>
+    <text name="AccountCode">Account code</text>
+    <text name="UNSPSCsHeaderInfo">U n s p s cs header info</text>
+    <text name="CreateNewUNSPSC">Create new u n s p s c</text>
+    <text name="EditUNSPSC">Edit u n s p s c</text>
+    <text name="DeleteUNSPSC">Delete u n s p s c</text>
+    <text name="UNSPSCs">U n s p s cs</text>
+    <text name="TravelRequest">Travel request</text>
     <text name="Adaro.Centralize.Travel.TravelRequest">TravelRequest</text>
     <text name="RequestNo">Request no</text>
     <text name="TravelStatus">Travel status</text>

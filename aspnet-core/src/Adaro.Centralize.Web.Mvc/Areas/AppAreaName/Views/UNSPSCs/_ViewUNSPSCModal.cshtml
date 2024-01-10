@@ -1,0 +1,30 @@
+﻿
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.Common.Modals
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.UNSPSCs
+@model UNSPSCViewModel
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="UNSPSCInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("UNSPSC_Code") :</h6>
+                @Model.UNSPSC.UNSPSC_Code
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Description") :</h6>
+                @Model.UNSPSC.Description
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("AccountCode") :</h6>
+                @Model.UNSPSC.AccountCode
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithClose.cshtml")

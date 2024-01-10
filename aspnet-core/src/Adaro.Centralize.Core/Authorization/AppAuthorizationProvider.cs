@@ -30,6 +30,16 @@ namespace Adaro.Centralize.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var materialGroups = pages.CreateChildPermission(AppPermissions.Pages_MaterialGroups, L("MaterialGroups"));
+            materialGroups.CreateChildPermission(AppPermissions.Pages_MaterialGroups_Create, L("CreateNewMaterialGroup"));
+            materialGroups.CreateChildPermission(AppPermissions.Pages_MaterialGroups_Edit, L("EditMaterialGroup"));
+            materialGroups.CreateChildPermission(AppPermissions.Pages_MaterialGroups_Delete, L("DeleteMaterialGroup"));
+
+            var unspsCs = pages.CreateChildPermission(AppPermissions.Pages_UNSPSCs, L("UNSPSCs"));
+            unspsCs.CreateChildPermission(AppPermissions.Pages_UNSPSCs_Create, L("CreateNewUNSPSC"));
+            unspsCs.CreateChildPermission(AppPermissions.Pages_UNSPSCs_Edit, L("EditUNSPSC"));
+            unspsCs.CreateChildPermission(AppPermissions.Pages_UNSPSCs_Delete, L("DeleteUNSPSC"));
+
             var travelRequests = pages.CreateChildPermission(AppPermissions.Pages_TravelRequests, L("TravelRequests"));
             travelRequests.CreateChildPermission(AppPermissions.Pages_TravelRequests_Create, L("CreateNewTravelRequest"));
             travelRequests.CreateChildPermission(AppPermissions.Pages_TravelRequests_Edit, L("EditTravelRequest"));
