@@ -17,6 +17,8 @@ namespace Adaro.Centralize.EntityFrameworkCore
 {
     public class CentralizeDbContext : AbpZeroDbContext<Tenant, Role, User, CentralizeDbContext>
     {
+        public virtual DbSet<GeneralLedgerMapping> GeneralLedgerMappings { get; set; }
+
         public virtual DbSet<MaterialGroup> MaterialGroups { get; set; }
 
         public virtual DbSet<UNSPSC> UNSPSCs { get; set; }
@@ -55,10 +57,14 @@ namespace Adaro.Centralize.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<UNSPSC>(u =>
+            modelBuilder.Entity<GeneralLedgerMapping>(g =>
             {
-                u.HasIndex(e => new { e.TenantId });
+                g.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<UNSPSC>(u =>
+                       {
+                           u.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<MaterialGroup>(m =>
                        {
                            m.HasIndex(e => new { e.TenantId });

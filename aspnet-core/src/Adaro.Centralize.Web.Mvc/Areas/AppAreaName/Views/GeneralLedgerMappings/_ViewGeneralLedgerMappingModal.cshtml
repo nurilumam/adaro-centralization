@@ -1,0 +1,38 @@
+﻿
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.Common.Modals
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.GeneralLedgerMappings
+@model GeneralLedgerMappingViewModel
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="GeneralLedgerMappingInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("GLAccount") :</h6>
+                @Model.GeneralLedgerMapping.GLAccount
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("GLAccountDescription") :</h6>
+                @Model.GeneralLedgerMapping.GLAccountDescription
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("MappingType") :</h6>
+                @Model.GeneralLedgerMapping.MappingType
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("ValuationClass") :</h6>
+                @Model.GeneralLedgerMapping.ValuationClass
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("ValuationClassDescription") :</h6>
+                @Model.GeneralLedgerMapping.ValuationClassDescription
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithClose.cshtml")

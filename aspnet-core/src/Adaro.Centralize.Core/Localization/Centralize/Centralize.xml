@@ -1,6 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="DescriptionId">Description id</text>
+  <texts>    <text name="GeneralLedgerMapping">General ledger mapping</text>
+    <text name="Adaro.Centralize.MasterData.GeneralLedgerMapping">GeneralLedgerMapping</text>
+    <text name="GLAccount">G l account</text>
+    <text name="GLAccountDescription">G l account description</text>
+    <text name="MappingType">Mapping type</text>
+    <text name="ValuationClass">Valuation class</text>
+    <text name="ValuationClassDescription">Valuation class description</text>
+    <text name="GeneralLedgerMappingsHeaderInfo">General ledger mappings header info</text>
+    <text name="CreateNewGeneralLedgerMapping">Create new general ledger mapping</text>
+    <text name="EditGeneralLedgerMapping">Edit general ledger mapping</text>
+    <text name="DeleteGeneralLedgerMapping">Delete general ledger mapping</text>
+    <text name="GeneralLedgerMappings">General ledger mappings</text>
+    <text name="DescriptionId">Description id</text>
     <text name="MaterialGroup">Material group</text>
     <text name="Adaro.Centralize.MasterData.MaterialGroup">MaterialGroup</text>
     <text name="MaterialGroupCode">Material group code</text>

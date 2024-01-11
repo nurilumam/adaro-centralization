@@ -30,6 +30,11 @@ namespace Adaro.Centralize.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var generalLedgerMappings = pages.CreateChildPermission(AppPermissions.Pages_GeneralLedgerMappings, L("GeneralLedgerMappings"));
+            generalLedgerMappings.CreateChildPermission(AppPermissions.Pages_GeneralLedgerMappings_Create, L("CreateNewGeneralLedgerMapping"));
+            generalLedgerMappings.CreateChildPermission(AppPermissions.Pages_GeneralLedgerMappings_Edit, L("EditGeneralLedgerMapping"));
+            generalLedgerMappings.CreateChildPermission(AppPermissions.Pages_GeneralLedgerMappings_Delete, L("DeleteGeneralLedgerMapping"));
+
             var materialGroups = pages.CreateChildPermission(AppPermissions.Pages_MaterialGroups, L("MaterialGroups"));
             materialGroups.CreateChildPermission(AppPermissions.Pages_MaterialGroups_Create, L("CreateNewMaterialGroup"));
             materialGroups.CreateChildPermission(AppPermissions.Pages_MaterialGroups_Edit, L("EditMaterialGroup"));

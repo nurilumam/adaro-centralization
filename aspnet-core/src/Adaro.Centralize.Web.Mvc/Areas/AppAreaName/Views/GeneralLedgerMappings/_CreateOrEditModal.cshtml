@@ -1,0 +1,47 @@
+﻿
+@using System.Globalization
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.Common.Modals
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.GeneralLedgerMappings
+@model CreateOrEditGeneralLedgerMappingModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditGeneralLedgerMapping")) : L("CreateNewGeneralLedgerMapping")))
+
+<div class="modal-body">
+    <div id="GeneralLedgerMappingInformationsTab">
+        <form name="GeneralLedgerMappingInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.GeneralLedgerMapping.Id" />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="GeneralLedgerMapping_GLAccount">@L("GLAccount")</label>
+                <input class="form-control" id="GeneralLedgerMapping_GLAccount" value="@Model.GeneralLedgerMapping.GLAccount" type="text" name="glAccount" required maxlength="@Adaro.Centralize.MasterData.GeneralLedgerMappingConsts.MaxGLAccountLength" minlength="@Adaro.Centralize.MasterData.GeneralLedgerMappingConsts.MinGLAccountLength" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="GeneralLedgerMapping_GLAccountDescription">@L("GLAccountDescription")</label>
+                <input class="form-control" id="GeneralLedgerMapping_GLAccountDescription" value="@Model.GeneralLedgerMapping.GLAccountDescription" type="text" name="glAccountDescription" maxlength="@Adaro.Centralize.MasterData.GeneralLedgerMappingConsts.MaxGLAccountDescriptionLength" minlength="@Adaro.Centralize.MasterData.GeneralLedgerMappingConsts.MinGLAccountDescriptionLength" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="GeneralLedgerMapping_MappingType">@L("MappingType")</label>
+                <input class="form-control" id="GeneralLedgerMapping_MappingType" value="@Model.GeneralLedgerMapping.MappingType" type="text" name="mappingType" required maxlength="@Adaro.Centralize.MasterData.GeneralLedgerMappingConsts.MaxMappingTypeLength" minlength="@Adaro.Centralize.MasterData.GeneralLedgerMappingConsts.MinMappingTypeLength" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="GeneralLedgerMapping_ValuationClass">@L("ValuationClass")</label>
+                <input class="form-control" id="GeneralLedgerMapping_ValuationClass" value="@Model.GeneralLedgerMapping.ValuationClass" type="text" name="valuationClass" required maxlength="@Adaro.Centralize.MasterData.GeneralLedgerMappingConsts.MaxValuationClassLength" minlength="@Adaro.Centralize.MasterData.GeneralLedgerMappingConsts.MinValuationClassLength" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="GeneralLedgerMapping_ValuationClassDescription">@L("ValuationClassDescription")</label>
+                <input class="form-control" id="GeneralLedgerMapping_ValuationClassDescription" value="@Model.GeneralLedgerMapping.ValuationClassDescription" type="text" name="valuationClassDescription" maxlength="@Adaro.Centralize.MasterData.GeneralLedgerMappingConsts.MaxValuationClassDescriptionLength" minlength="@Adaro.Centralize.MasterData.GeneralLedgerMappingConsts.MinValuationClassDescriptionLength" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")
