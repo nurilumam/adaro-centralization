@@ -10,7 +10,7 @@ using Abp.Domain.Entities;
 namespace Adaro.Centralize.MasterData
 {
     [Table("Materials")]
-    public class Material : CreationAuditedEntity, IMayHaveTenant
+    public class Material : CreationAuditedEntity<Guid>, IMayHaveTenant
     {
         public int? TenantId { get; set; }
 

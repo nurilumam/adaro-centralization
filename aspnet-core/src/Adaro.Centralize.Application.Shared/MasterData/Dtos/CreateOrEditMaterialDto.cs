@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Adaro.Centralize.MasterData.Dtos
 {
-    public class CreateOrEditMaterialDto : EntityDto<int?>
+    public class CreateOrEditMaterialDto : EntityDto<Guid?>
     {
 
         [Required]

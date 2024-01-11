@@ -47,13 +47,13 @@ namespace Adaro.Centralize.Web.Areas.AppAreaName.Controllers
         }
 
         [AbpMvcAuthorize(AppPermissions.Pages_Materials_Create, AppPermissions.Pages_Materials_Edit)]
-        public async Task<ActionResult> CreateOrEdit(int? id)
+        public async Task<ActionResult> CreateOrEdit(Guid? id)
         {
             GetMaterialForEditOutput getMaterialForEditOutput;
 
             if (id.HasValue)
             {
-                getMaterialForEditOutput = await _materialsAppService.GetMaterialForEdit(new EntityDto { Id = (int)id });
+                getMaterialForEditOutput = await _materialsAppService.GetMaterialForEdit(new EntityDto<Guid> { Id = (Guid)id });
             }
             else
             {
@@ -74,7 +74,7 @@ namespace Adaro.Centralize.Web.Areas.AppAreaName.Controllers
             return View(viewModel);
         }
 
-        public async Task<ActionResult> ViewMaterial(int id)
+        public async Task<ActionResult> ViewMaterial(Guid id)
         {
             var getMaterialForViewDto = await _materialsAppService.GetMaterialForView(id);
 

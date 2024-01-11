@@ -15,8 +15,7 @@ namespace Adaro.Centralize.Migrations
                 name: "Materials",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     TenantId = table.Column<int>(type: "int", nullable: true),
                     MaterialNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MaterialName = table.Column<string>(type: "nvarchar(max)", nullable: false),

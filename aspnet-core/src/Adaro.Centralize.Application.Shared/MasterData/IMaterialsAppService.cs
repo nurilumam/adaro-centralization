@@ -11,13 +11,13 @@ namespace Adaro.Centralize.MasterData
     {
         Task<PagedResultDto<GetMaterialForViewDto>> GetAll(GetAllMaterialsInput input);
 
-        Task<GetMaterialForViewDto> GetMaterialForView(int id);
+        Task<GetMaterialForViewDto> GetMaterialForView(Guid id);
 
-        Task<GetMaterialForEditOutput> GetMaterialForEdit(EntityDto input);
+        Task<GetMaterialForEditOutput> GetMaterialForEdit(EntityDto<Guid> input);
 
         Task CreateOrEdit(CreateOrEditMaterialDto input);
 
-        Task Delete(EntityDto input);
+        Task Delete(EntityDto<Guid> input);
 
         Task<FileDto> GetMaterialsToExcel(GetAllMaterialsForExcelInput input);
 
@@ -27,7 +27,7 @@ namespace Adaro.Centralize.MasterData
 
         Task<PagedResultDto<MaterialGeneralLedgerMappingLookupTableDto>> GetAllGeneralLedgerMappingForLookupTable(GetAllForLookupTableInput input);
 
-        Task RemoveImageMainFile(EntityDto input);
+        Task RemoveImageMainFile(EntityDto<Guid> input);
 
     }
 }

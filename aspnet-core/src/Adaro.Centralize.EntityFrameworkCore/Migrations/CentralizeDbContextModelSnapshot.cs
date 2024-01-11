@@ -1827,11 +1827,9 @@ namespace Adaro.Centralize.Migrations
 
             modelBuilder.Entity("Adaro.Centralize.MasterData.Material", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Brand")
                         .HasColumnType("nvarchar(max)");

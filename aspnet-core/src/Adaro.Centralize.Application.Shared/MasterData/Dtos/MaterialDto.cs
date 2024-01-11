@@ -3,7 +3,7 @@ using Abp.Application.Services.Dto;
 
 namespace Adaro.Centralize.MasterData.Dtos
 {
-    public class MaterialDto : EntityDto
+    public class MaterialDto : EntityDto<Guid>
     {
         public string MaterialNo { get; set; }
 

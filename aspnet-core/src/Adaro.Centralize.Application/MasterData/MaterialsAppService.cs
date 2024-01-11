@@ -25,7 +25,7 @@ namespace Adaro.Centralize.MasterData
     [AbpAuthorize(AppPermissions.Pages_Materials)]
     public class MaterialsAppService : CentralizeAppServiceBase, IMaterialsAppService
     {
-        private readonly IRepository<Material> _materialRepository;
+        private readonly IRepository<Material, Guid> _materialRepository;
         private readonly IMaterialsExcelExporter _materialsExcelExporter;
         private readonly IRepository<MaterialGroup, Guid> _lookup_materialGroupRepository;
         private readonly IRepository<UNSPSC, Guid> _lookup_unspscRepository;
@@ -34,7 +34,7 @@ namespace Adaro.Centralize.MasterData
         private readonly ITempFileCacheManager _tempFileCacheManager;
         private readonly IBinaryObjectManager _binaryObjectManager;
 
-        public MaterialsAppService(IRepository<Material> materialRepository, IMaterialsExcelExporter materialsExcelExporter, IRepository<MaterialGroup, Guid> lookup_materialGroupRepository, IRepository<UNSPSC, Guid> lookup_unspscRepository, IRepository<GeneralLedgerMapping, Guid> lookup_generalLedgerMappingRepository, ITempFileCacheManager tempFileCacheManager, IBinaryObjectManager binaryObjectManager)
+        public MaterialsAppService(IRepository<Material, Guid> materialRepository, IMaterialsExcelExporter materialsExcelExporter, IRepository<MaterialGroup, Guid> lookup_materialGroupRepository, IRepository<UNSPSC, Guid> lookup_unspscRepository, IRepository<GeneralLedgerMapping, Guid> lookup_generalLedgerMappingRepository, ITempFileCacheManager tempFileCacheManager, IBinaryObjectManager binaryObjectManager)
         {
             _materialRepository = materialRepository;
             _materialsExcelExporter = materialsExcelExporter;
@@ -145,7 +145,7 @@ namespace Adaro.Centralize.MasterData
 
         }
 
-        public virtual async Task<GetMaterialForViewDto> GetMaterialForView(int id)
+        public virtual async Task<GetMaterialForViewDto> GetMaterialForView(Guid id)
         {
             var material = await _materialRepository.GetAsync(id);
 
@@ -175,7 +175,7 @@ namespace Adaro.Centralize.MasterData
         }
 
         [AbpAuthorize(AppPermissions.Pages_Materials_Edit)]
-        public virtual async Task<GetMaterialForEditOutput> GetMaterialForEdit(EntityDto input)
+        public virtual async Task<GetMaterialForEditOutput> GetMaterialForEdit(EntityDto<Guid> input)
         {
             var material = await _materialRepository.FirstOrDefaultAsync(input.Id);
 
@@ -234,14 +234,14 @@ namespace Adaro.Centralize.MasterData
         [AbpAuthorize(AppPermissions.Pages_Materials_Edit)]
         protected virtual async Task Update(CreateOrEditMaterialDto input)
         {
-            var material = await _materialRepository.FirstOrDefaultAsync((int)input.Id);
+            var material = await _materialRepository.FirstOrDefaultAsync((Guid)input.Id);
             ObjectMapper.Map(input, material);
             material.ImageMain = await GetBinaryObjectFromCache(input.ImageMainToken);
 
         }
 
         [AbpAuthorize(AppPermissions.Pages_Materials_Delete)]
-        public virtual async Task Delete(EntityDto input)
+        public virtual async Task Delete(EntityDto<Guid> input)
         {
             await _materialRepository.DeleteAsync(input.Id);
         }
@@ -434,7 +434,7 @@ namespace Adaro.Centralize.MasterData
         }
 
         [AbpAuthorize(AppPermissions.Pages_Materials_Edit)]
-        public virtual async Task RemoveImageMainFile(EntityDto input)
+        public virtual async Task RemoveImageMainFile(EntityDto<Guid> input)
         {
             var material = await _materialRepository.FirstOrDefaultAsync(input.Id);
             if (material == null)
