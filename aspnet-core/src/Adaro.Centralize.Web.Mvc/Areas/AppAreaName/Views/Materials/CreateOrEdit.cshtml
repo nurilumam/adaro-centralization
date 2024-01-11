@@ -1,0 +1,169 @@
+﻿
+@using System.Globalization
+@using Adaro.Centralize.Authorization
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.Materials
+@using Adaro.Centralize.Web.Areas.AppAreaName.Startup
+@model CreateOrEditMaterialViewModel
+@using Abp.Extensions
+@using Adaro.Centralize.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppAreaNamePageNames.Common.Materials;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/AppAreaName/Views/Materials/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+@{
+var breadcrumbs = new List<BreadcrumbItem>()
+    {
+    new BreadcrumbItem("/AppAreaName/Materials", L("Materials")),
+    new BreadcrumbItem(Model.IsEditMode ? L("Edit") : L("Create"))
+    };
+    }
+    <abp-page-subheader title='@(Model.IsEditMode ? (L("EditMaterial")) : L("CreateNewMaterial"))' breadcrumbs="breadcrumbs">
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class="card card-custom gutter-b">
+            <form name="MaterialInformationsForm" role="form" novalidate class="form-validation">
+                <div class="card-body">
+                    <div class="form">
+                        <div id="MaterialInformationsTab">
+                            @if (Model.IsEditMode)
+                            {
+                            <input type="hidden" name="id" value="@Model.Material.Id" />
+                            }
+
+                            <div class="my-3">
+                                <label class="form-label" for="MaterialGroupDisplayProperty">@L("MaterialGroup")</label>
+                                <div class="input-group">
+                                    <input class="form-control" id="MaterialGroupDisplayProperty" name="materialGroupDisplayProperty" value="@Model.MaterialGroupDisplayProperty" type="text" disabled>
+                                    <button class="btn btn-primary blue" id="OpenMaterialGroupLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                    <button class="btn btn-danger btn-icon" type="button" id="ClearMaterialGroupDisplayPropertyButton"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+
+                            @if (Model.IsEditMode)
+                            {
+                            <input class="form-control" id="Material_MaterialGroupId" value="@Model.Material.MaterialGroupId" type="text" name="materialGroupId" hidden />
+                            }
+                            else
+                            {
+                            <input class="form-control" id="Material_MaterialGroupId" value="" type="text" name="materialGroupId" hidden />
+                            }
+
+                            <div class="my-3">
+                                <label class="form-label" for="UNSPSCDisplayProperty">@L("UNSPSC")</label>
+                                <div class="input-group">
+                                    <input class="form-control" id="UNSPSCDisplayProperty" name="unspscDisplayProperty" value="@Model.UNSPSCDisplayProperty" type="text" disabled>
+                                    <button class="btn btn-primary blue" id="OpenUNSPSCLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                    <button class="btn btn-danger btn-icon" type="button" id="ClearUNSPSCDisplayPropertyButton"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+
+                            @if (Model.IsEditMode)
+                            {
+                            <input class="form-control" id="Material_UNSPSCId" value="@Model.Material.UNSPSCId" type="text" name="unspscId" hidden />
+                            }
+                            else
+                            {
+                            <input class="form-control" id="Material_UNSPSCId" value="" type="text" name="unspscId" hidden />
+                            }
+
+                            <div class="my-3">
+                                <label class="form-label" for="GeneralLedgerMappingDisplayProperty">@L("GeneralLedgerMapping")</label>
+                                <div class="input-group">
+                                    <input class="form-control" id="GeneralLedgerMappingDisplayProperty" name="generalLedgerMappingDisplayProperty" value="@Model.GeneralLedgerMappingDisplayProperty" type="text" disabled>
+                                    <button class="btn btn-primary blue" id="OpenGeneralLedgerMappingLookupTableButton" type="button"><i class="fa fa-search"></i> @L("Pick")</button>
+                                    <button class="btn btn-danger btn-icon" type="button" id="ClearGeneralLedgerMappingDisplayPropertyButton"><i class="fa fa-times"></i></button>
+                                </div>
+                            </div>
+
+                            @if (Model.IsEditMode)
+                            {
+                            <input class="form-control" id="Material_GeneralLedgerMappingId" value="@Model.Material.GeneralLedgerMappingId" type="text" name="generalLedgerMappingId" hidden />
+                            }
+                            else
+                            {
+                            <input class="form-control" id="Material_GeneralLedgerMappingId" value="" type="text" name="generalLedgerMappingId" hidden />
+                            }
+
+                            <div class="my-3">
+                                <label class="form-label" for="Material_MaterialNo">@L("MaterialNo")</label>
+                                <input class="form-control" id="Material_MaterialNo" value="@Model.Material.MaterialNo" type="text" name="materialNo" required />
+                            </div>
+
+                            <div class="my-3">
+                                <label class="form-label" for="Material_MaterialName">@L("MaterialName")</label>
+                                <input class="form-control" id="Material_MaterialName" value="@Model.Material.MaterialName" type="text" name="materialName" required />
+                            </div>
+
+                            <div class="my-3">
+                                <label class="form-label" for="Material_MaterialNameSAP">@L("MaterialNameSAP")</label>
+                                <input class="form-control" id="Material_MaterialNameSAP" value="@Model.Material.MaterialNameSAP" type="text" name="materialNameSAP" />
+                            </div>
+
+                            <div class="my-3">
+                                <label class="form-label" for="Material_Description">@L("Description")</label>
+                                <input class="form-control" id="Material_Description" value="@Model.Material.Description" type="text" name="description" required />
+                            </div>
+
+                            <div class="my-3">
+                                <label class="form-label" for="Material_Size">@L("Size")</label>
+                                <input class="form-control" id="Material_Size" value="@Model.Material.Size" type="text" name="size" />
+                            </div>
+
+                            <div class="my-3">
+                                <label class="form-label" for="Material_UoM">@L("UoM")</label>
+                                <input class="form-control" id="Material_UoM" value="@Model.Material.UoM" type="text" name="uoM" required />
+                            </div>
+
+                            <div class="my-3">
+                                <label class="form-label" for="Material_Brand">@L("Brand")</label>
+                                <input class="form-control" id="Material_Brand" value="@Model.Material.Brand" type="text" name="brand" />
+                            </div>
+
+                            <div class="my-3">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="inputGroupFileAddon01">@L("ImageMain")</span>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" name="Material_ImageMain" id="Material_ImageMain" aria-describedby="inputGroupFileAddon01" accept="@Model.ImageMainFileAcceptedTypes" />
+                                        <label class="custom-file-label" for="@L(" ImageMain")" id="Material_ImageMainLabel">@L("ChooseAFile")</label>
+                                    </div>
+                                </div>
+
+                                <div id="div_current_file" style="background-color: #e5e5e5; padding: 5px @(Model.ImageMainFileName.IsNullOrEmpty()?" ;display:none":"")">
+                                    <span class="font-weight-bold">@L("CurrentFile") :</span>
+                                    <div class="alert alert-custom alert-white alert-bold m-1" role="alert">
+                                        <div class="alert-text">
+                                            <a href="@(" /File/DownloadBinaryFile?id=" + Model.Material.ImageMain)" target="_blank">@Model.ImageMainFileName</a>
+                                        </div>
+                                        <div class="alert-close">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="Material_ImageMain_Remove">
+                                                <span aria-hidden="true">
+                                                    <i class="la la-close fa-1x"></i>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <button type="button" id="saveBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("Save")</button>
+                            @if (!Model.IsEditMode)
+                            {
+                            <button type="button" id="saveAndNewBtn" class="btn btn-success float-right"><i class="fa fa-save"></i> @L("SaveAndNew")</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>

@@ -4,6 +4,7 @@
     {
         public static class Common
         {
+            public const string Materials = "MasterData.Materials";
             public const string GeneralLedgerMappings = "MasterData.GeneralLedgerMappings";
             public const string MaterialGroups = "MasterData.MaterialGroups";
             public const string UNSPSCs = "MasterData.UNSPSCs";

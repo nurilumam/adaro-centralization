@@ -23,6 +23,14 @@ namespace Adaro.Centralize.Web.Areas.AppAreaName.Startup
                     )
                 )
                 .AddItem(new MenuItemDefinition(
+                        AppAreaNamePageNames.Common.Materials,
+                        L("Materials"),
+                        url: "AppAreaName/Materials",
+                        icon: "flaticon-more",
+                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Materials)
+                    )
+                )
+                .AddItem(new MenuItemDefinition(
                         AppAreaNamePageNames.Common.GeneralLedgerMappings,
                         L("GeneralLedgerMappings"),
                         url: "AppAreaName/GeneralLedgerMappings",

@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_Materials = "Pages.Materials";
+        public const string Pages_Materials_Create = "Pages.Materials.Create";
+        public const string Pages_Materials_Edit = "Pages.Materials.Edit";
+        public const string Pages_Materials_Delete = "Pages.Materials.Delete";
+
         public const string Pages_GeneralLedgerMappings = "Pages.GeneralLedgerMappings";
         public const string Pages_GeneralLedgerMappings_Create = "Pages.GeneralLedgerMappings.Create";
         public const string Pages_GeneralLedgerMappings_Edit = "Pages.GeneralLedgerMappings.Edit";

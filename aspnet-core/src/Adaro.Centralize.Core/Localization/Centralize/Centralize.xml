@@ -1,6 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="GeneralLedgerMapping">General ledger mapping</text>
+  <texts>    <text name="Material">Material</text>
+    <text name="Adaro.Centralize.MasterData.Material">Material</text>
+    <text name="MaterialNo">Material no</text>
+    <text name="MaterialName">Material name</text>
+    <text name="MaterialNameSAP">Material name s a p</text>
+    <text name="Size">Size</text>
+    <text name="UoM">Uo m</text>
+    <text name="Brand">Brand</text>
+    <text name="ImageMain">Image main</text>
+    <text name="MaterialsHeaderInfo">Materials header info</text>
+    <text name="CreateNewMaterial">Create new material</text>
+    <text name="EditMaterial">Edit material</text>
+    <text name="DeleteMaterial">Delete material</text>
+    <text name="Materials">Materials</text>
+    <text name="PickMaterialGroup">Pick material group</text>
+    <text name="PickUNSPSC">Pick u n s p s c</text>
+    <text name="PickGeneralLedgerMapping">Pick general ledger mapping</text>
+    <text name="GeneralLedgerMapping">General ledger mapping</text>
     <text name="Adaro.Centralize.MasterData.GeneralLedgerMapping">GeneralLedgerMapping</text>
     <text name="GLAccount">G l account</text>
     <text name="GLAccountDescription">G l account description</text>

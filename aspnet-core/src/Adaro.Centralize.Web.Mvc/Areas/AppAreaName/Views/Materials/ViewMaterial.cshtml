@@ -1,0 +1,66 @@
+﻿@using Adaro.Centralize.Web.Areas.AppAreaName.Startup
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.Materials
+@model MaterialViewModel
+@using Adaro.Centralize.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppAreaNamePageNames.Common.Materials;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/AppAreaName/Views/Materials/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+@{
+var breadcrumbs = new List<BreadcrumbItem>()
+    {
+    new BreadcrumbItem("/AppAreaName/Materials", L("Materials")),
+    new BreadcrumbItem(L("Details")),
+    };
+    }
+    <abp-page-subheader title='@L("Details")' breadcrumbs="breadcrumbs">
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class=" card card-custom gutter-b">
+            <div class=" card-body">
+                <div id="MaterialInformationsTab">
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <h6>@L("MaterialNo") :</h6>
+                            @Model.Material.MaterialNo
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("MaterialName") :</h6>
+                            @Model.Material.MaterialName
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("Description") :</h6>
+                            @Model.Material.Description
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("UoM") :</h6>
+                            @Model.Material.UoM
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("ImageMain") :</h6>
+                            <a href="@(" /File/DownloadBinaryFile?id=" + Model.Material.ImageMain)" target="_blank">@Model.Material.ImageMainFileName</a>
+                        </div>
+
+                        <div class="col-6 mb-3">
+                            <h6>(@L("MaterialGroup")) @L("DisplayProperty") :</h6>
+                            @Model.MaterialGroupDisplayProperty
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>(@L("UNSPSC")) @L("DisplayProperty") :</h6>
+                            @Model.UNSPSCDisplayProperty
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>(@L("GeneralLedgerMapping")) @L("DisplayProperty") :</h6>
+                            @Model.GeneralLedgerMappingDisplayProperty
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
