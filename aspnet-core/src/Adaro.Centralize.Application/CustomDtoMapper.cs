@@ -52,6 +52,8 @@ namespace Adaro.Centralize
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditEnumTableDto, EnumTable>().ReverseMap();
+            configuration.CreateMap<EnumTableDto, EnumTable>().ReverseMap();
             configuration.CreateMap<CreateOrEditMaterialDto, Material>().ReverseMap();
             configuration.CreateMap<MaterialDto, Material>().ReverseMap();
             configuration.CreateMap<CreateOrEditGeneralLedgerMappingDto, GeneralLedgerMapping>().ReverseMap();

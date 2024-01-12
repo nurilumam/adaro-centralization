@@ -30,6 +30,11 @@ namespace Adaro.Centralize.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var enumTables = pages.CreateChildPermission(AppPermissions.Pages_EnumTables, L("EnumTables"));
+            enumTables.CreateChildPermission(AppPermissions.Pages_EnumTables_Create, L("CreateNewEnumTable"));
+            enumTables.CreateChildPermission(AppPermissions.Pages_EnumTables_Edit, L("EditEnumTable"));
+            enumTables.CreateChildPermission(AppPermissions.Pages_EnumTables_Delete, L("DeleteEnumTable"));
+
             var materials = pages.CreateChildPermission(AppPermissions.Pages_Materials, L("Materials"));
             materials.CreateChildPermission(AppPermissions.Pages_Materials_Create, L("CreateNewMaterial"));
             materials.CreateChildPermission(AppPermissions.Pages_Materials_Edit, L("EditMaterial"));

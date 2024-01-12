@@ -1,0 +1,30 @@
+﻿
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.Common.Modals
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.EnumTables
+@model EnumTableViewModel
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="EnumTableInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("EnumCode") :</h6>
+                @Model.EnumTable.EnumCode
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("EnumValue") :</h6>
+                @Model.EnumTable.EnumValue
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("EnumLabel") :</h6>
+                @Model.EnumTable.EnumLabel
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithClose.cshtml")

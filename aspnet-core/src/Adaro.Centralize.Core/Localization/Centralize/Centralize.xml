@@ -1,6 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="Material">Material</text>
+  <texts>    <text name="EnumTable">Enum table</text>
+    <text name="Adaro.Centralize.MasterData.EnumTable">EnumTable</text>
+    <text name="EnumCode">Enum code</text>
+    <text name="EnumValue">Enum value</text>
+    <text name="EnumLabel">Enum label</text>
+    <text name="EnumTablesHeaderInfo">Enum tables header info</text>
+    <text name="CreateNewEnumTable">Create new enum table</text>
+    <text name="EditEnumTable">Edit enum table</text>
+    <text name="DeleteEnumTable">Delete enum table</text>
+    <text name="EnumTables">Enum tables</text>
+    <text name="Material">Material</text>
     <text name="Adaro.Centralize.MasterData.Material">Material</text>
     <text name="MaterialNo">Material no</text>
     <text name="MaterialName">Material name</text>

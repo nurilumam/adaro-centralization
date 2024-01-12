@@ -22,11 +22,14 @@ namespace Adaro.Centralize.Web.Areas.AppAreaName.Startup
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Host_Dashboard)
                     )
                 )
-
-
-
-                
-
+                .AddItem(new MenuItemDefinition(
+                        AppAreaNamePageNames.Common.EnumTables,
+                        L("EnumTables"),
+                        url: "AppAreaName/EnumTables",
+                        icon: "flaticon-more",
+                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_EnumTables)
+                    )
+                )
 
                 .AddItem(new MenuItemDefinition(
                         AppAreaNamePageNames.MasterDataManagement.MasterData,

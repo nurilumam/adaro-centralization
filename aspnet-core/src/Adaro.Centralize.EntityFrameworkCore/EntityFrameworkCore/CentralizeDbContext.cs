@@ -17,6 +17,8 @@ namespace Adaro.Centralize.EntityFrameworkCore
 {
     public class CentralizeDbContext : AbpZeroDbContext<Tenant, Role, User, CentralizeDbContext>
     {
+        public virtual DbSet<EnumTable> EnumTables { get; set; }
+
         public virtual DbSet<Material> Materials { get; set; }
 
         public virtual DbSet<GeneralLedgerMapping> GeneralLedgerMappings { get; set; }
@@ -59,10 +61,14 @@ namespace Adaro.Centralize.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Material>(m =>
+            modelBuilder.Entity<EnumTable>(x =>
             {
-                m.HasIndex(e => new { e.TenantId });
+                x.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<Material>(m =>
+                       {
+                           m.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<GeneralLedgerMapping>(g =>
                        {
                            g.HasIndex(e => new { e.TenantId });

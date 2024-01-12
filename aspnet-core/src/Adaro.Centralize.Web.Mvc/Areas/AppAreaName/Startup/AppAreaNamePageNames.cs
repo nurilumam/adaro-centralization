@@ -4,6 +4,7 @@
     {
         public static class Common
         {
+            public const string EnumTables = "MasterData.EnumTables";
             public const string Materials = "MasterData.Materials";
             public const string GeneralLedgerMappings = "MasterData.GeneralLedgerMappings";
             public const string MaterialGroups = "MasterData.MaterialGroups";

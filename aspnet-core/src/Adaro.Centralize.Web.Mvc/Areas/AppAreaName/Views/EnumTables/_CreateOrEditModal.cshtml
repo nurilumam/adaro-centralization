@@ -1,0 +1,37 @@
+﻿
+@using System.Globalization
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.Common.Modals
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.EnumTables
+@model CreateOrEditEnumTableModalViewModel
+@using Abp.Extensions
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditEnumTable")) : L("CreateNewEnumTable")))
+
+<div class="modal-body">
+    <div id="EnumTableInformationsTab">
+        <form name="EnumTableInformationsForm" role="form" novalidate class="form-validation">
+
+            @if (Model.IsEditMode)
+            {
+            <input type="hidden" name="id" value="@Model.EnumTable.Id" />
+            }
+
+            <div class="my-3">
+                <label class="form-label" for="EnumTable_EnumCode">@L("EnumCode")</label>
+                <input class="form-control" id="EnumTable_EnumCode" value="@Model.EnumTable.EnumCode" type="text" name="enumCode" required maxlength="@Adaro.Centralize.MasterData.EnumTableConsts.MaxEnumCodeLength" minlength="@Adaro.Centralize.MasterData.EnumTableConsts.MinEnumCodeLength" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="EnumTable_EnumValue">@L("EnumValue")</label>
+                <input class="form-control" id="EnumTable_EnumValue" value="@Model.EnumTable.EnumValue" type="text" name="enumValue" required maxlength="@Adaro.Centralize.MasterData.EnumTableConsts.MaxEnumValueLength" minlength="@Adaro.Centralize.MasterData.EnumTableConsts.MinEnumValueLength" />
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="EnumTable_EnumLabel">@L("EnumLabel")</label>
+                <input class="form-control" id="EnumTable_EnumLabel" value="@Model.EnumTable.EnumLabel" type="text" name="enumLabel" required maxlength="@Adaro.Centralize.MasterData.EnumTableConsts.MaxEnumLabelLength" minlength="@Adaro.Centralize.MasterData.EnumTableConsts.MinEnumLabelLength" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")
