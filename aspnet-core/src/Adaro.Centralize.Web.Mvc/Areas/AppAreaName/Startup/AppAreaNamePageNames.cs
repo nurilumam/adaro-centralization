@@ -26,6 +26,15 @@
             public const string Notifications_MassNotifications = "Administration.Notifications.MassNotifications";
         }
 
+        public static class MasterDataManagement
+        {
+            public const string MasterData = "MasterData";
+            public const string Materials = "MasterData.Materials";
+            public const string GeneralLedgerMappings = "MasterData.GeneralLedgerMappings";
+            public const string MaterialGroups = "MasterData.MaterialGroups";
+            public const string UNSPSCs = "MasterData.UNSPSCs";
+        }
+
         public static class Host
         {
             public const string Tenants = "Tenants";

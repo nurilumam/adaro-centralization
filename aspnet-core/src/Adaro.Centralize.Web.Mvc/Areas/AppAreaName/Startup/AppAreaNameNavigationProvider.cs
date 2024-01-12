@@ -22,54 +22,69 @@ namespace Adaro.Centralize.Web.Areas.AppAreaName.Startup
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Administration_Host_Dashboard)
                     )
                 )
+
+
+
+                
+
+
                 .AddItem(new MenuItemDefinition(
-                        AppAreaNamePageNames.Common.Materials,
-                        L("Materials"),
-                        url: "AppAreaName/Materials",
-                        icon: "flaticon-more",
-                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Materials)
+                        AppAreaNamePageNames.MasterDataManagement.MasterData,
+                        L("MasterData"),
+                        icon: "las la-boxes fs-2"
                     )
-                )
-                .AddItem(new MenuItemDefinition(
-                        AppAreaNamePageNames.Common.GeneralLedgerMappings,
-                        L("GeneralLedgerMappings"),
-                        url: "AppAreaName/GeneralLedgerMappings",
-                        icon: "flaticon-more",
-                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_GeneralLedgerMappings)
+                    .AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.MasterDataManagement.Materials,
+                            L("Materials"),
+                            url: "AppAreaName/Materials",
+                            icon: "las la-box-open fs-2",
+                            permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Materials)
+                        )
                     )
-                )
-                .AddItem(new MenuItemDefinition(
-                        AppAreaNamePageNames.Common.MaterialGroups,
-                        L("MaterialGroups"),
-                        url: "AppAreaName/MaterialGroups",
-                        icon: "flaticon-more",
-                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_MaterialGroups)
+                    .AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.MasterDataManagement.GeneralLedgerMappings,
+                            L("GeneralLedgerMappings"),
+                            url: "AppAreaName/GeneralLedgerMappings",
+                            icon: "las la-network-wired fs-2",
+                            permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_GeneralLedgerMappings)
+                        )
                     )
-                )
-                .AddItem(new MenuItemDefinition(
-                        AppAreaNamePageNames.Common.UNSPSCs,
+                    .AddItem(new MenuItemDefinition(
+                            AppAreaNamePageNames.MasterDataManagement.MaterialGroups,
+                            L("MaterialGroups"),
+                            url: "AppAreaName/MaterialGroups",
+                            icon: "las la-layer-group fs-2",
+                            permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_MaterialGroups)
+                        )
+                    )
+                    .AddItem(new MenuItemDefinition(
+                        AppAreaNamePageNames.MasterDataManagement.UNSPSCs,
                         L("UNSPSCs"),
                         url: "AppAreaName/UNSPSCs",
-                        icon: "flaticon-more",
+                        icon: "las la-code fs-2",
                         permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_UNSPSCs)
+                        )
                     )
                 )
+
+                //.AddItem(new MenuItemDefinition(
+                //        AppAreaNamePageNames.Common.TravelRequests,
+                //        L("TravelRequests"),
+                //        url: "AppAreaName/TravelRequests",
+                //        icon: "flaticon-more",
+                //        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_TravelRequests)
+                //    )
+                //)
+                //.AddItem(new MenuItemDefinition(
+                //        AppAreaNamePageNames.Common.Airports,
+                //        L("Airports"),
+                //        url: "AppAreaName/Airports",
+                //        icon: "flaticon-more",
+                //        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Airports)
+                //    )
+                //)
+
                 .AddItem(new MenuItemDefinition(
-                        AppAreaNamePageNames.Common.TravelRequests,
-                        L("TravelRequests"),
-                        url: "AppAreaName/TravelRequests",
-                        icon: "flaticon-more",
-                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_TravelRequests)
-                    )
-                )
-                .AddItem(new MenuItemDefinition(
-                        AppAreaNamePageNames.Common.Airports,
-                        L("Airports"),
-                        url: "AppAreaName/Airports",
-                        icon: "flaticon-more",
-                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_Airports)
-                    )
-                ).AddItem(new MenuItemDefinition(
                         AppAreaNamePageNames.Host.Tenants,
                         L("Tenants"),
                         url: "AppAreaName/Tenants",
