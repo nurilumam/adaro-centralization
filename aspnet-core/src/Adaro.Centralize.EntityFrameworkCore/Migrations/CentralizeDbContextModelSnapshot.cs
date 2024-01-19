@@ -1994,6 +1994,88 @@ namespace Adaro.Centralize.Migrations
                     b.ToTable("UNSPSCs");
                 });
 
+            modelBuilder.Entity("Adaro.Centralize.MasterDataRequest.MaterialRequest", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Brand")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GeneralLedger")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageColletion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MaterialName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MaterialType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PackageSize")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("Picture")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Purpose")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RequestNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RequestStatus")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Size")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("UNSPSCId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UoM")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ValuationClassId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Weight")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TenantId");
+
+                    b.HasIndex("UNSPSCId");
+
+                    b.HasIndex("ValuationClassId");
+
+                    b.ToTable("MaterialRequests");
+                });
+
             modelBuilder.Entity("Adaro.Centralize.MultiTenancy.Accounting.Invoice", b =>
                 {
                     b.Property<int>("Id")
@@ -2622,6 +2704,21 @@ namespace Adaro.Centralize.Migrations
                     b.Navigation("MaterialGroupFk");
 
                     b.Navigation("UNSPSCFk");
+                });
+
+            modelBuilder.Entity("Adaro.Centralize.MasterDataRequest.MaterialRequest", b =>
+                {
+                    b.HasOne("Adaro.Centralize.MasterData.UNSPSC", "UNSPSCFk")
+                        .WithMany()
+                        .HasForeignKey("UNSPSCId");
+
+                    b.HasOne("Adaro.Centralize.MasterData.GeneralLedgerMapping", "ValuationClassFk")
+                        .WithMany()
+                        .HasForeignKey("ValuationClassId");
+
+                    b.Navigation("UNSPSCFk");
+
+                    b.Navigation("ValuationClassFk");
                 });
 
             modelBuilder.Entity("Adaro.Centralize.MultiTenancy.Payments.SubscriptionPayment", b =>

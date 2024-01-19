@@ -1,0 +1,54 @@
+﻿
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.Common.Modals
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.MaterialRequests
+@model MaterialRequestViewModel
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(L("Details")))
+
+<div class="modal-body">
+    <div id="MaterialRequestInformationsTab">
+
+        <div class="row">
+            <div class="col-6 mb-3">
+                <h6>@L("RequestNo") :</h6>
+                @Model.MaterialRequest.RequestNo
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("RequestStatus") :</h6>
+                @L("Enum_MaterialRequestStatus_" + (int)Model.MaterialRequest.RequestStatus)
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("MaterialName") :</h6>
+                @Model.MaterialRequest.MaterialName
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Description") :</h6>
+                @Model.MaterialRequest.Description
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("GeneralLedger") :</h6>
+                @Model.MaterialRequest.GeneralLedger
+            </div>
+            <div class="col-6 mb-3">
+                <h6>@L("Picture") :</h6>
+                @if (Model.MaterialRequest.Picture.HasValue)
+                {
+                <a href="@(" /File/DownloadBinaryFile?id=" + Model.MaterialRequest.Picture)" target="_blank">@Model.MaterialRequest.PictureFileName</a>
+                }
+            </div>
+
+            <div class="col-6 mb-3">
+                <h6>(@L("UNSPSC")) @L("DisplayProperty") :</h6>
+                @Model.UNSPSCDisplayProperty
+            </div>
+            <div class="col-6 mb-3">
+                <h6>(@L("GeneralLedgerMapping")) @L("DisplayProperty") :</h6>
+                @Model.GeneralLedgerMappingDisplayProperty
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Areas/AppAreaName/Views/Common/Modals/_ModalFooterWithClose.cshtml")

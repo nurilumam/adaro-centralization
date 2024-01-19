@@ -4,7 +4,7 @@
     {
         New = 0,
         Submitted = 1,
-        Rejected = 3,
+        Rejected = 2,
         VerifyCataloger = 3,
         VerifyBudget = 4,
         SubmittedHolding = 5,

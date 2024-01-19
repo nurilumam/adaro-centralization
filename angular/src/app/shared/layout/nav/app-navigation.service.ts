@@ -22,7 +22,42 @@ export class AppNavigationService {
             ),
             new AppMenuItem('Dashboard', 'Pages.Tenant.Dashboard', 'flaticon-line-graph', '/app/main/dashboard'),
             new AppMenuItem('Tenants', 'Pages.Tenants', 'flaticon-list-3', '/app/admin/tenants'),
+            
+           
+ 
+            
+            
             new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
+
+            new AppMenuItem(
+                'Master Data Management',
+                '',
+                'flaticon-interface-8',
+                '',
+                [],
+                [
+                    new AppMenuItem('Materials', 'Pages.Materials', 'flaticon-more', '/app/main/masterData/materials'),
+                    new AppMenuItem('Data Setup',
+                    '',
+                    'flaticon-interface-8',
+                    '',
+                    [],
+                    [
+
+                        new AppMenuItem('UNSPSCs', 'Pages.UNSPSCs', 'flaticon-more', '/app/main/masterData/unspsCs'),
+                        new AppMenuItem('EnumTables', 'Pages.EnumTables', 'flaticon-more', '/app/main/masterData/enumTables'),            
+                        new AppMenuItem('GeneralLedgerMappings', 'Pages.GeneralLedgerMappings', 'flaticon-more', '/app/main/masterData/generalLedgerMappings'),                    
+                        new AppMenuItem('MaterialGroups', 'Pages.MaterialGroups', 'flaticon-more', '/app/main/masterData/materialGroups'),
+                        new AppMenuItem('MaterialRequests', 'Pages.MaterialRequests', 'flaticon-more', '/app/main/masterDataRequest/materialRequests'),
+    
+                    ]
+                    ),
+                    
+
+                ]
+            ),
+
+
             new AppMenuItem(
                 'Administration',
                 '',

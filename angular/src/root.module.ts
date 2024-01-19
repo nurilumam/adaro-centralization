@@ -172,7 +172,7 @@ function initializeTenantResources(injector: Injector) {
                     abp.setting.get(
                         appSessionService.theme.baseSettings.theme + '.' + 'App.UiManagement.Left.AsideSkin'
                     ) +
-                    '.svg'
+                    '.png'
             );
         } else {
             metaImage.setAttribute(

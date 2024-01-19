@@ -1,4 +1,6 @@
-﻿using Adaro.Centralize.MasterData.Dtos;
+﻿using Adaro.Centralize.MasterDataRequest.Dtos;
+using Adaro.Centralize.MasterDataRequest;
+using Adaro.Centralize.MasterData.Dtos;
 using Adaro.Centralize.MasterData;
 using Adaro.Centralize.Travel.Dtos;
 using Adaro.Centralize.Travel;
@@ -52,6 +54,8 @@ namespace Adaro.Centralize
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditMaterialRequestDto, MaterialRequest>().ReverseMap();
+            configuration.CreateMap<MaterialRequestDto, MaterialRequest>().ReverseMap();
             configuration.CreateMap<CreateOrEditEnumTableDto, EnumTable>().ReverseMap();
             configuration.CreateMap<EnumTableDto, EnumTable>().ReverseMap();
             configuration.CreateMap<CreateOrEditMaterialDto, Material>().ReverseMap();

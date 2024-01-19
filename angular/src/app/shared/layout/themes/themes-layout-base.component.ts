@@ -20,7 +20,7 @@ export class ThemesLayoutBaseComponent extends AppComponentBase {
         AppConsts.appBaseUrl +
         '/assets/common/images/app-logo-on-' +
         this.currentTheme.baseSettings.menu.asideSkin +
-        '.svg';
+        '.png';
 
     constructor(injector: Injector, private _dateTimeService: DateTimeService) {
         super(injector);

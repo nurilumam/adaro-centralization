@@ -1,4 +1,5 @@
-﻿using Adaro.Centralize.MasterData;
+﻿using Adaro.Centralize.MasterDataRequest;
+using Adaro.Centralize.MasterData;
 using Adaro.Centralize.Travel;
 using Abp.Zero.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,8 @@ namespace Adaro.Centralize.EntityFrameworkCore
 {
     public class CentralizeDbContext : AbpZeroDbContext<Tenant, Role, User, CentralizeDbContext>
     {
+        public virtual DbSet<MaterialRequest> MaterialRequests { get; set; }
+
         public virtual DbSet<EnumTable> EnumTables { get; set; }
 
         public virtual DbSet<Material> Materials { get; set; }
@@ -61,10 +64,42 @@ namespace Adaro.Centralize.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<EnumTable>(x =>
+            modelBuilder.Entity<Material>(m =>
             {
-                x.HasIndex(e => new { e.TenantId });
+                m.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<MaterialRequest>(m =>
+                       {
+                           m.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<Material>(m =>
+                       {
+                           m.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<UNSPSC>(u =>
+                       {
+                           u.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<MaterialGroup>(m =>
+                       {
+                           m.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<GeneralLedgerMapping>(g =>
+                       {
+                           g.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<EnumTable>(x =>
+                       {
+                           x.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<MaterialRequest>(m =>
+                       {
+                           m.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<EnumTable>(x =>
+                       {
+                           x.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<Material>(m =>
                        {
                            m.HasIndex(e => new { e.TenantId });

@@ -26,7 +26,7 @@ export class InvoiceComponent extends AppComponentBase implements OnInit {
     ngOnInit(): void {
         this.getAllInfo();
         const skin = this.currentTheme.baseSettings.layout.darkMode ? 'dark': 'light';
-        this.companyLogo = AppConsts.appBaseUrl + '/assets/common/images/app-logo-on-'+ skin +'.svg';
+        this.companyLogo = AppConsts.appBaseUrl + '/assets/common/images/app-logo-on-'+ skin +'.png';
     }
 
     getAllInfo(): void {

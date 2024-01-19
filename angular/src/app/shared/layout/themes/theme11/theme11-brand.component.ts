@@ -12,7 +12,7 @@ import { DOCUMENT } from '@angular/common';
 })
 export class Theme11BrandComponent extends AppComponentBase {
     skin = this.appSession.theme.baseSettings.layout.darkMode ? 'dark' : 'light';
-    defaultLogo = AppConsts.appBaseUrl + '/assets/common/images/app-logo-on-' + this.skin + '.svg';
+    defaultLogo = AppConsts.appBaseUrl + '/assets/common/images/app-logo-on-' + this.skin + '.png';
     remoteServiceBaseUrl: string = AppConsts.remoteServiceBaseUrl;
 
     constructor(injector: Injector, @Inject(DOCUMENT) private document: Document) {

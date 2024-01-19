@@ -1,0 +1,55 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #materialGroupForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="materialGroup.id">{{l("EditMaterialGroup")}}</span>
+                        <span *ngIf="!materialGroup.id">{{l("CreateNewMaterialGroup")}}</span>
+                    </h4>                    
+                    
+                    
+                 <button type="button" class="btn-close" (click)="close()" aria-label="Close" [disabled]="saving"></button>
+             
+                </div>
+                <div class="modal-body">
+                 
+
+
+
+
+								<div class="my-3">
+									<label class="form-label" for="MaterialGroup_MaterialGroupCode">{{l("MaterialGroupCode")}} *</label>
+									<input type="text" #MaterialGroup_MaterialGroupCode="ngModel" id="MaterialGroup_MaterialGroupCode" class="form-control" [(ngModel)]="materialGroup.materialGroupCode" name="MaterialGroupCode"   minlength="0"  maxlength="50"  required/>
+								    <validation-messages [formCtrl]="MaterialGroup_MaterialGroupCode"></validation-messages>
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" for="MaterialGroup_MaterialGroupName">{{l("MaterialGroupName")}} *</label>
+									<input type="text" #MaterialGroup_MaterialGroupName="ngModel" id="MaterialGroup_MaterialGroupName" class="form-control" [(ngModel)]="materialGroup.materialGroupName" name="MaterialGroupName"   minlength="0"  maxlength="500"  required/>
+								    <validation-messages [formCtrl]="MaterialGroup_MaterialGroupName"></validation-messages>
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" for="MaterialGroup_MaterialGroupDescription">{{l("MaterialGroupDescription")}} *</label>
+									<input type="text" #MaterialGroup_MaterialGroupDescription="ngModel" id="MaterialGroup_MaterialGroupDescription" class="form-control" [(ngModel)]="materialGroup.materialGroupDescription" name="MaterialGroupDescription"   minlength="0"  maxlength="500"  required/>
+								    <validation-messages [formCtrl]="MaterialGroup_MaterialGroupDescription"></validation-messages>
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" for="MaterialGroup_Language">{{l("Language")}} *</label>
+									<input type="text" #MaterialGroup_Language="ngModel" id="MaterialGroup_Language" class="form-control" [(ngModel)]="materialGroup.language" name="Language"   minlength="0"  maxlength="50"  required/>
+								    <validation-messages [formCtrl]="MaterialGroup_Language"></validation-messages>
+								</div>
+					
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!materialGroupForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

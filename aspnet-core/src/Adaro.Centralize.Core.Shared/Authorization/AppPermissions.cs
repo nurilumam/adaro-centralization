@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_MaterialRequests = "Pages.MaterialRequests";
+        public const string Pages_MaterialRequests_Create = "Pages.MaterialRequests.Create";
+        public const string Pages_MaterialRequests_Edit = "Pages.MaterialRequests.Edit";
+        public const string Pages_MaterialRequests_Delete = "Pages.MaterialRequests.Delete";
+
         public const string Pages_EnumTables = "Pages.EnumTables";
         public const string Pages_EnumTables_Create = "Pages.EnumTables.Create";
         public const string Pages_EnumTables_Edit = "Pages.EnumTables.Edit";

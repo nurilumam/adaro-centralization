@@ -1,0 +1,50 @@
+﻿<div [@routerTransition]>
+  
+  
+  
+                 <sub-header [title]="('MaterialRequests' | localize) +' '+ ('Details' | localize)" [breadcrumbs]="breadcrumbs">
+                 </sub-header>
+             
+    <div [class]="containerClass">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="row align-items-center">
+                                     <div class="col-6 mb-3">
+                        <h6>{{l("RequestNo")}} :</h6>
+                        {{ item.materialRequest.requestNo }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("RequestStatus")}} :</h6>
+                        {{l( materialRequestStatus[item.materialRequest.requestStatus])}}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("MaterialName")}} :</h6>
+                        {{ item.materialRequest.materialName }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("Description")}} :</h6>
+                        {{ item.materialRequest.description }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("GeneralLedger")}} :</h6>
+                        {{ item.materialRequest.generalLedger }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("Picture")}} :</h6>
+                        <a href="{{getDownloadUrl(item.materialRequest.picture)}}" target="_blank">{{ item.materialRequest.pictureFileName}}</a>
+                    </div>
+
+                                     <div class="col-6 mb-3">
+                        <h6>({{l("UNSPSC")}}) {{l("DisplayProperty")}} :</h6>
+                        {{item.unspscDisplayProperty}}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>({{l("GeneralLedgerMapping")}}) {{l("DisplayProperty")}} :</h6>
+                        {{item.generalLedgerMappingDisplayProperty}}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>

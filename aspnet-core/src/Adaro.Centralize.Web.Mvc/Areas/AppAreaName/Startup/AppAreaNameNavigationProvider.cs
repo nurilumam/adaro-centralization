@@ -23,6 +23,14 @@ namespace Adaro.Centralize.Web.Areas.AppAreaName.Startup
                     )
                 )
                 .AddItem(new MenuItemDefinition(
+                        AppAreaNamePageNames.Common.MaterialRequests,
+                        L("MaterialRequests"),
+                        url: "AppAreaName/MaterialRequests",
+                        icon: "flaticon-more",
+                        permissionDependency: new SimplePermissionDependency(AppPermissions.Pages_MaterialRequests)
+                    )
+                )
+                .AddItem(new MenuItemDefinition(
                         AppAreaNamePageNames.Common.EnumTables,
                         L("EnumTables"),
                         url: "AppAreaName/EnumTables",

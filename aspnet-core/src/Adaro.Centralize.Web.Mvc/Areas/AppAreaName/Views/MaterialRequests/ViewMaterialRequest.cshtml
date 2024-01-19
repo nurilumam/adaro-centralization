@@ -1,0 +1,66 @@
+﻿@using Adaro.Centralize.Web.Areas.AppAreaName.Startup
+@using Adaro.Centralize.Web.Areas.AppAreaName.Models.MaterialRequests
+@model MaterialRequestViewModel
+@using Adaro.Centralize.Web.TagHelpers
+@{
+ViewBag.CurrentPageName = AppAreaNamePageNames.Common.MaterialRequests;
+}
+@section Scripts
+{
+<script abp-src="/view-resources/Areas/AppAreaName/Views/MaterialRequests/CreateOrEdit.js" asp-append-version="true"></script>
+}
+
+@{
+var breadcrumbs = new List<BreadcrumbItem>()
+    {
+    new BreadcrumbItem("/AppAreaName/MaterialRequests", L("MaterialRequests")),
+    new BreadcrumbItem(L("Details")),
+    };
+    }
+    <abp-page-subheader title='@L("Details")' breadcrumbs="breadcrumbs">
+    </abp-page-subheader>
+
+    <div class="@(await GetContainerClass())">
+        <div class=" card card-custom gutter-b">
+            <div class=" card-body">
+                <div id="MaterialRequestInformationsTab">
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <h6>@L("RequestNo") :</h6>
+                            @Model.MaterialRequest.RequestNo
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("RequestStatus") :</h6>
+                            @L("Enum_MaterialRequestStatus_" + (int)Model.MaterialRequest.RequestStatus)
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("MaterialName") :</h6>
+                            @Model.MaterialRequest.MaterialName
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("Description") :</h6>
+                            @Model.MaterialRequest.Description
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("GeneralLedger") :</h6>
+                            @Model.MaterialRequest.GeneralLedger
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>@L("Picture") :</h6>
+                            <a href="@(" /File/DownloadBinaryFile?id=" + Model.MaterialRequest.Picture)" target="_blank">@Model.MaterialRequest.PictureFileName</a>
+                        </div>
+
+                        <div class="col-6 mb-3">
+                            <h6>(@L("UNSPSC")) @L("DisplayProperty") :</h6>
+                            @Model.UNSPSCDisplayProperty
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>(@L("GeneralLedgerMapping")) @L("DisplayProperty") :</h6>
+                            @Model.GeneralLedgerMappingDisplayProperty
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

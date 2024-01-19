@@ -1,0 +1,306 @@
+﻿<div [@routerTransition]>
+  
+  
+   <sub-header [title]="'MaterialRequests' | localize" [description]="'MaterialRequestsHeaderInfo' | localize">
+             <div role="actions">
+                 <button (click)="exportToExcel()" class="btn btn-outline btn-outline-success btn-active-light-success me-1"><i class="fa fa-file-excel"></i> {{l("ExportToExcel")}}</button>
+                
+                 <button id="btn_create_materialRequest" *ngIf="isGranted('Pages.MaterialRequests.Create')" (click)="createMaterialRequest()" 
+                                        class="btn btn-primary blue"><i class="fa fa-plus"></i> {{l("CreateNewMaterialRequest")}}</button>
+             </div>
+            </sub-header>
+    
+    <div [class]="containerClass">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <form class="form" autocomplete="off">
+                    <div>
+                        <div class="row align-items-center">
+                            <div class="col-xl-12">
+                                
+                                
+        	<div class="my-3">                
+                <div class="input-group mb-3">
+                  <input [(ngModel)]="filterText" (ngModelChange)="getMaterialRequests()" name="filterText" autoFocus type="text" class="form-control" [placeholder]="l('SearchWithThreeDot')">
+                  <button class="btn btn-primary" type="submit" (click)="getMaterialRequests()"><i class="flaticon-search-1"></i></button>
+                </div>
+            </div>
+        	
+                            </div>
+                        </div>
+						 <div class="row" [hidden]="!advancedFiltersAreShown">
+						 	<div class="col-md-12">
+						         
+						     </div>
+
+
+
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="RequestNoFilter">{{l("RequestNo")}}</label>
+									<input type="text" class="form-control" id="RequestNoFilter" name="requestNoFilter" [(ngModel)]="requestNoFilter" (ngModelChange)="getMaterialRequests()">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="RequestStatusFilterSelect">{{l("RequestStatus")}}</label>
+									<select class="form-select" name="RequestStatusFilter" id="RequestStatusFilterSelect" [(ngModel)]="requestStatusFilter" (ngModelChange)="getMaterialRequests()">
+									<option value="-1">{{l("All")}}</option>
+																				<option value="0">{{l('New')}}</option>
+
+										<option value="1">{{l('Submitted')}}</option>
+
+										<option value="3">{{l('Rejected')}}</option>
+
+										<option value="3">{{l('VerifyCataloger')}}</option>
+
+										<option value="4">{{l('VerifyBudget')}}</option>
+
+										<option value="5">{{l('SubmittedHolding')}}</option>
+
+										<option value="6">{{l('Registred')}}</option>
+
+
+									</select>
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="MaterialNameFilter">{{l("MaterialName")}}</label>
+									<input type="text" class="form-control" id="MaterialNameFilter" name="materialNameFilter" [(ngModel)]="materialNameFilter" (ngModelChange)="getMaterialRequests()">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="DescriptionFilter">{{l("Description")}}</label>
+									<input type="text" class="form-control" id="DescriptionFilter" name="descriptionFilter" [(ngModel)]="descriptionFilter" (ngModelChange)="getMaterialRequests()">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="PurposeFilter">{{l("Purpose")}}</label>
+									<input type="text" class="form-control" id="PurposeFilter" name="purposeFilter" [(ngModel)]="purposeFilter" (ngModelChange)="getMaterialRequests()">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="MaterialTypeFilter">{{l("MaterialType")}}</label>
+									<input type="text" class="form-control" id="MaterialTypeFilter" name="materialTypeFilter" [(ngModel)]="materialTypeFilter" (ngModelChange)="getMaterialRequests()">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="CategoryFilter">{{l("Category")}}</label>
+									<input type="text" class="form-control" id="CategoryFilter" name="categoryFilter" [(ngModel)]="categoryFilter" (ngModelChange)="getMaterialRequests()">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="SizeFilter">{{l("Size")}}</label>
+									<input type="text" class="form-control" id="SizeFilter" name="sizeFilter" [(ngModel)]="sizeFilter" (ngModelChange)="getMaterialRequests()">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="UoMFilter">{{l("UoM")}}</label>
+									<input type="text" class="form-control" id="UoMFilter" name="uoMFilter" [(ngModel)]="uoMFilter" (ngModelChange)="getMaterialRequests()">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="PackageSizeFilter">{{l("PackageSize")}}</label>
+									<input type="text" class="form-control" id="PackageSizeFilter" name="packageSizeFilter" [(ngModel)]="packageSizeFilter" (ngModelChange)="getMaterialRequests()">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="GeneralLedgerFilter">{{l("GeneralLedger")}}</label>
+									<input type="text" class="form-control" id="GeneralLedgerFilter" name="generalLedgerFilter" [(ngModel)]="generalLedgerFilter" (ngModelChange)="getMaterialRequests()">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="BrandFilter">{{l("Brand")}}</label>
+									<input type="text" class="form-control" id="BrandFilter" name="brandFilter" [(ngModel)]="brandFilter" (ngModelChange)="getMaterialRequests()">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="WeightFilter">{{l("Weight")}}</label>
+									<input type="text" class="form-control" id="WeightFilter" name="weightFilter" [(ngModel)]="weightFilter" (ngModelChange)="getMaterialRequests()">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="ImageColletionFilter">{{l("ImageColletion")}}</label>
+									<input type="text" class="form-control" id="ImageColletionFilter" name="imageColletionFilter" [(ngModel)]="imageColletionFilter" (ngModelChange)="getMaterialRequests()">
+								</div>
+                            </div>
+
+
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="UNSPSCDisplayPropertyFilter">({{l("UNSPSC")}}) {{l("DisplayProperty")}}</label>
+									<input type="text" class="form-control" id="UNSPSCDisplayPropertyFilter" name="unspscDisplayPropertyFilter" [(ngModel)]="unspscDisplayPropertyFilter">
+                                </div>
+                            </div>
+							<div class="col-md-3">
+								<div class="my-3">
+									<label class="form-label" for="GeneralLedgerMappingDisplayPropertyFilter">({{l("GeneralLedgerMapping")}}) {{l("DisplayProperty")}}</label>
+									<input type="text" class="form-control" id="GeneralLedgerMappingDisplayPropertyFilter" name="generalLedgerMappingDisplayPropertyFilter" [(ngModel)]="generalLedgerMappingDisplayPropertyFilter">
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-5">
+                                <button (click)="resetFilters()" class="btn btn-secondary btn-sm" id="btn-reset-filters">Reset</button>
+                            </div>
+                        </div>
+                        <div class="row my-4">
+                            <div class="col-sm-12">
+                                <span class="clickable-item text-muted" *ngIf="!advancedFiltersAreShown" (click)="advancedFiltersAreShown=!advancedFiltersAreShown"><i class="fa fa-angle-down"></i> {{l("ShowAdvancedFilters")}}</span>
+                                <span class="clickable-item text-muted" *ngIf="advancedFiltersAreShown" (click)="advancedFiltersAreShown=!advancedFiltersAreShown"><i class="fa fa-angle-up"></i> {{l("HideAdvancedFilters")}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="row align-items-center">
+                    <!--<Primeng-Datatable-Start>-->
+                    <div class="primeng-datatable-container col-12"
+                         [busyIf]="primengTableHelper.isLoading">
+                        <p-table #dataTable
+                                     (onLazyLoad)="getMaterialRequests($event)"
+                                     [value]="primengTableHelper.records"
+                                     rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
+                                     [paginator]="false"
+                                     [lazy]="true"
+                                     [scrollable]="true"
+                                     ScrollWidth="100%"
+                                     [tableStyle]="{'min-width': '50rem'}"
+                                     [resizableColumns]="primengTableHelper.resizableColumns">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th style="width: 130px" [hidden]="!isGrantedAny('Pages.MaterialRequests.Edit', 'Pages.MaterialRequests.Delete')">{{l('Actions')}}</th>
+                                    <th style="width: 150px" pSortableColumn="unspscFk.displayProperty">
+                                        {{l('DisplayProperty')}}
+                                        <p-sortIcon field="unspscDisplayProperty"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="valuationClassFk.displayProperty">
+                                        {{l('DisplayProperty')}}
+                                        <p-sortIcon field="generalLedgerMappingDisplayProperty"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="requestNo">
+                                        {{l('RequestNo')}}
+                                        <p-sortIcon field="materialRequest.requestNo"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="requestStatus">
+                                        {{l('RequestStatus')}}
+                                        <p-sortIcon field="materialRequest.requestStatus"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="materialName">
+                                        {{l('MaterialName')}}
+                                        <p-sortIcon field="materialRequest.materialName"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="description">
+                                        {{l('Description')}}
+                                        <p-sortIcon field="materialRequest.description"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="generalLedger">
+                                        {{l('GeneralLedger')}}
+                                        <p-sortIcon field="materialRequest.generalLedger"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="picture">
+                                        {{l('Picture')}}
+                                        <p-sortIcon field="materialRequest.picture"></p-sortIcon>
+                                    </th>
+
+                                </tr>
+                            </ng-template>                           
+							<ng-template pTemplate="body" let-record="$implicit" let-i="rowIndex">
+                                <tr>
+                                    <td style="width: 130px"
+                                        [hidden]="!isGrantedAny('Pages.MaterialRequests.Edit', 'Pages.MaterialRequests.Delete')">
+                                       <div class="btn-group dropdown" dropdown container="body">
+                                            <button class="dropdown-toggle btn btn-sm btn-primary" dropdownToggle>
+                                                <i class="fa fa-cog"></i><span class="caret"></span> {{l("Actions")}}
+                                            </button>
+												<ul class="dropdown-menu"  *dropdownMenu>
+										    <li>
+                                                <a *ngIf="permission.isGranted('Pages.MaterialRequests.Edit')" class="dropdown-item"
+			[routerLink]="['/app/main/masterDataRequest/materialRequests/view']" [queryParams]="{id: record.materialRequest.id}">
+  {{l('View')}}	
+</a>
+                                            </li>
+												<li>
+                                                 <a *ngIf="permission.isGranted('Pages.MaterialRequests.Edit')" class="dropdown-item"
+			[routerLink]="['/app/main/masterDataRequest/materialRequests/createOrEdit']" [queryParams]="{id: record.materialRequest.id}">
+  {{l('Edit')}}	
+</a>												
+                                                </li>
+												<li>
+											        <a class="dropdown-item" href="javascript:;" *ngIf="permission.isGranted('Pages.MaterialRequests.Delete')"
+														(click)="deleteMaterialRequest(record.materialRequest)">{{l('Delete')}}</a>
+												</li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td style="width:150px">
+												<span class="p-column-title"> {{l('DisplayProperty')}}</span>
+												{{record.unspscDisplayProperty}}
+											</td>
+                                    <td style="width:150px">
+												<span class="p-column-title"> {{l('DisplayProperty')}}</span>
+												{{record.generalLedgerMappingDisplayProperty}}
+											</td>
+                                    <td style="width:150px">
+											<span class="p-column-title"> {{l('RequestNo')}}</span>
+											{{record.materialRequest.requestNo}}
+										</td>
+                                    <td style="width:150px">
+										<span class="p-column-title"> {{l('RequestStatus')}}</span>
+										{{l( materialRequestStatus[record.materialRequest.requestStatus])}}
+                                    </td>
+                                    <td style="width:150px">
+											<span class="p-column-title"> {{l('MaterialName')}}</span>
+											{{record.materialRequest.materialName}}
+										</td>
+                                    <td style="width:150px">
+											<span class="p-column-title"> {{l('Description')}}</span>
+											{{record.materialRequest.description}}
+										</td>
+                                    <td style="width:150px">
+											<span class="p-column-title"> {{l('GeneralLedger')}}</span>
+											{{record.materialRequest.generalLedger}}
+										</td>
+                                    <td style="width:150px">
+											<span class="p-column-title"> {{l('Picture')}}</span>
+											<a href="{{getDownloadUrl(record.materialRequest.picture)}}" target="_blank">{{record.materialRequest.pictureFileName}}</a>
+										</td>
+
+                                </tr>
+                               
+                            </ng-template>
+                        </p-table>
+						<div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">
+                            {{l('NoData')}}
+                        </div>
+                        <div class="primeng-paging-container">
+                            <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage"
+                                         #paginator
+                                         (onPageChange)="getMaterialRequests($event)"
+                                         [totalRecords]="primengTableHelper.totalRecordsCount"
+                                         [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
+                                         [showCurrentPageReport]="true"
+                                         [currentPageReportTemplate]="'TotalRecordsCount' | localize:primengTableHelper.totalRecordsCount"    
+                            >
+                            </p-paginator>
+                        </div>
+                    </div>
+                    <!--<Primeng-Datatable-End>-->
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    
+    
+  </div>

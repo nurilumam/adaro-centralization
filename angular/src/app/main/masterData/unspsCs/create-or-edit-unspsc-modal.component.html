@@ -1,0 +1,55 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #unspscForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="unspsc.id">{{l("EditUNSPSC")}}</span>
+                        <span *ngIf="!unspsc.id">{{l("CreateNewUNSPSC")}}</span>
+                    </h4>                    
+                    
+                    
+                 <button type="button" class="btn-close" (click)="close()" aria-label="Close" [disabled]="saving"></button>
+             
+                </div>
+                <div class="modal-body">
+                 
+
+
+
+
+								<div class="my-3">
+									<label class="form-label" for="UNSPSC_UNSPSC_Code">{{l("UNSPSC_Code")}}</label>
+									<input type="text" #UNSPSC_UNSPSC_Code="ngModel" id="UNSPSC_UNSPSC_Code" class="form-control" [(ngModel)]="unspsc.unspsC_Code" name="UNSPSC_Code"   minlength="0"  maxlength="50" />
+								    <validation-messages [formCtrl]="UNSPSC_UNSPSC_Code"></validation-messages>
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" for="UNSPSC_Description">{{l("Description")}}</label>
+									<input type="text" #UNSPSC_Description="ngModel" id="UNSPSC_Description" class="form-control" [(ngModel)]="unspsc.description" name="Description"   minlength="0"  maxlength="255" />
+								    <validation-messages [formCtrl]="UNSPSC_Description"></validation-messages>
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" for="UNSPSC_AccountCode">{{l("AccountCode")}}</label>
+									<input type="text" #UNSPSC_AccountCode="ngModel" id="UNSPSC_AccountCode" class="form-control" [(ngModel)]="unspsc.accountCode" name="AccountCode"   minlength="0"  maxlength="255" />
+								    <validation-messages [formCtrl]="UNSPSC_AccountCode"></validation-messages>
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" for="UNSPSC_DescriptionId">{{l("DescriptionId")}}</label>
+									<input type="text" #UNSPSC_DescriptionId="ngModel" id="UNSPSC_DescriptionId" class="form-control" [(ngModel)]="unspsc.descriptionId" name="DescriptionId"    />
+								    <validation-messages [formCtrl]="UNSPSC_DescriptionId"></validation-messages>
+								</div>
+					
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!unspscForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

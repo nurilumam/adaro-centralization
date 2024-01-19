@@ -1,0 +1,61 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #generalLedgerMappingForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="generalLedgerMapping.id">{{l("EditGeneralLedgerMapping")}}</span>
+                        <span *ngIf="!generalLedgerMapping.id">{{l("CreateNewGeneralLedgerMapping")}}</span>
+                    </h4>                    
+                    
+                    
+                 <button type="button" class="btn-close" (click)="close()" aria-label="Close" [disabled]="saving"></button>
+             
+                </div>
+                <div class="modal-body">
+                 
+
+
+
+
+								<div class="my-3">
+									<label class="form-label" for="GeneralLedgerMapping_GLAccount">{{l("GLAccount")}} *</label>
+									<input type="text" #GeneralLedgerMapping_GLAccount="ngModel" id="GeneralLedgerMapping_GLAccount" class="form-control" [(ngModel)]="generalLedgerMapping.glAccount" name="GLAccount"   minlength="0"  maxlength="255"  required/>
+								    <validation-messages [formCtrl]="GeneralLedgerMapping_GLAccount"></validation-messages>
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" for="GeneralLedgerMapping_GLAccountDescription">{{l("GLAccountDescription")}}</label>
+									<input type="text" #GeneralLedgerMapping_GLAccountDescription="ngModel" id="GeneralLedgerMapping_GLAccountDescription" class="form-control" [(ngModel)]="generalLedgerMapping.glAccountDescription" name="GLAccountDescription"   minlength="0"  maxlength="255" />
+								    <validation-messages [formCtrl]="GeneralLedgerMapping_GLAccountDescription"></validation-messages>
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" for="GeneralLedgerMapping_MappingType">{{l("MappingType")}} *</label>
+									<input type="text" #GeneralLedgerMapping_MappingType="ngModel" id="GeneralLedgerMapping_MappingType" class="form-control" [(ngModel)]="generalLedgerMapping.mappingType" name="MappingType"   minlength="0"  maxlength="50"  required/>
+								    <validation-messages [formCtrl]="GeneralLedgerMapping_MappingType"></validation-messages>
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" for="GeneralLedgerMapping_ValuationClass">{{l("ValuationClass")}} *</label>
+									<input type="text" #GeneralLedgerMapping_ValuationClass="ngModel" id="GeneralLedgerMapping_ValuationClass" class="form-control" [(ngModel)]="generalLedgerMapping.valuationClass" name="ValuationClass"   minlength="0"  maxlength="255"  required/>
+								    <validation-messages [formCtrl]="GeneralLedgerMapping_ValuationClass"></validation-messages>
+								</div>
+					
+								<div class="my-3">
+									<label class="form-label" for="GeneralLedgerMapping_ValuationClassDescription">{{l("ValuationClassDescription")}}</label>
+									<input type="text" #GeneralLedgerMapping_ValuationClassDescription="ngModel" id="GeneralLedgerMapping_ValuationClassDescription" class="form-control" [(ngModel)]="generalLedgerMapping.valuationClassDescription" name="ValuationClassDescription"   minlength="0"  maxlength="255" />
+								    <validation-messages [formCtrl]="GeneralLedgerMapping_ValuationClassDescription"></validation-messages>
+								</div>
+					
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!generalLedgerMappingForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

@@ -45661,7 +45661,7 @@ body,
 }
 .app-navbar {
   display: flex;
-  align-items: stretch;
+  align-items: center;
 }
 .app-navbar .app-navbar-item {
   display: flex;
@@ -47286,10 +47286,10 @@ html:not([data-theme=dark]) {
     transform: rotateZ(0deg) !important;
   }
   .app-sidebar-logo {
-    height: var(--kt-app-header-height);
+    height: 125px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     position: relative;
     flex-shrink: 0;
   }
@@ -47342,6 +47342,11 @@ html:not([data-theme=dark]) {
     width: auto;
     display: block;
   }
+  
+  [data-kt-app-sidebar-minimize=on][data-kt-app-sidebar-hoverable=true] .app-sidebar:not(:hover) .app-sidebar-logo {
+    height: var(--kt-app-header-height);
+  }
+
   [data-kt-app-sidebar-minimize=on][data-kt-app-sidebar-hoverable=true] .app-sidebar:not(:hover) .app-sidebar-logo .app-sidebar-logo-default {
     display: none;
   }
@@ -47375,7 +47380,9 @@ html:not([data-theme=dark]) {
   }
 }
 [data-kt-app-layout=dark-sidebar] .app-sidebar {
-  background-color: #1e1e2d;
+  /* background-color: #1e1e2d; */
+  background-color: #337362;
+  background: linear-gradient(112.14deg, #337362 0%, #15853E 100%);
   border-right: 0 !important;
 }
 [data-kt-app-layout=dark-sidebar] .app-sidebar .hover-scroll-overlay-y {
@@ -47421,7 +47428,7 @@ html:not([data-theme=dark]) {
   color: #9D9DA6;
 }
 [data-kt-app-layout=dark-sidebar] .app-sidebar .menu .menu-item .menu-link .menu-title {
-  color: #9D9DA6;
+  color: #DBDFE9;
 }
 [data-kt-app-layout=dark-sidebar] .app-sidebar .menu .menu-item .menu-link .menu-icon,
 [data-kt-app-layout=dark-sidebar] .app-sidebar .menu .menu-item .menu-link .menu-icon .svg-icon,
@@ -47552,7 +47559,7 @@ html:not([data-theme=dark]) {
 }
 [data-kt-app-layout=dark-sidebar] .app-sidebar .menu .menu-item .menu-link.active {
   transition: color 0.2s ease;
-  background-color: #2A2A3C;
+  background-color: #125146;
   color: var(--kt-primary-inverse);
 }
 [data-kt-app-layout=dark-sidebar] .app-sidebar .menu .menu-item .menu-link.active .menu-title {
@@ -48342,4 +48349,7 @@ html:not([data-theme=dark]) {
   [data-kt-app-layout=dark-header] .app-header .page-heading {
     color: #ffffff !important;
   }
+}
+.menuSearchBarContainer.p-autocomplete {
+  display: block;
 }

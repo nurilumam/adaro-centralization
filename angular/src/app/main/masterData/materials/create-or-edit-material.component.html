@@ -1,0 +1,284 @@
+﻿<div [@routerTransition]>
+    <sub-header
+        [title]="('Materials' | localize) + ' ' + ('Details' | localize)"
+        [breadcrumbs]="breadcrumbs"
+    ></sub-header>
+
+    <div [class]="containerClass">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form-group m-form__group">
+                    <label for="MaterialGroupDisplayProperty">{{ l('MaterialGroup') }}</label>
+                    <div class="input-group">
+                        <input
+                            class="form-control"
+                            id="MaterialGroupDisplayProperty"
+                            name="materialGroupDisplayProperty"
+                            [(ngModel)]="materialGroupDisplayProperty"
+                            type="text"
+                            disabled
+                        />
+                        <div class="input-group-append">
+                            <button class="btn btn-primary blue" (click)="openSelectMaterialGroupModal()" type="button">
+                                <i class="fa fa-search"></i>
+                                {{ l('Pick') }}
+                            </button>
+                        </div>
+                        <div class="input-group-prepend">
+                            <button class="btn btn-danger btn-icon" type="button" (click)="setMaterialGroupIdNull()">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <input
+                    class="form-control"
+                    name="material.materialGroupId"
+                    [(ngModel)]="material.materialGroupId"
+                    type="text"
+                    hidden
+                />
+
+                <div class="form-group m-form__group">
+                    <label for="UNSPSCDisplayProperty">{{ l('UNSPSC') }}</label>
+                    <div class="input-group">
+                        <input
+                            class="form-control"
+                            id="UNSPSCDisplayProperty"
+                            name="unspscDisplayProperty"
+                            [(ngModel)]="unspscDisplayProperty"
+                            type="text"
+                            disabled
+                        />
+                        <div class="input-group-append">
+                            <button class="btn btn-primary blue" (click)="openSelectUNSPSCModal()" type="button">
+                                <i class="fa fa-search"></i>
+                                {{ l('Pick') }}
+                            </button>
+                        </div>
+                        <div class="input-group-prepend">
+                            <button class="btn btn-danger btn-icon" type="button" (click)="setUNSPSCIdNull()">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <input
+                    class="form-control"
+                    name="material.unspscId"
+                    [(ngModel)]="material.unspscId"
+                    type="text"
+                    hidden
+                />
+
+                <div class="form-group m-form__group">
+                    <label for="GeneralLedgerMappingDisplayProperty">{{ l('GeneralLedgerMapping') }}</label>
+                    <div class="input-group">
+                        <input
+                            class="form-control"
+                            id="GeneralLedgerMappingDisplayProperty"
+                            name="generalLedgerMappingDisplayProperty"
+                            [(ngModel)]="generalLedgerMappingDisplayProperty"
+                            type="text"
+                            disabled
+                        />
+                        <div class="input-group-append">
+                            <button
+                                class="btn btn-primary blue"
+                                (click)="openSelectGeneralLedgerMappingModal()"
+                                type="button"
+                            >
+                                <i class="fa fa-search"></i>
+                                {{ l('Pick') }}
+                            </button>
+                        </div>
+                        <div class="input-group-prepend">
+                            <button
+                                class="btn btn-danger btn-icon"
+                                type="button"
+                                (click)="setGeneralLedgerMappingIdNull()"
+                            >
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <input
+                    class="form-control"
+                    name="material.generalLedgerMappingId"
+                    [(ngModel)]="material.generalLedgerMappingId"
+                    type="text"
+                    hidden
+                />
+
+                <div class="form-group">
+                    <label for="Material_MaterialNo">{{ l('MaterialNo') }} *</label>
+                    <input
+                        type="text"
+                        #Material_MaterialNo="ngModel"
+                        id="Material_MaterialNo"
+                        class="form-control"
+                        [(ngModel)]="material.materialNo"
+                        name="MaterialNo"
+                        required
+                    />
+                    <validation-messages [formCtrl]="Material_MaterialNo"></validation-messages>
+                </div>
+
+                <div class="form-group">
+                    <label for="Material_MaterialName">{{ l('MaterialName') }} *</label>
+                    <input
+                        type="text"
+                        #Material_MaterialName="ngModel"
+                        id="Material_MaterialName"
+                        class="form-control"
+                        [(ngModel)]="material.materialName"
+                        name="MaterialName"
+                        required
+                    />
+                    <validation-messages [formCtrl]="Material_MaterialName"></validation-messages>
+                </div>
+
+                <div class="form-group">
+                    <label for="Material_MaterialNameSAP">{{ l('MaterialNameSAP') }}</label>
+                    <input
+                        type="text"
+                        #Material_MaterialNameSAP="ngModel"
+                        id="Material_MaterialNameSAP"
+                        class="form-control"
+                        [(ngModel)]="material.materialNameSAP"
+                        name="MaterialNameSAP"
+                    />
+                    <validation-messages [formCtrl]="Material_MaterialNameSAP"></validation-messages>
+                </div>
+
+                <div class="form-group">
+                    <label for="Material_Description">{{ l('Description') }} *</label>
+                    <input
+                        type="text"
+                        #Material_Description="ngModel"
+                        id="Material_Description"
+                        class="form-control"
+                        [(ngModel)]="material.description"
+                        name="Description"
+                        required
+                    />
+                    <validation-messages [formCtrl]="Material_Description"></validation-messages>
+                </div>
+
+                <div class="form-group">
+                    <label for="Material_Size">{{ l('Size') }}</label>
+                    <input
+                        type="text"
+                        #Material_Size="ngModel"
+                        id="Material_Size"
+                        class="form-control"
+                        [(ngModel)]="material.size"
+                        name="Size"
+                    />
+                    <validation-messages [formCtrl]="Material_Size"></validation-messages>
+                </div>
+
+                <div class="form-group">
+                    <label for="Material_UoM">{{ l('UoM') }} *</label>
+                    <input
+                        type="text"
+                        #Material_UoM="ngModel"
+                        id="Material_UoM"
+                        class="form-control"
+                        [(ngModel)]="material.uoM"
+                        name="UoM"
+                        required
+                    />
+                    <validation-messages [formCtrl]="Material_UoM"></validation-messages>
+                </div>
+
+                <div class="form-group">
+                    <label for="Material_Brand">{{ l('Brand') }}</label>
+                    <input
+                        type="text"
+                        #Material_Brand="ngModel"
+                        id="Material_Brand"
+                        class="form-control"
+                        [(ngModel)]="material.brand"
+                        name="Brand"
+                    />
+                    <validation-messages [formCtrl]="Material_Brand"></validation-messages>
+                </div>
+
+                <div class="my-3">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroupFileAddon01">{{ l('ImageMain') }}</span>
+                        <div class="custom-file">
+                            <input
+                                type="file"
+                                class="custom-file-input"
+                                id="Material_ImageMain"
+                                name="Material_ImageMain"
+                                aria-describedby="inputGroupFileAddon01"
+                                (change)="onSelectImageMainFile($event)"
+                                [accept]="imageMainFileAcceptedTypes"
+                            />
+                            <label class="custom-file-label" #Material_ImageMainLabel for="Material_ImageMain">
+                                {{ l('ChooseAFile') }}
+                            </label>
+                        </div>
+                    </div>
+
+                    <div *ngIf="imageMainFileName" style="background-color: #e5e5e5; padding: 5px">
+                        <span class="font-weight-bold">{{ 'CurrentFile' | localize }} :</span>
+                        <div class="alert alert-custom alert-white alert-bold m-1" role="alert">
+                            <div class="alert-text">
+                                <a href="{{ getDownloadUrl(material.imageMain) }}" target="_blank">
+                                    {{ imageMainFileName }}
+                                </a>
+                            </div>
+                            <div class="alert-close">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true" (click)="removeImageMainFile()">
+                                        <i class="la la-close fa-1x"></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="col-lg-12">
+                    <button
+                        (click)="save()"
+                        class="btn btn-primary blue float-right"
+                        [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot')"
+                    >
+                        <i class="fa fa-save"></i>
+                        <span>{{ l('Save') }}</span>
+                    </button>
+                    <button
+                        *ngIf="!this.material.id"
+                        (click)="saveAndNew()"
+                        class="btn btn-primary blue float-right"
+                        [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot')"
+                    >
+                        <i class="fa fa-save"></i>
+                        <span>{{ l('SaveAndNew') }}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<materialMaterialGroupLookupTableModal
+    #materialMaterialGroupLookupTableModal
+    (modalSave)="getNewMaterialGroupId()"
+></materialMaterialGroupLookupTableModal>
+<materialUNSPSCLookupTableModal
+    #materialUNSPSCLookupTableModal
+    (modalSave)="getNewUNSPSCId()"
+></materialUNSPSCLookupTableModal>
+<materialGeneralLedgerMappingLookupTableModal
+    #materialGeneralLedgerMappingLookupTableModal
+    (modalSave)="getNewGeneralLedgerMappingId()"
+></materialGeneralLedgerMappingLookupTableModal>

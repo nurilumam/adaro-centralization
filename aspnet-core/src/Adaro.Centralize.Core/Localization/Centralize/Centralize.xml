@@ -1,6 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="EnumTable">Enum table</text>
+  <texts>
+    <text name="MaterialRequestsHeaderInfo">Material requests header info</text>
+
+    <text name="MasterDataRequest">Master data request</text>
+    <text name="MaterialRequest">Material request</text>
+    <text name="Adaro.Centralize.MasterDataRequest.MaterialRequest">MaterialRequest</text>
+    <text name="RequestStatus">Request status</text>
+    <text name="Purpose">Purpose</text>
+    <text name="MaterialType">Material type</text>
+    <text name="PackageSize">Package size</text>
+    <text name="GeneralLedger">General ledger</text>
+    <text name="Weight">Weight</text>
+    <text name="Picture">Picture</text>
+    <text name="ImageColletion">Image colletion</text>
+    <text name="
+		  HeaderInfo">Material requests header info</text>
+    <text name="CreateNewMaterialRequest">Create new material request</text>
+    <text name="EditMaterialRequest">Edit material request</text>
+    <text name="DeleteMaterialRequest">Delete material request</text>
+    <text name="MaterialRequests">Material requests</text>
+    <text name="Enum_MaterialRequestStatus_0">New</text>
+    <text name="Enum_MaterialRequestStatus_1">Submitted</text>
+    <text name="Enum_MaterialRequestStatus_2">Rejected</text>
+    <text name="Enum_MaterialRequestStatus_3">VerifyCataloger</text>
+    <text name="Enum_MaterialRequestStatus_4">VerifyBudget</text>
+    <text name="Enum_MaterialRequestStatus_5">SubmittedHolding</text>
+    <text name="Enum_MaterialRequestStatus_6">Registred</text>
+    <text name="EnumTable">Enum table</text>
     <text name="Adaro.Centralize.MasterData.EnumTable">EnumTable</text>
     <text name="EnumCode">Enum code</text>
     <text name="EnumValue">Enum value</text>
