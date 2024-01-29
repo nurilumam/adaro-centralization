@@ -44,6 +44,7 @@ using HealthChecksUISettings = HealthChecks.UI.Configuration.Settings;
 using Microsoft.AspNetCore.Server.Kestrel.Https;
 using Adaro.Centralize.Web.MultiTenancy;
 using Abp.HtmlSanitizer;
+using Adaro.Centralize.Authorization.Ldap;
 
 namespace Adaro.Centralize.Web.Startup
 {
@@ -142,6 +143,8 @@ namespace Adaro.Centralize.Web.Startup
             {
                 ConfigureHealthChecks(services);
             }
+
+            
 
             //Configure Abp and Dependency Injection
             return services.AddAbp<CentralizeWebHostModule>(options =>

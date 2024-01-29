@@ -43,6 +43,8 @@ using Abp.Extensions;
 using Abp.HtmlSanitizer;
 using Abp.HtmlSanitizer.Configuration;
 using Adaro.Centralize.Authorization.Accounts;
+using Abp.Zero.Ldap.Configuration;
+using Adaro.Centralize.Authorization.Ldap;
 
 namespace Adaro.Centralize.Web
 {
@@ -113,6 +115,8 @@ namespace Adaro.Centralize.Web
                 .KeepChildNodes()
                 .AddSelector<IAccountAppService>(x => nameof(x.IsTenantAvailable))
                 .AddSelector<IAccountAppService>(x => nameof(x.Register));
+
+            Configuration.Modules.ZeroLdap().Enable(typeof(AppLdapAuthenticationSource));
         }
 
         private void ConfigureTokenAuth()

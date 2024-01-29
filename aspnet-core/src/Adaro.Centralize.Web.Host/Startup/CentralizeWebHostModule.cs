@@ -22,6 +22,8 @@ using Adaro.Centralize.Configuration;
 using Adaro.Centralize.EntityFrameworkCore;
 using Adaro.Centralize.MultiTenancy;
 using Adaro.Centralize.Web.Startup.ExternalLoginInfoProviders;
+using Abp.Zero.Ldap.Configuration;
+using Adaro.Centralize.Authorization.Ldap;
 
 namespace Adaro.Centralize.Web.Startup
 {
@@ -45,6 +47,7 @@ namespace Adaro.Centralize.Web.Startup
             Configuration.Modules.AbpWebCommon().MultiTenancy.DomainFormat =
                 _appConfiguration["App:ServerRootAddress"] ?? "https://localhost:44301/";
             Configuration.Modules.AspNetZero().LicenseCode = _appConfiguration["AbpZeroLicenseCode"];
+            Configuration.Modules.ZeroLdap().Enable(typeof(AppLdapAuthenticationSource));
         }
 
         public override void Initialize()
