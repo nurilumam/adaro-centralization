@@ -1,3 +1,0 @@
-{
-	"path" : "{{namespace_Relative_Full_Reverse_Slash_Here}}\\{{entity_Name_Here}}.page.ts"
-}
