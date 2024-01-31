@@ -2259,6 +2259,411 @@ export class CommonLookupServiceProxy {
 }
 
 @Injectable()
+export class CostCentersServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param controllingAreaFilter (optional) 
+     * @param costCenterNameFilter (optional) 
+     * @param descriptionFilter (optional) 
+     * @param actStateFilter (optional) 
+     * @param isActiveFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | undefined, controllingAreaFilter: string | undefined, costCenterNameFilter: string | undefined, descriptionFilter: string | undefined, actStateFilter: string | undefined, isActiveFilter: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetCostCenterForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/CostCenters/GetAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (controllingAreaFilter === null)
+            throw new Error("The parameter 'controllingAreaFilter' cannot be null.");
+        else if (controllingAreaFilter !== undefined)
+            url_ += "ControllingAreaFilter=" + encodeURIComponent("" + controllingAreaFilter) + "&";
+        if (costCenterNameFilter === null)
+            throw new Error("The parameter 'costCenterNameFilter' cannot be null.");
+        else if (costCenterNameFilter !== undefined)
+            url_ += "CostCenterNameFilter=" + encodeURIComponent("" + costCenterNameFilter) + "&";
+        if (descriptionFilter === null)
+            throw new Error("The parameter 'descriptionFilter' cannot be null.");
+        else if (descriptionFilter !== undefined)
+            url_ += "DescriptionFilter=" + encodeURIComponent("" + descriptionFilter) + "&";
+        if (actStateFilter === null)
+            throw new Error("The parameter 'actStateFilter' cannot be null.");
+        else if (actStateFilter !== undefined)
+            url_ += "ActStateFilter=" + encodeURIComponent("" + actStateFilter) + "&";
+        if (isActiveFilter === null)
+            throw new Error("The parameter 'isActiveFilter' cannot be null.");
+        else if (isActiveFilter !== undefined)
+            url_ += "IsActiveFilter=" + encodeURIComponent("" + isActiveFilter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<PagedResultDtoOfGetCostCenterForViewDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<PagedResultDtoOfGetCostCenterForViewDto>;
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetCostCenterForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetCostCenterForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getCostCenterForView(id: string | undefined): Observable<GetCostCenterForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/CostCenters/GetCostCenterForView?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCostCenterForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCostCenterForView(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetCostCenterForViewDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetCostCenterForViewDto>;
+        }));
+    }
+
+    protected processGetCostCenterForView(response: HttpResponseBase): Observable<GetCostCenterForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetCostCenterForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getCostCenterForEdit(id: string | undefined): Observable<GetCostCenterForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/CostCenters/GetCostCenterForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCostCenterForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCostCenterForEdit(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetCostCenterForEditOutput>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetCostCenterForEditOutput>;
+        }));
+    }
+
+    protected processGetCostCenterForEdit(response: HttpResponseBase): Observable<GetCostCenterForEditOutput> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetCostCenterForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditCostCenterDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/CostCenters/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: string | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/CostCenters/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param controllingAreaFilter (optional) 
+     * @param costCenterNameFilter (optional) 
+     * @param descriptionFilter (optional) 
+     * @param actStateFilter (optional) 
+     * @param isActiveFilter (optional) 
+     * @return Success
+     */
+    getCostCentersToExcel(filter: string | undefined, controllingAreaFilter: string | undefined, costCenterNameFilter: string | undefined, descriptionFilter: string | undefined, actStateFilter: string | undefined, isActiveFilter: number | undefined): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/CostCenters/GetCostCentersToExcel?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (controllingAreaFilter === null)
+            throw new Error("The parameter 'controllingAreaFilter' cannot be null.");
+        else if (controllingAreaFilter !== undefined)
+            url_ += "ControllingAreaFilter=" + encodeURIComponent("" + controllingAreaFilter) + "&";
+        if (costCenterNameFilter === null)
+            throw new Error("The parameter 'costCenterNameFilter' cannot be null.");
+        else if (costCenterNameFilter !== undefined)
+            url_ += "CostCenterNameFilter=" + encodeURIComponent("" + costCenterNameFilter) + "&";
+        if (descriptionFilter === null)
+            throw new Error("The parameter 'descriptionFilter' cannot be null.");
+        else if (descriptionFilter !== undefined)
+            url_ += "DescriptionFilter=" + encodeURIComponent("" + descriptionFilter) + "&";
+        if (actStateFilter === null)
+            throw new Error("The parameter 'actStateFilter' cannot be null.");
+        else if (actStateFilter !== undefined)
+            url_ += "ActStateFilter=" + encodeURIComponent("" + actStateFilter) + "&";
+        if (isActiveFilter === null)
+            throw new Error("The parameter 'isActiveFilter' cannot be null.");
+        else if (isActiveFilter !== undefined)
+            url_ += "IsActiveFilter=" + encodeURIComponent("" + isActiveFilter) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCostCentersToExcel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCostCentersToExcel(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<FileDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<FileDto>;
+        }));
+    }
+
+    protected processGetCostCentersToExcel(response: HttpResponseBase): Observable<FileDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FileDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
+@Injectable()
 export class DashboardCustomizationServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -2862,6 +3267,791 @@ export class DashboardCustomizationServiceProxy {
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
     
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
+@Injectable()
+export class DataProductionsServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param intfIdFilter (optional) 
+     * @param intfSiteFilter (optional) 
+     * @param intfSessionFilter (optional) 
+     * @param objectIdFilter (optional) 
+     * @param messageTypeFilter (optional) 
+     * @param materialDocumentFilter (optional) 
+     * @param maxMaterialDocYearFilter (optional) 
+     * @param minMaterialDocYearFilter (optional) 
+     * @param maxMaterialDocItemFilter (optional) 
+     * @param minMaterialDocItemFilter (optional) 
+     * @param orderFilter (optional) 
+     * @param maxReservationFilter (optional) 
+     * @param minReservationFilter (optional) 
+     * @param purchaseOrderFilter (optional) 
+     * @param maxPurchaseOrderItemFilter (optional) 
+     * @param minPurchaseOrderItemFilter (optional) 
+     * @param movementTypeFilter (optional) 
+     * @param movementTypeTextFilter (optional) 
+     * @param plantFilter (optional) 
+     * @param storageLocationFilter (optional) 
+     * @param materialFilter (optional) 
+     * @param materialDescriptionFilter (optional) 
+     * @param vendorFilter (optional) 
+     * @param maxQuantityFilter (optional) 
+     * @param minQuantityFilter (optional) 
+     * @param maxQtyInOrderUnitFilter (optional) 
+     * @param minQtyInOrderUnitFilter (optional) 
+     * @param unitOfEntryFilter (optional) 
+     * @param maxPostingDateFilter (optional) 
+     * @param minPostingDateFilter (optional) 
+     * @param maxEntryDateFilter (optional) 
+     * @param minEntryDateFilter (optional) 
+     * @param timeOfEntryFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @param documentHeaderTextFilter (optional) 
+     * @param maxDocumentDateFilter (optional) 
+     * @param minDocumentDateFilter (optional) 
+     * @param batchFilter (optional) 
+     * @param costCenterFilter (optional) 
+     * @param referenceFilter (optional) 
+     * @param maxInterfaceCreatedDateFilter (optional) 
+     * @param minInterfaceCreatedDateFilter (optional) 
+     * @param interfaceCreatedByFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | undefined, intfIdFilter: string | undefined, intfSiteFilter: string | undefined, intfSessionFilter: string | undefined, objectIdFilter: string | undefined, messageTypeFilter: string | undefined, materialDocumentFilter: string | undefined, maxMaterialDocYearFilter: number | undefined, minMaterialDocYearFilter: number | undefined, maxMaterialDocItemFilter: number | undefined, minMaterialDocItemFilter: number | undefined, orderFilter: string | undefined, maxReservationFilter: number | undefined, minReservationFilter: number | undefined, purchaseOrderFilter: string | undefined, maxPurchaseOrderItemFilter: number | undefined, minPurchaseOrderItemFilter: number | undefined, movementTypeFilter: string | undefined, movementTypeTextFilter: string | undefined, plantFilter: string | undefined, storageLocationFilter: string | undefined, materialFilter: string | undefined, materialDescriptionFilter: string | undefined, vendorFilter: string | undefined, maxQuantityFilter: number | undefined, minQuantityFilter: number | undefined, maxQtyInOrderUnitFilter: number | undefined, minQtyInOrderUnitFilter: number | undefined, unitOfEntryFilter: string | undefined, maxPostingDateFilter: DateTime | undefined, minPostingDateFilter: DateTime | undefined, maxEntryDateFilter: DateTime | undefined, minEntryDateFilter: DateTime | undefined, timeOfEntryFilter: string | undefined, userNameFilter: string | undefined, documentHeaderTextFilter: string | undefined, maxDocumentDateFilter: DateTime | undefined, minDocumentDateFilter: DateTime | undefined, batchFilter: string | undefined, costCenterFilter: string | undefined, referenceFilter: string | undefined, maxInterfaceCreatedDateFilter: DateTime | undefined, minInterfaceCreatedDateFilter: DateTime | undefined, interfaceCreatedByFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetDataProductionForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/DataProductions/GetAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (intfIdFilter === null)
+            throw new Error("The parameter 'intfIdFilter' cannot be null.");
+        else if (intfIdFilter !== undefined)
+            url_ += "IntfIdFilter=" + encodeURIComponent("" + intfIdFilter) + "&";
+        if (intfSiteFilter === null)
+            throw new Error("The parameter 'intfSiteFilter' cannot be null.");
+        else if (intfSiteFilter !== undefined)
+            url_ += "IntfSiteFilter=" + encodeURIComponent("" + intfSiteFilter) + "&";
+        if (intfSessionFilter === null)
+            throw new Error("The parameter 'intfSessionFilter' cannot be null.");
+        else if (intfSessionFilter !== undefined)
+            url_ += "IntfSessionFilter=" + encodeURIComponent("" + intfSessionFilter) + "&";
+        if (objectIdFilter === null)
+            throw new Error("The parameter 'objectIdFilter' cannot be null.");
+        else if (objectIdFilter !== undefined)
+            url_ += "ObjectIdFilter=" + encodeURIComponent("" + objectIdFilter) + "&";
+        if (messageTypeFilter === null)
+            throw new Error("The parameter 'messageTypeFilter' cannot be null.");
+        else if (messageTypeFilter !== undefined)
+            url_ += "MessageTypeFilter=" + encodeURIComponent("" + messageTypeFilter) + "&";
+        if (materialDocumentFilter === null)
+            throw new Error("The parameter 'materialDocumentFilter' cannot be null.");
+        else if (materialDocumentFilter !== undefined)
+            url_ += "MaterialDocumentFilter=" + encodeURIComponent("" + materialDocumentFilter) + "&";
+        if (maxMaterialDocYearFilter === null)
+            throw new Error("The parameter 'maxMaterialDocYearFilter' cannot be null.");
+        else if (maxMaterialDocYearFilter !== undefined)
+            url_ += "MaxMaterialDocYearFilter=" + encodeURIComponent("" + maxMaterialDocYearFilter) + "&";
+        if (minMaterialDocYearFilter === null)
+            throw new Error("The parameter 'minMaterialDocYearFilter' cannot be null.");
+        else if (minMaterialDocYearFilter !== undefined)
+            url_ += "MinMaterialDocYearFilter=" + encodeURIComponent("" + minMaterialDocYearFilter) + "&";
+        if (maxMaterialDocItemFilter === null)
+            throw new Error("The parameter 'maxMaterialDocItemFilter' cannot be null.");
+        else if (maxMaterialDocItemFilter !== undefined)
+            url_ += "MaxMaterialDocItemFilter=" + encodeURIComponent("" + maxMaterialDocItemFilter) + "&";
+        if (minMaterialDocItemFilter === null)
+            throw new Error("The parameter 'minMaterialDocItemFilter' cannot be null.");
+        else if (minMaterialDocItemFilter !== undefined)
+            url_ += "MinMaterialDocItemFilter=" + encodeURIComponent("" + minMaterialDocItemFilter) + "&";
+        if (orderFilter === null)
+            throw new Error("The parameter 'orderFilter' cannot be null.");
+        else if (orderFilter !== undefined)
+            url_ += "OrderFilter=" + encodeURIComponent("" + orderFilter) + "&";
+        if (maxReservationFilter === null)
+            throw new Error("The parameter 'maxReservationFilter' cannot be null.");
+        else if (maxReservationFilter !== undefined)
+            url_ += "MaxReservationFilter=" + encodeURIComponent("" + maxReservationFilter) + "&";
+        if (minReservationFilter === null)
+            throw new Error("The parameter 'minReservationFilter' cannot be null.");
+        else if (minReservationFilter !== undefined)
+            url_ += "MinReservationFilter=" + encodeURIComponent("" + minReservationFilter) + "&";
+        if (purchaseOrderFilter === null)
+            throw new Error("The parameter 'purchaseOrderFilter' cannot be null.");
+        else if (purchaseOrderFilter !== undefined)
+            url_ += "PurchaseOrderFilter=" + encodeURIComponent("" + purchaseOrderFilter) + "&";
+        if (maxPurchaseOrderItemFilter === null)
+            throw new Error("The parameter 'maxPurchaseOrderItemFilter' cannot be null.");
+        else if (maxPurchaseOrderItemFilter !== undefined)
+            url_ += "MaxPurchaseOrderItemFilter=" + encodeURIComponent("" + maxPurchaseOrderItemFilter) + "&";
+        if (minPurchaseOrderItemFilter === null)
+            throw new Error("The parameter 'minPurchaseOrderItemFilter' cannot be null.");
+        else if (minPurchaseOrderItemFilter !== undefined)
+            url_ += "MinPurchaseOrderItemFilter=" + encodeURIComponent("" + minPurchaseOrderItemFilter) + "&";
+        if (movementTypeFilter === null)
+            throw new Error("The parameter 'movementTypeFilter' cannot be null.");
+        else if (movementTypeFilter !== undefined)
+            url_ += "MovementTypeFilter=" + encodeURIComponent("" + movementTypeFilter) + "&";
+        if (movementTypeTextFilter === null)
+            throw new Error("The parameter 'movementTypeTextFilter' cannot be null.");
+        else if (movementTypeTextFilter !== undefined)
+            url_ += "MovementTypeTextFilter=" + encodeURIComponent("" + movementTypeTextFilter) + "&";
+        if (plantFilter === null)
+            throw new Error("The parameter 'plantFilter' cannot be null.");
+        else if (plantFilter !== undefined)
+            url_ += "PlantFilter=" + encodeURIComponent("" + plantFilter) + "&";
+        if (storageLocationFilter === null)
+            throw new Error("The parameter 'storageLocationFilter' cannot be null.");
+        else if (storageLocationFilter !== undefined)
+            url_ += "StorageLocationFilter=" + encodeURIComponent("" + storageLocationFilter) + "&";
+        if (materialFilter === null)
+            throw new Error("The parameter 'materialFilter' cannot be null.");
+        else if (materialFilter !== undefined)
+            url_ += "MaterialFilter=" + encodeURIComponent("" + materialFilter) + "&";
+        if (materialDescriptionFilter === null)
+            throw new Error("The parameter 'materialDescriptionFilter' cannot be null.");
+        else if (materialDescriptionFilter !== undefined)
+            url_ += "MaterialDescriptionFilter=" + encodeURIComponent("" + materialDescriptionFilter) + "&";
+        if (vendorFilter === null)
+            throw new Error("The parameter 'vendorFilter' cannot be null.");
+        else if (vendorFilter !== undefined)
+            url_ += "VendorFilter=" + encodeURIComponent("" + vendorFilter) + "&";
+        if (maxQuantityFilter === null)
+            throw new Error("The parameter 'maxQuantityFilter' cannot be null.");
+        else if (maxQuantityFilter !== undefined)
+            url_ += "MaxQuantityFilter=" + encodeURIComponent("" + maxQuantityFilter) + "&";
+        if (minQuantityFilter === null)
+            throw new Error("The parameter 'minQuantityFilter' cannot be null.");
+        else if (minQuantityFilter !== undefined)
+            url_ += "MinQuantityFilter=" + encodeURIComponent("" + minQuantityFilter) + "&";
+        if (maxQtyInOrderUnitFilter === null)
+            throw new Error("The parameter 'maxQtyInOrderUnitFilter' cannot be null.");
+        else if (maxQtyInOrderUnitFilter !== undefined)
+            url_ += "MaxQtyInOrderUnitFilter=" + encodeURIComponent("" + maxQtyInOrderUnitFilter) + "&";
+        if (minQtyInOrderUnitFilter === null)
+            throw new Error("The parameter 'minQtyInOrderUnitFilter' cannot be null.");
+        else if (minQtyInOrderUnitFilter !== undefined)
+            url_ += "MinQtyInOrderUnitFilter=" + encodeURIComponent("" + minQtyInOrderUnitFilter) + "&";
+        if (unitOfEntryFilter === null)
+            throw new Error("The parameter 'unitOfEntryFilter' cannot be null.");
+        else if (unitOfEntryFilter !== undefined)
+            url_ += "UnitOfEntryFilter=" + encodeURIComponent("" + unitOfEntryFilter) + "&";
+        if (maxPostingDateFilter === null)
+            throw new Error("The parameter 'maxPostingDateFilter' cannot be null.");
+        else if (maxPostingDateFilter !== undefined)
+            url_ += "MaxPostingDateFilter=" + encodeURIComponent(maxPostingDateFilter ? "" + maxPostingDateFilter.toString() : "") + "&";
+        if (minPostingDateFilter === null)
+            throw new Error("The parameter 'minPostingDateFilter' cannot be null.");
+        else if (minPostingDateFilter !== undefined)
+            url_ += "MinPostingDateFilter=" + encodeURIComponent(minPostingDateFilter ? "" + minPostingDateFilter.toString() : "") + "&";
+        if (maxEntryDateFilter === null)
+            throw new Error("The parameter 'maxEntryDateFilter' cannot be null.");
+        else if (maxEntryDateFilter !== undefined)
+            url_ += "MaxEntryDateFilter=" + encodeURIComponent(maxEntryDateFilter ? "" + maxEntryDateFilter.toString() : "") + "&";
+        if (minEntryDateFilter === null)
+            throw new Error("The parameter 'minEntryDateFilter' cannot be null.");
+        else if (minEntryDateFilter !== undefined)
+            url_ += "MinEntryDateFilter=" + encodeURIComponent(minEntryDateFilter ? "" + minEntryDateFilter.toString() : "") + "&";
+        if (timeOfEntryFilter === null)
+            throw new Error("The parameter 'timeOfEntryFilter' cannot be null.");
+        else if (timeOfEntryFilter !== undefined)
+            url_ += "TimeOfEntryFilter=" + encodeURIComponent("" + timeOfEntryFilter) + "&";
+        if (userNameFilter === null)
+            throw new Error("The parameter 'userNameFilter' cannot be null.");
+        else if (userNameFilter !== undefined)
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&";
+        if (documentHeaderTextFilter === null)
+            throw new Error("The parameter 'documentHeaderTextFilter' cannot be null.");
+        else if (documentHeaderTextFilter !== undefined)
+            url_ += "DocumentHeaderTextFilter=" + encodeURIComponent("" + documentHeaderTextFilter) + "&";
+        if (maxDocumentDateFilter === null)
+            throw new Error("The parameter 'maxDocumentDateFilter' cannot be null.");
+        else if (maxDocumentDateFilter !== undefined)
+            url_ += "MaxDocumentDateFilter=" + encodeURIComponent(maxDocumentDateFilter ? "" + maxDocumentDateFilter.toString() : "") + "&";
+        if (minDocumentDateFilter === null)
+            throw new Error("The parameter 'minDocumentDateFilter' cannot be null.");
+        else if (minDocumentDateFilter !== undefined)
+            url_ += "MinDocumentDateFilter=" + encodeURIComponent(minDocumentDateFilter ? "" + minDocumentDateFilter.toString() : "") + "&";
+        if (batchFilter === null)
+            throw new Error("The parameter 'batchFilter' cannot be null.");
+        else if (batchFilter !== undefined)
+            url_ += "BatchFilter=" + encodeURIComponent("" + batchFilter) + "&";
+        if (costCenterFilter === null)
+            throw new Error("The parameter 'costCenterFilter' cannot be null.");
+        else if (costCenterFilter !== undefined)
+            url_ += "CostCenterFilter=" + encodeURIComponent("" + costCenterFilter) + "&";
+        if (referenceFilter === null)
+            throw new Error("The parameter 'referenceFilter' cannot be null.");
+        else if (referenceFilter !== undefined)
+            url_ += "ReferenceFilter=" + encodeURIComponent("" + referenceFilter) + "&";
+        if (maxInterfaceCreatedDateFilter === null)
+            throw new Error("The parameter 'maxInterfaceCreatedDateFilter' cannot be null.");
+        else if (maxInterfaceCreatedDateFilter !== undefined)
+            url_ += "MaxInterfaceCreatedDateFilter=" + encodeURIComponent(maxInterfaceCreatedDateFilter ? "" + maxInterfaceCreatedDateFilter.toString() : "") + "&";
+        if (minInterfaceCreatedDateFilter === null)
+            throw new Error("The parameter 'minInterfaceCreatedDateFilter' cannot be null.");
+        else if (minInterfaceCreatedDateFilter !== undefined)
+            url_ += "MinInterfaceCreatedDateFilter=" + encodeURIComponent(minInterfaceCreatedDateFilter ? "" + minInterfaceCreatedDateFilter.toString() : "") + "&";
+        if (interfaceCreatedByFilter === null)
+            throw new Error("The parameter 'interfaceCreatedByFilter' cannot be null.");
+        else if (interfaceCreatedByFilter !== undefined)
+            url_ += "InterfaceCreatedByFilter=" + encodeURIComponent("" + interfaceCreatedByFilter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<PagedResultDtoOfGetDataProductionForViewDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<PagedResultDtoOfGetDataProductionForViewDto>;
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetDataProductionForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetDataProductionForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getDataProductionForView(id: string | undefined): Observable<GetDataProductionForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/DataProductions/GetDataProductionForView?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetDataProductionForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetDataProductionForView(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetDataProductionForViewDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetDataProductionForViewDto>;
+        }));
+    }
+
+    protected processGetDataProductionForView(response: HttpResponseBase): Observable<GetDataProductionForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetDataProductionForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getDataProductionForEdit(id: string | undefined): Observable<GetDataProductionForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/DataProductions/GetDataProductionForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetDataProductionForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetDataProductionForEdit(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetDataProductionForEditOutput>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetDataProductionForEditOutput>;
+        }));
+    }
+
+    protected processGetDataProductionForEdit(response: HttpResponseBase): Observable<GetDataProductionForEditOutput> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetDataProductionForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditDataProductionDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/DataProductions/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: string | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/DataProductions/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param intfIdFilter (optional) 
+     * @param intfSiteFilter (optional) 
+     * @param intfSessionFilter (optional) 
+     * @param objectIdFilter (optional) 
+     * @param messageTypeFilter (optional) 
+     * @param materialDocumentFilter (optional) 
+     * @param maxMaterialDocYearFilter (optional) 
+     * @param minMaterialDocYearFilter (optional) 
+     * @param maxMaterialDocItemFilter (optional) 
+     * @param minMaterialDocItemFilter (optional) 
+     * @param orderFilter (optional) 
+     * @param maxReservationFilter (optional) 
+     * @param minReservationFilter (optional) 
+     * @param purchaseOrderFilter (optional) 
+     * @param maxPurchaseOrderItemFilter (optional) 
+     * @param minPurchaseOrderItemFilter (optional) 
+     * @param movementTypeFilter (optional) 
+     * @param movementTypeTextFilter (optional) 
+     * @param plantFilter (optional) 
+     * @param storageLocationFilter (optional) 
+     * @param materialFilter (optional) 
+     * @param materialDescriptionFilter (optional) 
+     * @param vendorFilter (optional) 
+     * @param maxQuantityFilter (optional) 
+     * @param minQuantityFilter (optional) 
+     * @param maxQtyInOrderUnitFilter (optional) 
+     * @param minQtyInOrderUnitFilter (optional) 
+     * @param unitOfEntryFilter (optional) 
+     * @param maxPostingDateFilter (optional) 
+     * @param minPostingDateFilter (optional) 
+     * @param maxEntryDateFilter (optional) 
+     * @param minEntryDateFilter (optional) 
+     * @param timeOfEntryFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @param documentHeaderTextFilter (optional) 
+     * @param maxDocumentDateFilter (optional) 
+     * @param minDocumentDateFilter (optional) 
+     * @param batchFilter (optional) 
+     * @param costCenterFilter (optional) 
+     * @param referenceFilter (optional) 
+     * @param maxInterfaceCreatedDateFilter (optional) 
+     * @param minInterfaceCreatedDateFilter (optional) 
+     * @param interfaceCreatedByFilter (optional) 
+     * @return Success
+     */
+    getDataProductionsToExcel(filter: string | undefined, intfIdFilter: string | undefined, intfSiteFilter: string | undefined, intfSessionFilter: string | undefined, objectIdFilter: string | undefined, messageTypeFilter: string | undefined, materialDocumentFilter: string | undefined, maxMaterialDocYearFilter: number | undefined, minMaterialDocYearFilter: number | undefined, maxMaterialDocItemFilter: number | undefined, minMaterialDocItemFilter: number | undefined, orderFilter: string | undefined, maxReservationFilter: number | undefined, minReservationFilter: number | undefined, purchaseOrderFilter: string | undefined, maxPurchaseOrderItemFilter: number | undefined, minPurchaseOrderItemFilter: number | undefined, movementTypeFilter: string | undefined, movementTypeTextFilter: string | undefined, plantFilter: string | undefined, storageLocationFilter: string | undefined, materialFilter: string | undefined, materialDescriptionFilter: string | undefined, vendorFilter: string | undefined, maxQuantityFilter: number | undefined, minQuantityFilter: number | undefined, maxQtyInOrderUnitFilter: number | undefined, minQtyInOrderUnitFilter: number | undefined, unitOfEntryFilter: string | undefined, maxPostingDateFilter: DateTime | undefined, minPostingDateFilter: DateTime | undefined, maxEntryDateFilter: DateTime | undefined, minEntryDateFilter: DateTime | undefined, timeOfEntryFilter: string | undefined, userNameFilter: string | undefined, documentHeaderTextFilter: string | undefined, maxDocumentDateFilter: DateTime | undefined, minDocumentDateFilter: DateTime | undefined, batchFilter: string | undefined, costCenterFilter: string | undefined, referenceFilter: string | undefined, maxInterfaceCreatedDateFilter: DateTime | undefined, minInterfaceCreatedDateFilter: DateTime | undefined, interfaceCreatedByFilter: string | undefined): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/DataProductions/GetDataProductionsToExcel?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (intfIdFilter === null)
+            throw new Error("The parameter 'intfIdFilter' cannot be null.");
+        else if (intfIdFilter !== undefined)
+            url_ += "IntfIdFilter=" + encodeURIComponent("" + intfIdFilter) + "&";
+        if (intfSiteFilter === null)
+            throw new Error("The parameter 'intfSiteFilter' cannot be null.");
+        else if (intfSiteFilter !== undefined)
+            url_ += "IntfSiteFilter=" + encodeURIComponent("" + intfSiteFilter) + "&";
+        if (intfSessionFilter === null)
+            throw new Error("The parameter 'intfSessionFilter' cannot be null.");
+        else if (intfSessionFilter !== undefined)
+            url_ += "IntfSessionFilter=" + encodeURIComponent("" + intfSessionFilter) + "&";
+        if (objectIdFilter === null)
+            throw new Error("The parameter 'objectIdFilter' cannot be null.");
+        else if (objectIdFilter !== undefined)
+            url_ += "ObjectIdFilter=" + encodeURIComponent("" + objectIdFilter) + "&";
+        if (messageTypeFilter === null)
+            throw new Error("The parameter 'messageTypeFilter' cannot be null.");
+        else if (messageTypeFilter !== undefined)
+            url_ += "MessageTypeFilter=" + encodeURIComponent("" + messageTypeFilter) + "&";
+        if (materialDocumentFilter === null)
+            throw new Error("The parameter 'materialDocumentFilter' cannot be null.");
+        else if (materialDocumentFilter !== undefined)
+            url_ += "MaterialDocumentFilter=" + encodeURIComponent("" + materialDocumentFilter) + "&";
+        if (maxMaterialDocYearFilter === null)
+            throw new Error("The parameter 'maxMaterialDocYearFilter' cannot be null.");
+        else if (maxMaterialDocYearFilter !== undefined)
+            url_ += "MaxMaterialDocYearFilter=" + encodeURIComponent("" + maxMaterialDocYearFilter) + "&";
+        if (minMaterialDocYearFilter === null)
+            throw new Error("The parameter 'minMaterialDocYearFilter' cannot be null.");
+        else if (minMaterialDocYearFilter !== undefined)
+            url_ += "MinMaterialDocYearFilter=" + encodeURIComponent("" + minMaterialDocYearFilter) + "&";
+        if (maxMaterialDocItemFilter === null)
+            throw new Error("The parameter 'maxMaterialDocItemFilter' cannot be null.");
+        else if (maxMaterialDocItemFilter !== undefined)
+            url_ += "MaxMaterialDocItemFilter=" + encodeURIComponent("" + maxMaterialDocItemFilter) + "&";
+        if (minMaterialDocItemFilter === null)
+            throw new Error("The parameter 'minMaterialDocItemFilter' cannot be null.");
+        else if (minMaterialDocItemFilter !== undefined)
+            url_ += "MinMaterialDocItemFilter=" + encodeURIComponent("" + minMaterialDocItemFilter) + "&";
+        if (orderFilter === null)
+            throw new Error("The parameter 'orderFilter' cannot be null.");
+        else if (orderFilter !== undefined)
+            url_ += "OrderFilter=" + encodeURIComponent("" + orderFilter) + "&";
+        if (maxReservationFilter === null)
+            throw new Error("The parameter 'maxReservationFilter' cannot be null.");
+        else if (maxReservationFilter !== undefined)
+            url_ += "MaxReservationFilter=" + encodeURIComponent("" + maxReservationFilter) + "&";
+        if (minReservationFilter === null)
+            throw new Error("The parameter 'minReservationFilter' cannot be null.");
+        else if (minReservationFilter !== undefined)
+            url_ += "MinReservationFilter=" + encodeURIComponent("" + minReservationFilter) + "&";
+        if (purchaseOrderFilter === null)
+            throw new Error("The parameter 'purchaseOrderFilter' cannot be null.");
+        else if (purchaseOrderFilter !== undefined)
+            url_ += "PurchaseOrderFilter=" + encodeURIComponent("" + purchaseOrderFilter) + "&";
+        if (maxPurchaseOrderItemFilter === null)
+            throw new Error("The parameter 'maxPurchaseOrderItemFilter' cannot be null.");
+        else if (maxPurchaseOrderItemFilter !== undefined)
+            url_ += "MaxPurchaseOrderItemFilter=" + encodeURIComponent("" + maxPurchaseOrderItemFilter) + "&";
+        if (minPurchaseOrderItemFilter === null)
+            throw new Error("The parameter 'minPurchaseOrderItemFilter' cannot be null.");
+        else if (minPurchaseOrderItemFilter !== undefined)
+            url_ += "MinPurchaseOrderItemFilter=" + encodeURIComponent("" + minPurchaseOrderItemFilter) + "&";
+        if (movementTypeFilter === null)
+            throw new Error("The parameter 'movementTypeFilter' cannot be null.");
+        else if (movementTypeFilter !== undefined)
+            url_ += "MovementTypeFilter=" + encodeURIComponent("" + movementTypeFilter) + "&";
+        if (movementTypeTextFilter === null)
+            throw new Error("The parameter 'movementTypeTextFilter' cannot be null.");
+        else if (movementTypeTextFilter !== undefined)
+            url_ += "MovementTypeTextFilter=" + encodeURIComponent("" + movementTypeTextFilter) + "&";
+        if (plantFilter === null)
+            throw new Error("The parameter 'plantFilter' cannot be null.");
+        else if (plantFilter !== undefined)
+            url_ += "PlantFilter=" + encodeURIComponent("" + plantFilter) + "&";
+        if (storageLocationFilter === null)
+            throw new Error("The parameter 'storageLocationFilter' cannot be null.");
+        else if (storageLocationFilter !== undefined)
+            url_ += "StorageLocationFilter=" + encodeURIComponent("" + storageLocationFilter) + "&";
+        if (materialFilter === null)
+            throw new Error("The parameter 'materialFilter' cannot be null.");
+        else if (materialFilter !== undefined)
+            url_ += "MaterialFilter=" + encodeURIComponent("" + materialFilter) + "&";
+        if (materialDescriptionFilter === null)
+            throw new Error("The parameter 'materialDescriptionFilter' cannot be null.");
+        else if (materialDescriptionFilter !== undefined)
+            url_ += "MaterialDescriptionFilter=" + encodeURIComponent("" + materialDescriptionFilter) + "&";
+        if (vendorFilter === null)
+            throw new Error("The parameter 'vendorFilter' cannot be null.");
+        else if (vendorFilter !== undefined)
+            url_ += "VendorFilter=" + encodeURIComponent("" + vendorFilter) + "&";
+        if (maxQuantityFilter === null)
+            throw new Error("The parameter 'maxQuantityFilter' cannot be null.");
+        else if (maxQuantityFilter !== undefined)
+            url_ += "MaxQuantityFilter=" + encodeURIComponent("" + maxQuantityFilter) + "&";
+        if (minQuantityFilter === null)
+            throw new Error("The parameter 'minQuantityFilter' cannot be null.");
+        else if (minQuantityFilter !== undefined)
+            url_ += "MinQuantityFilter=" + encodeURIComponent("" + minQuantityFilter) + "&";
+        if (maxQtyInOrderUnitFilter === null)
+            throw new Error("The parameter 'maxQtyInOrderUnitFilter' cannot be null.");
+        else if (maxQtyInOrderUnitFilter !== undefined)
+            url_ += "MaxQtyInOrderUnitFilter=" + encodeURIComponent("" + maxQtyInOrderUnitFilter) + "&";
+        if (minQtyInOrderUnitFilter === null)
+            throw new Error("The parameter 'minQtyInOrderUnitFilter' cannot be null.");
+        else if (minQtyInOrderUnitFilter !== undefined)
+            url_ += "MinQtyInOrderUnitFilter=" + encodeURIComponent("" + minQtyInOrderUnitFilter) + "&";
+        if (unitOfEntryFilter === null)
+            throw new Error("The parameter 'unitOfEntryFilter' cannot be null.");
+        else if (unitOfEntryFilter !== undefined)
+            url_ += "UnitOfEntryFilter=" + encodeURIComponent("" + unitOfEntryFilter) + "&";
+        if (maxPostingDateFilter === null)
+            throw new Error("The parameter 'maxPostingDateFilter' cannot be null.");
+        else if (maxPostingDateFilter !== undefined)
+            url_ += "MaxPostingDateFilter=" + encodeURIComponent(maxPostingDateFilter ? "" + maxPostingDateFilter.toString() : "") + "&";
+        if (minPostingDateFilter === null)
+            throw new Error("The parameter 'minPostingDateFilter' cannot be null.");
+        else if (minPostingDateFilter !== undefined)
+            url_ += "MinPostingDateFilter=" + encodeURIComponent(minPostingDateFilter ? "" + minPostingDateFilter.toString() : "") + "&";
+        if (maxEntryDateFilter === null)
+            throw new Error("The parameter 'maxEntryDateFilter' cannot be null.");
+        else if (maxEntryDateFilter !== undefined)
+            url_ += "MaxEntryDateFilter=" + encodeURIComponent(maxEntryDateFilter ? "" + maxEntryDateFilter.toString() : "") + "&";
+        if (minEntryDateFilter === null)
+            throw new Error("The parameter 'minEntryDateFilter' cannot be null.");
+        else if (minEntryDateFilter !== undefined)
+            url_ += "MinEntryDateFilter=" + encodeURIComponent(minEntryDateFilter ? "" + minEntryDateFilter.toString() : "") + "&";
+        if (timeOfEntryFilter === null)
+            throw new Error("The parameter 'timeOfEntryFilter' cannot be null.");
+        else if (timeOfEntryFilter !== undefined)
+            url_ += "TimeOfEntryFilter=" + encodeURIComponent("" + timeOfEntryFilter) + "&";
+        if (userNameFilter === null)
+            throw new Error("The parameter 'userNameFilter' cannot be null.");
+        else if (userNameFilter !== undefined)
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&";
+        if (documentHeaderTextFilter === null)
+            throw new Error("The parameter 'documentHeaderTextFilter' cannot be null.");
+        else if (documentHeaderTextFilter !== undefined)
+            url_ += "DocumentHeaderTextFilter=" + encodeURIComponent("" + documentHeaderTextFilter) + "&";
+        if (maxDocumentDateFilter === null)
+            throw new Error("The parameter 'maxDocumentDateFilter' cannot be null.");
+        else if (maxDocumentDateFilter !== undefined)
+            url_ += "MaxDocumentDateFilter=" + encodeURIComponent(maxDocumentDateFilter ? "" + maxDocumentDateFilter.toString() : "") + "&";
+        if (minDocumentDateFilter === null)
+            throw new Error("The parameter 'minDocumentDateFilter' cannot be null.");
+        else if (minDocumentDateFilter !== undefined)
+            url_ += "MinDocumentDateFilter=" + encodeURIComponent(minDocumentDateFilter ? "" + minDocumentDateFilter.toString() : "") + "&";
+        if (batchFilter === null)
+            throw new Error("The parameter 'batchFilter' cannot be null.");
+        else if (batchFilter !== undefined)
+            url_ += "BatchFilter=" + encodeURIComponent("" + batchFilter) + "&";
+        if (costCenterFilter === null)
+            throw new Error("The parameter 'costCenterFilter' cannot be null.");
+        else if (costCenterFilter !== undefined)
+            url_ += "CostCenterFilter=" + encodeURIComponent("" + costCenterFilter) + "&";
+        if (referenceFilter === null)
+            throw new Error("The parameter 'referenceFilter' cannot be null.");
+        else if (referenceFilter !== undefined)
+            url_ += "ReferenceFilter=" + encodeURIComponent("" + referenceFilter) + "&";
+        if (maxInterfaceCreatedDateFilter === null)
+            throw new Error("The parameter 'maxInterfaceCreatedDateFilter' cannot be null.");
+        else if (maxInterfaceCreatedDateFilter !== undefined)
+            url_ += "MaxInterfaceCreatedDateFilter=" + encodeURIComponent(maxInterfaceCreatedDateFilter ? "" + maxInterfaceCreatedDateFilter.toString() : "") + "&";
+        if (minInterfaceCreatedDateFilter === null)
+            throw new Error("The parameter 'minInterfaceCreatedDateFilter' cannot be null.");
+        else if (minInterfaceCreatedDateFilter !== undefined)
+            url_ += "MinInterfaceCreatedDateFilter=" + encodeURIComponent(minInterfaceCreatedDateFilter ? "" + minInterfaceCreatedDateFilter.toString() : "") + "&";
+        if (interfaceCreatedByFilter === null)
+            throw new Error("The parameter 'interfaceCreatedByFilter' cannot be null.");
+        else if (interfaceCreatedByFilter !== undefined)
+            url_ += "InterfaceCreatedByFilter=" + encodeURIComponent("" + interfaceCreatedByFilter) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetDataProductionsToExcel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetDataProductionsToExcel(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<FileDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<FileDto>;
+        }));
+    }
+
+    protected processGetDataProductionsToExcel(response: HttpResponseBase): Observable<FileDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FileDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -20838,6 +22028,58 @@ export interface IComboboxItemDto {
     isSelected: boolean;
 }
 
+export class CostCenterDto implements ICostCenterDto {
+    controllingArea!: string | undefined;
+    costCenterName!: string | undefined;
+    description!: string | undefined;
+    isActive!: boolean;
+    id!: string;
+
+    constructor(data?: ICostCenterDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.controllingArea = _data["controllingArea"];
+            this.costCenterName = _data["costCenterName"];
+            this.description = _data["description"];
+            this.isActive = _data["isActive"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): CostCenterDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CostCenterDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["controllingArea"] = this.controllingArea;
+        data["costCenterName"] = this.costCenterName;
+        data["description"] = this.description;
+        data["isActive"] = this.isActive;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface ICostCenterDto {
+    controllingArea: string | undefined;
+    costCenterName: string | undefined;
+    description: string | undefined;
+    isActive: boolean;
+    id: string;
+}
+
 export class CreateEditionDto implements ICreateEditionDto {
     edition!: EditionCreateDto;
     featureValues!: NameValueDto[];
@@ -21167,6 +22409,230 @@ export interface ICreateOrEditAirportDto {
     iata: string;
     city: string | undefined;
     category: string | undefined;
+    id: string | undefined;
+}
+
+export class CreateOrEditCostCenterDto implements ICreateOrEditCostCenterDto {
+    controllingArea!: string;
+    costCenterName!: string;
+    description!: string | undefined;
+    actState!: string | undefined;
+    isActive!: boolean;
+    id!: string | undefined;
+
+    constructor(data?: ICreateOrEditCostCenterDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.controllingArea = _data["controllingArea"];
+            this.costCenterName = _data["costCenterName"];
+            this.description = _data["description"];
+            this.actState = _data["actState"];
+            this.isActive = _data["isActive"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditCostCenterDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditCostCenterDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["controllingArea"] = this.controllingArea;
+        data["costCenterName"] = this.costCenterName;
+        data["description"] = this.description;
+        data["actState"] = this.actState;
+        data["isActive"] = this.isActive;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface ICreateOrEditCostCenterDto {
+    controllingArea: string;
+    costCenterName: string;
+    description: string | undefined;
+    actState: string | undefined;
+    isActive: boolean;
+    id: string | undefined;
+}
+
+export class CreateOrEditDataProductionDto implements ICreateOrEditDataProductionDto {
+    intfId!: string | undefined;
+    intfSite!: string | undefined;
+    intfSession!: string | undefined;
+    objectId!: string | undefined;
+    messageType!: string | undefined;
+    materialDocument!: string | undefined;
+    materialDocYear!: number;
+    materialDocItem!: number;
+    order!: string | undefined;
+    reservation!: number;
+    purchaseOrder!: string | undefined;
+    purchaseOrderItem!: number;
+    movementType!: string | undefined;
+    movementTypeText!: string | undefined;
+    plant!: string | undefined;
+    storageLocation!: string | undefined;
+    material!: string | undefined;
+    materialDescription!: string | undefined;
+    vendor!: string | undefined;
+    quantity!: number;
+    qtyInOrderUnit!: number;
+    unitOfEntry!: string | undefined;
+    postingDate!: DateTime;
+    entryDate!: DateTime;
+    timeOfEntry!: string | undefined;
+    userName!: string | undefined;
+    documentHeaderText!: string | undefined;
+    documentDate!: DateTime;
+    batch!: string | undefined;
+    costCenter!: string | undefined;
+    reference!: string | undefined;
+    interfaceCreatedDate!: DateTime;
+    interfaceCreatedBy!: string | undefined;
+    id!: string | undefined;
+
+    constructor(data?: ICreateOrEditDataProductionDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.intfId = _data["intfId"];
+            this.intfSite = _data["intfSite"];
+            this.intfSession = _data["intfSession"];
+            this.objectId = _data["objectId"];
+            this.messageType = _data["messageType"];
+            this.materialDocument = _data["materialDocument"];
+            this.materialDocYear = _data["materialDocYear"];
+            this.materialDocItem = _data["materialDocItem"];
+            this.order = _data["order"];
+            this.reservation = _data["reservation"];
+            this.purchaseOrder = _data["purchaseOrder"];
+            this.purchaseOrderItem = _data["purchaseOrderItem"];
+            this.movementType = _data["movementType"];
+            this.movementTypeText = _data["movementTypeText"];
+            this.plant = _data["plant"];
+            this.storageLocation = _data["storageLocation"];
+            this.material = _data["material"];
+            this.materialDescription = _data["materialDescription"];
+            this.vendor = _data["vendor"];
+            this.quantity = _data["quantity"];
+            this.qtyInOrderUnit = _data["qtyInOrderUnit"];
+            this.unitOfEntry = _data["unitOfEntry"];
+            this.postingDate = _data["postingDate"] ? DateTime.fromISO(_data["postingDate"].toString()) : <any>undefined;
+            this.entryDate = _data["entryDate"] ? DateTime.fromISO(_data["entryDate"].toString()) : <any>undefined;
+            this.timeOfEntry = _data["timeOfEntry"];
+            this.userName = _data["userName"];
+            this.documentHeaderText = _data["documentHeaderText"];
+            this.documentDate = _data["documentDate"] ? DateTime.fromISO(_data["documentDate"].toString()) : <any>undefined;
+            this.batch = _data["batch"];
+            this.costCenter = _data["costCenter"];
+            this.reference = _data["reference"];
+            this.interfaceCreatedDate = _data["interfaceCreatedDate"] ? DateTime.fromISO(_data["interfaceCreatedDate"].toString()) : <any>undefined;
+            this.interfaceCreatedBy = _data["interfaceCreatedBy"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditDataProductionDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditDataProductionDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["intfId"] = this.intfId;
+        data["intfSite"] = this.intfSite;
+        data["intfSession"] = this.intfSession;
+        data["objectId"] = this.objectId;
+        data["messageType"] = this.messageType;
+        data["materialDocument"] = this.materialDocument;
+        data["materialDocYear"] = this.materialDocYear;
+        data["materialDocItem"] = this.materialDocItem;
+        data["order"] = this.order;
+        data["reservation"] = this.reservation;
+        data["purchaseOrder"] = this.purchaseOrder;
+        data["purchaseOrderItem"] = this.purchaseOrderItem;
+        data["movementType"] = this.movementType;
+        data["movementTypeText"] = this.movementTypeText;
+        data["plant"] = this.plant;
+        data["storageLocation"] = this.storageLocation;
+        data["material"] = this.material;
+        data["materialDescription"] = this.materialDescription;
+        data["vendor"] = this.vendor;
+        data["quantity"] = this.quantity;
+        data["qtyInOrderUnit"] = this.qtyInOrderUnit;
+        data["unitOfEntry"] = this.unitOfEntry;
+        data["postingDate"] = this.postingDate ? this.postingDate.toString() : <any>undefined;
+        data["entryDate"] = this.entryDate ? this.entryDate.toString() : <any>undefined;
+        data["timeOfEntry"] = this.timeOfEntry;
+        data["userName"] = this.userName;
+        data["documentHeaderText"] = this.documentHeaderText;
+        data["documentDate"] = this.documentDate ? this.documentDate.toString() : <any>undefined;
+        data["batch"] = this.batch;
+        data["costCenter"] = this.costCenter;
+        data["reference"] = this.reference;
+        data["interfaceCreatedDate"] = this.interfaceCreatedDate ? this.interfaceCreatedDate.toString() : <any>undefined;
+        data["interfaceCreatedBy"] = this.interfaceCreatedBy;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface ICreateOrEditDataProductionDto {
+    intfId: string | undefined;
+    intfSite: string | undefined;
+    intfSession: string | undefined;
+    objectId: string | undefined;
+    messageType: string | undefined;
+    materialDocument: string | undefined;
+    materialDocYear: number;
+    materialDocItem: number;
+    order: string | undefined;
+    reservation: number;
+    purchaseOrder: string | undefined;
+    purchaseOrderItem: number;
+    movementType: string | undefined;
+    movementTypeText: string | undefined;
+    plant: string | undefined;
+    storageLocation: string | undefined;
+    material: string | undefined;
+    materialDescription: string | undefined;
+    vendor: string | undefined;
+    quantity: number;
+    qtyInOrderUnit: number;
+    unitOfEntry: string | undefined;
+    postingDate: DateTime;
+    entryDate: DateTime;
+    timeOfEntry: string | undefined;
+    userName: string | undefined;
+    documentHeaderText: string | undefined;
+    documentDate: DateTime;
+    batch: string | undefined;
+    costCenter: string | undefined;
+    reference: string | undefined;
+    interfaceCreatedDate: DateTime;
+    interfaceCreatedBy: string | undefined;
     id: string | undefined;
 }
 
@@ -22207,6 +23673,114 @@ export class DashboardOutput implements IDashboardOutput {
 export interface IDashboardOutput {
     name: string | undefined;
     widgets: WidgetOutput[] | undefined;
+}
+
+export class DataProductionDto implements IDataProductionDto {
+    materialDocument!: string | undefined;
+    materialDocYear!: number;
+    materialDocItem!: number;
+    order!: string | undefined;
+    reservation!: number;
+    purchaseOrder!: string | undefined;
+    movementType!: string | undefined;
+    movementTypeText!: string | undefined;
+    plant!: string | undefined;
+    storageLocation!: string | undefined;
+    material!: string | undefined;
+    materialDescription!: string | undefined;
+    quantity!: number;
+    qtyInOrderUnit!: number;
+    postingDate!: DateTime;
+    entryDate!: DateTime;
+    documentDate!: DateTime;
+    batch!: string | undefined;
+    id!: string;
+
+    constructor(data?: IDataProductionDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.materialDocument = _data["materialDocument"];
+            this.materialDocYear = _data["materialDocYear"];
+            this.materialDocItem = _data["materialDocItem"];
+            this.order = _data["order"];
+            this.reservation = _data["reservation"];
+            this.purchaseOrder = _data["purchaseOrder"];
+            this.movementType = _data["movementType"];
+            this.movementTypeText = _data["movementTypeText"];
+            this.plant = _data["plant"];
+            this.storageLocation = _data["storageLocation"];
+            this.material = _data["material"];
+            this.materialDescription = _data["materialDescription"];
+            this.quantity = _data["quantity"];
+            this.qtyInOrderUnit = _data["qtyInOrderUnit"];
+            this.postingDate = _data["postingDate"] ? DateTime.fromISO(_data["postingDate"].toString()) : <any>undefined;
+            this.entryDate = _data["entryDate"] ? DateTime.fromISO(_data["entryDate"].toString()) : <any>undefined;
+            this.documentDate = _data["documentDate"] ? DateTime.fromISO(_data["documentDate"].toString()) : <any>undefined;
+            this.batch = _data["batch"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): DataProductionDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new DataProductionDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["materialDocument"] = this.materialDocument;
+        data["materialDocYear"] = this.materialDocYear;
+        data["materialDocItem"] = this.materialDocItem;
+        data["order"] = this.order;
+        data["reservation"] = this.reservation;
+        data["purchaseOrder"] = this.purchaseOrder;
+        data["movementType"] = this.movementType;
+        data["movementTypeText"] = this.movementTypeText;
+        data["plant"] = this.plant;
+        data["storageLocation"] = this.storageLocation;
+        data["material"] = this.material;
+        data["materialDescription"] = this.materialDescription;
+        data["quantity"] = this.quantity;
+        data["qtyInOrderUnit"] = this.qtyInOrderUnit;
+        data["postingDate"] = this.postingDate ? this.postingDate.toString() : <any>undefined;
+        data["entryDate"] = this.entryDate ? this.entryDate.toString() : <any>undefined;
+        data["documentDate"] = this.documentDate ? this.documentDate.toString() : <any>undefined;
+        data["batch"] = this.batch;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface IDataProductionDto {
+    materialDocument: string | undefined;
+    materialDocYear: number;
+    materialDocItem: number;
+    order: string | undefined;
+    reservation: number;
+    purchaseOrder: string | undefined;
+    movementType: string | undefined;
+    movementTypeText: string | undefined;
+    plant: string | undefined;
+    storageLocation: string | undefined;
+    material: string | undefined;
+    materialDescription: string | undefined;
+    quantity: number;
+    qtyInOrderUnit: number;
+    postingDate: DateTime;
+    entryDate: DateTime;
+    documentDate: DateTime;
+    batch: string | undefined;
+    id: string;
 }
 
 export class DateFieldOutput implements IDateFieldOutput {
@@ -24903,6 +26477,78 @@ export interface IGetAllSubscriptionsOutput {
     id: string;
 }
 
+export class GetCostCenterForEditOutput implements IGetCostCenterForEditOutput {
+    costCenter!: CreateOrEditCostCenterDto;
+
+    constructor(data?: IGetCostCenterForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.costCenter = _data["costCenter"] ? CreateOrEditCostCenterDto.fromJS(_data["costCenter"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetCostCenterForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetCostCenterForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["costCenter"] = this.costCenter ? this.costCenter.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+export interface IGetCostCenterForEditOutput {
+    costCenter: CreateOrEditCostCenterDto;
+}
+
+export class GetCostCenterForViewDto implements IGetCostCenterForViewDto {
+    costCenter!: CostCenterDto;
+
+    constructor(data?: IGetCostCenterForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.costCenter = _data["costCenter"] ? CostCenterDto.fromJS(_data["costCenter"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetCostCenterForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetCostCenterForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["costCenter"] = this.costCenter ? this.costCenter.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+export interface IGetCostCenterForViewDto {
+    costCenter: CostCenterDto;
+}
+
 export class GetCurrentLoginInformationsOutput implements IGetCurrentLoginInformationsOutput {
     user!: UserLoginInfoDto;
     impersonatorUser!: UserLoginInfoDto;
@@ -25113,6 +26759,78 @@ export interface IGetDashboardDataOutput {
     bouncePercent: number;
     dailySales: number[] | undefined;
     profitShares: number[] | undefined;
+}
+
+export class GetDataProductionForEditOutput implements IGetDataProductionForEditOutput {
+    dataProduction!: CreateOrEditDataProductionDto;
+
+    constructor(data?: IGetDataProductionForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.dataProduction = _data["dataProduction"] ? CreateOrEditDataProductionDto.fromJS(_data["dataProduction"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetDataProductionForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetDataProductionForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["dataProduction"] = this.dataProduction ? this.dataProduction.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+export interface IGetDataProductionForEditOutput {
+    dataProduction: CreateOrEditDataProductionDto;
+}
+
+export class GetDataProductionForViewDto implements IGetDataProductionForViewDto {
+    dataProduction!: DataProductionDto;
+
+    constructor(data?: IGetDataProductionForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.dataProduction = _data["dataProduction"] ? DataProductionDto.fromJS(_data["dataProduction"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetDataProductionForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetDataProductionForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["dataProduction"] = this.dataProduction ? this.dataProduction.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+export interface IGetDataProductionForViewDto {
+    dataProduction: DataProductionDto;
 }
 
 export class GetDefaultEditionNameOutput implements IGetDefaultEditionNameOutput {
@@ -30594,6 +32312,102 @@ export class PagedResultDtoOfGetAllSendAttemptsOutput implements IPagedResultDto
 export interface IPagedResultDtoOfGetAllSendAttemptsOutput {
     totalCount: number;
     items: GetAllSendAttemptsOutput[] | undefined;
+}
+
+export class PagedResultDtoOfGetCostCenterForViewDto implements IPagedResultDtoOfGetCostCenterForViewDto {
+    totalCount!: number;
+    items!: GetCostCenterForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetCostCenterForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetCostCenterForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetCostCenterForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetCostCenterForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IPagedResultDtoOfGetCostCenterForViewDto {
+    totalCount: number;
+    items: GetCostCenterForViewDto[] | undefined;
+}
+
+export class PagedResultDtoOfGetDataProductionForViewDto implements IPagedResultDtoOfGetDataProductionForViewDto {
+    totalCount!: number;
+    items!: GetDataProductionForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetDataProductionForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetDataProductionForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetDataProductionForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetDataProductionForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IPagedResultDtoOfGetDataProductionForViewDto {
+    totalCount: number;
+    items: GetDataProductionForViewDto[] | undefined;
 }
 
 export class PagedResultDtoOfGetEnumTableForViewDto implements IPagedResultDtoOfGetEnumTableForViewDto {

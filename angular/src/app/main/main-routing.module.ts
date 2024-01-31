@@ -9,6 +9,20 @@ import { RouterModule } from '@angular/router';
                 children: [
                     
                     {
+                        path: 'sapConnector/costCenters',
+                        loadChildren: () => import('./sapConnector/costCenters/costCenter.module').then(m => m.CostCenterModule),
+                        data: { permission: 'Pages.CostCenters' }
+                    },
+                
+                    
+                    {
+                        path: 'sapConnector/dataProductions',
+                        loadChildren: () => import('./sapConnector/dataProductions/dataProduction.module').then(m => m.DataProductionModule),
+                        data: { permission: 'Pages.DataProductions' }
+                    },
+                
+                    
+                    {
                         path: 'masterDataRequest/materialRequests',
                         loadChildren: () => import('./masterDataRequest/materialRequests/materialRequest.module').then(m => m.MaterialRequestModule),
                         data: { permission: 'Pages.MaterialRequests' }

@@ -2309,6 +2309,154 @@ namespace Adaro.Centralize.Migrations
                     b.ToTable("AbpTenants");
                 });
 
+            modelBuilder.Entity("Adaro.Centralize.SAPConnector.CostCenter", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ActState")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ControllingArea")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CostCenterName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("CostCenters");
+                });
+
+            modelBuilder.Entity("Adaro.Centralize.SAPConnector.DataProduction", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Batch")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CostCenter")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DocumentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DocumentHeaderText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EntryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("InterfaceCreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("InterfaceCreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("IntfId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IntfSession")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IntfSite")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Material")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MaterialDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MaterialDocItem")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MaterialDocYear")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MaterialDocument")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MessageType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MovementType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MovementTypeText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ObjectId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Order")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Plant")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("PostingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PurchaseOrder")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PurchaseOrderItem")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("QtyInOrderUnit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Reference")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Reservation")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StorageLocation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TimeOfEntry")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UnitOfEntry")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Vendor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("DataProductions");
+                });
+
             modelBuilder.Entity("Adaro.Centralize.Storage.BinaryObject", b =>
                 {
                     b.Property<Guid>("Id")

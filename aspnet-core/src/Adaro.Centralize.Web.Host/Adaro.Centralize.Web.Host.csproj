@@ -44,6 +44,8 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Adaro.Centralize.Web.Core\Adaro.Centralize.Web.Core.csproj" />
+        <ProjectReference Include="..\AdaroConnect\src\AdaroConnect.Core\AdaroConnect.Core.csproj" />
+        <ProjectReference Include="..\AdaroConnect\src\Samples\AdaroConnect.Samples.Core\AdaroConnect.Application.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>

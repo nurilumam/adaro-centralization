@@ -1,4 +1,6 @@
-﻿using Adaro.Centralize.MasterDataRequest.Dtos;
+﻿using Adaro.Centralize.SAPConnector.Dtos;
+using Adaro.Centralize.SAPConnector;
+using Adaro.Centralize.MasterDataRequest.Dtos;
 using Adaro.Centralize.MasterDataRequest;
 using Adaro.Centralize.MasterData.Dtos;
 using Adaro.Centralize.MasterData;
@@ -47,6 +49,8 @@ using Adaro.Centralize.Notifications.Dto;
 using Adaro.Centralize.Organizations.Dto;
 using Adaro.Centralize.Sessions.Dto;
 using Adaro.Centralize.WebHooks.Dto;
+using AdaroConnect.Application.Core.Models;
+using Material = Adaro.Centralize.MasterData.Material;
 
 namespace Adaro.Centralize
 {
@@ -54,6 +58,10 @@ namespace Adaro.Centralize
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditCostCenterDto, CostCenter>().ReverseMap();
+            configuration.CreateMap<CostCenterDto, CostCenter>().ReverseMap();
+            configuration.CreateMap<CreateOrEditDataProductionDto, DataProduction>().ReverseMap();
+            configuration.CreateMap<DataProductionDto, DataProduction>().ReverseMap();
             configuration.CreateMap<CreateOrEditMaterialRequestDto, MaterialRequest>().ReverseMap();
             configuration.CreateMap<MaterialRequestDto, MaterialRequest>().ReverseMap();
             configuration.CreateMap<CreateOrEditEnumTableDto, EnumTable>().ReverseMap();
@@ -183,6 +191,9 @@ namespace Adaro.Centralize
             configuration.CreateMap<CreateUserDelegationDto, UserDelegation>();
 
             /* ADD YOUR OWN CUSTOM AUTOMAPPER MAPPINGS HERE */
+            // SAP SYNCHRONIZE
+
+            configuration.CreateMap<CostCenterItem, CostCenter>().ReverseMap();
         }
     }
 }

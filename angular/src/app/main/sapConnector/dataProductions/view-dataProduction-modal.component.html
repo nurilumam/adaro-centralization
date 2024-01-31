@@ -1,0 +1,109 @@
+﻿<div
+    bsModal
+    #createOrEditModal="bs-modal"
+    class="modal fade"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="createOrEditModal"
+    aria-hidden="true"
+    [config]="{ backdrop: 'static' }"
+>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span>{{ l('Details') }}</span>
+                </h4>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    (click)="close()"
+                    aria-label="Close"
+                    [disabled]="saving"
+                ></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('MaterialDocument') }} :</h6>
+                        {{ item.dataProduction.materialDocument }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('MaterialDocYear') }} :</h6>
+                        {{ item.dataProduction.materialDocYear }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('MaterialDocItem') }} :</h6>
+                        {{ item.dataProduction.materialDocItem }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('Order') }} :</h6>
+                        {{ item.dataProduction.order }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('Reservation') }} :</h6>
+                        {{ item.dataProduction.reservation }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('PurchaseOrder') }} :</h6>
+                        {{ item.dataProduction.purchaseOrder }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('MovementType') }} :</h6>
+                        {{ item.dataProduction.movementType }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('MovementTypeText') }} :</h6>
+                        {{ item.dataProduction.movementTypeText }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('Plant') }} :</h6>
+                        {{ item.dataProduction.plant }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('StorageLocation') }} :</h6>
+                        {{ item.dataProduction.storageLocation }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('Material') }} :</h6>
+                        {{ item.dataProduction.material }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('MaterialDescription') }} :</h6>
+                        {{ item.dataProduction.materialDescription }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('Quantity') }} :</h6>
+                        {{ item.dataProduction.quantity }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('QtyInOrderUnit') }} :</h6>
+                        {{ item.dataProduction.qtyInOrderUnit }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('PostingDate') }} :</h6>
+                        {{ item.dataProduction.postingDate | luxonFormat : 'yyyy-LL-dd HH:mm:ss' }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('EntryDate') }} :</h6>
+                        {{ item.dataProduction.entryDate | luxonFormat : 'yyyy-LL-dd HH:mm:ss' }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('DocumentDate') }} :</h6>
+                        {{ item.dataProduction.documentDate | luxonFormat : 'yyyy-LL-dd HH:mm:ss' }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('Batch') }} :</h6>
+                        {{ item.dataProduction.batch }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button [disabled]="saving" type="button" class="btn btn-primary blue" (click)="close()">
+                    {{ l('Close') }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

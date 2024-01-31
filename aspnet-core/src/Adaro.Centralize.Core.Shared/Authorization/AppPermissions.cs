@@ -6,6 +6,16 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_CostCenters = "Pages.CostCenters";
+        public const string Pages_CostCenters_Create = "Pages.CostCenters.Create";
+        public const string Pages_CostCenters_Edit = "Pages.CostCenters.Edit";
+        public const string Pages_CostCenters_Delete = "Pages.CostCenters.Delete";
+
+        public const string Pages_DataProductions = "Pages.DataProductions";
+        public const string Pages_DataProductions_Create = "Pages.DataProductions.Create";
+        public const string Pages_DataProductions_Edit = "Pages.DataProductions.Edit";
+        public const string Pages_DataProductions_Delete = "Pages.DataProductions.Delete";
+
         public const string Pages_MaterialRequests = "Pages.MaterialRequests";
         public const string Pages_MaterialRequests_Create = "Pages.MaterialRequests.Create";
         public const string Pages_MaterialRequests_Edit = "Pages.MaterialRequests.Edit";

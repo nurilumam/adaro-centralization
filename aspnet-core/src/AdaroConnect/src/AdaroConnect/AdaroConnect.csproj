@@ -1,0 +1,72 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net5.0;</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Title>AdaroConnect</Title>
+    <Authors>metalsimyaci</Authors>
+    <Description>SAP NetWeaver RFC Library imlementation for .Net</Description>
+    <Copyright>© 2021</Copyright>
+    <PackageProjectUrl>https://github.com/metalsimyaci/AdaroConnect</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/metalsimyaci/AdaroConnect</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <AssemblyVersion>1.2.0.1</AssemblyVersion>
+    <FileVersion>1.2.0.1</FileVersion>
+    <Company>Kaon Game Studio</Company>
+    <Version>1.2.0.1</Version>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReleaseNotes># 1.2.0.1 Changeset
+- Usage simplified
+- Improved Meta DATA information of RFC and BAPI definitions,
+- Added connection pool support
+- Added multi-connection support
+- Changed the connection configuration structure
+- Changed function calls
+- Example projects expanded</PackageReleaseNotes>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+    <PackageIcon>logo.png</PackageIcon>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+    <PackageVersion>1.2.0.1</PackageVersion>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <PackageTags>1.2</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AdaroConnect.Abstraction\AdaroConnect.Abstraction.csproj">
+      <IsPackable>false</IsPackable>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <IncludeAssets>AdaroConnect.Abstraction.dll</IncludeAssets>
+    </ProjectReference>
+    <ProjectReference Include="..\AdaroConnect.Core\AdaroConnect.Core.csproj">
+      <IsPackable>false</IsPackable>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <IncludeAssets>AdaroConnect.Core.dll</IncludeAssets>
+    </ProjectReference>
+    <ProjectReference Include="..\AdaroConnect.Wrapper\AdaroConnect.Wrapper.csproj">
+      <IsPackable>false</IsPackable>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <IncludeAssets>AdaroConnect.Wrapper.dll</IncludeAssets>
+    </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <Target DependsOnTargets="ResolveReferences" Name="CopyProjectReferencesToPackage">
+    <ItemGroup>
+      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths-&gt;WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
+    </ItemGroup>
+  </Target>
+</Project>

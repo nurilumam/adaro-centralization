@@ -1,0 +1,510 @@
+﻿<div
+    bsModal
+    #createOrEditModal="bs-modal"
+    class="modal fade"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="createOrEditModal"
+    aria-hidden="true"
+    [config]="{ backdrop: 'static' }"
+>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #dataProductionForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="dataProduction.id">{{ l('EditDataProduction') }}</span>
+                        <span *ngIf="!dataProduction.id">{{ l('CreateNewDataProduction') }}</span>
+                    </h4>
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        (click)="close()"
+                        aria-label="Close"
+                        [disabled]="saving"
+                    ></button>
+                </div>
+                <div class="modal-body">
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_IntfId">{{ l('IntfId') }}</label>
+                        <input
+                            type="text"
+                            #DataProduction_IntfId="ngModel"
+                            id="DataProduction_IntfId"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.intfId"
+                            name="IntfId"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_IntfId"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_IntfSite">{{ l('IntfSite') }}</label>
+                        <input
+                            type="text"
+                            #DataProduction_IntfSite="ngModel"
+                            id="DataProduction_IntfSite"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.intfSite"
+                            name="IntfSite"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_IntfSite"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_IntfSession">{{ l('IntfSession') }}</label>
+                        <input
+                            type="text"
+                            #DataProduction_IntfSession="ngModel"
+                            id="DataProduction_IntfSession"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.intfSession"
+                            name="IntfSession"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_IntfSession"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_ObjectId">{{ l('ObjectId') }}</label>
+                        <input
+                            type="text"
+                            #DataProduction_ObjectId="ngModel"
+                            id="DataProduction_ObjectId"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.objectId"
+                            name="ObjectId"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_ObjectId"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_MessageType">{{ l('MessageType') }}</label>
+                        <input
+                            type="text"
+                            #DataProduction_MessageType="ngModel"
+                            id="DataProduction_MessageType"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.messageType"
+                            name="MessageType"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_MessageType"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_MaterialDocument">
+                            {{ l('MaterialDocument') }}
+                        </label>
+                        <input
+                            type="text"
+                            #DataProduction_MaterialDocument="ngModel"
+                            id="DataProduction_MaterialDocument"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.materialDocument"
+                            name="MaterialDocument"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_MaterialDocument"></validation-messages>
+                    </div>
+
+                    <div class="my5">
+                        <label class="form-label" for="DataProduction_MaterialDocYear">
+                            {{ l('MaterialDocYear') }}
+                        </label>
+                        <input
+                            type="number"
+                            #DataProduction_MaterialDocYear="ngModel"
+                            id="DataProduction_MaterialDocYear"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.materialDocYear"
+                            name="MaterialDocYear"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_MaterialDocYear"></validation-messages>
+                    </div>
+
+                    <div class="my5">
+                        <label class="form-label" for="DataProduction_MaterialDocItem">
+                            {{ l('MaterialDocItem') }}
+                        </label>
+                        <input
+                            type="number"
+                            #DataProduction_MaterialDocItem="ngModel"
+                            id="DataProduction_MaterialDocItem"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.materialDocItem"
+                            name="MaterialDocItem"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_MaterialDocItem"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_Order">{{ l('Order') }}</label>
+                        <input
+                            type="text"
+                            #DataProduction_Order="ngModel"
+                            id="DataProduction_Order"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.order"
+                            name="Order"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_Order"></validation-messages>
+                    </div>
+
+                    <div class="my5">
+                        <label class="form-label" for="DataProduction_Reservation">{{ l('Reservation') }}</label>
+                        <input
+                            type="number"
+                            #DataProduction_Reservation="ngModel"
+                            id="DataProduction_Reservation"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.reservation"
+                            name="Reservation"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_Reservation"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_PurchaseOrder">{{ l('PurchaseOrder') }}</label>
+                        <input
+                            type="text"
+                            #DataProduction_PurchaseOrder="ngModel"
+                            id="DataProduction_PurchaseOrder"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.purchaseOrder"
+                            name="PurchaseOrder"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_PurchaseOrder"></validation-messages>
+                    </div>
+
+                    <div class="my5">
+                        <label class="form-label" for="DataProduction_PurchaseOrderItem">
+                            {{ l('PurchaseOrderItem') }}
+                        </label>
+                        <input
+                            type="number"
+                            #DataProduction_PurchaseOrderItem="ngModel"
+                            id="DataProduction_PurchaseOrderItem"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.purchaseOrderItem"
+                            name="PurchaseOrderItem"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_PurchaseOrderItem"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_MovementType">{{ l('MovementType') }}</label>
+                        <input
+                            type="text"
+                            #DataProduction_MovementType="ngModel"
+                            id="DataProduction_MovementType"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.movementType"
+                            name="MovementType"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_MovementType"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_MovementTypeText">
+                            {{ l('MovementTypeText') }}
+                        </label>
+                        <input
+                            type="text"
+                            #DataProduction_MovementTypeText="ngModel"
+                            id="DataProduction_MovementTypeText"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.movementTypeText"
+                            name="MovementTypeText"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_MovementTypeText"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_Plant">{{ l('Plant') }}</label>
+                        <input
+                            type="text"
+                            #DataProduction_Plant="ngModel"
+                            id="DataProduction_Plant"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.plant"
+                            name="Plant"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_Plant"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_StorageLocation">
+                            {{ l('StorageLocation') }}
+                        </label>
+                        <input
+                            type="text"
+                            #DataProduction_StorageLocation="ngModel"
+                            id="DataProduction_StorageLocation"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.storageLocation"
+                            name="StorageLocation"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_StorageLocation"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_Material">{{ l('Material') }}</label>
+                        <input
+                            type="text"
+                            #DataProduction_Material="ngModel"
+                            id="DataProduction_Material"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.material"
+                            name="Material"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_Material"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_MaterialDescription">
+                            {{ l('MaterialDescription') }}
+                        </label>
+                        <input
+                            type="text"
+                            #DataProduction_MaterialDescription="ngModel"
+                            id="DataProduction_MaterialDescription"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.materialDescription"
+                            name="MaterialDescription"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_MaterialDescription"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_Vendor">{{ l('Vendor') }}</label>
+                        <input
+                            type="text"
+                            #DataProduction_Vendor="ngModel"
+                            id="DataProduction_Vendor"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.vendor"
+                            name="Vendor"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_Vendor"></validation-messages>
+                    </div>
+
+                    <div class="my5">
+                        <label class="form-label" for="DataProduction_Quantity">{{ l('Quantity') }}</label>
+                        <input
+                            type="number"
+                            #DataProduction_Quantity="ngModel"
+                            id="DataProduction_Quantity"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.quantity"
+                            name="Quantity"
+                            step="(18,4)"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_Quantity"></validation-messages>
+                    </div>
+
+                    <div class="my5">
+                        <label class="form-label" for="DataProduction_QtyInOrderUnit">{{ l('QtyInOrderUnit') }}</label>
+                        <input
+                            type="number"
+                            #DataProduction_QtyInOrderUnit="ngModel"
+                            id="DataProduction_QtyInOrderUnit"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.qtyInOrderUnit"
+                            name="QtyInOrderUnit"
+                            step="(18,4)"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_QtyInOrderUnit"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_UnitOfEntry">{{ l('UnitOfEntry') }}</label>
+                        <input
+                            type="text"
+                            #DataProduction_UnitOfEntry="ngModel"
+                            id="DataProduction_UnitOfEntry"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.unitOfEntry"
+                            name="UnitOfEntry"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_UnitOfEntry"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_PostingDate">{{ l('PostingDate') }}</label>
+                        <input
+                            required
+                            class="form-control m-input"
+                            #DataProduction_PostingDate
+                            type="datetime"
+                            bsDatepicker
+                            datePickerLuxonModifier
+                            [(date)]="dataProduction.postingDate"
+                            id="DataProduction_PostingDate"
+                            name="DataProduction_PostingDate"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_PostingDate"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_EntryDate">{{ l('EntryDate') }}</label>
+                        <input
+                            required
+                            class="form-control m-input"
+                            #DataProduction_EntryDate
+                            type="datetime"
+                            bsDatepicker
+                            datePickerLuxonModifier
+                            [(date)]="dataProduction.entryDate"
+                            id="DataProduction_EntryDate"
+                            name="DataProduction_EntryDate"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_EntryDate"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_TimeOfEntry">{{ l('TimeOfEntry') }}</label>
+                        <input
+                            type="text"
+                            #DataProduction_TimeOfEntry="ngModel"
+                            id="DataProduction_TimeOfEntry"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.timeOfEntry"
+                            name="TimeOfEntry"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_TimeOfEntry"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_UserName">{{ l('UserName') }}</label>
+                        <input
+                            type="text"
+                            #DataProduction_UserName="ngModel"
+                            id="DataProduction_UserName"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.userName"
+                            name="UserName"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_UserName"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_DocumentHeaderText">
+                            {{ l('DocumentHeaderText') }}
+                        </label>
+                        <input
+                            type="text"
+                            #DataProduction_DocumentHeaderText="ngModel"
+                            id="DataProduction_DocumentHeaderText"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.documentHeaderText"
+                            name="DocumentHeaderText"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_DocumentHeaderText"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_DocumentDate">{{ l('DocumentDate') }}</label>
+                        <input
+                            required
+                            class="form-control m-input"
+                            #DataProduction_DocumentDate
+                            type="datetime"
+                            bsDatepicker
+                            datePickerLuxonModifier
+                            [(date)]="dataProduction.documentDate"
+                            id="DataProduction_DocumentDate"
+                            name="DataProduction_DocumentDate"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_DocumentDate"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_Batch">{{ l('Batch') }}</label>
+                        <input
+                            type="text"
+                            #DataProduction_Batch="ngModel"
+                            id="DataProduction_Batch"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.batch"
+                            name="Batch"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_Batch"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_CostCenter">{{ l('CostCenter') }}</label>
+                        <input
+                            type="text"
+                            #DataProduction_CostCenter="ngModel"
+                            id="DataProduction_CostCenter"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.costCenter"
+                            name="CostCenter"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_CostCenter"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_Reference">{{ l('Reference') }}</label>
+                        <input
+                            type="text"
+                            #DataProduction_Reference="ngModel"
+                            id="DataProduction_Reference"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.reference"
+                            name="Reference"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_Reference"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_InterfaceCreatedDate">
+                            {{ l('InterfaceCreatedDate') }}
+                        </label>
+                        <input
+                            required
+                            class="form-control m-input"
+                            #DataProduction_InterfaceCreatedDate
+                            type="datetime"
+                            bsDatepicker
+                            datePickerLuxonModifier
+                            [(date)]="dataProduction.interfaceCreatedDate"
+                            id="DataProduction_InterfaceCreatedDate"
+                            name="DataProduction_InterfaceCreatedDate"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_InterfaceCreatedDate"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="DataProduction_InterfaceCreatedBy">
+                            {{ l('InterfaceCreatedBy') }}
+                        </label>
+                        <input
+                            type="text"
+                            #DataProduction_InterfaceCreatedBy="ngModel"
+                            id="DataProduction_InterfaceCreatedBy"
+                            class="form-control"
+                            [(ngModel)]="dataProduction.interfaceCreatedBy"
+                            name="InterfaceCreatedBy"
+                        />
+                        <validation-messages [formCtrl]="DataProduction_InterfaceCreatedBy"></validation-messages>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">
+                        {{ l('Cancel') }}
+                    </button>
+                    <button
+                        type="submit"
+                        class="btn btn-primary blue"
+                        [disabled]="!dataProductionForm.form.valid"
+                        [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot')"
+                    >
+                        <i class="fa fa-save"></i>
+                        <span>{{ l('Save') }}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

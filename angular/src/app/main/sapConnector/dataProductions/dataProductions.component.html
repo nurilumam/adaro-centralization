@@ -1,0 +1,899 @@
+﻿<div [@routerTransition]>
+    <sub-header [title]="'DataProductions' | localize" [description]="'DataProductionsHeaderInfo' | localize">
+        <div role="actions">
+            <button (click)="exportToExcel()" class="btn btn-outline btn-outline-success btn-active-light-success me-1">
+                <i class="fa fa-file-excel"></i>
+                {{ l('ExportToExcel') }}
+            </button>
+
+            <button
+                id="btn_create_dataProduction"
+                *ngIf="isGranted('Pages.DataProductions.Create')"
+                (click)="createDataProduction()"
+                class="btn btn-primary blue"
+            >
+                <i class="fa fa-plus"></i>
+                {{ l('CreateNewDataProduction') }}
+            </button>
+        </div>
+    </sub-header>
+
+    <div [class]="containerClass">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <form class="form" autocomplete="off">
+                    <div>
+                        <div class="row align-items-center">
+                            <div class="col-xl-12">
+                                <div class="my-3">
+                                    <div class="input-group mb-3">
+                                        <input
+                                            [(ngModel)]="filterText"
+                                            (ngModelChange)="getDataProductions()"
+                                            name="filterText"
+                                            autoFocus
+                                            type="text"
+                                            class="form-control"
+                                            [placeholder]="l('SearchWithThreeDot')"
+                                        />
+                                        <button class="btn btn-primary" type="submit" (click)="getDataProductions()">
+                                            <i class="flaticon-search-1"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" [hidden]="!advancedFiltersAreShown">
+                            <div class="col-md-12"></div>
+
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="IntfIdFilter">{{ l('IntfId') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="IntfIdFilter"
+                                        name="intfIdFilter"
+                                        [(ngModel)]="intfIdFilter"
+                                        (ngModelChange)="getDataProductions()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="IntfSiteFilter">{{ l('IntfSite') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="IntfSiteFilter"
+                                        name="intfSiteFilter"
+                                        [(ngModel)]="intfSiteFilter"
+                                        (ngModelChange)="getDataProductions()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="IntfSessionFilter">{{ l('IntfSession') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="IntfSessionFilter"
+                                        name="intfSessionFilter"
+                                        [(ngModel)]="intfSessionFilter"
+                                        (ngModelChange)="getDataProductions()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="ObjectIdFilter">{{ l('ObjectId') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="ObjectIdFilter"
+                                        name="objectIdFilter"
+                                        [(ngModel)]="objectIdFilter"
+                                        (ngModelChange)="getDataProductions()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MessageTypeFilter">{{ l('MessageType') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="MessageTypeFilter"
+                                        name="messageTypeFilter"
+                                        [(ngModel)]="messageTypeFilter"
+                                        (ngModelChange)="getDataProductions()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MaterialDocumentFilter">
+                                        {{ l('MaterialDocument') }}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="MaterialDocumentFilter"
+                                        name="materialDocumentFilter"
+                                        [(ngModel)]="materialDocumentFilter"
+                                        (ngModelChange)="getDataProductions()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinMaterialDocYearFilter">
+                                        {{ l('MinMax') }} {{ l('MaterialDocYear') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            id="MinMaterialDocYearFilter"
+                                            [(ngModel)]="minMaterialDocYearFilter"
+                                            placeholder="{{ l('MinValue') }}"
+                                            name="minMaterialDocYearFilter"
+                                            (ngModelChange)="getDataProductions()"
+                                        />
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            [(ngModel)]="maxMaterialDocYearFilter"
+                                            placeholder="{{ l('MaxValue') }}"
+                                            name="maxMaterialDocYearFilter"
+                                            (ngModelChange)="getDataProductions()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinMaterialDocItemFilter">
+                                        {{ l('MinMax') }} {{ l('MaterialDocItem') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            id="MinMaterialDocItemFilter"
+                                            [(ngModel)]="minMaterialDocItemFilter"
+                                            placeholder="{{ l('MinValue') }}"
+                                            name="minMaterialDocItemFilter"
+                                            (ngModelChange)="getDataProductions()"
+                                        />
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            [(ngModel)]="maxMaterialDocItemFilter"
+                                            placeholder="{{ l('MaxValue') }}"
+                                            name="maxMaterialDocItemFilter"
+                                            (ngModelChange)="getDataProductions()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="OrderFilter">{{ l('Order') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="OrderFilter"
+                                        name="orderFilter"
+                                        [(ngModel)]="orderFilter"
+                                        (ngModelChange)="getDataProductions()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinReservationFilter">
+                                        {{ l('MinMax') }} {{ l('Reservation') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            id="MinReservationFilter"
+                                            [(ngModel)]="minReservationFilter"
+                                            placeholder="{{ l('MinValue') }}"
+                                            name="minReservationFilter"
+                                            (ngModelChange)="getDataProductions()"
+                                        />
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            [(ngModel)]="maxReservationFilter"
+                                            placeholder="{{ l('MaxValue') }}"
+                                            name="maxReservationFilter"
+                                            (ngModelChange)="getDataProductions()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="PurchaseOrderFilter">{{ l('PurchaseOrder') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="PurchaseOrderFilter"
+                                        name="purchaseOrderFilter"
+                                        [(ngModel)]="purchaseOrderFilter"
+                                        (ngModelChange)="getDataProductions()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinPurchaseOrderItemFilter">
+                                        {{ l('MinMax') }} {{ l('PurchaseOrderItem') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            id="MinPurchaseOrderItemFilter"
+                                            [(ngModel)]="minPurchaseOrderItemFilter"
+                                            placeholder="{{ l('MinValue') }}"
+                                            name="minPurchaseOrderItemFilter"
+                                            (ngModelChange)="getDataProductions()"
+                                        />
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            [(ngModel)]="maxPurchaseOrderItemFilter"
+                                            placeholder="{{ l('MaxValue') }}"
+                                            name="maxPurchaseOrderItemFilter"
+                                            (ngModelChange)="getDataProductions()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MovementTypeFilter">{{ l('MovementType') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="MovementTypeFilter"
+                                        name="movementTypeFilter"
+                                        [(ngModel)]="movementTypeFilter"
+                                        (ngModelChange)="getDataProductions()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MovementTypeTextFilter">
+                                        {{ l('MovementTypeText') }}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="MovementTypeTextFilter"
+                                        name="movementTypeTextFilter"
+                                        [(ngModel)]="movementTypeTextFilter"
+                                        (ngModelChange)="getDataProductions()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="PlantFilter">{{ l('Plant') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="PlantFilter"
+                                        name="plantFilter"
+                                        [(ngModel)]="plantFilter"
+                                        (ngModelChange)="getDataProductions()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="StorageLocationFilter">
+                                        {{ l('StorageLocation') }}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="StorageLocationFilter"
+                                        name="storageLocationFilter"
+                                        [(ngModel)]="storageLocationFilter"
+                                        (ngModelChange)="getDataProductions()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MaterialFilter">{{ l('Material') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="MaterialFilter"
+                                        name="materialFilter"
+                                        [(ngModel)]="materialFilter"
+                                        (ngModelChange)="getDataProductions()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MaterialDescriptionFilter">
+                                        {{ l('MaterialDescription') }}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="MaterialDescriptionFilter"
+                                        name="materialDescriptionFilter"
+                                        [(ngModel)]="materialDescriptionFilter"
+                                        (ngModelChange)="getDataProductions()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="VendorFilter">{{ l('Vendor') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="VendorFilter"
+                                        name="vendorFilter"
+                                        [(ngModel)]="vendorFilter"
+                                        (ngModelChange)="getDataProductions()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinQuantityFilter">
+                                        {{ l('MinMax') }} {{ l('Quantity') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            id="MinQuantityFilter"
+                                            [(ngModel)]="minQuantityFilter"
+                                            placeholder="{{ l('MinValue') }}"
+                                            name="minQuantityFilter"
+                                            (ngModelChange)="getDataProductions()"
+                                        />
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            [(ngModel)]="maxQuantityFilter"
+                                            placeholder="{{ l('MaxValue') }}"
+                                            name="maxQuantityFilter"
+                                            (ngModelChange)="getDataProductions()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinQtyInOrderUnitFilter">
+                                        {{ l('MinMax') }} {{ l('QtyInOrderUnit') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            id="MinQtyInOrderUnitFilter"
+                                            [(ngModel)]="minQtyInOrderUnitFilter"
+                                            placeholder="{{ l('MinValue') }}"
+                                            name="minQtyInOrderUnitFilter"
+                                            (ngModelChange)="getDataProductions()"
+                                        />
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            [(ngModel)]="maxQtyInOrderUnitFilter"
+                                            placeholder="{{ l('MaxValue') }}"
+                                            name="maxQtyInOrderUnitFilter"
+                                            (ngModelChange)="getDataProductions()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="UnitOfEntryFilter">{{ l('UnitOfEntry') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="UnitOfEntryFilter"
+                                        name="unitOfEntryFilter"
+                                        [(ngModel)]="unitOfEntryFilter"
+                                        (ngModelChange)="getDataProductions()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinPostingDateFilter">
+                                        {{ l('PostingDateRange') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            class="form-control m-input"
+                                            id="MinPostingDateFilter"
+                                            name="MinPostingDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MinValue') }}"
+                                            [(ngModel)]="minPostingDateFilter"
+                                            (ngModelChange)="getDataProductions()"
+                                        />
+                                        <span style="line-height: 40px; padding: 0 15px 0 15px">&mdash;</span>
+                                        <input
+                                            class="form-control m-input"
+                                            id="MaxPostingDateFilter"
+                                            name="MaxPostingDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MaxValue') }}"
+                                            [(ngModel)]="maxPostingDateFilter"
+                                            (ngModelChange)="getDataProductions()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinEntryDateFilter">{{ l('EntryDateRange') }}</label>
+                                    <div class="input-group">
+                                        <input
+                                            class="form-control m-input"
+                                            id="MinEntryDateFilter"
+                                            name="MinEntryDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MinValue') }}"
+                                            [(ngModel)]="minEntryDateFilter"
+                                            (ngModelChange)="getDataProductions()"
+                                        />
+                                        <span style="line-height: 40px; padding: 0 15px 0 15px">&mdash;</span>
+                                        <input
+                                            class="form-control m-input"
+                                            id="MaxEntryDateFilter"
+                                            name="MaxEntryDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MaxValue') }}"
+                                            [(ngModel)]="maxEntryDateFilter"
+                                            (ngModelChange)="getDataProductions()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="TimeOfEntryFilter">{{ l('TimeOfEntry') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="TimeOfEntryFilter"
+                                        name="timeOfEntryFilter"
+                                        [(ngModel)]="timeOfEntryFilter"
+                                        (ngModelChange)="getDataProductions()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="UserNameFilter">{{ l('UserName') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="UserNameFilter"
+                                        name="userNameFilter"
+                                        [(ngModel)]="userNameFilter"
+                                        (ngModelChange)="getDataProductions()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="DocumentHeaderTextFilter">
+                                        {{ l('DocumentHeaderText') }}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="DocumentHeaderTextFilter"
+                                        name="documentHeaderTextFilter"
+                                        [(ngModel)]="documentHeaderTextFilter"
+                                        (ngModelChange)="getDataProductions()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinDocumentDateFilter">
+                                        {{ l('DocumentDateRange') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            class="form-control m-input"
+                                            id="MinDocumentDateFilter"
+                                            name="MinDocumentDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MinValue') }}"
+                                            [(ngModel)]="minDocumentDateFilter"
+                                            (ngModelChange)="getDataProductions()"
+                                        />
+                                        <span style="line-height: 40px; padding: 0 15px 0 15px">&mdash;</span>
+                                        <input
+                                            class="form-control m-input"
+                                            id="MaxDocumentDateFilter"
+                                            name="MaxDocumentDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MaxValue') }}"
+                                            [(ngModel)]="maxDocumentDateFilter"
+                                            (ngModelChange)="getDataProductions()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="BatchFilter">{{ l('Batch') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="BatchFilter"
+                                        name="batchFilter"
+                                        [(ngModel)]="batchFilter"
+                                        (ngModelChange)="getDataProductions()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="CostCenterFilter">{{ l('CostCenter') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="CostCenterFilter"
+                                        name="costCenterFilter"
+                                        [(ngModel)]="costCenterFilter"
+                                        (ngModelChange)="getDataProductions()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="ReferenceFilter">{{ l('Reference') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="ReferenceFilter"
+                                        name="referenceFilter"
+                                        [(ngModel)]="referenceFilter"
+                                        (ngModelChange)="getDataProductions()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinInterfaceCreatedDateFilter">
+                                        {{ l('InterfaceCreatedDateRange') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            class="form-control m-input"
+                                            id="MinInterfaceCreatedDateFilter"
+                                            name="MinInterfaceCreatedDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MinValue') }}"
+                                            [(ngModel)]="minInterfaceCreatedDateFilter"
+                                            (ngModelChange)="getDataProductions()"
+                                        />
+                                        <span style="line-height: 40px; padding: 0 15px 0 15px">&mdash;</span>
+                                        <input
+                                            class="form-control m-input"
+                                            id="MaxInterfaceCreatedDateFilter"
+                                            name="MaxInterfaceCreatedDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MaxValue') }}"
+                                            [(ngModel)]="maxInterfaceCreatedDateFilter"
+                                            (ngModelChange)="getDataProductions()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="InterfaceCreatedByFilter">
+                                        {{ l('InterfaceCreatedBy') }}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="InterfaceCreatedByFilter"
+                                        name="interfaceCreatedByFilter"
+                                        [(ngModel)]="interfaceCreatedByFilter"
+                                        (ngModelChange)="getDataProductions()"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 mt-5">
+                                <button
+                                    (click)="resetFilters()"
+                                    class="btn btn-secondary btn-sm"
+                                    id="btn-reset-filters"
+                                >
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row my-4">
+                            <div class="col-sm-12">
+                                <span
+                                    class="clickable-item text-muted"
+                                    *ngIf="!advancedFiltersAreShown"
+                                    (click)="advancedFiltersAreShown = !advancedFiltersAreShown"
+                                >
+                                    <i class="fa fa-angle-down"></i>
+                                    {{ l('ShowAdvancedFilters') }}
+                                </span>
+                                <span
+                                    class="clickable-item text-muted"
+                                    *ngIf="advancedFiltersAreShown"
+                                    (click)="advancedFiltersAreShown = !advancedFiltersAreShown"
+                                >
+                                    <i class="fa fa-angle-up"></i>
+                                    {{ l('HideAdvancedFilters') }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="row align-items-center">
+                    <!--<Primeng-Datatable-Start>-->
+                    <div class="primeng-datatable-container col-12" [busyIf]="primengTableHelper.isLoading">
+                        <p-table
+                            #dataTable
+                            (onLazyLoad)="getDataProductions($event)"
+                            [value]="primengTableHelper.records"
+                            rows="{{ primengTableHelper.defaultRecordsCountPerPage }}"
+                            [paginator]="false"
+                            [lazy]="true"
+                            [scrollable]="true"
+                            ScrollWidth="100%"
+                            [tableStyle]="{ 'min-width': '50rem' }"
+                            [resizableColumns]="primengTableHelper.resizableColumns"
+                        >
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th
+                                        style="width: 130px"
+                                        [hidden]="
+                                            !isGrantedAny('Pages.DataProductions.Edit', 'Pages.DataProductions.Delete')
+                                        "
+                                    >
+                                        {{ l('Actions') }}
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="materialDocument">
+                                        {{ l('MaterialDocument') }}
+                                        <p-sortIcon field="dataProduction.materialDocument"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="materialDocYear">
+                                        {{ l('MaterialDocYear') }}
+                                        <p-sortIcon field="dataProduction.materialDocYear"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="materialDocItem">
+                                        {{ l('MaterialDocItem') }}
+                                        <p-sortIcon field="dataProduction.materialDocItem"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="order">
+                                        {{ l('Order') }}
+                                        <p-sortIcon field="dataProduction.order"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="reservation">
+                                        {{ l('Reservation') }}
+                                        <p-sortIcon field="dataProduction.reservation"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="purchaseOrder">
+                                        {{ l('PurchaseOrder') }}
+                                        <p-sortIcon field="dataProduction.purchaseOrder"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="movementType">
+                                        {{ l('MovementType') }}
+                                        <p-sortIcon field="dataProduction.movementType"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="movementTypeText">
+                                        {{ l('MovementTypeText') }}
+                                        <p-sortIcon field="dataProduction.movementTypeText"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="plant">
+                                        {{ l('Plant') }}
+                                        <p-sortIcon field="dataProduction.plant"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="storageLocation">
+                                        {{ l('StorageLocation') }}
+                                        <p-sortIcon field="dataProduction.storageLocation"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="material">
+                                        {{ l('Material') }}
+                                        <p-sortIcon field="dataProduction.material"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="materialDescription">
+                                        {{ l('MaterialDescription') }}
+                                        <p-sortIcon field="dataProduction.materialDescription"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="quantity">
+                                        {{ l('Quantity') }}
+                                        <p-sortIcon field="dataProduction.quantity"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="qtyInOrderUnit">
+                                        {{ l('QtyInOrderUnit') }}
+                                        <p-sortIcon field="dataProduction.qtyInOrderUnit"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="postingDate">
+                                        {{ l('PostingDate') }}
+                                        <p-sortIcon field="dataProduction.postingDate"></p-sortIcon>
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-record="$implicit" let-i="rowIndex">
+                                <tr>
+                                    <td
+                                        style="width: 130px"
+                                        [hidden]="
+                                            !isGrantedAny('Pages.DataProductions.Edit', 'Pages.DataProductions.Delete')
+                                        "
+                                    >
+                                        <div class="btn-group dropdown" dropdown container="body">
+                                            <button class="dropdown-toggle btn btn-sm btn-primary" dropdownToggle>
+                                                <i class="fa fa-cog"></i>
+                                                <span class="caret"></span>
+                                                {{ l('Actions') }}
+                                            </button>
+                                            <ul class="dropdown-menu" *dropdownMenu>
+                                                <li>
+                                                    <a
+                                                        href="javascript:;"
+                                                        class="dropdown-item"
+                                                        (click)="viewDataProductionModal.show(record)"
+                                                    >
+                                                        {{ l('View') }}
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a
+                                                        href="javascript:;"
+                                                        *ngIf="permission.isGranted('Pages.DataProductions.Edit')"
+                                                        class="dropdown-item"
+                                                        (click)="
+                                                            createOrEditDataProductionModal.show(
+                                                                record.dataProduction.id
+                                                            )
+                                                        "
+                                                    >
+                                                        {{ l('Edit') }}
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a
+                                                        class="dropdown-item"
+                                                        href="javascript:;"
+                                                        *ngIf="permission.isGranted('Pages.DataProductions.Delete')"
+                                                        (click)="deleteDataProduction(record.dataProduction)"
+                                                    >
+                                                        {{ l('Delete') }}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('MaterialDocument') }}</span>
+                                        {{ record.dataProduction.materialDocument }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('MaterialDocYear') }}</span>
+                                        {{ record.dataProduction.materialDocYear }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('MaterialDocItem') }}</span>
+                                        {{ record.dataProduction.materialDocItem }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('Order') }}</span>
+                                        {{ record.dataProduction.order }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('Reservation') }}</span>
+                                        {{ record.dataProduction.reservation }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('PurchaseOrder') }}</span>
+                                        {{ record.dataProduction.purchaseOrder }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('MovementType') }}</span>
+                                        {{ record.dataProduction.movementType }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('MovementTypeText') }}</span>
+                                        {{ record.dataProduction.movementTypeText }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('Plant') }}</span>
+                                        {{ record.dataProduction.plant }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('StorageLocation') }}</span>
+                                        {{ record.dataProduction.storageLocation }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('Material') }}</span>
+                                        {{ record.dataProduction.material }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('MaterialDescription') }}</span>
+                                        {{ record.dataProduction.materialDescription }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('Quantity') }}</span>
+                                        {{ record.dataProduction.quantity }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('QtyInOrderUnit') }}</span>
+                                        {{ record.dataProduction.qtyInOrderUnit }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('PostingDate') }}</span>
+                                        <span *ngIf="record.dataProduction.postingDate">
+                                            {{ record.dataProduction.postingDate | luxonFormat : 'F' }}
+                                        </span>
+                                        <span *ngIf="!record.dataProduction.postingDate">-</span>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                        <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">
+                            {{ l('NoData') }}
+                        </div>
+                        <div class="primeng-paging-container">
+                            <p-paginator
+                                [rows]="primengTableHelper.defaultRecordsCountPerPage"
+                                #paginator
+                                (onPageChange)="getDataProductions($event)"
+                                [totalRecords]="primengTableHelper.totalRecordsCount"
+                                [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
+                                [showCurrentPageReport]="true"
+                                [currentPageReportTemplate]="
+                                    'TotalRecordsCount' | localize : primengTableHelper.totalRecordsCount
+                                "
+                            ></p-paginator>
+                        </div>
+                    </div>
+                    <!--<Primeng-Datatable-End>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <createOrEditDataProductionModal
+        #createOrEditDataProductionModal
+        (modalSave)="getDataProductions()"
+    ></createOrEditDataProductionModal>
+    <viewDataProductionModal #viewDataProductionModal></viewDataProductionModal>
+</div>

@@ -45,6 +45,13 @@ using Microsoft.AspNetCore.Server.Kestrel.Https;
 using Adaro.Centralize.Web.MultiTenancy;
 using Abp.HtmlSanitizer;
 using Adaro.Centralize.Authorization.Ldap;
+using AdaroConnect;
+using AdaroConnect.Core;
+using AdaroConnect.Application.Core.Abstracts;
+using AdaroConnect.Application.Core.Extensions;
+using AdaroConnect.Application.Core.Models;
+using Microsoft.Extensions.Options;
+using AdaroConnect.Application.Core.Managers;
 
 namespace Adaro.Centralize.Web.Startup
 {
@@ -144,7 +151,7 @@ namespace Adaro.Centralize.Web.Startup
                 ConfigureHealthChecks(services);
             }
 
-            
+            services.AddAdaroConnectSampleCore(_appConfiguration);
 
             //Configure Abp and Dependency Injection
             return services.AddAbp<CentralizeWebHostModule>(options =>
@@ -337,5 +344,36 @@ namespace Adaro.Centralize.Web.Startup
                     .AddInMemoryStorage();
             }
         }
+
+        //private void ConfigureAdaroConnect(IServiceCollection services, IConfiguration configuration)
+        //{
+        //    services.AddOptions<IConfiguration>();
+        //    services.Configure<IOptions<IConfiguration>>(configuration);
+        //    services.AddAdaroConnect(s => s.ReadFromConfiguration(configuration));
+        //    //services.AddAdaroConnect(s =>
+        //    //{
+        //    //    s.DefaultServer = "LIVE";
+        //    //    s.RfcServers = new List<RfcServer>()
+        //    //    {
+        //    //        new RfcServer()
+        //    //        {
+        //    //            Alias = "LIVE",
+        //    //            ConnectionString =
+        //    //                "Name=LIVE;User=USER;Password=PASSWORD;Client=CLIENT_CODE;SystemId:xxx;Language=EN;AppServerHost=HOST_NAME;SystemNumber=00;MaxPoolSize:100;PoolSize=50;IdleTimeout:600;Trace=0;",
+        //    //            ConnectionPooling = new RfcConnectionPoolingOption() {Enabled = true, PoolSize = 10}
+        //    //        }
+        //    //    };
+        //    //});
+        //    services.TryAddTransient<IJobManager, JobManager>();
+        //    services.TryAddTransient<IVendorManager, VendorManager>();
+        //    services.TryAddSingleton<IMaterialManager, MaterialManager>();
+        //    services.TryAddSingleton<IBillOfMaterialManager, BillOfMaterialManager>();
+        //    services.TryAddSingleton<IFunctionMetaDataManager, FunctionMetaDataManager>();
+        //    services.TryAddSingleton<IMaterialSaveDataManager, MaterialSaveDataManager>();
+        //    services.TryAddSingleton<IGoodsMovementManager, GoodsMovementManager>();
+        //    services.TryAddSingleton<ICostCenterManager, CostCenterManager>();
+        //    services.BuildServiceProvider();
+        //}
+
     }
 }

@@ -26,6 +26,8 @@
     <ProjectReference Include="..\Adaro.Centralize.Application.Shared\Adaro.Centralize.Application.Shared.csproj" />
     <ProjectReference Include="..\Adaro.Centralize.Core\Adaro.Centralize.Core.csproj" />
     <ProjectReference Include="..\Adaro.Centralize.EntityFrameworkCore\Adaro.Centralize.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\AdaroConnect\src\AdaroConnect.Core\AdaroConnect.Core.csproj" />
+    <ProjectReference Include="..\AdaroConnect\src\Samples\AdaroConnect.Samples.Core\AdaroConnect.Application.Core.csproj" />
   </ItemGroup>
 
 </Project>

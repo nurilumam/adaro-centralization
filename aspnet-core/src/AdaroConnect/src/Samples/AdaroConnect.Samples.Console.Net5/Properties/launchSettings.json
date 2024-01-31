@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AdaroConnect.Samples.Console.Net5": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

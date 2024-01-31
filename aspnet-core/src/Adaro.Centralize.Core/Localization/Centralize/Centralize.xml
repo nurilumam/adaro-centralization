@@ -1,6 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>
+  <texts>    <text name="NotIsActive">Not is active</text>
+    <text name="Adaro.Centralize.SAPConnector.CostCenter">CostCenter</text>
+    <text name="ControllingArea">Controlling area</text>
+    <text name="CostCenterName">Cost center name</text>
+    <text name="ActState">Act state</text>
+    <text name="CostCentersHeaderInfo">Cost centers header info</text>
+    <text name="CreateNewCostCenter">Create new cost center</text>
+    <text name="EditCostCenter">Edit cost center</text>
+    <text name="DeleteCostCenter">Delete cost center</text>
+    <text name="CostCenters">Cost centers</text>
+    <text name="SAPConnector">S a p connector</text>
+    <text name="DataProduction">Data production</text>
+    <text name="Adaro.Centralize.SAPConnector.DataProduction">DataProduction</text>
+    <text name="IntfId">Intf id</text>
+    <text name="IntfSite">Intf site</text>
+    <text name="IntfSession">Intf session</text>
+    <text name="ObjectId">Object id</text>
+    <text name="MessageType">Message type</text>
+    <text name="MaterialDocument">Material document</text>
+    <text name="MaterialDocYear">Material doc year</text>
+    <text name="MaterialDocItem">Material doc item</text>
+    <text name="Order">Order</text>
+    <text name="Reservation">Reservation</text>
+    <text name="PurchaseOrder">Purchase order</text>
+    <text name="PurchaseOrderItem">Purchase order item</text>
+    <text name="MovementType">Movement type</text>
+    <text name="MovementTypeText">Movement type text</text>
+    <text name="Plant">Plant</text>
+    <text name="StorageLocation">Storage location</text>
+    <text name="MaterialDescription">Material description</text>
+    <text name="Vendor">Vendor</text>
+    <text name="Quantity">Quantity</text>
+    <text name="QtyInOrderUnit">Qty in order unit</text>
+    <text name="UnitOfEntry">Unit of entry</text>
+    <text name="PostingDate">Posting date</text>
+    <text name="EntryDate">Entry date</text>
+    <text name="TimeOfEntry">Time of entry</text>
+    <text name="DocumentHeaderText">Document header text</text>
+    <text name="DocumentDate">Document date</text>
+    <text name="Batch">Batch</text>
+    <text name="CostCenter">Cost center</text>
+    <text name="Reference">Reference</text>
+    <text name="InterfaceCreatedDate">Interface created date</text>
+    <text name="InterfaceCreatedBy">Interface created by</text>
+    <text name="DataProductionsHeaderInfo">Data productions header info</text>
+    <text name="CreateNewDataProduction">Create new data production</text>
+    <text name="EditDataProduction">Edit data production</text>
+    <text name="DeleteDataProduction">Delete data production</text>
+    <text name="DataProductions">Data productions</text>
+    <text name="PostingDateRange">Posting date range</text>
+    <text name="EntryDateRange">Entry date range</text>
+    <text name="DocumentDateRange">Document date range</text>
+    <text name="InterfaceCreatedDateRange">Interface created date range</text>
+
     <text name="MaterialRequestsHeaderInfo">Material requests header info</text>
 
     <text name="MasterDataRequest">Master data request</text>

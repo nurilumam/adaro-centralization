@@ -1,4 +1,5 @@
-﻿using Adaro.Centralize.MasterDataRequest;
+﻿using Adaro.Centralize.SAPConnector;
+using Adaro.Centralize.MasterDataRequest;
 using Adaro.Centralize.MasterData;
 using Adaro.Centralize.Travel;
 using Abp.Zero.EntityFrameworkCore;
@@ -18,6 +19,10 @@ namespace Adaro.Centralize.EntityFrameworkCore
 {
     public class CentralizeDbContext : AbpZeroDbContext<Tenant, Role, User, CentralizeDbContext>
     {
+        public virtual DbSet<CostCenter> CostCenters { get; set; }
+
+        public virtual DbSet<DataProduction> DataProductions { get; set; }
+
         public virtual DbSet<MaterialRequest> MaterialRequests { get; set; }
 
         public virtual DbSet<EnumTable> EnumTables { get; set; }
@@ -64,10 +69,18 @@ namespace Adaro.Centralize.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Material>(m =>
+            modelBuilder.Entity<CostCenter>(c =>
             {
-                m.HasIndex(e => new { e.TenantId });
+                c.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<DataProduction>(d =>
+                       {
+                           d.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<Material>(m =>
+                       {
+                           m.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<MaterialRequest>(m =>
                        {
                            m.HasIndex(e => new { e.TenantId });

@@ -1,0 +1,98 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaroConnect.Wrapper", "AdaroConnect.Wrapper\AdaroConnect.Wrapper.csproj", "{3E8AB124-D27D-4558-B750-9063EA51D983}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaroConnect.Core", "AdaroConnect.Core\AdaroConnect.Core.csproj", "{689E29A8-7065-4728-9B2A-C2B3E546D465}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9032CD1E-3357-44DF-B895-253F7B9DC81F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaroConnect.Core.Test", "Tests\AdaroConnect.Core.Test\AdaroConnect.Core.Test.csproj", "{EE6A1699-2D01-4E4D-8F14-552DD9C23DFD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaroConnect", "AdaroConnect\AdaroConnect.csproj", "{DF741534-4565-44F9-895D-92A366FEA07B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaroConnect.Test", "Tests\AdaroConnect.Test\AdaroConnect.Test.csproj", "{15812CD7-D826-4627-A017-E2158DCB4C82}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaroConnect.Wrapper.Test", "Tests\AdaroConnect.Wrapper.Test\AdaroConnect.Wrapper.Test.csproj", "{5597791A-6D93-45D2-994C-A6C4BD8B34A2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{675CB084-F812-4258-B1DF-5E97331F51DA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaroConnect.Abstraction", "AdaroConnect.Abstraction\AdaroConnect.Abstraction.csproj", "{8D4DEC8D-03F2-4B7E-A683-C51F32BE2703}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaroConnect.Samples.Core", "Samples\AdaroConnect.Samples.Core\AdaroConnect.Samples.Core.csproj", "{EB1BFB06-6338-46A0-AEE8-D26F63E8E253}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaroConnect.Samples.Console.Net5", "Samples\AdaroConnect.Samples.Console.Net5\AdaroConnect.Samples.Console.Net5.csproj", "{0F02248E-F822-4175-B6F8-EF4CEB6661D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdaroConnect.Samples.Console.NetFramework48", "Samples\AdaroConnect.Samples.Console.NetFramework48\AdaroConnect.Samples.Console.NetFramework48.csproj", "{71CE7451-C23F-49E0-BA1D-458E76049B13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdaroConnect.Samples.Web.Mvc.Net5", "Samples\AdaroConnect.Samples.Web.Mvc.Net5\AdaroConnect.Samples.Web.Mvc.Net5.csproj", "{617DDC8A-0A32-4E0D-A20B-1D4477105547}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3E8AB124-D27D-4558-B750-9063EA51D983}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E8AB124-D27D-4558-B750-9063EA51D983}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E8AB124-D27D-4558-B750-9063EA51D983}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E8AB124-D27D-4558-B750-9063EA51D983}.Release|Any CPU.Build.0 = Release|Any CPU
+		{689E29A8-7065-4728-9B2A-C2B3E546D465}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{689E29A8-7065-4728-9B2A-C2B3E546D465}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{689E29A8-7065-4728-9B2A-C2B3E546D465}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{689E29A8-7065-4728-9B2A-C2B3E546D465}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE6A1699-2D01-4E4D-8F14-552DD9C23DFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE6A1699-2D01-4E4D-8F14-552DD9C23DFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE6A1699-2D01-4E4D-8F14-552DD9C23DFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE6A1699-2D01-4E4D-8F14-552DD9C23DFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF741534-4565-44F9-895D-92A366FEA07B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF741534-4565-44F9-895D-92A366FEA07B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF741534-4565-44F9-895D-92A366FEA07B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF741534-4565-44F9-895D-92A366FEA07B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15812CD7-D826-4627-A017-E2158DCB4C82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15812CD7-D826-4627-A017-E2158DCB4C82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15812CD7-D826-4627-A017-E2158DCB4C82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15812CD7-D826-4627-A017-E2158DCB4C82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5597791A-6D93-45D2-994C-A6C4BD8B34A2}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{5597791A-6D93-45D2-994C-A6C4BD8B34A2}.Debug|Any CPU.Build.0 = Debug|x64
+		{5597791A-6D93-45D2-994C-A6C4BD8B34A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5597791A-6D93-45D2-994C-A6C4BD8B34A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D4DEC8D-03F2-4B7E-A683-C51F32BE2703}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D4DEC8D-03F2-4B7E-A683-C51F32BE2703}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D4DEC8D-03F2-4B7E-A683-C51F32BE2703}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D4DEC8D-03F2-4B7E-A683-C51F32BE2703}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB1BFB06-6338-46A0-AEE8-D26F63E8E253}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB1BFB06-6338-46A0-AEE8-D26F63E8E253}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB1BFB06-6338-46A0-AEE8-D26F63E8E253}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB1BFB06-6338-46A0-AEE8-D26F63E8E253}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F02248E-F822-4175-B6F8-EF4CEB6661D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F02248E-F822-4175-B6F8-EF4CEB6661D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F02248E-F822-4175-B6F8-EF4CEB6661D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F02248E-F822-4175-B6F8-EF4CEB6661D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71CE7451-C23F-49E0-BA1D-458E76049B13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71CE7451-C23F-49E0-BA1D-458E76049B13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71CE7451-C23F-49E0-BA1D-458E76049B13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71CE7451-C23F-49E0-BA1D-458E76049B13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{617DDC8A-0A32-4E0D-A20B-1D4477105547}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{617DDC8A-0A32-4E0D-A20B-1D4477105547}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{617DDC8A-0A32-4E0D-A20B-1D4477105547}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{617DDC8A-0A32-4E0D-A20B-1D4477105547}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EE6A1699-2D01-4E4D-8F14-552DD9C23DFD} = {9032CD1E-3357-44DF-B895-253F7B9DC81F}
+		{15812CD7-D826-4627-A017-E2158DCB4C82} = {9032CD1E-3357-44DF-B895-253F7B9DC81F}
+		{5597791A-6D93-45D2-994C-A6C4BD8B34A2} = {9032CD1E-3357-44DF-B895-253F7B9DC81F}
+		{EB1BFB06-6338-46A0-AEE8-D26F63E8E253} = {675CB084-F812-4258-B1DF-5E97331F51DA}
+		{0F02248E-F822-4175-B6F8-EF4CEB6661D5} = {675CB084-F812-4258-B1DF-5E97331F51DA}
+		{71CE7451-C23F-49E0-BA1D-458E76049B13} = {675CB084-F812-4258-B1DF-5E97331F51DA}
+		{617DDC8A-0A32-4E0D-A20B-1D4477105547} = {675CB084-F812-4258-B1DF-5E97331F51DA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D4AB77E7-6267-450B-8131-117F23E133C6}
+	EndGlobalSection
+EndGlobal

@@ -30,6 +30,16 @@ namespace Adaro.Centralize.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var costCenters = pages.CreateChildPermission(AppPermissions.Pages_CostCenters, L("CostCenters"));
+            costCenters.CreateChildPermission(AppPermissions.Pages_CostCenters_Create, L("CreateNewCostCenter"));
+            costCenters.CreateChildPermission(AppPermissions.Pages_CostCenters_Edit, L("EditCostCenter"));
+            costCenters.CreateChildPermission(AppPermissions.Pages_CostCenters_Delete, L("DeleteCostCenter"));
+
+            var dataProductions = pages.CreateChildPermission(AppPermissions.Pages_DataProductions, L("DataProductions"));
+            dataProductions.CreateChildPermission(AppPermissions.Pages_DataProductions_Create, L("CreateNewDataProduction"));
+            dataProductions.CreateChildPermission(AppPermissions.Pages_DataProductions_Edit, L("EditDataProduction"));
+            dataProductions.CreateChildPermission(AppPermissions.Pages_DataProductions_Delete, L("DeleteDataProduction"));
+
             var materialRequests = pages.CreateChildPermission(AppPermissions.Pages_MaterialRequests, L("MaterialRequests"));
             materialRequests.CreateChildPermission(AppPermissions.Pages_MaterialRequests_Create, L("CreateNewMaterialRequest"));
             materialRequests.CreateChildPermission(AppPermissions.Pages_MaterialRequests_Edit, L("EditMaterialRequest"));
