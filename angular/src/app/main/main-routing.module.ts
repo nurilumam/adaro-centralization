@@ -9,6 +9,13 @@ import { RouterModule } from '@angular/router';
                 children: [
                     
                     {
+                        path: 'jobScheduler/jobSynchronizes',
+                        loadChildren: () => import('./jobScheduler/jobSynchronizes/jobSynchronize.module').then(m => m.JobSynchronizeModule),
+                        data: { permission: 'Pages.JobSynchronizes' }
+                    },
+                
+                    
+                    {
                         path: 'sapConnector/costCenters',
                         loadChildren: () => import('./sapConnector/costCenters/costCenter.module').then(m => m.CostCenterModule),
                         data: { permission: 'Pages.CostCenters' }

@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_JobSynchronizes = "Pages.JobSynchronizes";
+        public const string Pages_JobSynchronizes_Create = "Pages.JobSynchronizes.Create";
+        public const string Pages_JobSynchronizes_Edit = "Pages.JobSynchronizes.Edit";
+        public const string Pages_JobSynchronizes_Delete = "Pages.JobSynchronizes.Delete";
+
         public const string Pages_CostCenters = "Pages.CostCenters";
         public const string Pages_CostCenters_Create = "Pages.CostCenters.Create";
         public const string Pages_CostCenters_Edit = "Pages.CostCenters.Edit";

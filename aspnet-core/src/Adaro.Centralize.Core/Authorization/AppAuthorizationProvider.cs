@@ -30,6 +30,11 @@ namespace Adaro.Centralize.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var jobSynchronizes = pages.CreateChildPermission(AppPermissions.Pages_JobSynchronizes, L("JobSynchronizes"));
+            jobSynchronizes.CreateChildPermission(AppPermissions.Pages_JobSynchronizes_Create, L("CreateNewJobSynchronize"));
+            jobSynchronizes.CreateChildPermission(AppPermissions.Pages_JobSynchronizes_Edit, L("EditJobSynchronize"));
+            jobSynchronizes.CreateChildPermission(AppPermissions.Pages_JobSynchronizes_Delete, L("DeleteJobSynchronize"));
+
             var costCenters = pages.CreateChildPermission(AppPermissions.Pages_CostCenters, L("CostCenters"));
             costCenters.CreateChildPermission(AppPermissions.Pages_CostCenters_Create, L("CreateNewCostCenter"));
             costCenters.CreateChildPermission(AppPermissions.Pages_CostCenters_Edit, L("EditCostCenter"));

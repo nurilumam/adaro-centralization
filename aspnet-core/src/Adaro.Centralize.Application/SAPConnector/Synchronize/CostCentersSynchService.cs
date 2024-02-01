@@ -23,19 +23,21 @@ using Abp.EntityFrameworkCore.Repositories;
 
 namespace Adaro.Centralize.SAPConnector
 {
-    [AbpAuthorize(AppPermissions.Pages_CostCenters)]
     public class CostCentersSynchService : CentralizeAppServiceBase, ICostCentersSynchService
     {
         private readonly IRepository<CostCenter, Guid> _costCenterRepository;
         private readonly ICostCenterManager _costCenterManagerSAP;
+        private readonly IUnitOfWorkManager _unitOfWorkManager;
 
 
         public CostCentersSynchService(
             IRepository<CostCenter, Guid> costCenterRepository,
-            ICostCenterManager costCenterManagerSAP)
+            ICostCenterManager costCenterManagerSAP,
+            IUnitOfWorkManager unitOfWorkManager)
         {
             _costCenterRepository = costCenterRepository;
             _costCenterManagerSAP = costCenterManagerSAP;
+            _unitOfWorkManager = unitOfWorkManager;
         }
 
         public virtual async Task<DtoResponseModel> SynchronizeFromSAP(CostCenterSynchDto input)
@@ -50,46 +52,52 @@ namespace Adaro.Centralize.SAPConnector
                 if (result.CostCenter != null && result.CostCenter.Count() > 0)
                 {
                     var listCostCenter = result.CostCenter.GroupBy(x => x.CostCenter).Select(x => x.FirstOrDefault()).ToList();
-                    var costCenterNames = result.CostCenter.Select(x => x.Name).ToList();
-                    var existingCostCenters = _costCenterRepository
-                        .GetAll()
-                        .Where(x => costCenterNames.Contains(x.CostCenterName))
-                        .ToList();
+                    var costCenterNames = result.CostCenter.Select(x => x.CostCenter).ToList();
 
-                    if (existingCostCenters != null && existingCostCenters.Count() > 0)
+                    using (var uow = _unitOfWorkManager.Begin())
                     {
-                        response.AddMessage($"Total Cost Center to Update : {existingCostCenters.Count()}");
-
-                        foreach (var updateCostCenter in existingCostCenters)
-                        {
-                            var itemCostCenter = result.CostCenter.FirstOrDefault(x => x.Name == updateCostCenter.CostCenterName);
-                            ObjectMapper.Map(updateCostCenter, itemCostCenter);
-                        }
-
-
-                        listCostCenter = listCostCenter.Where(x =>
-                            !existingCostCenters.Select(y => y.CostCenterName).Contains(x.Name))
+                        var existingCostCenters = _costCenterRepository
+                            .GetAll()
+                            .Where(x => costCenterNames.Contains(x.CostCenterName))
                             .ToList();
-                    }
 
-                    if (listCostCenter != null && listCostCenter.Count > 0)
-                    {
-                        response.AddMessage($"Total Cost Center to Insert : {listCostCenter.Count}");
-                        var xx = new List<CostCenter>();
-
-                        foreach (var itemCostCenter in listCostCenter)
+                        if (existingCostCenters != null && existingCostCenters.Count() > 0)
                         {
-                            var costCenter = ObjectMapper.Map<CostCenter>(itemCostCenter);
-                            costCenter.CostCenterName = itemCostCenter.CostCenter;
-                            xx.Add(costCenter);
+                            response.AddMessage($"Total Cost Center to Update : {existingCostCenters.Count()}");
 
-                            if (AbpSession.TenantId != null)
+                            foreach (var updateCostCenter in existingCostCenters)
                             {
-                                costCenter.TenantId = (int?)AbpSession.TenantId;
+                                var itemCostCenter = result.CostCenter.FirstOrDefault(x => x.Name == updateCostCenter.CostCenterName);
+                                ObjectMapper.Map(updateCostCenter, itemCostCenter);
                             }
 
-                            await _costCenterRepository.InsertAsync(costCenter);
+
+                            listCostCenter = listCostCenter.Where(x =>
+                                !existingCostCenters.Select(y => y.CostCenterName).Contains(x.Name))
+                                .ToList();
                         }
+
+                        if (listCostCenter != null && listCostCenter.Count > 0)
+                        {
+                            response.AddMessage($"Total Cost Center to Insert : {listCostCenter.Count}");
+                            var xx = new List<CostCenter>();
+
+                            foreach (var itemCostCenter in listCostCenter)
+                            {
+                                var costCenter = ObjectMapper.Map<CostCenter>(itemCostCenter);
+                                costCenter.CostCenterName = itemCostCenter.CostCenter;
+                                xx.Add(costCenter);
+
+                                if (AbpSession.TenantId != null)
+                                {
+                                    costCenter.TenantId = (int?)AbpSession.TenantId;
+                                }
+
+                                await _costCenterRepository.InsertAsync(costCenter);
+                            }
+                        }
+
+                        await uow.CompleteAsync();
                     }
                 }
 

@@ -40,6 +40,7 @@ namespace AdaroConnect.Application.Core.Extensions
             services.TryAddSingleton<IMaterialSaveDataManager, MaterialSaveDataManager>();
             services.TryAddSingleton<IGoodsMovementManager, GoodsMovementManager>();
             services.TryAddSingleton<ICostCenterManager, CostCenterManager>();
+            services.TryAddSingleton<IPurchaseOrderManager, PurchaseOrderManager>();
             services.BuildServiceProvider();
 
             return services;

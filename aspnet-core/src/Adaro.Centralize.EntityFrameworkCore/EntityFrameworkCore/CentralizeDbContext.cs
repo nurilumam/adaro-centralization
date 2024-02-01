@@ -1,4 +1,5 @@
-﻿using Adaro.Centralize.SAPConnector;
+﻿using Adaro.Centralize.JobScheduler;
+using Adaro.Centralize.SAPConnector;
 using Adaro.Centralize.MasterDataRequest;
 using Adaro.Centralize.MasterData;
 using Adaro.Centralize.Travel;
@@ -19,6 +20,8 @@ namespace Adaro.Centralize.EntityFrameworkCore
 {
     public class CentralizeDbContext : AbpZeroDbContext<Tenant, Role, User, CentralizeDbContext>
     {
+        public virtual DbSet<JobSynchronize> JobSynchronizes { get; set; }
+
         public virtual DbSet<CostCenter> CostCenters { get; set; }
 
         public virtual DbSet<DataProduction> DataProductions { get; set; }
@@ -69,10 +72,14 @@ namespace Adaro.Centralize.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<CostCenter>(c =>
+            modelBuilder.Entity<JobSynchronize>(j =>
             {
-                c.HasIndex(e => new { e.TenantId });
+                j.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<CostCenter>(c =>
+                       {
+                           c.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<DataProduction>(d =>
                        {
                            d.HasIndex(e => new { e.TenantId });

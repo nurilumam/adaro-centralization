@@ -1,6 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="NotIsActive">Not is active</text>
+  <texts>    <text name="JobScheduler">Job scheduler</text>
+    <text name="JobSynchronize">Job synchronize</text>
+    <text name="Adaro.Centralize.JobScheduler.JobSynchronize">JobSynchronize</text>
+    <text name="JobName">Job name</text>
+    <text name="JobType">Job type</text>
+    <text name="DataSource">Data source</text>
+    <text name="LastStatus">Last status</text>
+    <text name="Uri">Uri</text>
+    <text name="LastUpdate">Last update</text>
+    <text name="TotalInsert">Total insert</text>
+    <text name="TotalUpdate">Total update</text>
+    <text name="TotalDelete">Total delete</text>
+    <text name="JobSynchronizesHeaderInfo">Job synchronizes header info</text>
+    <text name="CreateNewJobSynchronize">Create new job synchronize</text>
+    <text name="EditJobSynchronize">Edit job synchronize</text>
+    <text name="DeleteJobSynchronize">Delete job synchronize</text>
+    <text name="JobSynchronizes">Job synchronizes</text>
+    <text name="LastUpdateRange">Last update range</text>
+    <text name="NotIsActive">Not is active</text>
     <text name="Adaro.Centralize.SAPConnector.CostCenter">CostCenter</text>
     <text name="ControllingArea">Controlling area</text>
     <text name="CostCenterName">Cost center name</text>

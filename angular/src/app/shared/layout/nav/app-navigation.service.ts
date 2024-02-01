@@ -31,6 +31,8 @@ export class AppNavigationService {
             new AppMenuItem('DataProductions', 'Pages.DataProductions', 'flaticon-more', '/app/main/sapConnector/dataProductions'),
             
             new AppMenuItem('CostCenters', 'Pages.CostCenters', 'flaticon-more', '/app/main/sapConnector/costCenters'),
+            
+            new AppMenuItem('JobSynchronizes', 'Pages.JobSynchronizes', 'flaticon-more', '/app/main/jobScheduler/jobSynchronizes'),
              new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
 
             new AppMenuItem(

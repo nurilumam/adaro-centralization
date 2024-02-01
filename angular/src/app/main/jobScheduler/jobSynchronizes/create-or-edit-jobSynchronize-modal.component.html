@@ -1,0 +1,183 @@
+﻿<div
+    bsModal
+    #createOrEditModal="bs-modal"
+    class="modal fade"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="createOrEditModal"
+    aria-hidden="true"
+    [config]="{ backdrop: 'static' }"
+>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #jobSynchronizeForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="jobSynchronize.id">{{ l('EditJobSynchronize') }}</span>
+                        <span *ngIf="!jobSynchronize.id">{{ l('CreateNewJobSynchronize') }}</span>
+                    </h4>
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        (click)="close()"
+                        aria-label="Close"
+                        [disabled]="saving"
+                    ></button>
+                </div>
+                <div class="modal-body">
+                    <div class="my-3">
+                        <label class="form-label" for="JobSynchronize_JobName">{{ l('JobName') }} *</label>
+                        <input
+                            type="text"
+                            #JobSynchronize_JobName="ngModel"
+                            id="JobSynchronize_JobName"
+                            class="form-control"
+                            [(ngModel)]="jobSynchronize.jobName"
+                            name="JobName"
+                            required
+                        />
+                        <validation-messages [formCtrl]="JobSynchronize_JobName"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="JobSynchronize_JobType">{{ l('JobType') }}</label>
+                        <select
+                            class="form-select"
+                            #JobSynchronize_JobType="ngModel"
+                            name="JobType"
+                            id="JobSynchronize_JobType"
+                            [(ngModel)]="jobSynchronize.jobType"
+                        >
+                            <option value="0">{{ l('CostCenter') }}</option>
+
+                            <option value="1">{{ l('PurchaseOrder') }}</option>
+
+                            <option value="2">{{ l('SalesOrder') }}</option>
+
+                            <option value="2">{{ l('Requisition') }}</option>
+                        </select>
+                        <validation-messages [formCtrl]="JobSynchronize_JobType"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="JobSynchronize_DataSource">{{ l('DataSource') }} *</label>
+                        <input
+                            type="text"
+                            #JobSynchronize_DataSource="ngModel"
+                            id="JobSynchronize_DataSource"
+                            class="form-control"
+                            [(ngModel)]="jobSynchronize.dataSource"
+                            name="DataSource"
+                            required
+                        />
+                        <validation-messages [formCtrl]="JobSynchronize_DataSource"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="JobSynchronize_LastStatus">{{ l('LastStatus') }}</label>
+                        <select
+                            class="form-select"
+                            #JobSynchronize_LastStatus="ngModel"
+                            name="LastStatus"
+                            id="JobSynchronize_LastStatus"
+                            [(ngModel)]="jobSynchronize.lastStatus"
+                        >
+                            <option value="0">{{ l('Progress') }}</option>
+
+                            <option value="1">{{ l('Success') }}</option>
+
+                            <option value="2">{{ l('Error') }}</option>
+
+                            <option value="3">{{ l('Cancel') }}</option>
+                        </select>
+                        <validation-messages [formCtrl]="JobSynchronize_LastStatus"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="JobSynchronize_Uri">{{ l('Uri') }}</label>
+                        <input
+                            type="text"
+                            #JobSynchronize_Uri="ngModel"
+                            id="JobSynchronize_Uri"
+                            class="form-control"
+                            [(ngModel)]="jobSynchronize.uri"
+                            name="Uri"
+                        />
+                        <validation-messages [formCtrl]="JobSynchronize_Uri"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="JobSynchronize_LastUpdate">{{ l('LastUpdate') }}</label>
+                        <input
+                            required
+                            class="form-control m-input"
+                            #JobSynchronize_LastUpdate
+                            type="datetime"
+                            bsDatepicker
+                            datePickerLuxonModifier
+                            [(date)]="jobSynchronize.lastUpdate"
+                            id="JobSynchronize_LastUpdate"
+                            name="JobSynchronize_LastUpdate"
+                        />
+                        <validation-messages [formCtrl]="JobSynchronize_LastUpdate"></validation-messages>
+                    </div>
+
+                    <div class="my5">
+                        <label class="form-label" for="JobSynchronize_TotalInsert">{{ l('TotalInsert') }}</label>
+                        <input
+                            type="number"
+                            #JobSynchronize_TotalInsert="ngModel"
+                            id="JobSynchronize_TotalInsert"
+                            class="form-control"
+                            [(ngModel)]="jobSynchronize.totalInsert"
+                            name="TotalInsert"
+                        />
+                        <validation-messages [formCtrl]="JobSynchronize_TotalInsert"></validation-messages>
+                    </div>
+
+                    <div class="my5">
+                        <label class="form-label" for="JobSynchronize_TotalUpdate">{{ l('TotalUpdate') }}</label>
+                        <input
+                            type="number"
+                            #JobSynchronize_TotalUpdate="ngModel"
+                            id="JobSynchronize_TotalUpdate"
+                            class="form-control"
+                            [(ngModel)]="jobSynchronize.totalUpdate"
+                            name="TotalUpdate"
+                        />
+                        <validation-messages [formCtrl]="JobSynchronize_TotalUpdate"></validation-messages>
+                    </div>
+
+                    <div class="my5">
+                        <label class="form-label" for="JobSynchronize_TotalDelete">{{ l('TotalDelete') }}</label>
+                        <input
+                            type="number"
+                            #JobSynchronize_TotalDelete="ngModel"
+                            id="JobSynchronize_TotalDelete"
+                            class="form-control"
+                            [(ngModel)]="jobSynchronize.totalDelete"
+                            name="TotalDelete"
+                        />
+                        <validation-messages [formCtrl]="JobSynchronize_TotalDelete"></validation-messages>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">
+                        {{ l('Cancel') }}
+                    </button>
+                    <button
+                        type="submit"
+                        class="btn btn-primary blue"
+                        [disabled]="!jobSynchronizeForm.form.valid"
+                        [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot')"
+                    >
+                        <i class="fa fa-save"></i>
+                        <span>{{ l('Save') }}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

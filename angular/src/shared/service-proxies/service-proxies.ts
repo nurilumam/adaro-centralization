@@ -2661,6 +2661,125 @@ export class CostCentersServiceProxy {
         }
         return _observableOf(null as any);
     }
+
+    /**
+     * @return Success
+     */
+    getFromSAP(): Observable<DtoResponseModel> {
+        let url_ = this.baseUrl + "/api/services/app/CostCenters/GetFromSAP";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetFromSAP(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetFromSAP(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<DtoResponseModel>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<DtoResponseModel>;
+        }));
+    }
+
+    protected processGetFromSAP(response: HttpResponseBase): Observable<DtoResponseModel> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = DtoResponseModel.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
+@Injectable()
+export class CostCentersSynchServiceServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    synchronizeFromSAP(body: CostCenterSynchDto | undefined): Observable<DtoResponseModel> {
+        let url_ = this.baseUrl + "/api/services/app/CostCentersSynchService/SynchronizeFromSAP";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSynchronizeFromSAP(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSynchronizeFromSAP(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<DtoResponseModel>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<DtoResponseModel>;
+        }));
+    }
+
+    protected processSynchronizeFromSAP(response: HttpResponseBase): Observable<DtoResponseModel> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = DtoResponseModel.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
 }
 
 @Injectable()
@@ -8490,6 +8609,491 @@ export class InvoiceServiceProxy {
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
+@Injectable()
+export class JobSynchronizesServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param jobNameFilter (optional) 
+     * @param jobTypeFilter (optional) 
+     * @param dataSourceFilter (optional) 
+     * @param lastStatusFilter (optional) 
+     * @param uriFilter (optional) 
+     * @param maxLastUpdateFilter (optional) 
+     * @param minLastUpdateFilter (optional) 
+     * @param maxTotalInsertFilter (optional) 
+     * @param minTotalInsertFilter (optional) 
+     * @param maxTotalUpdateFilter (optional) 
+     * @param minTotalUpdateFilter (optional) 
+     * @param maxTotalDeleteFilter (optional) 
+     * @param minTotalDeleteFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | undefined, jobNameFilter: string | undefined, jobTypeFilter: number | undefined, dataSourceFilter: string | undefined, lastStatusFilter: number | undefined, uriFilter: string | undefined, maxLastUpdateFilter: DateTime | undefined, minLastUpdateFilter: DateTime | undefined, maxTotalInsertFilter: number | undefined, minTotalInsertFilter: number | undefined, maxTotalUpdateFilter: number | undefined, minTotalUpdateFilter: number | undefined, maxTotalDeleteFilter: number | undefined, minTotalDeleteFilter: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetJobSynchronizeForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/JobSynchronizes/GetAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (jobNameFilter === null)
+            throw new Error("The parameter 'jobNameFilter' cannot be null.");
+        else if (jobNameFilter !== undefined)
+            url_ += "JobNameFilter=" + encodeURIComponent("" + jobNameFilter) + "&";
+        if (jobTypeFilter === null)
+            throw new Error("The parameter 'jobTypeFilter' cannot be null.");
+        else if (jobTypeFilter !== undefined)
+            url_ += "JobTypeFilter=" + encodeURIComponent("" + jobTypeFilter) + "&";
+        if (dataSourceFilter === null)
+            throw new Error("The parameter 'dataSourceFilter' cannot be null.");
+        else if (dataSourceFilter !== undefined)
+            url_ += "DataSourceFilter=" + encodeURIComponent("" + dataSourceFilter) + "&";
+        if (lastStatusFilter === null)
+            throw new Error("The parameter 'lastStatusFilter' cannot be null.");
+        else if (lastStatusFilter !== undefined)
+            url_ += "LastStatusFilter=" + encodeURIComponent("" + lastStatusFilter) + "&";
+        if (uriFilter === null)
+            throw new Error("The parameter 'uriFilter' cannot be null.");
+        else if (uriFilter !== undefined)
+            url_ += "UriFilter=" + encodeURIComponent("" + uriFilter) + "&";
+        if (maxLastUpdateFilter === null)
+            throw new Error("The parameter 'maxLastUpdateFilter' cannot be null.");
+        else if (maxLastUpdateFilter !== undefined)
+            url_ += "MaxLastUpdateFilter=" + encodeURIComponent(maxLastUpdateFilter ? "" + maxLastUpdateFilter.toString() : "") + "&";
+        if (minLastUpdateFilter === null)
+            throw new Error("The parameter 'minLastUpdateFilter' cannot be null.");
+        else if (minLastUpdateFilter !== undefined)
+            url_ += "MinLastUpdateFilter=" + encodeURIComponent(minLastUpdateFilter ? "" + minLastUpdateFilter.toString() : "") + "&";
+        if (maxTotalInsertFilter === null)
+            throw new Error("The parameter 'maxTotalInsertFilter' cannot be null.");
+        else if (maxTotalInsertFilter !== undefined)
+            url_ += "MaxTotalInsertFilter=" + encodeURIComponent("" + maxTotalInsertFilter) + "&";
+        if (minTotalInsertFilter === null)
+            throw new Error("The parameter 'minTotalInsertFilter' cannot be null.");
+        else if (minTotalInsertFilter !== undefined)
+            url_ += "MinTotalInsertFilter=" + encodeURIComponent("" + minTotalInsertFilter) + "&";
+        if (maxTotalUpdateFilter === null)
+            throw new Error("The parameter 'maxTotalUpdateFilter' cannot be null.");
+        else if (maxTotalUpdateFilter !== undefined)
+            url_ += "MaxTotalUpdateFilter=" + encodeURIComponent("" + maxTotalUpdateFilter) + "&";
+        if (minTotalUpdateFilter === null)
+            throw new Error("The parameter 'minTotalUpdateFilter' cannot be null.");
+        else if (minTotalUpdateFilter !== undefined)
+            url_ += "MinTotalUpdateFilter=" + encodeURIComponent("" + minTotalUpdateFilter) + "&";
+        if (maxTotalDeleteFilter === null)
+            throw new Error("The parameter 'maxTotalDeleteFilter' cannot be null.");
+        else if (maxTotalDeleteFilter !== undefined)
+            url_ += "MaxTotalDeleteFilter=" + encodeURIComponent("" + maxTotalDeleteFilter) + "&";
+        if (minTotalDeleteFilter === null)
+            throw new Error("The parameter 'minTotalDeleteFilter' cannot be null.");
+        else if (minTotalDeleteFilter !== undefined)
+            url_ += "MinTotalDeleteFilter=" + encodeURIComponent("" + minTotalDeleteFilter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<PagedResultDtoOfGetJobSynchronizeForViewDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<PagedResultDtoOfGetJobSynchronizeForViewDto>;
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetJobSynchronizeForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetJobSynchronizeForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getJobSynchronizeForView(id: string | undefined): Observable<GetJobSynchronizeForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/JobSynchronizes/GetJobSynchronizeForView?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetJobSynchronizeForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetJobSynchronizeForView(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetJobSynchronizeForViewDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetJobSynchronizeForViewDto>;
+        }));
+    }
+
+    protected processGetJobSynchronizeForView(response: HttpResponseBase): Observable<GetJobSynchronizeForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetJobSynchronizeForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getJobSynchronizeForEdit(id: string | undefined): Observable<GetJobSynchronizeForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/JobSynchronizes/GetJobSynchronizeForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetJobSynchronizeForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetJobSynchronizeForEdit(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetJobSynchronizeForEditOutput>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetJobSynchronizeForEditOutput>;
+        }));
+    }
+
+    protected processGetJobSynchronizeForEdit(response: HttpResponseBase): Observable<GetJobSynchronizeForEditOutput> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetJobSynchronizeForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditJobSynchronizeDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/JobSynchronizes/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: string | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/JobSynchronizes/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param jobNameFilter (optional) 
+     * @param jobTypeFilter (optional) 
+     * @param dataSourceFilter (optional) 
+     * @param lastStatusFilter (optional) 
+     * @param uriFilter (optional) 
+     * @param maxLastUpdateFilter (optional) 
+     * @param minLastUpdateFilter (optional) 
+     * @param maxTotalInsertFilter (optional) 
+     * @param minTotalInsertFilter (optional) 
+     * @param maxTotalUpdateFilter (optional) 
+     * @param minTotalUpdateFilter (optional) 
+     * @param maxTotalDeleteFilter (optional) 
+     * @param minTotalDeleteFilter (optional) 
+     * @return Success
+     */
+    getJobSynchronizesToExcel(filter: string | undefined, jobNameFilter: string | undefined, jobTypeFilter: number | undefined, dataSourceFilter: string | undefined, lastStatusFilter: number | undefined, uriFilter: string | undefined, maxLastUpdateFilter: DateTime | undefined, minLastUpdateFilter: DateTime | undefined, maxTotalInsertFilter: number | undefined, minTotalInsertFilter: number | undefined, maxTotalUpdateFilter: number | undefined, minTotalUpdateFilter: number | undefined, maxTotalDeleteFilter: number | undefined, minTotalDeleteFilter: number | undefined): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/JobSynchronizes/GetJobSynchronizesToExcel?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (jobNameFilter === null)
+            throw new Error("The parameter 'jobNameFilter' cannot be null.");
+        else if (jobNameFilter !== undefined)
+            url_ += "JobNameFilter=" + encodeURIComponent("" + jobNameFilter) + "&";
+        if (jobTypeFilter === null)
+            throw new Error("The parameter 'jobTypeFilter' cannot be null.");
+        else if (jobTypeFilter !== undefined)
+            url_ += "JobTypeFilter=" + encodeURIComponent("" + jobTypeFilter) + "&";
+        if (dataSourceFilter === null)
+            throw new Error("The parameter 'dataSourceFilter' cannot be null.");
+        else if (dataSourceFilter !== undefined)
+            url_ += "DataSourceFilter=" + encodeURIComponent("" + dataSourceFilter) + "&";
+        if (lastStatusFilter === null)
+            throw new Error("The parameter 'lastStatusFilter' cannot be null.");
+        else if (lastStatusFilter !== undefined)
+            url_ += "LastStatusFilter=" + encodeURIComponent("" + lastStatusFilter) + "&";
+        if (uriFilter === null)
+            throw new Error("The parameter 'uriFilter' cannot be null.");
+        else if (uriFilter !== undefined)
+            url_ += "UriFilter=" + encodeURIComponent("" + uriFilter) + "&";
+        if (maxLastUpdateFilter === null)
+            throw new Error("The parameter 'maxLastUpdateFilter' cannot be null.");
+        else if (maxLastUpdateFilter !== undefined)
+            url_ += "MaxLastUpdateFilter=" + encodeURIComponent(maxLastUpdateFilter ? "" + maxLastUpdateFilter.toString() : "") + "&";
+        if (minLastUpdateFilter === null)
+            throw new Error("The parameter 'minLastUpdateFilter' cannot be null.");
+        else if (minLastUpdateFilter !== undefined)
+            url_ += "MinLastUpdateFilter=" + encodeURIComponent(minLastUpdateFilter ? "" + minLastUpdateFilter.toString() : "") + "&";
+        if (maxTotalInsertFilter === null)
+            throw new Error("The parameter 'maxTotalInsertFilter' cannot be null.");
+        else if (maxTotalInsertFilter !== undefined)
+            url_ += "MaxTotalInsertFilter=" + encodeURIComponent("" + maxTotalInsertFilter) + "&";
+        if (minTotalInsertFilter === null)
+            throw new Error("The parameter 'minTotalInsertFilter' cannot be null.");
+        else if (minTotalInsertFilter !== undefined)
+            url_ += "MinTotalInsertFilter=" + encodeURIComponent("" + minTotalInsertFilter) + "&";
+        if (maxTotalUpdateFilter === null)
+            throw new Error("The parameter 'maxTotalUpdateFilter' cannot be null.");
+        else if (maxTotalUpdateFilter !== undefined)
+            url_ += "MaxTotalUpdateFilter=" + encodeURIComponent("" + maxTotalUpdateFilter) + "&";
+        if (minTotalUpdateFilter === null)
+            throw new Error("The parameter 'minTotalUpdateFilter' cannot be null.");
+        else if (minTotalUpdateFilter !== undefined)
+            url_ += "MinTotalUpdateFilter=" + encodeURIComponent("" + minTotalUpdateFilter) + "&";
+        if (maxTotalDeleteFilter === null)
+            throw new Error("The parameter 'maxTotalDeleteFilter' cannot be null.");
+        else if (maxTotalDeleteFilter !== undefined)
+            url_ += "MaxTotalDeleteFilter=" + encodeURIComponent("" + maxTotalDeleteFilter) + "&";
+        if (minTotalDeleteFilter === null)
+            throw new Error("The parameter 'minTotalDeleteFilter' cannot be null.");
+        else if (minTotalDeleteFilter !== undefined)
+            url_ += "MinTotalDeleteFilter=" + encodeURIComponent("" + minTotalDeleteFilter) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetJobSynchronizesToExcel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetJobSynchronizesToExcel(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<FileDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<FileDto>;
+        }));
+    }
+
+    protected processGetJobSynchronizesToExcel(response: HttpResponseBase): Observable<FileDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FileDto.fromJS(resultData200);
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
@@ -22080,6 +22684,46 @@ export interface ICostCenterDto {
     id: string;
 }
 
+export class CostCenterSynchDto implements ICostCenterSynchDto {
+    costCenterName!: string | undefined;
+    year!: number;
+
+    constructor(data?: ICostCenterSynchDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.costCenterName = _data["costCenterName"];
+            this.year = _data["year"];
+        }
+    }
+
+    static fromJS(data: any): CostCenterSynchDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CostCenterSynchDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["costCenterName"] = this.costCenterName;
+        data["year"] = this.year;
+        return data;
+    }
+}
+
+export interface ICostCenterSynchDto {
+    costCenterName: string | undefined;
+    year: number;
+}
+
 export class CreateEditionDto implements ICreateEditionDto {
     edition!: EditionCreateDto;
     featureValues!: NameValueDto[];
@@ -22737,6 +23381,78 @@ export interface ICreateOrEditGeneralLedgerMappingDto {
     mappingType: string;
     valuationClass: string;
     valuationClassDescription: string | undefined;
+    id: string | undefined;
+}
+
+export class CreateOrEditJobSynchronizeDto implements ICreateOrEditJobSynchronizeDto {
+    jobName!: string;
+    jobType!: JobSchedulerType;
+    dataSource!: string;
+    lastStatus!: JobSchedulerStatus;
+    uri!: string | undefined;
+    lastUpdate!: DateTime;
+    totalInsert!: number;
+    totalUpdate!: number;
+    totalDelete!: number;
+    id!: string | undefined;
+
+    constructor(data?: ICreateOrEditJobSynchronizeDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.jobName = _data["jobName"];
+            this.jobType = _data["jobType"];
+            this.dataSource = _data["dataSource"];
+            this.lastStatus = _data["lastStatus"];
+            this.uri = _data["uri"];
+            this.lastUpdate = _data["lastUpdate"] ? DateTime.fromISO(_data["lastUpdate"].toString()) : <any>undefined;
+            this.totalInsert = _data["totalInsert"];
+            this.totalUpdate = _data["totalUpdate"];
+            this.totalDelete = _data["totalDelete"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditJobSynchronizeDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditJobSynchronizeDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["jobName"] = this.jobName;
+        data["jobType"] = this.jobType;
+        data["dataSource"] = this.dataSource;
+        data["lastStatus"] = this.lastStatus;
+        data["uri"] = this.uri;
+        data["lastUpdate"] = this.lastUpdate ? this.lastUpdate.toString() : <any>undefined;
+        data["totalInsert"] = this.totalInsert;
+        data["totalUpdate"] = this.totalUpdate;
+        data["totalDelete"] = this.totalDelete;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface ICreateOrEditJobSynchronizeDto {
+    jobName: string;
+    jobType: JobSchedulerType;
+    dataSource: string;
+    lastStatus: JobSchedulerStatus;
+    uri: string | undefined;
+    lastUpdate: DateTime;
+    totalInsert: number;
+    totalUpdate: number;
+    totalDelete: number;
     id: string | undefined;
 }
 
@@ -23933,6 +24649,54 @@ export class DelegatedImpersonateInput implements IDelegatedImpersonateInput {
 
 export interface IDelegatedImpersonateInput {
     userDelegationId: number;
+}
+
+export class DtoResponseModel implements IDtoResponseModel {
+    message!: string | undefined;
+    isSuccess!: boolean;
+    isResponse!: boolean;
+    responseObject!: string | undefined;
+
+    constructor(data?: IDtoResponseModel) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.message = _data["message"];
+            this.isSuccess = _data["isSuccess"];
+            this.isResponse = _data["isResponse"];
+            this.responseObject = _data["responseObject"];
+        }
+    }
+
+    static fromJS(data: any): DtoResponseModel {
+        data = typeof data === 'object' ? data : {};
+        let result = new DtoResponseModel();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["message"] = this.message;
+        data["isSuccess"] = this.isSuccess;
+        data["isResponse"] = this.isResponse;
+        data["responseObject"] = this.responseObject;
+        return data;
+    }
+}
+
+export interface IDtoResponseModel {
+    message: string | undefined;
+    isSuccess: boolean;
+    isResponse: boolean;
+    responseObject: string | undefined;
 }
 
 export class DynamicEntityPropertyDto implements IDynamicEntityPropertyDto {
@@ -27265,6 +28029,78 @@ export interface IGetIncomeStatisticsDataOutput {
     incomeStatistics: IncomeStastistic[] | undefined;
 }
 
+export class GetJobSynchronizeForEditOutput implements IGetJobSynchronizeForEditOutput {
+    jobSynchronize!: CreateOrEditJobSynchronizeDto;
+
+    constructor(data?: IGetJobSynchronizeForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.jobSynchronize = _data["jobSynchronize"] ? CreateOrEditJobSynchronizeDto.fromJS(_data["jobSynchronize"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetJobSynchronizeForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetJobSynchronizeForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["jobSynchronize"] = this.jobSynchronize ? this.jobSynchronize.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+export interface IGetJobSynchronizeForEditOutput {
+    jobSynchronize: CreateOrEditJobSynchronizeDto;
+}
+
+export class GetJobSynchronizeForViewDto implements IGetJobSynchronizeForViewDto {
+    jobSynchronize!: JobSynchronizeDto;
+
+    constructor(data?: IGetJobSynchronizeForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.jobSynchronize = _data["jobSynchronize"] ? JobSynchronizeDto.fromJS(_data["jobSynchronize"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetJobSynchronizeForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetJobSynchronizeForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["jobSynchronize"] = this.jobSynchronize ? this.jobSynchronize.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+export interface IGetJobSynchronizeForViewDto {
+    jobSynchronize: JobSynchronizeDto;
+}
+
 export class GetLanguageForEditOutput implements IGetLanguageForEditOutput {
     language!: ApplicationLanguageEditDto;
     languageNames!: ComboboxItemDto[] | undefined;
@@ -29762,6 +30598,75 @@ export interface IIsTenantAvailableOutput {
     state: TenantAvailabilityState;
     tenantId: number | undefined;
     serverRootAddress: string | undefined;
+}
+
+export enum JobSchedulerStatus {
+    Progress = 0,
+    Success = 1,
+    Error = 2,
+    Cancel = 3,
+}
+
+export enum JobSchedulerType {
+    CostCenter = 0,
+    PurchaseOrder = 1,
+    SalesOrder = 2,
+}
+
+export class JobSynchronizeDto implements IJobSynchronizeDto {
+    jobName!: string | undefined;
+    jobType!: JobSchedulerType;
+    dataSource!: string | undefined;
+    lastStatus!: JobSchedulerStatus;
+    lastUpdate!: DateTime;
+    id!: string;
+
+    constructor(data?: IJobSynchronizeDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.jobName = _data["jobName"];
+            this.jobType = _data["jobType"];
+            this.dataSource = _data["dataSource"];
+            this.lastStatus = _data["lastStatus"];
+            this.lastUpdate = _data["lastUpdate"] ? DateTime.fromISO(_data["lastUpdate"].toString()) : <any>undefined;
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): JobSynchronizeDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new JobSynchronizeDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["jobName"] = this.jobName;
+        data["jobType"] = this.jobType;
+        data["dataSource"] = this.dataSource;
+        data["lastStatus"] = this.lastStatus;
+        data["lastUpdate"] = this.lastUpdate ? this.lastUpdate.toString() : <any>undefined;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface IJobSynchronizeDto {
+    jobName: string | undefined;
+    jobType: JobSchedulerType;
+    dataSource: string | undefined;
+    lastStatus: JobSchedulerStatus;
+    lastUpdate: DateTime;
+    id: string;
 }
 
 export class JsonClaimMapDto implements IJsonClaimMapDto {
@@ -32504,6 +33409,54 @@ export class PagedResultDtoOfGetGeneralLedgerMappingForViewDto implements IPaged
 export interface IPagedResultDtoOfGetGeneralLedgerMappingForViewDto {
     totalCount: number;
     items: GetGeneralLedgerMappingForViewDto[] | undefined;
+}
+
+export class PagedResultDtoOfGetJobSynchronizeForViewDto implements IPagedResultDtoOfGetJobSynchronizeForViewDto {
+    totalCount!: number;
+    items!: GetJobSynchronizeForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetJobSynchronizeForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetJobSynchronizeForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetJobSynchronizeForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetJobSynchronizeForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IPagedResultDtoOfGetJobSynchronizeForViewDto {
+    totalCount: number;
+    items: GetJobSynchronizeForViewDto[] | undefined;
 }
 
 export class PagedResultDtoOfGetMaterialForViewDto implements IPagedResultDtoOfGetMaterialForViewDto {

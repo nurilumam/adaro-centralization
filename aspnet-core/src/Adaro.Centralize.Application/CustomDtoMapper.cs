@@ -1,4 +1,6 @@
-﻿using Adaro.Centralize.SAPConnector.Dtos;
+﻿using Adaro.Centralize.JobScheduler.Dtos;
+using Adaro.Centralize.JobScheduler;
+using Adaro.Centralize.SAPConnector.Dtos;
 using Adaro.Centralize.SAPConnector;
 using Adaro.Centralize.MasterDataRequest.Dtos;
 using Adaro.Centralize.MasterDataRequest;
@@ -58,6 +60,8 @@ namespace Adaro.Centralize
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditJobSynchronizeDto, JobSynchronize>().ReverseMap();
+            configuration.CreateMap<JobSynchronizeDto, JobSynchronize>().ReverseMap();
             configuration.CreateMap<CreateOrEditCostCenterDto, CostCenter>().ReverseMap();
             configuration.CreateMap<CostCenterDto, CostCenter>().ReverseMap();
             configuration.CreateMap<CreateOrEditDataProductionDto, DataProduction>().ReverseMap();

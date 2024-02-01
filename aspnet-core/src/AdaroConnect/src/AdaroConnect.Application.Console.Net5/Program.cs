@@ -36,7 +36,8 @@ namespace AdaroConnect.Samples.Console.Net5
             {'6', new Tuple<string, string>("RFC Samples", "GetSAPJobs")},
             {'7', new Tuple<string, string>("MetaData Samples", "GetFunctionMetaData")},
             {'8', new Tuple<string, string>("Transaction Samples", "CreateMaterialWithTransactionAsync") },
-            {'9', new Tuple<string, string>("Cost Center", "GetCostCenter") },
+            //{'9', new Tuple<string, string>("Cost Center", "GetCostCenter") },
+            {'9', new Tuple<string, string>("Purchase Order", "GetPurchaseOrderItems") },
         };
 
         #endregion
@@ -122,39 +123,42 @@ namespace AdaroConnect.Samples.Console.Net5
         {
             switch (keyCode)
             {
-                case '0':
-                    Environment.Exit(0);
-                    break;
-                case '1':
-                    await GetBillOfMaterialAsync();
-                    break;
-                case '2':
-                    await GetBillOfMaterialsAsync();
-                    break;
-                case '3':
-                    await GetMaterialAsync();
-                    break;
-                case '4':
-                    await GetMaterialsByPrefixWithSubTablesAsync();
-                    break;
-                case '5':
-                    await GetVendorsUseBapi();
-                    break;
-                case '6':
-                    await GetJobsAsync();
-                    break;
-                case '7':
-                    GetFunctionMetaData();
-                    break;
-                case '8':
-                    await CreateMaterialWithTransactionAsync();
-                    break;
-                case '9':
-                    await GetCostCenterAsync();
-                    break;
-                default:
-                    System.Console.WriteLine("Menu Key not found!");
-                    break;
+            case '0':
+                Environment.Exit(0);
+                break;
+            case '1':
+                await GetBillOfMaterialAsync();
+                break;
+            case '2':
+                await GetBillOfMaterialsAsync();
+                break;
+            case '3':
+                await GetMaterialAsync();
+                break;
+            case '4':
+                await GetMaterialsByPrefixWithSubTablesAsync();
+                break;
+            case '5':
+                await GetVendorsUseBapi();
+                break;
+            case '6':
+                await GetJobsAsync();
+                break;
+            case '7':
+                GetFunctionMetaData();
+                break;
+            case '8':
+                await CreateMaterialWithTransactionAsync();
+                break;
+            //case '9':
+            //    await GetCostCenterAsync();
+            //    break;
+            case '9':
+                await GetPurchaseOrderItems();
+                break;
+            default:
+                System.Console.WriteLine("Menu Key not found!");
+                break;
             }
         }
 
@@ -240,7 +244,7 @@ namespace AdaroConnect.Samples.Console.Net5
         }
         private static void GetFunctionMetaData()
         {
-            const string FUNCTION_NAME = "BAPI_REQUISITION_GETITEMS";
+            const string FUNCTION_NAME = "BAPI_PO_GETITEMS";
 
             IFunctionMetaDataManager manager = ServiceProvider.GetRequiredService<IFunctionMetaDataManager>();
             List<ParameterMetaData> metaData = manager.GetFunctionMetaData(FUNCTION_NAME);
@@ -257,6 +261,13 @@ namespace AdaroConnect.Samples.Console.Net5
         {
             ICostCenterManager manager = ServiceProvider.GetRequiredService<ICostCenterManager>();
             CostCenterGetListOutputParameter result = await manager.GetCostCenterAsync();
+            manager.Print(result);
+        }
+
+        private static async Task GetPurchaseOrderItems()
+        {
+            IPurchaseOrderManager manager = ServiceProvider.GetRequiredService<IPurchaseOrderManager>();
+            POGetItemsOutputParameter result = await manager.GetPurchaseOrderItems();
             manager.Print(result);
         }
 

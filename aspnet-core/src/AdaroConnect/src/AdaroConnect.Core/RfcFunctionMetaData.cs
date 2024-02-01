@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AdaroConnect.Core.Abstract;
 using AdaroConnect.Wrapper.Abstract;
 using AdaroConnect.Wrapper.Enumeration;
@@ -79,6 +80,8 @@ namespace AdaroConnect.Core
         }
         private RfcParameterDescription GetParameterDescriptionByIndex(int index)
         {
+            if((new int[] { 2,5, 12, 16,18, 23 }).Contains(index)) return new RfcParameterDescription();
+
             try
             {
                 RfcResultCodes result = _interop.GetParameterDescByIndex(_functionDescriptionHandle, index, out RfcParameterDescription paramDesc, out RfcErrorInfo errorInfo);
@@ -86,7 +89,7 @@ namespace AdaroConnect.Core
                 return paramDesc;
             } catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
 
             return new RfcParameterDescription();
