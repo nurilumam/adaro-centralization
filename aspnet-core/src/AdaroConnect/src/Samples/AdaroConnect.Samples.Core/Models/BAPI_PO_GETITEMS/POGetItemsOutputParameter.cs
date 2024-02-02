@@ -30,17 +30,17 @@ namespace AdaroConnect.Application.Core.Models
         public string COCode { get; set; }
 
         [RfcEntityProperty("STATUS", "STATUS", RfcDataTypes.CHAR, 1)]
-        public string STATUS { get; set; }
+        public string Status { get; set; }
 
-        [RfcEntityProperty("CREATED_ON", "CREATED_ON - RFCTYPE_DATE - 8", RfcDataTypes.CHAR, 8)]
-        public string Description { get; set; }
+        [RfcEntityProperty("CREATED_ON", "CREATED_ON - RFCTYPE_DATE - 8", RfcDataTypes.DATE_8)]
+        public DateTime CreatedOn { get; set; }
 
 
         [RfcEntityProperty("CREATED_BY", "CREATED_BY", RfcDataTypes.CHAR, 12)]
-        public string CREATED_BY { get; set; }
+        public string CreatedBy { get; set; }
 
         [RfcEntityProperty("VENDOR", "VENDOR", RfcDataTypes.CHAR, 10)]
-        public string VENDOR { get; set; }
+        public string Vendor { get; set; }
 
     }
 
@@ -56,35 +56,35 @@ namespace AdaroConnect.Application.Core.Models
 
 
         [RfcEntityProperty("ADDRESS", "ADDRESS", RfcDataTypes.CHAR, 10)]
-        public string ADDRESS { get; set; }
+        public string Address { get; set; }
 
 
         [RfcEntityProperty("MATERIAL", "MATERIAL", RfcDataTypes.CHAR, 18)]
-        public string MATERIAL { get; set; }
+        public string Material { get; set; }
 
 
         [RfcEntityProperty("STORE_LOC", "STORE_LOC", RfcDataTypes.CHAR, 4)]
-        public string STORE_LOC { get; set; }
+        public string StorageLocation { get; set; }
 
 
         [RfcEntityProperty("PLANT", "PLANT", RfcDataTypes.CHAR, 4)]
-        public string PLANT { get; set; }
+        public string Plant { get; set; }
 
 
         [RfcEntityProperty("UNIT", "UNIT", RfcDataTypes.CHAR, 3)]
-        public string UNIT { get; set; }
+        public string Unit { get; set; }
 
 
         [RfcEntityProperty("NET_PRICE", "NET_PRICE", RfcDataTypes.DECIMAL, 12)]
-        public string NET_PRICE { get; set; }
+        public string NetPrice { get; set; }
 
 
         [RfcEntityProperty("PRICE_UNIT", "PRICE_UNIT", RfcDataTypes.DECIMAL, 3)]
-        public string PRICE_UNIT { get; set; }
+        public string PriceUnit { get; set; }
 
 
         [RfcEntityProperty("VEND_MAT", "VEND_MAT", RfcDataTypes.CHAR, 22)]
-        public string VEND_MAT { get; set; }
+        public string VendorMaterial { get; set; }
     }
 }
 
