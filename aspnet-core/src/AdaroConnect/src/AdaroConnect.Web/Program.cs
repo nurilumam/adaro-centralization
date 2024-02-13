@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AdaroConnect.Web.Mvc.Net5
+namespace AdaroConnect.Web
 {
     public class Program
     {

@@ -52,7 +52,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaroConnect.Wrapper", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaroConnect.Application.Core", "src\AdaroConnect\src\Samples\AdaroConnect.Samples.Core\AdaroConnect.Application.Core.csproj", "{D1E4A65A-1DBB-4AE0-B8B4-E19F4A3A866B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaroConnect.Application.Console.Net5", "src\AdaroConnect\src\AdaroConnect.Application.Console.Net5\AdaroConnect.Application.Console.Net5.csproj", "{3F25B5C7-4E25-4233-8EDD-D7EEFF53C412}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaroConnect.Application.AppConsole", "src\AdaroConnect\src\AdaroConnect.Application.AppConsole\AdaroConnect.Application.AppConsole.csproj", "{62ACFD07-20FC-4464-8E01-5CCCEAA02049}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -136,10 +136,10 @@ Global
 		{D1E4A65A-1DBB-4AE0-B8B4-E19F4A3A866B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1E4A65A-1DBB-4AE0-B8B4-E19F4A3A866B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1E4A65A-1DBB-4AE0-B8B4-E19F4A3A866B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3F25B5C7-4E25-4233-8EDD-D7EEFF53C412}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3F25B5C7-4E25-4233-8EDD-D7EEFF53C412}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3F25B5C7-4E25-4233-8EDD-D7EEFF53C412}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3F25B5C7-4E25-4233-8EDD-D7EEFF53C412}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62ACFD07-20FC-4464-8E01-5CCCEAA02049}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62ACFD07-20FC-4464-8E01-5CCCEAA02049}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62ACFD07-20FC-4464-8E01-5CCCEAA02049}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62ACFD07-20FC-4464-8E01-5CCCEAA02049}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -165,7 +165,7 @@ Global
 		{04CEDECE-546D-4146-9647-D562CE07138E} = {08C99276-812D-4111-90E1-E489D1BAD56C}
 		{91549028-8ABD-47B7-AB2D-A414E57D95C6} = {08C99276-812D-4111-90E1-E489D1BAD56C}
 		{D1E4A65A-1DBB-4AE0-B8B4-E19F4A3A866B} = {08C99276-812D-4111-90E1-E489D1BAD56C}
-		{3F25B5C7-4E25-4233-8EDD-D7EEFF53C412} = {08C99276-812D-4111-90E1-E489D1BAD56C}
+		{62ACFD07-20FC-4464-8E01-5CCCEAA02049} = {08C99276-812D-4111-90E1-E489D1BAD56C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {23CD4D4B-B131-473D-9ECB-5DD96E739671}

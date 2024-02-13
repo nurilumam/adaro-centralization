@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using AdaroConnect.Samples.Web.Mvc.Net5.Models;
+using AdaroConnect.Web.Mvc.Net5.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +11,7 @@ using AdaroConnect.Models;
 using AdaroConnect.Samples.Core.Abstracts;
 using AdaroConnect.Samples.Core.Models;
 
-namespace AdaroConnect.Samples.Web.Mvc.Net5.Controllers
+namespace AdaroConnect.Web.Mvc.Net5.Controllers
 {
     public class HomeController : Controller
     {

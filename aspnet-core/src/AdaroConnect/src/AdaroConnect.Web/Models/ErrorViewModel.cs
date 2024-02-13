@@ -1,6 +1,6 @@
 using System;
 
-namespace AdaroConnect.Web.Mvc.Net5.Models
+namespace AdaroConnect.Web.Models
 {
     public class ErrorViewModel
     {

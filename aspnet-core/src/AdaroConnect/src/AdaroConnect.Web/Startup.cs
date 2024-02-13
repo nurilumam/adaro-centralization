@@ -4,42 +4,28 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using AdaroConnect.Samples.Core.Extensions;
+using AdaroConnect.Extensions;
 
-namespace AdaroConnect.Web.Mvc.Net5
+namespace AdaroConnect.Web
 {
     public class Startup
     {
-        #region Constants
-
-        private const string AppSettingsFileName = "appSettings.json";
-        private const string UserSecretId = "6EE22606-D56C-4FC3-A363-5C58E3ED1371";
-
-        #endregion
-
-        #region Properties
-
+        private const string SapSectionName = "SapServerConnections:Sap";
         public IConfiguration Configuration { get; }
 
-        #endregion
-
-        public Startup()
-        {
-            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
-                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile(AppSettingsFileName, true, true)
-                .AddUserSecrets(UserSecretId, true)
-                .AddEnvironmentVariables();
-            Configuration = configurationBuilder.Build();
-        }
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = new ConfigurationBuilder()
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+                .AddJsonFile("appsettings.json", optional: true)
+                .AddUserSecrets("12EF04BD-127F-41E5-82FC-CB51CF81CC75")
+                .AddEnvironmentVariables()
+                .Build();
         }
-
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAdaroConnectSampleCore(Configuration);
+            var connectionString = Configuration.GetSection(SapSectionName).Value;
+            services.AddAdaroConnect(connectionString);
             services.AddControllersWithViews();
         }
 
@@ -56,7 +42,10 @@ namespace AdaroConnect.Web.Mvc.Net5
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
             app.UseRouting();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

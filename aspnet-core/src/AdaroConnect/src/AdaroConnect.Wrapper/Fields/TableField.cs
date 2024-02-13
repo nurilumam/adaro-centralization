@@ -66,7 +66,7 @@ namespace AdaroConnect.Wrapper.Fields
                 errorInfo.ThrowOnError();
 
                 rows[i] = OutputMapper.Extract<T>(interop, rowHandle);
-                Console.WriteLine($"{i}.{errorInfo.Code}");
+                Console.WriteLine($"{i}.{errorInfo.Code}-{errorInfo.Message}");
 
                 resultCode = interop.MoveToNextRow(
                     tableHandle: tableHandle,
