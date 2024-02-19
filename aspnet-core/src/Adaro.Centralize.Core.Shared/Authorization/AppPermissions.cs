@@ -6,6 +6,16 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_EKPOs = "Pages.EKPOs";
+        public const string Pages_EKPOs_Create = "Pages.EKPOs.Create";
+        public const string Pages_EKPOs_Edit = "Pages.EKPOs.Edit";
+        public const string Pages_EKPOs_Delete = "Pages.EKPOs.Delete";
+
+        public const string Pages_Ekkos = "Pages.Ekkos";
+        public const string Pages_Ekkos_Create = "Pages.Ekkos.Create";
+        public const string Pages_Ekkos_Edit = "Pages.Ekkos.Edit";
+        public const string Pages_Ekkos_Delete = "Pages.Ekkos.Delete";
+
         public const string Pages_JobSynchronizes = "Pages.JobSynchronizes";
         public const string Pages_JobSynchronizes_Create = "Pages.JobSynchronizes.Create";
         public const string Pages_JobSynchronizes_Edit = "Pages.JobSynchronizes.Edit";

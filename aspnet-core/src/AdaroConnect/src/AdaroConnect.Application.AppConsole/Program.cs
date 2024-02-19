@@ -276,7 +276,7 @@ namespace AdaroConnect.Application.AppConsole
         private static async Task GetPurchaseOrder()
         {
             IPurchaseOrderManager manager = ServiceProvider.GetRequiredService<IPurchaseOrderManager>();
-            var result = await manager.GetPurchaseOrder();
+            var result = await manager.GetPurchaseOrder(new SAPGeneralParameterModel());
             var strObj = Newtonsoft.Json.JsonConvert.SerializeObject(result);
             System.Console.WriteLine($"Total Item {result.Count}");
         }
@@ -284,7 +284,7 @@ namespace AdaroConnect.Application.AppConsole
         private static async Task GetPurchaseOrderItems()
         {
             IPurchaseOrderManager manager = ServiceProvider.GetRequiredService<IPurchaseOrderManager>();
-            List<PurchasingDocumentItem> result = await manager.GetPurchaseOrderItem();
+            List<PurchasingDocumentItem> result = await manager.GetPurchaseOrderItem(new SAPGeneralParameterModel());
             System.Console.WriteLine($"Total Item {result.Count}");
         }
 

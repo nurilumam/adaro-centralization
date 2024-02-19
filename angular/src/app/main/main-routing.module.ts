@@ -9,6 +9,20 @@ import { RouterModule } from '@angular/router';
                 children: [
                     
                     {
+                        path: 'sapConnector/ekpOs',
+                        loadChildren: () => import('./sapConnector/ekpOs/ekpo.module').then(m => m.EKPOModule),
+                        data: { permission: 'Pages.EKPOs' }
+                    },
+                
+                    
+                    {
+                        path: 'sapConnector/ekkos',
+                        loadChildren: () => import('./sapConnector/ekkos/ekko.module').then(m => m.EkkoModule),
+                        data: { permission: 'Pages.Ekkos' }
+                    },
+                
+                    
+                    {
                         path: 'jobScheduler/jobSynchronizes',
                         loadChildren: () => import('./jobScheduler/jobSynchronizes/jobSynchronize.module').then(m => m.JobSynchronizeModule),
                         data: { permission: 'Pages.JobSynchronizes' }

@@ -7,8 +7,6 @@ namespace Adaro.Centralize.JobScheduler
     public enum JobSchedulerType
     {
         CostCenter = 0,
-        PurchaseOrder = 1,
-        SalesOrder = 2,
-        Requisition = 2,
+        PurchasingDocumentHeader = 1,
     }
 }

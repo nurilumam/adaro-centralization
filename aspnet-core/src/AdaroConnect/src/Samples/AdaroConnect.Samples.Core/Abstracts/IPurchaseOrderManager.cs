@@ -8,8 +8,8 @@ namespace AdaroConnect.Application.Core.Abstracts
     {
         Task<POGetItemsOutputParameter> GetPurchaseOrderItems();
 
-        Task<List<PurchasingDocumentHeader>> GetPurchaseOrder();
-        Task<List<PurchasingDocumentItem>> GetPurchaseOrderItem();
+        Task<List<PurchasingDocumentHeader>> GetPurchaseOrder(SAPGeneralParameterModel param);
+        Task<List<PurchasingDocumentItem>> GetPurchaseOrderItem(SAPGeneralParameterModel param);
         Task<List<AccountAssignmentPurchasing>> GetAccountAssignmentPurchasing();
         Task<List<ServicePackage>> GetServicePackage();
     }

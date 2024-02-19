@@ -31,6 +31,7 @@ export class ViewJobSynchronizeModalComponent extends AppComponentBase {
     }
 
     show(item: GetJobSynchronizeForViewDto): void {
+        console.log(item);
         this.item = item;
         this.active = true;
         this.modal.show();

@@ -13,10 +13,9 @@ using Adaro.Centralize.Authorization;
 using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.BackgroundJobs;
-using Abp.Runtime.Session;
-using Abp;
-using Adaro.Centralize.Gdpr;
-using Adaro.Centralize.SAPConnector.Dto.Synchronize;
+using Adaro.Centralize.SAPConnector;
+using AdaroConnect.Application.Core.Models;
+using Adaro.Centralize.SAPConnector.Dtos;
 
 namespace Adaro.Centralize.JobScheduler
 {
@@ -25,15 +24,18 @@ namespace Adaro.Centralize.JobScheduler
     {
         private readonly IRepository<JobSynchronize, Guid> _jobSynchronizeRepository;
         private readonly IJobSynchronizesExcelExporter _jobSynchronizesExcelExporter;
+        private readonly ISAPSynchService _SAPSynchService;
         private readonly IBackgroundJobManager _backgroundJobManager;
 
         public JobSynchronizesAppService(
             IRepository<JobSynchronize, Guid> jobSynchronizeRepository, 
             IJobSynchronizesExcelExporter jobSynchronizesExcelExporter,
+            ISAPSynchService sapSynchService,
             IBackgroundJobManager backgroundJobManager)
         {
             _jobSynchronizeRepository = jobSynchronizeRepository;
             _jobSynchronizesExcelExporter = jobSynchronizesExcelExporter;
+            _SAPSynchService = sapSynchService;
             _backgroundJobManager = backgroundJobManager;
         }
 
@@ -83,12 +85,12 @@ namespace Adaro.Centralize.JobScheduler
             var dbList = await jobSynchronizes.ToListAsync();
             var results = new List<GetJobSynchronizeForViewDto>();
 
-            await _backgroundJobManager.EnqueueAsync<SAPConnector.JobScheduler.CostCenterJob, ImportCostCenterArgs>(
-                            new ImportCostCenterArgs()
-                            {
-                                Year = 2024
-                            }
-                        );
+            //await _backgroundJobManager.EnqueueAsync<SAPConnector.JobScheduler.CostCenterJob, ImportCostCenterArgs>(
+            //                new ImportCostCenterArgs()
+            //                {
+            //                    Year = 2024
+            //                }
+            //            );
 
             foreach (var o in dbList)
             {
@@ -121,6 +123,11 @@ namespace Adaro.Centralize.JobScheduler
             var jobSynchronize = await _jobSynchronizeRepository.GetAsync(id);
 
             var output = new GetJobSynchronizeForViewDto { JobSynchronize = ObjectMapper.Map<JobSynchronizeDto>(jobSynchronize) };
+
+            var input = new PurchasingOrderSynchDto();
+            input.DateFrom = DateTime.Now.AddMonths(-24);
+
+            await _SAPSynchService.PurchasingDocumentHeader(input);
 
             return output;
         }
@@ -166,6 +173,9 @@ namespace Adaro.Centralize.JobScheduler
         {
             var jobSynchronize = await _jobSynchronizeRepository.FirstOrDefaultAsync((Guid)input.Id);
             ObjectMapper.Map(input, jobSynchronize);
+
+
+            //_SAPSynchService.PurchasingDocumentHeader();
 
         }
 

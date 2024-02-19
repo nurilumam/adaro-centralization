@@ -1,0 +1,149 @@
+﻿<div
+    bsModal
+    #createOrEditModal="bs-modal"
+    class="modal fade"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="createOrEditModal"
+    aria-hidden="true"
+    [config]="{ backdrop: 'static' }"
+>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span>{{ l('Details') }}</span>
+                </h4>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    (click)="close()"
+                    aria-label="Close"
+                    [disabled]="saving"
+                ></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('MANDT') }} :</h6>
+                        {{ item.ekko.mandt }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('EBELN') }} :</h6>
+                        {{ item.ekko.ebeln }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('BUKRS') }} :</h6>
+                        {{ item.ekko.bukrs }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('BSTYP') }} :</h6>
+                        {{ item.ekko.bstyp }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('AEDAT') }} :</h6>
+                        {{ item.ekko.aedat | luxonFormat : 'yyyy-LL-dd HH:mm:ss' }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('ZBD1T') }} :</h6>
+                        {{ item.ekko.zbD1T }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('ZBD2T') }} :</h6>
+                        {{ item.ekko.zbD2T }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('ZBD3T') }} :</h6>
+                        {{ item.ekko.zbD3T }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('EKGRP') }} :</h6>
+                        {{ item.ekko.ekgrp }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('WKURS') }} :</h6>
+                        {{ item.ekko.wkurs }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('KUFIX') }} :</h6>
+                        {{ item.ekko.kufix }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('BEDAT') }} :</h6>
+                        {{ item.ekko.bedat | luxonFormat : 'yyyy-LL-dd HH:mm:ss' }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('KDATB') }} :</h6>
+                        {{ item.ekko.kdatb | luxonFormat : 'yyyy-LL-dd HH:mm:ss' }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('KDATE') }} :</h6>
+                        {{ item.ekko.kdate | luxonFormat : 'yyyy-LL-dd HH:mm:ss' }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('BWBDT') }} :</h6>
+                        {{ item.ekko.bwbdt | luxonFormat : 'yyyy-LL-dd HH:mm:ss' }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('GWLDT') }} :</h6>
+                        {{ item.ekko.gwldt | luxonFormat : 'yyyy-LL-dd HH:mm:ss' }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('IHRAN') }} :</h6>
+                        {{ item.ekko.ihran | luxonFormat : 'yyyy-LL-dd HH:mm:ss' }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('KUNNR') }} :</h6>
+                        {{ item.ekko.kunnr }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('KONNR') }} :</h6>
+                        {{ item.ekko.konnr }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('ABGRU') }} :</h6>
+                        {{ item.ekko.abgru }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('AUTLF') }} :</h6>
+                        {{ item.ekko.autlf }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('WEAKT') }} :</h6>
+                        {{ item.ekko.weakt }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('RESWK') }} :</h6>
+                        {{ item.ekko.reswk }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('LBLIF') }} :</h6>
+                        {{ item.ekko.lblif }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('INCO1') }} :</h6>
+                        {{ item.ekko.incO1 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('INCO2') }} :</h6>
+                        {{ item.ekko.incO2 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('SUBMI') }} :</h6>
+                        {{ item.ekko.submi }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('KNUMV') }} :</h6>
+                        {{ item.ekko.knumv }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button [disabled]="saving" type="button" class="btn btn-primary blue" (click)="close()">
+                    {{ l('Close') }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

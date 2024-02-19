@@ -33,6 +33,10 @@ export class AppNavigationService {
             new AppMenuItem('CostCenters', 'Pages.CostCenters', 'flaticon-more', '/app/main/sapConnector/costCenters'),
             
             new AppMenuItem('JobSynchronizes', 'Pages.JobSynchronizes', 'flaticon-more', '/app/main/jobScheduler/jobSynchronizes'),
+            
+            new AppMenuItem('Ekkos', 'Pages.Ekkos', 'flaticon-more', '/app/main/sapConnector/ekkos'),
+            
+            new AppMenuItem('EKPOs', 'Pages.EKPOs', 'flaticon-more', '/app/main/sapConnector/ekpOs'),
              new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
 
             new AppMenuItem(

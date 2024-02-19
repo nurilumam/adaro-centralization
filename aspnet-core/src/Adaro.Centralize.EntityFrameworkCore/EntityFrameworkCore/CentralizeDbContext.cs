@@ -20,6 +20,10 @@ namespace Adaro.Centralize.EntityFrameworkCore
 {
     public class CentralizeDbContext : AbpZeroDbContext<Tenant, Role, User, CentralizeDbContext>
     {
+        public virtual DbSet<EKPO> EKPOs { get; set; }
+
+        public virtual DbSet<EKKO> Ekkos { get; set; }
+
         public virtual DbSet<JobSynchronize> JobSynchronizes { get; set; }
 
         public virtual DbSet<CostCenter> CostCenters { get; set; }
@@ -72,10 +76,18 @@ namespace Adaro.Centralize.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<JobSynchronize>(j =>
+            modelBuilder.Entity<EKPO>(x =>
             {
-                j.HasIndex(e => new { e.TenantId });
+                x.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<EKKO>(x =>
+                       {
+                           x.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<JobSynchronize>(j =>
+                       {
+                           j.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<CostCenter>(c =>
                        {
                            c.HasIndex(e => new { e.TenantId });

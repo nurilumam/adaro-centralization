@@ -119,7 +119,9 @@ namespace AdaroConnect.Application.AppConsole
                         PropertyType = "double";
                         break;
                     case "DATS":
-                        DataType = "CHAR";
+                    case "DATE_8":
+                        DataType = "DATE_8";
+                        PropertyType = "DateTime";
                         break;
                     case "TIMS":
                         DataType = "TIME";

@@ -1,3 +1,4 @@
+using System;
 using AdaroConnect.Abstraction;
 using AdaroConnect.Abstraction.Attributes;
 using AdaroConnect.Abstraction.Enumerations;
@@ -26,8 +27,11 @@ namespace AdaroConnect.Application.Core.Models
         [RfcEntityProperty("STATU", Description = "RFQ status", SapDataType = RfcDataTypes.CHAR, Length = 1)]
         public string STATU { get; set; }
 
-        [RfcEntityProperty("AEDAT", Description = "Purchasing Document Item Change Date", SapDataType = RfcDataTypes.CHAR, Length = 8)]
-        public string AEDAT { get; set; }
+        [RfcEntityProperty("AEDAT", Description = "Purchasing Document Item Change Date", SapDataType = RfcDataTypes.DATE_8, Length = 8)]
+        public DateTime AEDAT { get; set; }
+
+        [RfcEntityProperty("CREATIONDATE", Description = "Creation Date", SapDataType = RfcDataTypes.DATE_8, Length = 8)]
+        public DateTime CREATIONDATE { get; set; }
 
         [RfcEntityProperty("TXZ01", Description = "Short Text", SapDataType = RfcDataTypes.CHAR, Length = 40)]
         public string TXZ01 { get; set; }
@@ -95,8 +99,8 @@ namespace AdaroConnect.Application.Core.Models
         [RfcEntityProperty("BRTWR", Description = "Gross order value in PO currency", SapDataType = RfcDataTypes.DECIMAL, Length = 13)]
         public decimal BRTWR { get; set; }
 
-        [RfcEntityProperty("AGDAT", Description = "Deadline for Submission of Bid/Quotation", SapDataType = RfcDataTypes.CHAR, Length = 8)]
-        public string AGDAT { get; set; }
+        [RfcEntityProperty("AGDAT", Description = "Deadline for Submission of Bid/Quotation", SapDataType = RfcDataTypes.DATE_8, Length = 8)]
+        public DateTime AGDAT { get; set; }
 
         [RfcEntityProperty("WEBAZ", Description = "Goods receipt processing time in days", SapDataType = RfcDataTypes.DECIMAL, Length = 3)]
         public decimal WEBAZ { get; set; }

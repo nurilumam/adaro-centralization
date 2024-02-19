@@ -2502,6 +2502,390 @@ namespace Adaro.Centralize.Migrations
                     b.ToTable("DataProductions");
                 });
 
+            modelBuilder.Entity("Adaro.Centralize.SAPConnector.EKKO", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ABGRU")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("ADRNR")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime?>("AEDAT")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AUTLF")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime?>("BEDAT")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("BSAKZ")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("BSART")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("BSTYP")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("BUKRS")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime?>("BWBDT")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EBELN")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("EKGRP")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("EKORG")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("ERNAM")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("FRGGR")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("FRGKE")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("FRGSX")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("FRGZU")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime?>("GWLDT")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("IHRAN")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("INCO1")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("INCO2")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("KALSM")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime?>("KDATB")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("KDATE")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("KNUMV")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("KONNR")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("KUFIX")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("KUNNR")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("LBLIF")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("LIFNR")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("LOEKZ")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<long?>("LPONR")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("MANDT")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<long?>("PINCR")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("PROCSTAT")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("RESWK")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("STATU")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("SUBMI")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UNSEZ")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("WAERS")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("WEAKT")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<decimal?>("WKURS")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("ZBD1P")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("ZBD1T")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("ZBD2P")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("ZBD2T")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("ZBD3T")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ZTERM")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("EKKO");
+                });
+
+            modelBuilder.Entity("Adaro.Centralize.SAPConnector.EKPO", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ABSKZ")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime?>("AEDAT")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("AGDAT")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ANFNR")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("BANFN")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("BEDNR")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<long?>("BNFPO")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("BONUS")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("BPRME")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<decimal?>("BPUMN")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("BPUMZ")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("BRTWR")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("BUKRS")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("BWTAR")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("BWTTY")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("EBELN")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<long?>("EBELP")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("EMATN")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("IDNLF")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("INFNR")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("INSMK")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("KNTTP")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("KONNR")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<long?>("KTMNG")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("KTPNR")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("LGORT")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("LOEKZ")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("MANDT")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("MATKL")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("MATNR")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("MEINS")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<long?>("MENGE")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("MWSKZ")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<decimal?>("NETPR")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("NETWR")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("PACKNO")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("PEINH")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("PRSDR")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("PSTYP")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("SPINF")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("STATU")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("TXZ01")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("UMREN")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("UMREZ")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UNIQUEID")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<decimal?>("WEBAZ")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("WERKS")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("EKPO");
+                });
+
             modelBuilder.Entity("Adaro.Centralize.Storage.BinaryObject", b =>
                 {
                     b.Property<Guid>("Id")

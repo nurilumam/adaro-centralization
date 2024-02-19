@@ -134,7 +134,16 @@ namespace AdaroConnect.Query
             case RfcDataTypes.DATE_8:
                 pattern = "yyyyMMdd";
                 DateTime.TryParseExact(trimmedValue, pattern, null, DateTimeStyles.None, out DateTime parsedDate8);
-                property.SetValue(instance, parsedDate8);
+                if (!trimmedValue.Contains("00000000"))
+                {
+                    property.SetValue(instance, parsedDate8);
+                } else
+                {
+                    if (!property.PropertyType.FullName.Contains("Null"))
+                    {
+                        property.SetValue(instance, parsedDate8);
+                    }
+                }
                 break;
 
             case RfcDataTypes.DATE_GDTU:

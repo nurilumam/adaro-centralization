@@ -30,6 +30,16 @@ namespace Adaro.Centralize.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var ekpOs = pages.CreateChildPermission(AppPermissions.Pages_EKPOs, L("EKPOs"));
+            ekpOs.CreateChildPermission(AppPermissions.Pages_EKPOs_Create, L("CreateNewEKPO"));
+            ekpOs.CreateChildPermission(AppPermissions.Pages_EKPOs_Edit, L("EditEKPO"));
+            ekpOs.CreateChildPermission(AppPermissions.Pages_EKPOs_Delete, L("DeleteEKPO"));
+
+            var ekkos = pages.CreateChildPermission(AppPermissions.Pages_Ekkos, L("Ekkos"));
+            ekkos.CreateChildPermission(AppPermissions.Pages_Ekkos_Create, L("CreateNewEkko"));
+            ekkos.CreateChildPermission(AppPermissions.Pages_Ekkos_Edit, L("EditEkko"));
+            ekkos.CreateChildPermission(AppPermissions.Pages_Ekkos_Delete, L("DeleteEkko"));
+
             var jobSynchronizes = pages.CreateChildPermission(AppPermissions.Pages_JobSynchronizes, L("JobSynchronizes"));
             jobSynchronizes.CreateChildPermission(AppPermissions.Pages_JobSynchronizes_Create, L("CreateNewJobSynchronize"));
             jobSynchronizes.CreateChildPermission(AppPermissions.Pages_JobSynchronizes_Edit, L("EditJobSynchronize"));

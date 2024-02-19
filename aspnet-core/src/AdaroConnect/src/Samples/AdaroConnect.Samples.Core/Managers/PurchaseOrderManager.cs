@@ -35,22 +35,23 @@ namespace AdaroConnect.Application.Core.Managers
 
         }
 
-        public async Task<List<PurchasingDocumentHeader>> GetPurchaseOrder()
+        public async Task<List<PurchasingDocumentHeader>> GetPurchaseOrder(SAPGeneralParameterModel param)
         {
             int recordCount = 1000;
 
-            List<string> whereClause = new AbapQuery().Set(QueryOperator.Equal("BUKRS", "2000"))
-                .And(QueryOperator.GreaterThan("AEDAT", "01.01.2022")).GetQuery();
+            List<string> whereClause = new AbapQuery().Set(QueryOperator.Equal("BUKRS", param.CompanyCode))
+                .And(QueryOperator.GreaterThan("AEDAT", param.DateFrom.ToString("yyyymmdd"))).GetQuery();
 
             using IRfcClient sapClient = _serviceProvider.GetRequiredService<IRfcClient>();
             return await sapClient.GetTableDataAsync<PurchasingDocumentHeader>(whereClause, rowCount: recordCount, includeUnsafeFields: true);
         }
 
-        public async Task<List<PurchasingDocumentItem>> GetPurchaseOrderItem()
+        public async Task<List<PurchasingDocumentItem>> GetPurchaseOrderItem(SAPGeneralParameterModel param)
         {
-            int recordCount = 300;
+            int recordCount = 1000;
 
-            List<string> whereClause = new AbapQuery().Set(QueryOperator.Equal("BUKRS", "2000")).GetQuery();
+            List<string> whereClause = new AbapQuery().Set(QueryOperator.Equal("BUKRS", param.CompanyCode))
+                .And(QueryOperator.GreaterThan("CREATIONDATE", param.DateFrom.ToString("yyyymmdd"))).GetQuery();
 
             using IRfcClient sapClient = _serviceProvider.GetRequiredService<IRfcClient>();
             return await sapClient.GetTableDataAsync<PurchasingDocumentItem>(whereClause, rowCount: recordCount, includeUnsafeFields: true);
@@ -58,7 +59,7 @@ namespace AdaroConnect.Application.Core.Managers
 
         public async Task<List<AccountAssignmentPurchasing>> GetAccountAssignmentPurchasing()
         {
-            int recordCount = 100;
+            int recordCount = 1000;
 
             List<string> whereClause = new AbapQuery().Set(QueryOperator.Equal("KOKRS", "ADRO")).GetQuery();
 
@@ -68,7 +69,7 @@ namespace AdaroConnect.Application.Core.Managers
 
         public async Task<List<ServicePackage>> GetServicePackage()
         {
-            int recordCount = 100;
+            int recordCount = 1000;
 
             List<string> whereClause = new AbapQuery().Set(QueryOperator.Equal("SRVPOS", "70111601-0001")).GetQuery();
 

@@ -13,10 +13,11 @@ namespace AdaroConnect.Application.AppConsole
     {
         public static void Exec()
         {
+            
             List<TableClass> tables = new List<TableClass>();
 
             //// Pass assembly name via argument
-            Type type = typeof(PurchasingDocumentHeader);
+            Type type = typeof(PurchasingDocumentItem);
 
             TableClass tc = new TableClass(type);
             tables.Add(tc);

@@ -84,13 +84,13 @@ namespace AdaroConnect.Application.Core.Models
         public DateTime BEDAT { get; set; }
 
         [RfcEntityProperty("KDATB", Description = "Start of Validity Period", SapDataType = RfcDataTypes.DATE_8, Length = 8)]
-        public DateTime KDATB { get; set; }
+        public DateTime? KDATB { get; set; }
 
         [RfcEntityProperty("KDATE", Description = "End of Validity Period", SapDataType = RfcDataTypes.DATE_8, Length = 8)]
-        public DateTime KDATE { get; set; }
+        public DateTime? KDATE { get; set; }
 
         [RfcEntityProperty("BWBDT", Description = "Closing Date for Applications", SapDataType = RfcDataTypes.DATE_8, Length = 8)]
-        public DateTime BWBDT { get; set; }
+        public DateTime? BWBDT { get; set; }
 
         //[RfcEntityProperty("ANGDT", Description = "Deadline for Submission of Bid/Quotation", SapDataType = RfcDataTypes.CHAR, Length = 8)]
         //public string ANGDT { get; set; }
@@ -99,7 +99,7 @@ namespace AdaroConnect.Application.Core.Models
         //public string BNDDT { get; set; }
 
         [RfcEntityProperty("GWLDT", Description = "Warranty Date", SapDataType = RfcDataTypes.DATE_8, Length = 8)]
-        public DateTime GWLDT { get; set; }
+        public DateTime? GWLDT { get; set; }
 
         //[RfcEntityProperty("AUSNR", Description = "Bid invitation number", SapDataType = RfcDataTypes.CHAR, Length = 10)]
         //public string AUSNR { get; set; }
@@ -108,7 +108,7 @@ namespace AdaroConnect.Application.Core.Models
         //public string ANGNR { get; set; }
 
         [RfcEntityProperty("IHRAN", Description = "Quotation Submission Date", SapDataType = RfcDataTypes.DATE_8, Length = 8)]
-        public DateTime IHRAN { get; set; }
+        public DateTime? IHRAN { get; set; }
 
         //[RfcEntityProperty("IHREZ", Description = "Your Reference", SapDataType = RfcDataTypes.CHAR, Length = 12)]
         //public string IHREZ { get; set; }
