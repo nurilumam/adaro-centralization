@@ -1,0 +1,460 @@
+﻿<div [@routerTransition]>
+    <sub-header [title]="('TransferBudgets' | localize) + ' ' + ('Details' | localize)"
+        [breadcrumbs]="breadcrumbs"></sub-header>
+
+
+
+    <div [class]="containerClass">
+
+        <!--begin::Layout-->
+        <div id="kt_invoice_form" class="d-flex flex-column flex-lg-row">
+            <!--begin::Content-->
+            <div class="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
+                <!--begin::Card-->
+                <div class="card mb-5">
+                    <!--begin::Card body-->
+                    <div class="card-body p-12">
+                        <!--begin::Form-->
+                        <div class="d-flex flex-column align-items-start flex-xxl-row">
+                            <!--begin::Input group-->
+                            <div class="d-flex align-items-center flex-equal fw-row me-4 order-2"
+                                data-bs-toggle="tooltip" data-bs-trigger="hover" title="Specify invoice date">
+
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="d-flex flex-center flex-equal fw-row text-nowrap order-1 order-xxl-2 me-4"
+                                data-bs-toggle="tooltip" data-bs-trigger="hover" title="Enter invoice number">
+                                <span class="fs-2x fw-bold text-gray-800">Form Budget Transfer XXX</span>
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="d-flex align-items-center justify-content-end flex-equal order-3 fw-row"
+                                data-bs-toggle="tooltip" data-bs-trigger="hover" title="Specify invoice due date">
+                            </div>
+                            <!--end::Input group-->
+                        </div>
+                        <!--end::Top-->
+
+                        <!--begin::Separator-->
+                        <div class="separator separator-dashed my-10"></div>
+                        <!--end::Separator-->
+
+                        <div class="mb-0">
+
+                            <!--begin::Row-->
+                            <div class="row gx-10 mb-5">
+                                <!--begin::Col-->
+                                <div class="col-lg-6">
+                                    <div class="form-floating">
+                                        <input type="text" #TransferBudget_DocumentNo="ngModel"
+                                            id="TransferBudget_DocumentNo" class="form-control form-control-solid"
+                                            [(ngModel)]="transferBudget.documentNo" name="DocumentNo" placeholder="Document No (Auto Generate)" required />
+                                        <validation-messages
+                                            [formCtrl]="TransferBudget_DocumentNo"></validation-messages>
+                                    </div>
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Row-->
+
+                            <!--begin::Row-->
+                            <div class="row gx-10 mb-5">
+                                <!--begin::Col-->
+                                <div class="col-lg-6">
+                                    <!--begin::Input group-->
+                                    <div class="form-floating">
+                                        <select class="form-control" [(ngModel)]="transferBudget.division" 
+                                        name="Division"  #TransferBudget_Division="ngModel" id="TransferBudget_Division">
+                                            <option selected>Open this select menu</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                        <label for="TransferBudget_Division">{{ l('Division') }} *</label>
+                                        <validation-messages [formCtrl]="TransferBudget_Division"></validation-messages>
+                                    </div>
+                                    <!--end::Input group-->
+                                </div>
+                                <!--end::Col-->
+                                <!--begin::Col-->
+                                <div class="col-lg-6">
+                                    <!--begin::Input group-->
+                                    <div class="form-floating">
+                                        <select class="form-control" [(ngModel)]="transferBudget.department" 
+                                        name="Department"  #TransferBudget_Department="ngModel" id="TransferBudget_Department">
+                                            <option selected>Open this select menu</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                        <label for="TransferBudget_Department">{{ l('Department') }} *</label>
+                                        <validation-messages [formCtrl]="TransferBudget_Department"></validation-messages>
+
+                                    </div>
+                                    <!--end::Input group-->
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Row-->
+
+                            <!--begin::Row-->
+                            <div class="row gx-10 mb-5">
+                                <!--begin::Col-->
+                                <div class="col-lg-12">
+                                    <!--begin::Input group-->
+                                    <div class="form-floating">
+                                        <input type="text" #TransferBudget_ProjectActivities="ngModel"
+                                            id="TransferBudget_ProjectActivities" class="form-control"
+                                            [(ngModel)]="transferBudget.projectActivities" name="ProjectActivities" />
+                                        <label for="TransferBudget_ProjectActivities">{{ l('ProjectActivities') }}</label>
+                                        <validation-messages
+                                            [formCtrl]="TransferBudget_ProjectActivities"></validation-messages>
+
+                                    </div>
+                                    <!--end::Input group-->
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Row-->
+
+                            <!--begin::Row-->
+                            <div class="row gx-10 mb-5">
+                                <!--begin::Col-->
+                                <div class="col-lg-12">
+                                    <textarea #TransferBudget_Purpose="ngModel" id="TransferBudget_Purpose" placeholder="Whats Purpose?" 
+                                        class="form-control form-control-solid" rows="3" [(ngModel)]="transferBudget.purpose" name="Purpose" required></textarea>
+                                    <validation-messages [formCtrl]="TransferBudget_Purpose"></validation-messages>
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Row-->
+                            
+
+                            <!--begin::Table wrapper-->
+                            <div class="table-responsive mb-10">
+
+                                <table
+                                    class="table table-border-custom table-hover table-rounded table-striped border gy-3 gs-3">
+                                    <thead>
+                                        <tr
+                                            class="border-bottom fs-7 fw-bold text-gray-700 text-uppercase bg-secondary">
+                                            <th colspan="3" class="min-w-300px w-475px">Sender</th>
+                                        </tr>
+                                        <tr class="border-bottom fs-7 fw-bold text-gray-700 text-uppercase bg-light">
+                                            <th class="min-w-250px w-300px fs-8 ng-tns-c247-6">Cost Center <br />(GL
+                                                Account/Cost Element)</th>
+                                            <th class="min-w-75px w-75px">Period</th>
+                                            <th class="min-w-75px w-75px text-end">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td><input type="text" class="form-control form-control-transparent" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td><input type="text" class="form-control form-control-transparent" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td><input type="text" class="form-control form-control-transparent" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td><input type="text" class="form-control form-control-transparent" /></td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+
+
+                            </div>
+                            <!--end::Table-->
+
+                            <!--begin::Table wrapper-->
+                            <div class="table-responsive">
+
+                                <table
+                                    class="table table-border-custom table-hover table-rounded table-striped border gy-3 gs-3">
+                                    <thead>
+                                        <tr
+                                            class="border-bottom fs-7 fw-bold text-gray-700 text-uppercase bg-secondary">
+                                            <th colspan="3" class="min-w-300px w-475px">Receiver</th>
+                                        </tr>
+                                        <tr class="border-bottom fs-7 fw-bold text-gray-700 text-uppercase bg-light">
+                                            <th class="min-w-250px w-300px fs-8 ng-tns-c247-6">Cost Center <br />(GL
+                                                Account/Cost Element)</th>
+                                            <th class="min-w-75px w-75px">Period</th>
+                                            <th class="min-w-75px w-75px text-end">Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td><input type="text" class="form-control form-control-transparent" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td><input type="text" class="form-control form-control-transparent" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td><input type="text" class="form-control form-control-transparent" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td><input type="text" class="form-control form-control-transparent" /></td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+
+
+                            </div>
+                            <!--end::Table-->
+
+                        </div>
+                        <!--end::Form-->
+                    </div>
+                    <!--end::Card body-->
+                </div>
+                <!--end::Card-->
+
+                <div class="card">
+                    <!--begin::Header-->
+                    <div class="card-header pt-5">
+                        <!--begin::Title-->
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="card-label fw-bold text-gray-800">TRANSFER BUDGET JUSTIFICATION</span>
+                        </h3>
+                        <!--end::Title-->
+
+                    </div>
+                    <!--end::Header-->
+
+                    <!--begin::Body-->
+                    <div class="card-body pt-6">
+
+                        <!--begin::Row-->
+                        <div class="row gx-10 mb-5">
+                            <!--begin::Col-->
+                            <div class="col-lg-12">
+                                <textarea #TransferBudget_Reason="ngModel" id="TransferBudget_Reason"
+                                    class="form-control form-control-solid" rows="3" [(ngModel)]="transferBudget.reason"
+                                    name="Reason" placeholder="Reason?" required></textarea>
+                                <validation-messages [formCtrl]="TransferBudget_Reason"></validation-messages>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Row-->
+
+                        <!--begin::Row-->
+                        <div class="row gx-10 mb-5">
+                            <!--begin::Col-->
+                            <div class="col-lg-12">
+                                <textarea type="text" #TransferBudget_ScopeofWork="ngModel"
+                                    id="TransferBudget_ScopeofWork" class="form-control form-control-solid" rows="3"
+                                    [(ngModel)]="transferBudget.scopeofWork" name="ScopeofWork"
+                                    placeholder="Scope of Work?" required></textarea>
+                                <validation-messages [formCtrl]="TransferBudget_ScopeofWork"></validation-messages>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Row-->
+
+                        <!--begin::Row-->
+                        <div class="row gx-10 mb-5">
+                            <!--begin::Col-->
+                            <div class="col-lg-12">
+                                <textarea type="text" #TransferBudget_Location="ngModel" id="TransferBudget_Location"
+                                    class="form-control form-control-solid" rows="3"
+                                    [(ngModel)]="transferBudget.location" name="Location" placeholder="Where Location?"
+                                    required></textarea>
+                                <validation-messages [formCtrl]="TransferBudget_Location"></validation-messages>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Row-->
+
+
+                    </div>
+                    <!--end: Card Body-->
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="card card-custom gutter-b">
+                    <div class="card-body">
+
+
+
+                    </div>
+                    <div class="card-footer">
+                        <div class="col-lg-12">
+                            <button (click)="save()" class="btn btn-primary blue float-right" [buttonBusy]="saving"
+                                [busyText]="l('SavingWithThreeDot')">
+                                <i class="fa fa-save"></i>
+                                <span>{{ l('Save') }}</span>
+                            </button>
+                            <button *ngIf="!this.transferBudget.id" (click)="saveAndNew()"
+                                class="btn btn-primary blue float-right" [buttonBusy]="saving"
+                                [busyText]="l('SavingWithThreeDot')">
+                                <i class="fa fa-save"></i>
+                                <span>{{ l('SaveAndNew') }}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--end::Content-->
+            <!--begin::Sidebar-->
+            <div class="flex-lg-auto min-w-lg-400px">
+                <!--begin::Card-->
+                <div class="card" data-kt-sticky="true" data-kt-sticky-name="invoice"
+                    data-kt-sticky-offset="{default: false, lg: '300px'}"
+                    data-kt-sticky-width="{lg: '350px', lg: '400px'}" data-kt-sticky-left="auto"
+                    data-kt-sticky-top="100px" data-kt-sticky-animation="false" data-kt-sticky-zindex="95">
+                    <!--begin::Card body-->
+                    <div class="card-body p-10">
+                        <!--begin::Input group-->
+                        <div class="mb-10">
+                            <!--begin::Label-->
+                            <label class="form-label fw-bold fs-6 text-gray-700">Currency</label>
+                            <!--end::Label-->
+                            <!--begin::Select-->
+                            <select name="currnecy" aria-label="Select a Timezone" data-control="select2"
+                                data-placeholder="Select currency" class="form-select form-select-solid">
+                                <option value=""></option>
+                                <option data-kt-flag="flags/united-states.svg" value="USD">
+                                    <b>USD</b>&nbsp;-&nbsp;USA dollar
+                                </option>
+                                <option data-kt-flag="flags/united-kingdom.svg" value="GBP">
+                                    <b>GBP</b>&nbsp;-&nbsp;British pound
+                                </option>
+                                <option data-kt-flag="flags/australia.svg" value="AUD">
+                                    <b>AUD</b>&nbsp;-&nbsp;Australian dollar
+                                </option>
+                                <option data-kt-flag="flags/japan.svg" value="JPY">
+                                    <b>JPY</b>&nbsp;-&nbsp;Japanese yen
+                                </option>
+                                <option data-kt-flag="flags/sweden.svg" value="SEK">
+                                    <b>SEK</b>&nbsp;-&nbsp;Swedish krona
+                                </option>
+                                <option data-kt-flag="flags/canada.svg" value="CAD">
+                                    <b>CAD</b>&nbsp;-&nbsp;Canadian dollar
+                                </option>
+                                <option data-kt-flag="flags/switzerland.svg" value="CHF">
+                                    <b>CHF</b>&nbsp;-&nbsp;Swiss franc
+                                </option>
+                            </select>
+                            <!--end::Select-->
+                        </div>
+                        <!--end::Input group-->
+                        <!--begin::Separator-->
+                        <div class="separator separator-dashed mb-8"></div>
+                        <!--end::Separator-->
+                        <!--begin::Input group-->
+                        <div class="mb-8">
+                            <!--begin::Option-->
+                            <label
+                                class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack mb-5">
+                                <span class="form-check-label ms-0 fw-bold fs-6 text-gray-700">Payment method</span>
+                                <input class="form-check-input" type="checkbox" checked="checked" value="" />
+                            </label>
+                            <!--end::Option-->
+                            <!--begin::Option-->
+                            <label
+                                class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack mb-5">
+                                <span class="form-check-label ms-0 fw-bold fs-6 text-gray-700">Late fees</span>
+                                <input class="form-check-input" type="checkbox" value="" />
+                            </label>
+                            <!--end::Option-->
+                            <!--begin::Option-->
+                            <label
+                                class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
+                                <span class="form-check-label ms-0 fw-bold fs-6 text-gray-700">Notes</span>
+                                <input class="form-check-input" type="checkbox" value="" />
+                            </label>
+                            <!--end::Option-->
+                        </div>
+                        <!--end::Input group-->
+                        <!--begin::Separator-->
+                        <div class="separator separator-dashed mb-8"></div>
+                        <!--end::Separator-->
+                        <!--begin::Actions-->
+                        <div class="mb-0">
+                            <!--begin::Row-->
+                            <div class="row mb-5">
+                                <!--begin::Col-->
+                                <div class="col">
+                                    <a href="#" class="btn btn-light btn-active-light-primary w-100">Preview</a>
+                                </div>
+                                <!--end::Col-->
+                                <!--begin::Col-->
+                                <div class="col">
+                                    <a href="#" class="btn btn-light btn-active-light-primary w-100">Download</a>
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Row-->
+                            <button type="submit" href="#" class="btn btn-primary w-100" id="kt_invoice_submit_button">
+                                <i class="ki-duotone ki-triangle fs-3">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                </i>Send Invoice</button>
+                        </div>
+                        <!--end::Actions-->
+                    </div>
+                    <!--end::Card body-->
+
+
+                    <div class="card-footer">
+                        <div class="col-lg-12">
+                            <button (click)="save()" class="btn btn-primary blue float-right" [buttonBusy]="saving"
+                                [busyText]="l('SavingWithThreeDot')">
+                                <i class="fa fa-save"></i>
+                                <span>{{ l('Save') }}</span>
+                            </button>
+                            <button *ngIf="!this.transferBudget.id" (click)="saveAndNew()"
+                                class="btn btn-primary blue float-right" [buttonBusy]="saving"
+                                [busyText]="l('SavingWithThreeDot')">
+                                <i class="fa fa-save"></i>
+                                <span>{{ l('SaveAndNew') }}</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                <!--end::Card-->
+            </div>
+            <!--end::Sidebar-->
+        </div>
+        <!--end::Layout-->
+
+
+
+
+    </div>
+</div>

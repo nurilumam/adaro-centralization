@@ -9,6 +9,20 @@ import { RouterModule } from '@angular/router';
                 children: [
                     
                     {
+                        path: 'finance/transferBudgetItems',
+                        loadChildren: () => import('./finance/transferBudgetItems/transferBudgetItem.module').then(m => m.TransferBudgetItemModule),
+                        data: { permission: 'Pages.TransferBudgetItems' }
+                    },
+                
+                    
+                    {
+                        path: 'finance/transferBudgets',
+                        loadChildren: () => import('./finance/transferBudgets/transferBudget.module').then(m => m.TransferBudgetModule),
+                        data: { permission: 'Pages.TransferBudgets' }
+                    },
+                
+                    
+                    {
                         path: 'sapConnector/ekpOs',
                         loadChildren: () => import('./sapConnector/ekpOs/ekpo.module').then(m => m.EKPOModule),
                         data: { permission: 'Pages.EKPOs' }

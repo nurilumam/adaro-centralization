@@ -17349,6 +17349,62 @@ export class SAPSynchServiceServiceProxy {
         }
         return _observableOf(null as any);
     }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    purchasingDocumentItem(body: PurchasingOrderSynchDto | undefined): Observable<DtoResponseModel> {
+        let url_ = this.baseUrl + "/api/services/app/SAPSynchService/PurchasingDocumentItem";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processPurchasingDocumentItem(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processPurchasingDocumentItem(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<DtoResponseModel>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<DtoResponseModel>;
+        }));
+    }
+
+    protected processPurchasingDocumentItem(response: HttpResponseBase): Observable<DtoResponseModel> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = DtoResponseModel.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
 }
 
 @Injectable()
@@ -20061,6 +20117,1028 @@ export class TokenAuthServiceProxy {
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
+@Injectable()
+export class TransferBudgetItemsServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param periodFromFilter (optional) 
+     * @param maxAmountFromFilter (optional) 
+     * @param minAmountFromFilter (optional) 
+     * @param periodToFilter (optional) 
+     * @param maxAmountToFilter (optional) 
+     * @param minAmountToFilter (optional) 
+     * @param transferBudgetDisplayPropertyFilter (optional) 
+     * @param costCenterDisplayPropertyFilter (optional) 
+     * @param costCenterDisplayProperty2Filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | undefined, periodFromFilter: string | undefined, maxAmountFromFilter: number | undefined, minAmountFromFilter: number | undefined, periodToFilter: string | undefined, maxAmountToFilter: number | undefined, minAmountToFilter: number | undefined, transferBudgetDisplayPropertyFilter: string | undefined, costCenterDisplayPropertyFilter: string | undefined, costCenterDisplayProperty2Filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetTransferBudgetItemForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/TransferBudgetItems/GetAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (periodFromFilter === null)
+            throw new Error("The parameter 'periodFromFilter' cannot be null.");
+        else if (periodFromFilter !== undefined)
+            url_ += "PeriodFromFilter=" + encodeURIComponent("" + periodFromFilter) + "&";
+        if (maxAmountFromFilter === null)
+            throw new Error("The parameter 'maxAmountFromFilter' cannot be null.");
+        else if (maxAmountFromFilter !== undefined)
+            url_ += "MaxAmountFromFilter=" + encodeURIComponent("" + maxAmountFromFilter) + "&";
+        if (minAmountFromFilter === null)
+            throw new Error("The parameter 'minAmountFromFilter' cannot be null.");
+        else if (minAmountFromFilter !== undefined)
+            url_ += "MinAmountFromFilter=" + encodeURIComponent("" + minAmountFromFilter) + "&";
+        if (periodToFilter === null)
+            throw new Error("The parameter 'periodToFilter' cannot be null.");
+        else if (periodToFilter !== undefined)
+            url_ += "PeriodToFilter=" + encodeURIComponent("" + periodToFilter) + "&";
+        if (maxAmountToFilter === null)
+            throw new Error("The parameter 'maxAmountToFilter' cannot be null.");
+        else if (maxAmountToFilter !== undefined)
+            url_ += "MaxAmountToFilter=" + encodeURIComponent("" + maxAmountToFilter) + "&";
+        if (minAmountToFilter === null)
+            throw new Error("The parameter 'minAmountToFilter' cannot be null.");
+        else if (minAmountToFilter !== undefined)
+            url_ += "MinAmountToFilter=" + encodeURIComponent("" + minAmountToFilter) + "&";
+        if (transferBudgetDisplayPropertyFilter === null)
+            throw new Error("The parameter 'transferBudgetDisplayPropertyFilter' cannot be null.");
+        else if (transferBudgetDisplayPropertyFilter !== undefined)
+            url_ += "TransferBudgetDisplayPropertyFilter=" + encodeURIComponent("" + transferBudgetDisplayPropertyFilter) + "&";
+        if (costCenterDisplayPropertyFilter === null)
+            throw new Error("The parameter 'costCenterDisplayPropertyFilter' cannot be null.");
+        else if (costCenterDisplayPropertyFilter !== undefined)
+            url_ += "CostCenterDisplayPropertyFilter=" + encodeURIComponent("" + costCenterDisplayPropertyFilter) + "&";
+        if (costCenterDisplayProperty2Filter === null)
+            throw new Error("The parameter 'costCenterDisplayProperty2Filter' cannot be null.");
+        else if (costCenterDisplayProperty2Filter !== undefined)
+            url_ += "CostCenterDisplayProperty2Filter=" + encodeURIComponent("" + costCenterDisplayProperty2Filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<PagedResultDtoOfGetTransferBudgetItemForViewDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<PagedResultDtoOfGetTransferBudgetItemForViewDto>;
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetTransferBudgetItemForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetTransferBudgetItemForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getTransferBudgetItemForView(id: string | undefined): Observable<GetTransferBudgetItemForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/TransferBudgetItems/GetTransferBudgetItemForView?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTransferBudgetItemForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTransferBudgetItemForView(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetTransferBudgetItemForViewDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetTransferBudgetItemForViewDto>;
+        }));
+    }
+
+    protected processGetTransferBudgetItemForView(response: HttpResponseBase): Observable<GetTransferBudgetItemForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTransferBudgetItemForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getTransferBudgetItemForEdit(id: string | undefined): Observable<GetTransferBudgetItemForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/TransferBudgetItems/GetTransferBudgetItemForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTransferBudgetItemForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTransferBudgetItemForEdit(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetTransferBudgetItemForEditOutput>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetTransferBudgetItemForEditOutput>;
+        }));
+    }
+
+    protected processGetTransferBudgetItemForEdit(response: HttpResponseBase): Observable<GetTransferBudgetItemForEditOutput> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTransferBudgetItemForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditTransferBudgetItemDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/TransferBudgetItems/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: string | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/TransferBudgetItems/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param periodFromFilter (optional) 
+     * @param maxAmountFromFilter (optional) 
+     * @param minAmountFromFilter (optional) 
+     * @param periodToFilter (optional) 
+     * @param maxAmountToFilter (optional) 
+     * @param minAmountToFilter (optional) 
+     * @param transferBudgetDisplayPropertyFilter (optional) 
+     * @param costCenterDisplayPropertyFilter (optional) 
+     * @param costCenterDisplayProperty2Filter (optional) 
+     * @return Success
+     */
+    getTransferBudgetItemsToExcel(filter: string | undefined, periodFromFilter: string | undefined, maxAmountFromFilter: number | undefined, minAmountFromFilter: number | undefined, periodToFilter: string | undefined, maxAmountToFilter: number | undefined, minAmountToFilter: number | undefined, transferBudgetDisplayPropertyFilter: string | undefined, costCenterDisplayPropertyFilter: string | undefined, costCenterDisplayProperty2Filter: string | undefined): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/TransferBudgetItems/GetTransferBudgetItemsToExcel?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (periodFromFilter === null)
+            throw new Error("The parameter 'periodFromFilter' cannot be null.");
+        else if (periodFromFilter !== undefined)
+            url_ += "PeriodFromFilter=" + encodeURIComponent("" + periodFromFilter) + "&";
+        if (maxAmountFromFilter === null)
+            throw new Error("The parameter 'maxAmountFromFilter' cannot be null.");
+        else if (maxAmountFromFilter !== undefined)
+            url_ += "MaxAmountFromFilter=" + encodeURIComponent("" + maxAmountFromFilter) + "&";
+        if (minAmountFromFilter === null)
+            throw new Error("The parameter 'minAmountFromFilter' cannot be null.");
+        else if (minAmountFromFilter !== undefined)
+            url_ += "MinAmountFromFilter=" + encodeURIComponent("" + minAmountFromFilter) + "&";
+        if (periodToFilter === null)
+            throw new Error("The parameter 'periodToFilter' cannot be null.");
+        else if (periodToFilter !== undefined)
+            url_ += "PeriodToFilter=" + encodeURIComponent("" + periodToFilter) + "&";
+        if (maxAmountToFilter === null)
+            throw new Error("The parameter 'maxAmountToFilter' cannot be null.");
+        else if (maxAmountToFilter !== undefined)
+            url_ += "MaxAmountToFilter=" + encodeURIComponent("" + maxAmountToFilter) + "&";
+        if (minAmountToFilter === null)
+            throw new Error("The parameter 'minAmountToFilter' cannot be null.");
+        else if (minAmountToFilter !== undefined)
+            url_ += "MinAmountToFilter=" + encodeURIComponent("" + minAmountToFilter) + "&";
+        if (transferBudgetDisplayPropertyFilter === null)
+            throw new Error("The parameter 'transferBudgetDisplayPropertyFilter' cannot be null.");
+        else if (transferBudgetDisplayPropertyFilter !== undefined)
+            url_ += "TransferBudgetDisplayPropertyFilter=" + encodeURIComponent("" + transferBudgetDisplayPropertyFilter) + "&";
+        if (costCenterDisplayPropertyFilter === null)
+            throw new Error("The parameter 'costCenterDisplayPropertyFilter' cannot be null.");
+        else if (costCenterDisplayPropertyFilter !== undefined)
+            url_ += "CostCenterDisplayPropertyFilter=" + encodeURIComponent("" + costCenterDisplayPropertyFilter) + "&";
+        if (costCenterDisplayProperty2Filter === null)
+            throw new Error("The parameter 'costCenterDisplayProperty2Filter' cannot be null.");
+        else if (costCenterDisplayProperty2Filter !== undefined)
+            url_ += "CostCenterDisplayProperty2Filter=" + encodeURIComponent("" + costCenterDisplayProperty2Filter) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTransferBudgetItemsToExcel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTransferBudgetItemsToExcel(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<FileDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<FileDto>;
+        }));
+    }
+
+    protected processGetTransferBudgetItemsToExcel(response: HttpResponseBase): Observable<FileDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FileDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllTransferBudgetForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/TransferBudgetItems/GetAllTransferBudgetForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllTransferBudgetForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllTransferBudgetForLookupTable(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<PagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<PagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto>;
+        }));
+    }
+
+    protected processGetAllTransferBudgetForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllCostCenterForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/TransferBudgetItems/GetAllCostCenterForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllCostCenterForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllCostCenterForLookupTable(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<PagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<PagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto>;
+        }));
+    }
+
+    protected processGetAllCostCenterForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
+@Injectable()
+export class TransferBudgetsServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param documentNoFilter (optional) 
+     * @param departmentFilter (optional) 
+     * @param divisionFilter (optional) 
+     * @param purposeFilter (optional) 
+     * @param projectActivitiesFilter (optional) 
+     * @param reasonFilter (optional) 
+     * @param scopeofWorkFilter (optional) 
+     * @param locationFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | undefined, documentNoFilter: string | undefined, departmentFilter: string | undefined, divisionFilter: string | undefined, purposeFilter: string | undefined, projectActivitiesFilter: string | undefined, reasonFilter: string | undefined, scopeofWorkFilter: string | undefined, locationFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetTransferBudgetForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/TransferBudgets/GetAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (documentNoFilter === null)
+            throw new Error("The parameter 'documentNoFilter' cannot be null.");
+        else if (documentNoFilter !== undefined)
+            url_ += "DocumentNoFilter=" + encodeURIComponent("" + documentNoFilter) + "&";
+        if (departmentFilter === null)
+            throw new Error("The parameter 'departmentFilter' cannot be null.");
+        else if (departmentFilter !== undefined)
+            url_ += "DepartmentFilter=" + encodeURIComponent("" + departmentFilter) + "&";
+        if (divisionFilter === null)
+            throw new Error("The parameter 'divisionFilter' cannot be null.");
+        else if (divisionFilter !== undefined)
+            url_ += "DivisionFilter=" + encodeURIComponent("" + divisionFilter) + "&";
+        if (purposeFilter === null)
+            throw new Error("The parameter 'purposeFilter' cannot be null.");
+        else if (purposeFilter !== undefined)
+            url_ += "PurposeFilter=" + encodeURIComponent("" + purposeFilter) + "&";
+        if (projectActivitiesFilter === null)
+            throw new Error("The parameter 'projectActivitiesFilter' cannot be null.");
+        else if (projectActivitiesFilter !== undefined)
+            url_ += "ProjectActivitiesFilter=" + encodeURIComponent("" + projectActivitiesFilter) + "&";
+        if (reasonFilter === null)
+            throw new Error("The parameter 'reasonFilter' cannot be null.");
+        else if (reasonFilter !== undefined)
+            url_ += "ReasonFilter=" + encodeURIComponent("" + reasonFilter) + "&";
+        if (scopeofWorkFilter === null)
+            throw new Error("The parameter 'scopeofWorkFilter' cannot be null.");
+        else if (scopeofWorkFilter !== undefined)
+            url_ += "ScopeofWorkFilter=" + encodeURIComponent("" + scopeofWorkFilter) + "&";
+        if (locationFilter === null)
+            throw new Error("The parameter 'locationFilter' cannot be null.");
+        else if (locationFilter !== undefined)
+            url_ += "LocationFilter=" + encodeURIComponent("" + locationFilter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<PagedResultDtoOfGetTransferBudgetForViewDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<PagedResultDtoOfGetTransferBudgetForViewDto>;
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetTransferBudgetForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetTransferBudgetForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getTransferBudgetForView(id: string | undefined): Observable<GetTransferBudgetForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/TransferBudgets/GetTransferBudgetForView?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTransferBudgetForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTransferBudgetForView(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetTransferBudgetForViewDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetTransferBudgetForViewDto>;
+        }));
+    }
+
+    protected processGetTransferBudgetForView(response: HttpResponseBase): Observable<GetTransferBudgetForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTransferBudgetForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getTransferBudgetForEdit(id: string | undefined): Observable<GetTransferBudgetForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/TransferBudgets/GetTransferBudgetForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTransferBudgetForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTransferBudgetForEdit(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetTransferBudgetForEditOutput>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetTransferBudgetForEditOutput>;
+        }));
+    }
+
+    protected processGetTransferBudgetForEdit(response: HttpResponseBase): Observable<GetTransferBudgetForEditOutput> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTransferBudgetForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditTransferBudgetDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/TransferBudgets/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: string | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/TransferBudgets/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param documentNoFilter (optional) 
+     * @param departmentFilter (optional) 
+     * @param divisionFilter (optional) 
+     * @param purposeFilter (optional) 
+     * @param projectActivitiesFilter (optional) 
+     * @param reasonFilter (optional) 
+     * @param scopeofWorkFilter (optional) 
+     * @param locationFilter (optional) 
+     * @return Success
+     */
+    getTransferBudgetsToExcel(filter: string | undefined, documentNoFilter: string | undefined, departmentFilter: string | undefined, divisionFilter: string | undefined, purposeFilter: string | undefined, projectActivitiesFilter: string | undefined, reasonFilter: string | undefined, scopeofWorkFilter: string | undefined, locationFilter: string | undefined): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/TransferBudgets/GetTransferBudgetsToExcel?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (documentNoFilter === null)
+            throw new Error("The parameter 'documentNoFilter' cannot be null.");
+        else if (documentNoFilter !== undefined)
+            url_ += "DocumentNoFilter=" + encodeURIComponent("" + documentNoFilter) + "&";
+        if (departmentFilter === null)
+            throw new Error("The parameter 'departmentFilter' cannot be null.");
+        else if (departmentFilter !== undefined)
+            url_ += "DepartmentFilter=" + encodeURIComponent("" + departmentFilter) + "&";
+        if (divisionFilter === null)
+            throw new Error("The parameter 'divisionFilter' cannot be null.");
+        else if (divisionFilter !== undefined)
+            url_ += "DivisionFilter=" + encodeURIComponent("" + divisionFilter) + "&";
+        if (purposeFilter === null)
+            throw new Error("The parameter 'purposeFilter' cannot be null.");
+        else if (purposeFilter !== undefined)
+            url_ += "PurposeFilter=" + encodeURIComponent("" + purposeFilter) + "&";
+        if (projectActivitiesFilter === null)
+            throw new Error("The parameter 'projectActivitiesFilter' cannot be null.");
+        else if (projectActivitiesFilter !== undefined)
+            url_ += "ProjectActivitiesFilter=" + encodeURIComponent("" + projectActivitiesFilter) + "&";
+        if (reasonFilter === null)
+            throw new Error("The parameter 'reasonFilter' cannot be null.");
+        else if (reasonFilter !== undefined)
+            url_ += "ReasonFilter=" + encodeURIComponent("" + reasonFilter) + "&";
+        if (scopeofWorkFilter === null)
+            throw new Error("The parameter 'scopeofWorkFilter' cannot be null.");
+        else if (scopeofWorkFilter !== undefined)
+            url_ += "ScopeofWorkFilter=" + encodeURIComponent("" + scopeofWorkFilter) + "&";
+        if (locationFilter === null)
+            throw new Error("The parameter 'locationFilter' cannot be null.");
+        else if (locationFilter !== undefined)
+            url_ += "LocationFilter=" + encodeURIComponent("" + locationFilter) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTransferBudgetsToExcel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTransferBudgetsToExcel(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<FileDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<FileDto>;
+        }));
+    }
+
+    protected processGetTransferBudgetsToExcel(response: HttpResponseBase): Observable<FileDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FileDto.fromJS(resultData200);
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
@@ -26270,6 +27348,138 @@ export interface ICreateOrEditMaterialRequestDto {
     id: string | undefined;
 }
 
+export class CreateOrEditTransferBudgetDto implements ICreateOrEditTransferBudgetDto {
+    documentNo!: string;
+    department!: string;
+    division!: string;
+    purpose!: string;
+    projectActivities!: string | undefined;
+    reason!: string;
+    scopeofWork!: string;
+    location!: string;
+    id!: string | undefined;
+
+    constructor(data?: ICreateOrEditTransferBudgetDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.documentNo = _data["documentNo"];
+            this.department = _data["department"];
+            this.division = _data["division"];
+            this.purpose = _data["purpose"];
+            this.projectActivities = _data["projectActivities"];
+            this.reason = _data["reason"];
+            this.scopeofWork = _data["scopeofWork"];
+            this.location = _data["location"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditTransferBudgetDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditTransferBudgetDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["documentNo"] = this.documentNo;
+        data["department"] = this.department;
+        data["division"] = this.division;
+        data["purpose"] = this.purpose;
+        data["projectActivities"] = this.projectActivities;
+        data["reason"] = this.reason;
+        data["scopeofWork"] = this.scopeofWork;
+        data["location"] = this.location;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface ICreateOrEditTransferBudgetDto {
+    documentNo: string;
+    department: string;
+    division: string;
+    purpose: string;
+    projectActivities: string | undefined;
+    reason: string;
+    scopeofWork: string;
+    location: string;
+    id: string | undefined;
+}
+
+export class CreateOrEditTransferBudgetItemDto implements ICreateOrEditTransferBudgetItemDto {
+    periodFrom!: string;
+    amountFrom!: number;
+    periodTo!: string;
+    amountTo!: number;
+    transferBudgetId!: string | undefined;
+    costCenterIdFrom!: string | undefined;
+    costCenterIdTo!: string | undefined;
+    id!: string | undefined;
+
+    constructor(data?: ICreateOrEditTransferBudgetItemDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.periodFrom = _data["periodFrom"];
+            this.amountFrom = _data["amountFrom"];
+            this.periodTo = _data["periodTo"];
+            this.amountTo = _data["amountTo"];
+            this.transferBudgetId = _data["transferBudgetId"];
+            this.costCenterIdFrom = _data["costCenterIdFrom"];
+            this.costCenterIdTo = _data["costCenterIdTo"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditTransferBudgetItemDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditTransferBudgetItemDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["periodFrom"] = this.periodFrom;
+        data["amountFrom"] = this.amountFrom;
+        data["periodTo"] = this.periodTo;
+        data["amountTo"] = this.amountTo;
+        data["transferBudgetId"] = this.transferBudgetId;
+        data["costCenterIdFrom"] = this.costCenterIdFrom;
+        data["costCenterIdTo"] = this.costCenterIdTo;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface ICreateOrEditTransferBudgetItemDto {
+    periodFrom: string;
+    amountFrom: number;
+    periodTo: string;
+    amountTo: number;
+    transferBudgetId: string | undefined;
+    costCenterIdFrom: string | undefined;
+    costCenterIdTo: string | undefined;
+    id: string | undefined;
+}
+
 export class CreateOrEditTravelRequestDto implements ICreateOrEditTravelRequestDto {
     requestNo!: string;
     travelStatus!: TravelStatus;
@@ -32319,6 +33529,174 @@ export interface IGetTopStatsOutput {
     newUsers: number;
 }
 
+export class GetTransferBudgetForEditOutput implements IGetTransferBudgetForEditOutput {
+    transferBudget!: CreateOrEditTransferBudgetDto;
+
+    constructor(data?: IGetTransferBudgetForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.transferBudget = _data["transferBudget"] ? CreateOrEditTransferBudgetDto.fromJS(_data["transferBudget"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetTransferBudgetForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTransferBudgetForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["transferBudget"] = this.transferBudget ? this.transferBudget.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+export interface IGetTransferBudgetForEditOutput {
+    transferBudget: CreateOrEditTransferBudgetDto;
+}
+
+export class GetTransferBudgetForViewDto implements IGetTransferBudgetForViewDto {
+    transferBudget!: TransferBudgetDto;
+
+    constructor(data?: IGetTransferBudgetForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.transferBudget = _data["transferBudget"] ? TransferBudgetDto.fromJS(_data["transferBudget"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetTransferBudgetForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTransferBudgetForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["transferBudget"] = this.transferBudget ? this.transferBudget.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+export interface IGetTransferBudgetForViewDto {
+    transferBudget: TransferBudgetDto;
+}
+
+export class GetTransferBudgetItemForEditOutput implements IGetTransferBudgetItemForEditOutput {
+    transferBudgetItem!: CreateOrEditTransferBudgetItemDto;
+    transferBudgetDisplayProperty!: string | undefined;
+    costCenterDisplayProperty!: string | undefined;
+    costCenterDisplayProperty2!: string | undefined;
+
+    constructor(data?: IGetTransferBudgetItemForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.transferBudgetItem = _data["transferBudgetItem"] ? CreateOrEditTransferBudgetItemDto.fromJS(_data["transferBudgetItem"]) : <any>undefined;
+            this.transferBudgetDisplayProperty = _data["transferBudgetDisplayProperty"];
+            this.costCenterDisplayProperty = _data["costCenterDisplayProperty"];
+            this.costCenterDisplayProperty2 = _data["costCenterDisplayProperty2"];
+        }
+    }
+
+    static fromJS(data: any): GetTransferBudgetItemForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTransferBudgetItemForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["transferBudgetItem"] = this.transferBudgetItem ? this.transferBudgetItem.toJSON() : <any>undefined;
+        data["transferBudgetDisplayProperty"] = this.transferBudgetDisplayProperty;
+        data["costCenterDisplayProperty"] = this.costCenterDisplayProperty;
+        data["costCenterDisplayProperty2"] = this.costCenterDisplayProperty2;
+        return data;
+    }
+}
+
+export interface IGetTransferBudgetItemForEditOutput {
+    transferBudgetItem: CreateOrEditTransferBudgetItemDto;
+    transferBudgetDisplayProperty: string | undefined;
+    costCenterDisplayProperty: string | undefined;
+    costCenterDisplayProperty2: string | undefined;
+}
+
+export class GetTransferBudgetItemForViewDto implements IGetTransferBudgetItemForViewDto {
+    transferBudgetItem!: TransferBudgetItemDto;
+    transferBudgetDisplayProperty!: string | undefined;
+    costCenterDisplayProperty!: string | undefined;
+    costCenterDisplayProperty2!: string | undefined;
+
+    constructor(data?: IGetTransferBudgetItemForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.transferBudgetItem = _data["transferBudgetItem"] ? TransferBudgetItemDto.fromJS(_data["transferBudgetItem"]) : <any>undefined;
+            this.transferBudgetDisplayProperty = _data["transferBudgetDisplayProperty"];
+            this.costCenterDisplayProperty = _data["costCenterDisplayProperty"];
+            this.costCenterDisplayProperty2 = _data["costCenterDisplayProperty2"];
+        }
+    }
+
+    static fromJS(data: any): GetTransferBudgetItemForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTransferBudgetItemForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["transferBudgetItem"] = this.transferBudgetItem ? this.transferBudgetItem.toJSON() : <any>undefined;
+        data["transferBudgetDisplayProperty"] = this.transferBudgetDisplayProperty;
+        data["costCenterDisplayProperty"] = this.costCenterDisplayProperty;
+        data["costCenterDisplayProperty2"] = this.costCenterDisplayProperty2;
+        return data;
+    }
+}
+
+export interface IGetTransferBudgetItemForViewDto {
+    transferBudgetItem: TransferBudgetItemDto;
+    transferBudgetDisplayProperty: string | undefined;
+    costCenterDisplayProperty: string | undefined;
+    costCenterDisplayProperty2: string | undefined;
+}
+
 export class GetTravelRequestForEditOutput implements IGetTravelRequestForEditOutput {
     travelRequest!: CreateOrEditTravelRequestDto;
     userName!: string | undefined;
@@ -36768,6 +38146,102 @@ export interface IPagedResultDtoOfGetMaterialRequestForViewDto {
     items: GetMaterialRequestForViewDto[] | undefined;
 }
 
+export class PagedResultDtoOfGetTransferBudgetForViewDto implements IPagedResultDtoOfGetTransferBudgetForViewDto {
+    totalCount!: number;
+    items!: GetTransferBudgetForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetTransferBudgetForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetTransferBudgetForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetTransferBudgetForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetTransferBudgetForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IPagedResultDtoOfGetTransferBudgetForViewDto {
+    totalCount: number;
+    items: GetTransferBudgetForViewDto[] | undefined;
+}
+
+export class PagedResultDtoOfGetTransferBudgetItemForViewDto implements IPagedResultDtoOfGetTransferBudgetItemForViewDto {
+    totalCount!: number;
+    items!: GetTransferBudgetItemForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetTransferBudgetItemForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetTransferBudgetItemForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetTransferBudgetItemForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetTransferBudgetItemForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IPagedResultDtoOfGetTransferBudgetItemForViewDto {
+    totalCount: number;
+    items: GetTransferBudgetItemForViewDto[] | undefined;
+}
+
 export class PagedResultDtoOfGetTravelRequestForViewDto implements IPagedResultDtoOfGetTravelRequestForViewDto {
     totalCount!: number;
     items!: GetTravelRequestForViewDto[] | undefined;
@@ -37534,6 +39008,102 @@ export class PagedResultDtoOfTenantListDto implements IPagedResultDtoOfTenantLis
 export interface IPagedResultDtoOfTenantListDto {
     totalCount: number;
     items: TenantListDto[] | undefined;
+}
+
+export class PagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto implements IPagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto {
+    totalCount!: number;
+    items!: TransferBudgetItemCostCenterLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(TransferBudgetItemCostCenterLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IPagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto {
+    totalCount: number;
+    items: TransferBudgetItemCostCenterLookupTableDto[] | undefined;
+}
+
+export class PagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto implements IPagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto {
+    totalCount!: number;
+    items!: TransferBudgetItemTransferBudgetLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(TransferBudgetItemTransferBudgetLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IPagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto {
+    totalCount: number;
+    items: TransferBudgetItemTransferBudgetLookupTableDto[] | undefined;
 }
 
 export class PagedResultDtoOfTravelRequestAirportLookupTableDto implements IPagedResultDtoOfTravelRequestAirportLookupTableDto {
@@ -40869,6 +42439,206 @@ export interface ITopStatsData {
     newSubscriptionAmount: number;
     dashboardPlaceholder1: number;
     dashboardPlaceholder2: number;
+}
+
+export class TransferBudgetDto implements ITransferBudgetDto {
+    documentNo!: string | undefined;
+    department!: string | undefined;
+    division!: string | undefined;
+    reason!: string | undefined;
+    location!: string | undefined;
+    id!: string;
+
+    constructor(data?: ITransferBudgetDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.documentNo = _data["documentNo"];
+            this.department = _data["department"];
+            this.division = _data["division"];
+            this.reason = _data["reason"];
+            this.location = _data["location"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): TransferBudgetDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TransferBudgetDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["documentNo"] = this.documentNo;
+        data["department"] = this.department;
+        data["division"] = this.division;
+        data["reason"] = this.reason;
+        data["location"] = this.location;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface ITransferBudgetDto {
+    documentNo: string | undefined;
+    department: string | undefined;
+    division: string | undefined;
+    reason: string | undefined;
+    location: string | undefined;
+    id: string;
+}
+
+export class TransferBudgetItemCostCenterLookupTableDto implements ITransferBudgetItemCostCenterLookupTableDto {
+    id!: string | undefined;
+    displayName!: string | undefined;
+
+    constructor(data?: ITransferBudgetItemCostCenterLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.displayName = _data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): TransferBudgetItemCostCenterLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TransferBudgetItemCostCenterLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data;
+    }
+}
+
+export interface ITransferBudgetItemCostCenterLookupTableDto {
+    id: string | undefined;
+    displayName: string | undefined;
+}
+
+export class TransferBudgetItemDto implements ITransferBudgetItemDto {
+    periodFrom!: string | undefined;
+    amountFrom!: number;
+    periodTo!: string | undefined;
+    amountTo!: number;
+    transferBudgetId!: string | undefined;
+    costCenterIdFrom!: string | undefined;
+    costCenterIdTo!: string | undefined;
+    id!: string;
+
+    constructor(data?: ITransferBudgetItemDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.periodFrom = _data["periodFrom"];
+            this.amountFrom = _data["amountFrom"];
+            this.periodTo = _data["periodTo"];
+            this.amountTo = _data["amountTo"];
+            this.transferBudgetId = _data["transferBudgetId"];
+            this.costCenterIdFrom = _data["costCenterIdFrom"];
+            this.costCenterIdTo = _data["costCenterIdTo"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): TransferBudgetItemDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TransferBudgetItemDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["periodFrom"] = this.periodFrom;
+        data["amountFrom"] = this.amountFrom;
+        data["periodTo"] = this.periodTo;
+        data["amountTo"] = this.amountTo;
+        data["transferBudgetId"] = this.transferBudgetId;
+        data["costCenterIdFrom"] = this.costCenterIdFrom;
+        data["costCenterIdTo"] = this.costCenterIdTo;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface ITransferBudgetItemDto {
+    periodFrom: string | undefined;
+    amountFrom: number;
+    periodTo: string | undefined;
+    amountTo: number;
+    transferBudgetId: string | undefined;
+    costCenterIdFrom: string | undefined;
+    costCenterIdTo: string | undefined;
+    id: string;
+}
+
+export class TransferBudgetItemTransferBudgetLookupTableDto implements ITransferBudgetItemTransferBudgetLookupTableDto {
+    id!: string | undefined;
+    displayName!: string | undefined;
+
+    constructor(data?: ITransferBudgetItemTransferBudgetLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.displayName = _data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): TransferBudgetItemTransferBudgetLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TransferBudgetItemTransferBudgetLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data;
+    }
+}
+
+export interface ITransferBudgetItemTransferBudgetLookupTableDto {
+    id: string | undefined;
+    displayName: string | undefined;
 }
 
 export class TravelRequestAirportLookupTableDto implements ITravelRequestAirportLookupTableDto {

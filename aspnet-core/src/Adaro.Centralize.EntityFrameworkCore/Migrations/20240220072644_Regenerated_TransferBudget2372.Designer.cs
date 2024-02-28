@@ -4,6 +4,7 @@ using Adaro.Centralize.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Adaro.Centralize.Migrations
 {
     [DbContext(typeof(CentralizeDbContext))]
-    partial class CentralizeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240220072644_Regenerated_TransferBudget2372")]
+    partial class Regenerated_TransferBudget2372
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1777,51 +1780,6 @@ namespace Adaro.Centralize.Migrations
                     b.ToTable("TransferBudgets");
                 });
 
-            modelBuilder.Entity("Adaro.Centralize.Finance.TransferBudgetItem", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("AmountFrom")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("AmountTo")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid?>("CostCenterIdFrom")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CostCenterIdTo")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("PeriodFrom")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PeriodTo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TenantId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("TransferBudgetId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CostCenterIdFrom");
-
-                    b.HasIndex("CostCenterIdTo");
-
-                    b.HasIndex("TenantId");
-
-                    b.HasIndex("TransferBudgetId");
-
-                    b.ToTable("TransferBudgetItems");
-                });
-
             modelBuilder.Entity("Adaro.Centralize.Friendships.Friendship", b =>
                 {
                     b.Property<long>("Id")
@@ -3352,27 +3310,6 @@ namespace Adaro.Centralize.Migrations
                     b.Navigation("DeleterUser");
 
                     b.Navigation("LastModifierUser");
-                });
-
-            modelBuilder.Entity("Adaro.Centralize.Finance.TransferBudgetItem", b =>
-                {
-                    b.HasOne("Adaro.Centralize.SAPConnector.CostCenter", "CostCenterIdFromFk")
-                        .WithMany()
-                        .HasForeignKey("CostCenterIdFrom");
-
-                    b.HasOne("Adaro.Centralize.SAPConnector.CostCenter", "CostCenterIdToFk")
-                        .WithMany()
-                        .HasForeignKey("CostCenterIdTo");
-
-                    b.HasOne("Adaro.Centralize.Finance.TransferBudget", "TransferBudgetFk")
-                        .WithMany()
-                        .HasForeignKey("TransferBudgetId");
-
-                    b.Navigation("CostCenterIdFromFk");
-
-                    b.Navigation("CostCenterIdToFk");
-
-                    b.Navigation("TransferBudgetFk");
                 });
 
             modelBuilder.Entity("Adaro.Centralize.MasterData.Material", b =>

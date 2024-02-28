@@ -1,6 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="EKPO">E k p o</text>
+  <texts>    <text name="TransferBudgetItem">Transfer budget item</text>
+    <text name="Adaro.Centralize.Finance.TransferBudgetItem">TransferBudgetItem</text>
+    <text name="PeriodFrom">Period from</text>
+    <text name="AmountFrom">Amount from</text>
+    <text name="PeriodTo">Period to</text>
+    <text name="AmountTo">Amount to</text>
+    <text name="TransferBudgetItemsHeaderInfo">Transfer budget items header info</text>
+    <text name="CreateNewTransferBudgetItem">Create new transfer budget item</text>
+    <text name="EditTransferBudgetItem">Edit transfer budget item</text>
+    <text name="DeleteTransferBudgetItem">Delete transfer budget item</text>
+    <text name="TransferBudgetItems">Transfer budget items</text>
+    <text name="PickTransferBudget">Pick transfer budget</text>
+    <text name="PickCostCenter">Pick cost center</text>
+    <text name="Finance">Finance</text>
+    <text name="TransferBudget">Transfer budget</text>
+    <text name="Adaro.Centralize.Finance.TransferBudget">TransferBudget</text>
+    <text name="DocumentNo">Document no</text>
+    <text name="Department">Department</text>
+    <text name="Division">Division</text>
+    <text name="ProjectActivities">Project activities</text>
+    <text name="Reason">Reason</text>
+    <text name="ScopeofWork">Scopeof work</text>
+    <text name="Location">Location</text>
+    <text name="TransferBudgetsHeaderInfo">Transfer budgets header info</text>
+    <text name="CreateNewTransferBudget">Create new transfer budget</text>
+    <text name="EditTransferBudget">Edit transfer budget</text>
+    <text name="DeleteTransferBudget">Delete transfer budget</text>
+    <text name="TransferBudgets">Transfer budgets</text>
+    <text name="EKPO">E k p o</text>
     <text name="Adaro.Centralize.SAPConnector.EKPO">EKPO</text>
     <text name="EBELP">E b e l p</text>
     <text name="UNIQUEID">U n i q u e i d</text>

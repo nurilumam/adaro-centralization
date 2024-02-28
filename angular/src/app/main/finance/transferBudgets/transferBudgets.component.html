@@ -1,5 +1,5 @@
 ﻿<div [@routerTransition]>
-    <sub-header [title]="'CostCenters' | localize" [description]="'CostCentersHeaderInfo' | localize">
+    <sub-header [title]="'TransferBudgets' | localize" [description]="'TransferBudgetsHeaderInfo' | localize">
         <div role="actions">
             <button (click)="exportToExcel()" class="btn btn-outline btn-outline-success btn-active-light-success me-1">
                 <i class="fa fa-file-excel"></i>
@@ -7,13 +7,13 @@
             </button>
 
             <button
-                id="btn_create_costCenter"
-                *ngIf="isGranted('Pages.CostCenters.Create')"
-                (click)="createCostCenter()"
+                id="btn_create_transferBudget"
+                *ngIf="isGranted('Pages.TransferBudgets.Create')"
+                (click)="createTransferBudget()"
                 class="btn btn-primary blue"
             >
                 <i class="fa fa-plus"></i>
-                {{ l('CreateNewCostCenter') }}
+                {{ l('CreateNewTransferBudget') }}
             </button>
         </div>
     </sub-header>
@@ -29,14 +29,14 @@
                                     <div class="input-group mb-3">
                                         <input
                                             [(ngModel)]="filterText"
-                                            (ngModelChange)="getCostCenters()"
+                                            (ngModelChange)="getTransferBudgets()"
                                             name="filterText"
                                             autoFocus
                                             type="text"
                                             class="form-control"
                                             [placeholder]="l('SearchWithThreeDot')"
                                         />
-                                        <button class="btn btn-primary" type="submit" (click)="getCostCenters()">
+                                        <button class="btn btn-primary" type="submit" (click)="getTransferBudgets()">
                                             <i class="flaticon-search-1"></i>
                                         </button>
                                     </div>
@@ -48,74 +48,108 @@
 
                             <div class="col-md-3">
                                 <div class="my-3">
-                                    <label class="form-label" for="ControllingAreaFilter">
-                                        {{ l('ControllingArea') }}
+                                    <label class="form-label" for="DocumentNoFilter">{{ l('DocumentNo') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="DocumentNoFilter"
+                                        name="documentNoFilter"
+                                        [(ngModel)]="documentNoFilter"
+                                        (ngModelChange)="getTransferBudgets()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="DepartmentFilter">{{ l('Department') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="DepartmentFilter"
+                                        name="departmentFilter"
+                                        [(ngModel)]="departmentFilter"
+                                        (ngModelChange)="getTransferBudgets()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="DivisionFilter">{{ l('Division') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="DivisionFilter"
+                                        name="divisionFilter"
+                                        [(ngModel)]="divisionFilter"
+                                        (ngModelChange)="getTransferBudgets()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="PurposeFilter">{{ l('Purpose') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="PurposeFilter"
+                                        name="purposeFilter"
+                                        [(ngModel)]="purposeFilter"
+                                        (ngModelChange)="getTransferBudgets()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="ProjectActivitiesFilter">
+                                        {{ l('ProjectActivities') }}
                                     </label>
                                     <input
                                         type="text"
                                         class="form-control"
-                                        id="ControllingAreaFilter"
-                                        name="controllingAreaFilter"
-                                        [(ngModel)]="controllingAreaFilter"
-                                        (ngModelChange)="getCostCenters()"
+                                        id="ProjectActivitiesFilter"
+                                        name="projectActivitiesFilter"
+                                        [(ngModel)]="projectActivitiesFilter"
+                                        (ngModelChange)="getTransferBudgets()"
                                     />
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="my-3">
-                                    <label class="form-label" for="CostCenterNameFilter">
-                                        {{ l('CostCenterName') }}
-                                    </label>
+                                    <label class="form-label" for="ReasonFilter">{{ l('Reason') }}</label>
                                     <input
                                         type="text"
                                         class="form-control"
-                                        id="CostCenterNameFilter"
-                                        name="costCenterNameFilter"
-                                        [(ngModel)]="costCenterNameFilter"
-                                        (ngModelChange)="getCostCenters()"
+                                        id="ReasonFilter"
+                                        name="reasonFilter"
+                                        [(ngModel)]="reasonFilter"
+                                        (ngModelChange)="getTransferBudgets()"
                                     />
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="my-3">
-                                    <label class="form-label" for="DescriptionFilter">{{ l('Description') }}</label>
+                                    <label class="form-label" for="ScopeofWorkFilter">{{ l('ScopeofWork') }}</label>
                                     <input
                                         type="text"
                                         class="form-control"
-                                        id="DescriptionFilter"
-                                        name="descriptionFilter"
-                                        [(ngModel)]="descriptionFilter"
-                                        (ngModelChange)="getCostCenters()"
+                                        id="ScopeofWorkFilter"
+                                        name="scopeofWorkFilter"
+                                        [(ngModel)]="scopeofWorkFilter"
+                                        (ngModelChange)="getTransferBudgets()"
                                     />
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="my-3">
-                                    <label class="form-label" for="ActStateFilter">{{ l('ActState') }}</label>
+                                    <label class="form-label" for="LocationFilter">{{ l('Location') }}</label>
                                     <input
                                         type="text"
                                         class="form-control"
-                                        id="ActStateFilter"
-                                        name="actStateFilter"
-                                        [(ngModel)]="actStateFilter"
-                                        (ngModelChange)="getCostCenters()"
+                                        id="LocationFilter"
+                                        name="locationFilter"
+                                        [(ngModel)]="locationFilter"
+                                        (ngModelChange)="getTransferBudgets()"
                                     />
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="my-3">
-                                    <label class="form-label" for="IsActiveFilterSelect">{{ l('IsActive') }}</label>
-                                    <select
-                                        class="form-select"
-                                        name="IsActiveFilter"
-                                        id="IsActiveFilterSelect"
-                                        [(ngModel)]="isActiveFilter"
-                                        (ngModelChange)="getCostCenters()"
-                                    >
-                                        <option value="-1">{{ l('All') }}</option>
-                                        <option value="0">{{ l('False') }}</option>
-                                        <option value="1">{{ l('True') }}</option>
-                                    </select>
                                 </div>
                             </div>
 
@@ -157,7 +191,7 @@
                     <div class="primeng-datatable-container col-12" [busyIf]="primengTableHelper.isLoading">
                         <p-table
                             #dataTable
-                            (onLazyLoad)="getCostCenters($event)"
+                            (onLazyLoad)="getTransferBudgets($event)"
                             [value]="primengTableHelper.records"
                             rows="{{ primengTableHelper.defaultRecordsCountPerPage }}"
                             [paginator]="false"
@@ -171,25 +205,31 @@
                                 <tr>
                                     <th
                                         style="width: 130px"
-                                        [hidden]="!isGrantedAny('Pages.CostCenters.Edit', 'Pages.CostCenters.Delete')"
+                                        [hidden]="
+                                            !isGrantedAny('Pages.TransferBudgets.Edit', 'Pages.TransferBudgets.Delete')
+                                        "
                                     >
                                         {{ l('Actions') }}
                                     </th>
-                                    <th style="width: 100px" pSortableColumn="controllingArea">
-                                        {{ l('ControllingArea') }}
-                                        <p-sortIcon field="costCenter.controllingArea"></p-sortIcon>
+                                    <th style="width: 150px" pSortableColumn="documentNo">
+                                        {{ l('DocumentNo') }}
+                                        <p-sortIcon field="transferBudget.documentNo"></p-sortIcon>
                                     </th>
-                                    <th style="width: 100px" pSortableColumn="costCenterName">
-                                        {{ l('CostCenterName') }}
-                                        <p-sortIcon field="costCenter.costCenterName"></p-sortIcon>
+                                    <th style="width: 150px" pSortableColumn="department">
+                                        {{ l('Department') }}
+                                        <p-sortIcon field="transferBudget.department"></p-sortIcon>
                                     </th>
-                                    <th style="width: 200px" pSortableColumn="description">
-                                        {{ l('Description') }}
-                                        <p-sortIcon field="costCenter.description"></p-sortIcon>
+                                    <th style="width: 150px" pSortableColumn="division">
+                                        {{ l('Division') }}
+                                        <p-sortIcon field="transferBudget.division"></p-sortIcon>
                                     </th>
-                                    <th style="width: 150px" pSortableColumn="isActive">
-                                        {{ l('IsActive') }}
-                                        <p-sortIcon field="costCenter.isActive"></p-sortIcon>
+                                    <th style="width: 150px" pSortableColumn="reason">
+                                        {{ l('Reason') }}
+                                        <p-sortIcon field="transferBudget.reason"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="location">
+                                        {{ l('Location') }}
+                                        <p-sortIcon field="transferBudget.location"></p-sortIcon>
                                     </th>
                                 </tr>
                             </ng-template>
@@ -197,7 +237,9 @@
                                 <tr>
                                     <td
                                         style="width: 130px"
-                                        [hidden]="!isGrantedAny('Pages.CostCenters.Edit', 'Pages.CostCenters.Delete')"
+                                        [hidden]="
+                                            !isGrantedAny('Pages.TransferBudgets.Edit', 'Pages.TransferBudgets.Delete')
+                                        "
                                     >
                                         <div class="btn-group dropdown" dropdown container="body">
                                             <button class="dropdown-toggle btn btn-sm btn-primary" dropdownToggle>
@@ -208,19 +250,22 @@
                                             <ul class="dropdown-menu" *dropdownMenu>
                                                 <li>
                                                     <a
-                                                        href="javascript:;"
+                                                        *ngIf="permission.isGranted('Pages.TransferBudgets.Edit')"
                                                         class="dropdown-item"
-                                                        (click)="viewCostCenterModal.show(record)"
+                                                        [routerLink]="['/app/main/finance/transferBudgets/view']"
+                                                        [queryParams]="{ id: record.transferBudget.id }"
                                                     >
                                                         {{ l('View') }}
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a
-                                                        href="javascript:;"
-                                                        *ngIf="permission.isGranted('Pages.CostCenters.Edit')"
+                                                        *ngIf="permission.isGranted('Pages.TransferBudgets.Edit')"
                                                         class="dropdown-item"
-                                                        (click)="createOrEditCostCenterModal.show(record.costCenter.id)"
+                                                        [routerLink]="[
+                                                            '/app/main/finance/transferBudgets/createOrEdit'
+                                                        ]"
+                                                        [queryParams]="{ id: record.transferBudget.id }"
                                                     >
                                                         {{ l('Edit') }}
                                                     </a>
@@ -229,8 +274,8 @@
                                                     <a
                                                         class="dropdown-item"
                                                         href="javascript:;"
-                                                        *ngIf="permission.isGranted('Pages.CostCenters.Delete')"
-                                                        (click)="deleteCostCenter(record.costCenter)"
+                                                        *ngIf="permission.isGranted('Pages.TransferBudgets.Delete')"
+                                                        (click)="deleteTransferBudget(record.transferBudget)"
                                                     >
                                                         {{ l('Delete') }}
                                                     </a>
@@ -238,26 +283,25 @@
                                             </ul>
                                         </div>
                                     </td>
-                                    <td style="width: 100px">
-                                        <span class="p-column-title">{{ l('ControllingArea') }}</span>
-                                        {{ record.costCenter.controllingArea }}
-                                    </td>
-                                    <td style="width: 100px">
-                                        <span class="p-column-title">{{ l('CostCenterName') }}</span>
-                                        {{ record.costCenter.costCenterName }}
-                                    </td>
-                                    <td style="width: 200px">
-                                        <span class="p-column-title">{{ l('Description') }}</span>
-                                        {{ record.costCenter.description }}
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('DocumentNo') }}</span>
+                                        {{ record.transferBudget.documentNo }}
                                     </td>
                                     <td style="width: 150px">
-                                        <span class="p-column-title">{{ l('IsActive') }}</span>
-                                        <div *ngIf="record.costCenter.isActive" class="text-center">
-                                            <i class="fa fa-check-circle text-success" title="True"></i>
-                                        </div>
-                                        <div *ngIf="!record.costCenter.isActive" class="text-center">
-                                            <i class="fa fa-times-circle" title="False"></i>
-                                        </div>
+                                        <span class="p-column-title">{{ l('Department') }}</span>
+                                        {{ record.transferBudget.department }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('Division') }}</span>
+                                        {{ record.transferBudget.division }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('Reason') }}</span>
+                                        {{ record.transferBudget.reason }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('Location') }}</span>
+                                        {{ record.transferBudget.location }}
                                     </td>
                                 </tr>
                             </ng-template>
@@ -269,7 +313,7 @@
                             <p-paginator
                                 [rows]="primengTableHelper.defaultRecordsCountPerPage"
                                 #paginator
-                                (onPageChange)="getCostCenters($event)"
+                                (onPageChange)="getTransferBudgets($event)"
                                 [totalRecords]="primengTableHelper.totalRecordsCount"
                                 [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
                                 [showCurrentPageReport]="true"
@@ -284,9 +328,4 @@
             </div>
         </div>
     </div>
-    <createOrEditCostCenterModal
-        #createOrEditCostCenterModal
-        (modalSave)="getCostCenters()"
-    ></createOrEditCostCenterModal>
-    <viewCostCenterModal #viewCostCenterModal></viewCostCenterModal>
 </div>

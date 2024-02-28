@@ -1,0 +1,146 @@
+﻿<div [@routerTransition]>
+    <sub-header
+        [title]="('TransferBudgets' | localize) + ' ' + ('Details' | localize)"
+        [breadcrumbs]="breadcrumbs"
+    ></sub-header>
+
+    <div [class]="containerClass">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="TransferBudget_DocumentNo">{{ l('DocumentNo') }} *</label>
+                    <input
+                        type="text"
+                        #TransferBudget_DocumentNo="ngModel"
+                        id="TransferBudget_DocumentNo"
+                        class="form-control"
+                        [(ngModel)]="transferBudget.documentNo"
+                        name="DocumentNo"
+                        required
+                    />
+                    <validation-messages [formCtrl]="TransferBudget_DocumentNo"></validation-messages>
+                </div>
+
+                <div class="form-group">
+                    <label for="TransferBudget_Department">{{ l('Department') }} *</label>
+                    <input
+                        type="text"
+                        #TransferBudget_Department="ngModel"
+                        id="TransferBudget_Department"
+                        class="form-control"
+                        [(ngModel)]="transferBudget.department"
+                        name="Department"
+                        required
+                    />
+                    <validation-messages [formCtrl]="TransferBudget_Department"></validation-messages>
+                </div>
+
+                <div class="form-group">
+                    <label for="TransferBudget_Division">{{ l('Division') }} *</label>
+                    <input
+                        type="text"
+                        #TransferBudget_Division="ngModel"
+                        id="TransferBudget_Division"
+                        class="form-control"
+                        [(ngModel)]="transferBudget.division"
+                        name="Division"
+                        required
+                    />
+                    <validation-messages [formCtrl]="TransferBudget_Division"></validation-messages>
+                </div>
+
+                <div class="form-group">
+                    <label for="TransferBudget_Purpose">{{ l('Purpose') }} *</label>
+                    <input
+                        type="text"
+                        #TransferBudget_Purpose="ngModel"
+                        id="TransferBudget_Purpose"
+                        class="form-control"
+                        [(ngModel)]="transferBudget.purpose"
+                        name="Purpose"
+                        required
+                    />
+                    <validation-messages [formCtrl]="TransferBudget_Purpose"></validation-messages>
+                </div>
+
+                <div class="form-group">
+                    <label for="TransferBudget_ProjectActivities">{{ l('ProjectActivities') }}</label>
+                    <input
+                        type="text"
+                        #TransferBudget_ProjectActivities="ngModel"
+                        id="TransferBudget_ProjectActivities"
+                        class="form-control"
+                        [(ngModel)]="transferBudget.projectActivities"
+                        name="ProjectActivities"
+                    />
+                    <validation-messages [formCtrl]="TransferBudget_ProjectActivities"></validation-messages>
+                </div>
+
+                <div class="form-group">
+                    <label for="TransferBudget_Reason">{{ l('Reason') }} *</label>
+                    <input
+                        type="text"
+                        #TransferBudget_Reason="ngModel"
+                        id="TransferBudget_Reason"
+                        class="form-control"
+                        [(ngModel)]="transferBudget.reason"
+                        name="Reason"
+                        required
+                    />
+                    <validation-messages [formCtrl]="TransferBudget_Reason"></validation-messages>
+                </div>
+
+                <div class="form-group">
+                    <label for="TransferBudget_ScopeofWork">{{ l('ScopeofWork') }} *</label>
+                    <input
+                        type="text"
+                        #TransferBudget_ScopeofWork="ngModel"
+                        id="TransferBudget_ScopeofWork"
+                        class="form-control"
+                        [(ngModel)]="transferBudget.scopeofWork"
+                        name="ScopeofWork"
+                        required
+                    />
+                    <validation-messages [formCtrl]="TransferBudget_ScopeofWork"></validation-messages>
+                </div>
+
+                <div class="form-group">
+                    <label for="TransferBudget_Location">{{ l('Location') }} *</label>
+                    <input
+                        type="text"
+                        #TransferBudget_Location="ngModel"
+                        id="TransferBudget_Location"
+                        class="form-control"
+                        [(ngModel)]="transferBudget.location"
+                        name="Location"
+                        required
+                    />
+                    <validation-messages [formCtrl]="TransferBudget_Location"></validation-messages>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="col-lg-12">
+                    <button
+                        (click)="save()"
+                        class="btn btn-primary blue float-right"
+                        [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot')"
+                    >
+                        <i class="fa fa-save"></i>
+                        <span>{{ l('Save') }}</span>
+                    </button>
+                    <button
+                        *ngIf="!this.transferBudget.id"
+                        (click)="saveAndNew()"
+                        class="btn btn-primary blue float-right"
+                        [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot')"
+                    >
+                        <i class="fa fa-save"></i>
+                        <span>{{ l('SaveAndNew') }}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

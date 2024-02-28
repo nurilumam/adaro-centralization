@@ -17,32 +17,36 @@ export class AppNavigationService {
             new AppMenuItem(
                 'Dashboard',
                 'Pages.Administration.Host.Dashboard',
-                'flaticon-line-graph',
+                'bi bi-clipboard-data',
                 '/app/admin/hostDashboard'
             ),
-            new AppMenuItem('Dashboard', 'Pages.Tenant.Dashboard', 'flaticon-line-graph', '/app/main/dashboard'),
-            new AppMenuItem('Tenants', 'Pages.Tenants', 'flaticon-list-3', '/app/admin/tenants'),
-            
+            new AppMenuItem('Dashboard', 'Pages.Tenant.Dashboard', 'bi bi-clipboard-data', '/app/main/dashboard'),
+            new AppMenuItem('Tenants', 'Pages.Tenants', 'bi bi-list-check', '/app/admin/tenants'),          
            
  
+
+            new AppMenuItem('TransferBudgets', 'Pages.TransferBudgets', 'bi bi-file-earmark-spreadsheet', '/app/main/finance/transferBudgets'),
+            // new AppMenuItem('TransferBudgetItems', 'Pages.TransferBudgetItems', 'flaticon-more', '/app/main/finance/transferBudgetItems'),
             
-            
-           
-            new AppMenuItem('DataProductions', 'Pages.DataProductions', 'flaticon-more', '/app/main/sapConnector/dataProductions'),
-            
-            new AppMenuItem('CostCenters', 'Pages.CostCenters', 'flaticon-more', '/app/main/sapConnector/costCenters'),
-            
-            new AppMenuItem('JobSynchronizes', 'Pages.JobSynchronizes', 'flaticon-more', '/app/main/jobScheduler/jobSynchronizes'),
-            
-            new AppMenuItem('Ekkos', 'Pages.Ekkos', 'flaticon-more', '/app/main/sapConnector/ekkos'),
-            
-            new AppMenuItem('EKPOs', 'Pages.EKPOs', 'flaticon-more', '/app/main/sapConnector/ekpOs'),
-             new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
+            new AppMenuItem(
+                'SAP Data Synchronization ',
+                '',
+                'bi bi-hdd-rack',
+                '',
+                [],
+                [
+                    new AppMenuItem('CostCenters', 'Pages.CostCenters', 'flaticon-more', '/app/main/sapConnector/costCenters'),
+                    new AppMenuItem('PurchasingHeader', 'Pages.Ekkos', 'flaticon-more', '/app/main/sapConnector/ekkos'),            
+                    new AppMenuItem('PurchasingItem', 'Pages.EKPOs', 'flaticon-more', '/app/main/sapConnector/ekpOs'),            
+                    new AppMenuItem('DataProductions', 'Pages.DataProductions', 'flaticon-more', '/app/main/sapConnector/dataProductions'),
+                    new AppMenuItem('JobSynchronizes', 'Pages.JobSynchronizes', 'flaticon-more', '/app/main/jobScheduler/jobSynchronizes'),                  
+                ]
+            ),
 
             new AppMenuItem(
                 'Master Data Management',
                 '',
-                'flaticon-interface-8',
+                'bi bi-list-ul',
                 '',
                 [],
                 [
@@ -90,6 +94,7 @@ export class AppNavigationService {
                         '/app/admin/languages',
                         ['/app/admin/languages/{name}/texts']
                     ),
+                    new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
                     new AppMenuItem(
                         'AuditLogs',
                         'Pages.Administration.AuditLogs',
@@ -161,12 +166,12 @@ export class AppNavigationService {
                     )
                 ]
             ),
-            new AppMenuItem(
-                'DemoUiComponents',
-                'Pages.DemoUiComponents',
-                'flaticon-shapes',
-                '/app/admin/demo-ui-components'
-            ),
+            // new AppMenuItem(
+            //     'DemoUiComponents',
+            //     'Pages.DemoUiComponents',
+            //     'flaticon-shapes',
+            //     '/app/admin/demo-ui-components'
+            // ),
         ]);
     }
 

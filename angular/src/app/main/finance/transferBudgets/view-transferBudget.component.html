@@ -1,0 +1,35 @@
+﻿<div [@routerTransition]>
+    <sub-header
+        [title]="('TransferBudgets' | localize) + ' ' + ('Details' | localize)"
+        [breadcrumbs]="breadcrumbs"
+    ></sub-header>
+
+    <div [class]="containerClass">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('DocumentNo') }} :</h6>
+                        {{ item.transferBudget.documentNo }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('Department') }} :</h6>
+                        {{ item.transferBudget.department }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('Division') }} :</h6>
+                        {{ item.transferBudget.division }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('Reason') }} :</h6>
+                        {{ item.transferBudget.reason }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('Location') }} :</h6>
+                        {{ item.transferBudget.location }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

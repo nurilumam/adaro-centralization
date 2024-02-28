@@ -6,6 +6,16 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_TransferBudgetItems = "Pages.TransferBudgetItems";
+        public const string Pages_TransferBudgetItems_Create = "Pages.TransferBudgetItems.Create";
+        public const string Pages_TransferBudgetItems_Edit = "Pages.TransferBudgetItems.Edit";
+        public const string Pages_TransferBudgetItems_Delete = "Pages.TransferBudgetItems.Delete";
+
+        public const string Pages_TransferBudgets = "Pages.TransferBudgets";
+        public const string Pages_TransferBudgets_Create = "Pages.TransferBudgets.Create";
+        public const string Pages_TransferBudgets_Edit = "Pages.TransferBudgets.Edit";
+        public const string Pages_TransferBudgets_Delete = "Pages.TransferBudgets.Delete";
+
         public const string Pages_EKPOs = "Pages.EKPOs";
         public const string Pages_EKPOs_Create = "Pages.EKPOs.Create";
         public const string Pages_EKPOs_Edit = "Pages.EKPOs.Edit";

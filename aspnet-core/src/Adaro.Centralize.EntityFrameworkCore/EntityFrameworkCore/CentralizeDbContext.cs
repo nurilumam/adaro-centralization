@@ -1,4 +1,5 @@
-﻿using Adaro.Centralize.JobScheduler;
+﻿using Adaro.Centralize.Finance;
+using Adaro.Centralize.JobScheduler;
 using Adaro.Centralize.SAPConnector;
 using Adaro.Centralize.MasterDataRequest;
 using Adaro.Centralize.MasterData;
@@ -20,6 +21,10 @@ namespace Adaro.Centralize.EntityFrameworkCore
 {
     public class CentralizeDbContext : AbpZeroDbContext<Tenant, Role, User, CentralizeDbContext>
     {
+        public virtual DbSet<TransferBudgetItem> TransferBudgetItems { get; set; }
+
+        public virtual DbSet<TransferBudget> TransferBudgets { get; set; }
+
         public virtual DbSet<EKPO> EKPOs { get; set; }
 
         public virtual DbSet<EKKO> Ekkos { get; set; }
@@ -76,10 +81,18 @@ namespace Adaro.Centralize.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<EKPO>(x =>
+            modelBuilder.Entity<TransferBudgetItem>(t =>
             {
-                x.HasIndex(e => new { e.TenantId });
+                t.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<TransferBudget>(t =>
+                       {
+                           t.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<EKPO>(x =>
+                       {
+                           x.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<EKKO>(x =>
                        {
                            x.HasIndex(e => new { e.TenantId });

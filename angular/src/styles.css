@@ -182,3 +182,11 @@ html[data-theme=dark] {
 [data-kt-app-sidebar-hoverable=true][data-kt-app-sidebar-minimize=on] .app-sidebar:hover:not(.animating) .menuSearchBarInput {
     opacity: 1;
 }
+
+.table-border-custom thead tr th,
+.table-border-custom tbody tr td {
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
+    border-color: #eee !important;
+    border-right: 1px solid;
+}

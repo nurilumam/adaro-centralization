@@ -1,4 +1,6 @@
-﻿using Adaro.Centralize.JobScheduler.Dtos;
+﻿using Adaro.Centralize.Finance.Dtos;
+using Adaro.Centralize.Finance;
+using Adaro.Centralize.JobScheduler.Dtos;
 using Adaro.Centralize.JobScheduler;
 using Adaro.Centralize.SAPConnector.Dtos;
 using Adaro.Centralize.SAPConnector;
@@ -60,6 +62,10 @@ namespace Adaro.Centralize
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditTransferBudgetItemDto, TransferBudgetItem>().ReverseMap();
+            configuration.CreateMap<TransferBudgetItemDto, TransferBudgetItem>().ReverseMap();
+            configuration.CreateMap<CreateOrEditTransferBudgetDto, TransferBudget>().ReverseMap();
+            configuration.CreateMap<TransferBudgetDto, TransferBudget>().ReverseMap();
             configuration.CreateMap<CreateOrEditEKPODto, EKPO>().ReverseMap();
             configuration.CreateMap<EKPODto, EKPO>().ReverseMap();
             configuration.CreateMap<CreateOrEditEkkoDto, EKKO>().ReverseMap();

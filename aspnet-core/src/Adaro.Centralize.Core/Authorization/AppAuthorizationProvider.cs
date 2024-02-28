@@ -30,6 +30,16 @@ namespace Adaro.Centralize.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var transferBudgetItems = pages.CreateChildPermission(AppPermissions.Pages_TransferBudgetItems, L("TransferBudgetItems"));
+            transferBudgetItems.CreateChildPermission(AppPermissions.Pages_TransferBudgetItems_Create, L("CreateNewTransferBudgetItem"));
+            transferBudgetItems.CreateChildPermission(AppPermissions.Pages_TransferBudgetItems_Edit, L("EditTransferBudgetItem"));
+            transferBudgetItems.CreateChildPermission(AppPermissions.Pages_TransferBudgetItems_Delete, L("DeleteTransferBudgetItem"));
+
+            var transferBudgets = pages.CreateChildPermission(AppPermissions.Pages_TransferBudgets, L("TransferBudgets"));
+            transferBudgets.CreateChildPermission(AppPermissions.Pages_TransferBudgets_Create, L("CreateNewTransferBudget"));
+            transferBudgets.CreateChildPermission(AppPermissions.Pages_TransferBudgets_Edit, L("EditTransferBudget"));
+            transferBudgets.CreateChildPermission(AppPermissions.Pages_TransferBudgets_Delete, L("DeleteTransferBudget"));
+
             var ekpOs = pages.CreateChildPermission(AppPermissions.Pages_EKPOs, L("EKPOs"));
             ekpOs.CreateChildPermission(AppPermissions.Pages_EKPOs_Create, L("CreateNewEKPO"));
             ekpOs.CreateChildPermission(AppPermissions.Pages_EKPOs_Edit, L("EditEKPO"));
