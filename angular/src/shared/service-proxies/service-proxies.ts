@@ -11511,6 +11511,452 @@ export class LanguageServiceProxy {
 }
 
 @Injectable()
+export class LookupPagesServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param lookupNameFilter (optional) 
+     * @param costCenterDisplayPropertyFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | undefined, lookupNameFilter: string | undefined, costCenterDisplayPropertyFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetLookupPageForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/LookupPages/GetAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (lookupNameFilter === null)
+            throw new Error("The parameter 'lookupNameFilter' cannot be null.");
+        else if (lookupNameFilter !== undefined)
+            url_ += "LookupNameFilter=" + encodeURIComponent("" + lookupNameFilter) + "&";
+        if (costCenterDisplayPropertyFilter === null)
+            throw new Error("The parameter 'costCenterDisplayPropertyFilter' cannot be null.");
+        else if (costCenterDisplayPropertyFilter !== undefined)
+            url_ += "CostCenterDisplayPropertyFilter=" + encodeURIComponent("" + costCenterDisplayPropertyFilter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<PagedResultDtoOfGetLookupPageForViewDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<PagedResultDtoOfGetLookupPageForViewDto>;
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetLookupPageForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetLookupPageForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getLookupPageForView(id: string | undefined): Observable<GetLookupPageForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/LookupPages/GetLookupPageForView?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetLookupPageForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetLookupPageForView(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetLookupPageForViewDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetLookupPageForViewDto>;
+        }));
+    }
+
+    protected processGetLookupPageForView(response: HttpResponseBase): Observable<GetLookupPageForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetLookupPageForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getLookupPageForEdit(id: string | undefined): Observable<GetLookupPageForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/LookupPages/GetLookupPageForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetLookupPageForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetLookupPageForEdit(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetLookupPageForEditOutput>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetLookupPageForEditOutput>;
+        }));
+    }
+
+    protected processGetLookupPageForEdit(response: HttpResponseBase): Observable<GetLookupPageForEditOutput> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetLookupPageForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditLookupPageDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/LookupPages/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: string | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/LookupPages/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param lookupNameFilter (optional) 
+     * @param costCenterDisplayPropertyFilter (optional) 
+     * @return Success
+     */
+    getLookupPagesToExcel(filter: string | undefined, lookupNameFilter: string | undefined, costCenterDisplayPropertyFilter: string | undefined): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/LookupPages/GetLookupPagesToExcel?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (lookupNameFilter === null)
+            throw new Error("The parameter 'lookupNameFilter' cannot be null.");
+        else if (lookupNameFilter !== undefined)
+            url_ += "LookupNameFilter=" + encodeURIComponent("" + lookupNameFilter) + "&";
+        if (costCenterDisplayPropertyFilter === null)
+            throw new Error("The parameter 'costCenterDisplayPropertyFilter' cannot be null.");
+        else if (costCenterDisplayPropertyFilter !== undefined)
+            url_ += "CostCenterDisplayPropertyFilter=" + encodeURIComponent("" + costCenterDisplayPropertyFilter) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetLookupPagesToExcel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetLookupPagesToExcel(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<FileDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<FileDto>;
+        }));
+    }
+
+    protected processGetLookupPagesToExcel(response: HttpResponseBase): Observable<FileDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FileDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllCostCenterForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfLookupPageCostCenterLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/LookupPages/GetAllCostCenterForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllCostCenterForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllCostCenterForLookupTable(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<PagedResultDtoOfLookupPageCostCenterLookupTableDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<PagedResultDtoOfLookupPageCostCenterLookupTableDto>;
+        }));
+    }
+
+    protected processGetAllCostCenterForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfLookupPageCostCenterLookupTableDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfLookupPageCostCenterLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
+@Injectable()
 export class MaterialGroupsServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -27104,6 +27550,50 @@ export interface ICreateOrEditJobSynchronizeDto {
     id: string | undefined;
 }
 
+export class CreateOrEditLookupPageDto implements ICreateOrEditLookupPageDto {
+    lookupName!: string;
+    costCenterId!: string | undefined;
+    id!: string | undefined;
+
+    constructor(data?: ICreateOrEditLookupPageDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.lookupName = _data["lookupName"];
+            this.costCenterId = _data["costCenterId"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditLookupPageDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditLookupPageDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["lookupName"] = this.lookupName;
+        data["costCenterId"] = this.costCenterId;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface ICreateOrEditLookupPageDto {
+    lookupName: string;
+    costCenterId: string | undefined;
+    id: string | undefined;
+}
+
 export class CreateOrEditMaterialDto implements ICreateOrEditMaterialDto {
     materialNo!: string;
     materialName!: string;
@@ -32533,6 +33023,86 @@ export interface IGetLatestWebLogsOutput {
     latestWebLogLines: string[] | undefined;
 }
 
+export class GetLookupPageForEditOutput implements IGetLookupPageForEditOutput {
+    lookupPage!: CreateOrEditLookupPageDto;
+    costCenterDisplayProperty!: string | undefined;
+
+    constructor(data?: IGetLookupPageForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.lookupPage = _data["lookupPage"] ? CreateOrEditLookupPageDto.fromJS(_data["lookupPage"]) : <any>undefined;
+            this.costCenterDisplayProperty = _data["costCenterDisplayProperty"];
+        }
+    }
+
+    static fromJS(data: any): GetLookupPageForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetLookupPageForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["lookupPage"] = this.lookupPage ? this.lookupPage.toJSON() : <any>undefined;
+        data["costCenterDisplayProperty"] = this.costCenterDisplayProperty;
+        return data;
+    }
+}
+
+export interface IGetLookupPageForEditOutput {
+    lookupPage: CreateOrEditLookupPageDto;
+    costCenterDisplayProperty: string | undefined;
+}
+
+export class GetLookupPageForViewDto implements IGetLookupPageForViewDto {
+    lookupPage!: LookupPageDto;
+    costCenterDisplayProperty!: string | undefined;
+
+    constructor(data?: IGetLookupPageForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.lookupPage = _data["lookupPage"] ? LookupPageDto.fromJS(_data["lookupPage"]) : <any>undefined;
+            this.costCenterDisplayProperty = _data["costCenterDisplayProperty"];
+        }
+    }
+
+    static fromJS(data: any): GetLookupPageForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetLookupPageForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["lookupPage"] = this.lookupPage ? this.lookupPage.toJSON() : <any>undefined;
+        data["costCenterDisplayProperty"] = this.costCenterDisplayProperty;
+        return data;
+    }
+}
+
+export interface IGetLookupPageForViewDto {
+    lookupPage: LookupPageDto;
+    costCenterDisplayProperty: string | undefined;
+}
+
 export class GetMaterialForEditOutput implements IGetMaterialForEditOutput {
     material!: CreateOrEditMaterialDto;
     materialGroupDisplayProperty!: string | undefined;
@@ -36180,6 +36750,90 @@ export interface ILocalizableComboboxItemSourceDto {
     items: LocalizableComboboxItemDto[] | undefined;
 }
 
+export class LookupPageCostCenterLookupTableDto implements ILookupPageCostCenterLookupTableDto {
+    id!: string | undefined;
+    displayName!: string | undefined;
+
+    constructor(data?: ILookupPageCostCenterLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.displayName = _data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): LookupPageCostCenterLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new LookupPageCostCenterLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data;
+    }
+}
+
+export interface ILookupPageCostCenterLookupTableDto {
+    id: string | undefined;
+    displayName: string | undefined;
+}
+
+export class LookupPageDto implements ILookupPageDto {
+    lookupName!: string | undefined;
+    costCenterId!: string | undefined;
+    id!: string;
+
+    constructor(data?: ILookupPageDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.lookupName = _data["lookupName"];
+            this.costCenterId = _data["costCenterId"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): LookupPageDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new LookupPageDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["lookupName"] = this.lookupName;
+        data["costCenterId"] = this.costCenterId;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface ILookupPageDto {
+    lookupName: string | undefined;
+    costCenterId: string | undefined;
+    id: string;
+}
+
 export class MarkAllUnreadMessagesOfUserAsReadInput implements IMarkAllUnreadMessagesOfUserAsReadInput {
     tenantId!: number | undefined;
     userId!: number;
@@ -38002,6 +38656,54 @@ export interface IPagedResultDtoOfGetJobSynchronizeForViewDto {
     items: GetJobSynchronizeForViewDto[] | undefined;
 }
 
+export class PagedResultDtoOfGetLookupPageForViewDto implements IPagedResultDtoOfGetLookupPageForViewDto {
+    totalCount!: number;
+    items!: GetLookupPageForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetLookupPageForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetLookupPageForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetLookupPageForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetLookupPageForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IPagedResultDtoOfGetLookupPageForViewDto {
+    totalCount: number;
+    items: GetLookupPageForViewDto[] | undefined;
+}
+
 export class PagedResultDtoOfGetMaterialForViewDto implements IPagedResultDtoOfGetMaterialForViewDto {
     totalCount!: number;
     items!: GetMaterialForViewDto[] | undefined;
@@ -38432,6 +39134,54 @@ export class PagedResultDtoOfLinkedUserDto implements IPagedResultDtoOfLinkedUse
 export interface IPagedResultDtoOfLinkedUserDto {
     totalCount: number;
     items: LinkedUserDto[] | undefined;
+}
+
+export class PagedResultDtoOfLookupPageCostCenterLookupTableDto implements IPagedResultDtoOfLookupPageCostCenterLookupTableDto {
+    totalCount!: number;
+    items!: LookupPageCostCenterLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfLookupPageCostCenterLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(LookupPageCostCenterLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfLookupPageCostCenterLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfLookupPageCostCenterLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IPagedResultDtoOfLookupPageCostCenterLookupTableDto {
+    totalCount: number;
+    items: LookupPageCostCenterLookupTableDto[] | undefined;
 }
 
 export class PagedResultDtoOfMassNotificationOrganizationUnitLookupTableDto implements IPagedResultDtoOfMassNotificationOrganizationUnitLookupTableDto {

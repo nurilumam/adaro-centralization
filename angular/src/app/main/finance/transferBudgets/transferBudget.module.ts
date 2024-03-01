@@ -5,9 +5,15 @@ import { TransferBudgetRoutingModule } from './transferBudget-routing.module';
 import { TransferBudgetsComponent } from './transferBudgets.component';
 import { CreateOrEditTransferBudgetComponent } from './create-or-edit-transfer-budget.component';
 import { ViewTransferBudgetComponent } from './view-transferBudget.component';
+import { LookupPageCostCenterLookupTableModalComponent } from './lookupPage-costCenter-lookup-table-modal.component';
 
 @NgModule({
-    declarations: [TransferBudgetsComponent, CreateOrEditTransferBudgetComponent, ViewTransferBudgetComponent],
+    declarations: [
+        TransferBudgetsComponent, 
+        CreateOrEditTransferBudgetComponent, 
+        ViewTransferBudgetComponent, 
+        LookupPageCostCenterLookupTableModalComponent
+    ],
     imports: [AppSharedModule, TransferBudgetRoutingModule, AdminSharedModule],
 })
 export class TransferBudgetModule {}

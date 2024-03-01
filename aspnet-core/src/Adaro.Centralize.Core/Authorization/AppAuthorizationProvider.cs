@@ -30,6 +30,11 @@ namespace Adaro.Centralize.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var lookupPages = pages.CreateChildPermission(AppPermissions.Pages_LookupPages, L("LookupPages"));
+            lookupPages.CreateChildPermission(AppPermissions.Pages_LookupPages_Create, L("CreateNewLookupPage"));
+            lookupPages.CreateChildPermission(AppPermissions.Pages_LookupPages_Edit, L("EditLookupPage"));
+            lookupPages.CreateChildPermission(AppPermissions.Pages_LookupPages_Delete, L("DeleteLookupPage"));
+
             var transferBudgetItems = pages.CreateChildPermission(AppPermissions.Pages_TransferBudgetItems, L("TransferBudgetItems"));
             transferBudgetItems.CreateChildPermission(AppPermissions.Pages_TransferBudgetItems_Create, L("CreateNewTransferBudgetItem"));
             transferBudgetItems.CreateChildPermission(AppPermissions.Pages_TransferBudgetItems_Edit, L("EditTransferBudgetItem"));

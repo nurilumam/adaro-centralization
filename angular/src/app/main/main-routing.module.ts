@@ -9,6 +9,13 @@ import { RouterModule } from '@angular/router';
                 children: [
                     
                     {
+                        path: 'lookupArea/lookupPages',
+                        loadChildren: () => import('./lookupArea/lookupPages/lookupPage.module').then(m => m.LookupPageModule),
+                        data: { permission: 'Pages.LookupPages' }
+                    },
+                
+                    
+                    {
                         path: 'finance/transferBudgetItems',
                         loadChildren: () => import('./finance/transferBudgetItems/transferBudgetItem.module').then(m => m.TransferBudgetItemModule),
                         data: { permission: 'Pages.TransferBudgetItems' }

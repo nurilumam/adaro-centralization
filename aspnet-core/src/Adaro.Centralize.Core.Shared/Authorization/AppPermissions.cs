@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_LookupPages = "Pages.LookupPages";
+        public const string Pages_LookupPages_Create = "Pages.LookupPages.Create";
+        public const string Pages_LookupPages_Edit = "Pages.LookupPages.Edit";
+        public const string Pages_LookupPages_Delete = "Pages.LookupPages.Delete";
+
         public const string Pages_TransferBudgetItems = "Pages.TransferBudgetItems";
         public const string Pages_TransferBudgetItems_Create = "Pages.TransferBudgetItems.Create";
         public const string Pages_TransferBudgetItems_Edit = "Pages.TransferBudgetItems.Edit";

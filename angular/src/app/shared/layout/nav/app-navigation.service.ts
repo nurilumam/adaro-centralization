@@ -94,7 +94,9 @@ export class AppNavigationService {
                         '/app/admin/languages',
                         ['/app/admin/languages/{name}/texts']
                     ),
-                    new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
+                   
+            new AppMenuItem('LookupPages', 'Pages.LookupPages', 'flaticon-more', '/app/main/lookupArea/lookupPages'),
+             new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
                     new AppMenuItem(
                         'AuditLogs',
                         'Pages.Administration.AuditLogs',

@@ -1,4 +1,5 @@
-﻿using Adaro.Centralize.Finance;
+﻿using Adaro.Centralize.LookupArea;
+using Adaro.Centralize.Finance;
 using Adaro.Centralize.JobScheduler;
 using Adaro.Centralize.SAPConnector;
 using Adaro.Centralize.MasterDataRequest;
@@ -21,6 +22,8 @@ namespace Adaro.Centralize.EntityFrameworkCore
 {
     public class CentralizeDbContext : AbpZeroDbContext<Tenant, Role, User, CentralizeDbContext>
     {
+        public virtual DbSet<LookupPage> LookupPages { get; set; }
+
         public virtual DbSet<TransferBudgetItem> TransferBudgetItems { get; set; }
 
         public virtual DbSet<TransferBudget> TransferBudgets { get; set; }
@@ -81,10 +84,14 @@ namespace Adaro.Centralize.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<TransferBudgetItem>(t =>
+            modelBuilder.Entity<LookupPage>(l =>
             {
-                t.HasIndex(e => new { e.TenantId });
+                l.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<TransferBudgetItem>(t =>
+                       {
+                           t.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<TransferBudget>(t =>
                        {
                            t.HasIndex(e => new { e.TenantId });

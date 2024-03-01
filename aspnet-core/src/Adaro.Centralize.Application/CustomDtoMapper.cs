@@ -1,4 +1,6 @@
-﻿using Adaro.Centralize.Finance.Dtos;
+﻿using Adaro.Centralize.LookupArea.Dtos;
+using Adaro.Centralize.LookupArea;
+using Adaro.Centralize.Finance.Dtos;
 using Adaro.Centralize.Finance;
 using Adaro.Centralize.JobScheduler.Dtos;
 using Adaro.Centralize.JobScheduler;
@@ -62,6 +64,8 @@ namespace Adaro.Centralize
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditLookupPageDto, LookupPage>().ReverseMap();
+            configuration.CreateMap<LookupPageDto, LookupPage>().ReverseMap();
             configuration.CreateMap<CreateOrEditTransferBudgetItemDto, TransferBudgetItem>().ReverseMap();
             configuration.CreateMap<TransferBudgetItemDto, TransferBudgetItem>().ReverseMap();
             configuration.CreateMap<CreateOrEditTransferBudgetDto, TransferBudget>().ReverseMap();

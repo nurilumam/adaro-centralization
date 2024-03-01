@@ -1,9 +1,10 @@
 ﻿import { Component, ViewChild, Injector, Output, EventEmitter, OnInit, ElementRef } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { finalize } from 'rxjs/operators';
-import { TransferBudgetsServiceProxy, CreateOrEditTransferBudgetDto } from '@shared/service-proxies/service-proxies';
+import { LookupPagesServiceProxy, CreateOrEditLookupPageDto } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { DateTime } from 'luxon';
+import { LookupPageCostCenterLookupTableModalComponent } from './lookupPage-costCenter-lookup-table-modal.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { Observable } from '@node_modules/rxjs';
@@ -11,33 +12,29 @@ import { BreadcrumbItem } from '@app/shared/common/sub-header/sub-header.compone
 
 import { DateTimeService } from '@app/shared/common/timing/date-time.service';
 
-import { LookupPageCostCenterLookupTableModalComponent } from './lookupPage-costCenter-lookup-table-modal.component';
-
 @Component({
-    templateUrl: './create-or-edit-transfer-budget.component.html',
+    templateUrl: './create-or-edit-lookupPage.component.html',
     animations: [appModuleAnimation()],
 })
-export class CreateOrEditTransferBudgetComponent extends AppComponentBase implements OnInit {
+export class CreateOrEditLookupPageComponent extends AppComponentBase implements OnInit {
     active = false;
     saving = false;
-    costCenterId = '';
-
-    transferBudget: CreateOrEditTransferBudgetDto = new CreateOrEditTransferBudgetDto();
-
     @ViewChild('lookupPageCostCenterLookupTableModal', { static: true })
     lookupPageCostCenterLookupTableModal: LookupPageCostCenterLookupTableModalComponent;
+
+    lookupPage: CreateOrEditLookupPageDto = new CreateOrEditLookupPageDto();
 
     costCenterDisplayProperty = '';
 
     breadcrumbs: BreadcrumbItem[] = [
-        new BreadcrumbItem(this.l('TransferBudget'), '/app/main/finance/transferBudgets'),
+        new BreadcrumbItem(this.l('LookupPage'), '/app/main/lookupArea/lookupPages'),
         new BreadcrumbItem(this.l('Entity_Name_Plural_Here') + '' + this.l('Details')),
     ];
 
     constructor(
         injector: Injector,
         private _activatedRoute: ActivatedRoute,
-        private _transferBudgetsServiceProxy: TransferBudgetsServiceProxy,
+        private _lookupPagesServiceProxy: LookupPagesServiceProxy,
         private _router: Router,
         private _dateTimeService: DateTimeService
     ) {
@@ -48,15 +45,18 @@ export class CreateOrEditTransferBudgetComponent extends AppComponentBase implem
         this.show(this._activatedRoute.snapshot.queryParams['id']);
     }
 
-    show(transferBudgetId?: string): void {
-        if (!transferBudgetId) {
-            this.transferBudget = new CreateOrEditTransferBudgetDto();
-            this.transferBudget.id = transferBudgetId;
+    show(lookupPageId?: string): void {
+        if (!lookupPageId) {
+            this.lookupPage = new CreateOrEditLookupPageDto();
+            this.lookupPage.id = lookupPageId;
+            this.costCenterDisplayProperty = '';
 
             this.active = true;
         } else {
-            this._transferBudgetsServiceProxy.getTransferBudgetForEdit(transferBudgetId).subscribe((result) => {
-                this.transferBudget = result.transferBudget;
+            this._lookupPagesServiceProxy.getLookupPageForEdit(lookupPageId).subscribe((result) => {
+                this.lookupPage = result.lookupPage;
+
+                this.costCenterDisplayProperty = result.costCenterDisplayProperty;
 
                 this.active = true;
             });
@@ -66,8 +66,8 @@ export class CreateOrEditTransferBudgetComponent extends AppComponentBase implem
     save(): void {
         this.saving = true;
 
-        this._transferBudgetsServiceProxy
-            .createOrEdit(this.transferBudget)
+        this._lookupPagesServiceProxy
+            .createOrEdit(this.lookupPage)
             .pipe(
                 finalize(() => {
                     this.saving = false;
@@ -76,15 +76,15 @@ export class CreateOrEditTransferBudgetComponent extends AppComponentBase implem
             .subscribe((x) => {
                 this.saving = false;
                 this.notify.info(this.l('SavedSuccessfully'));
-                this._router.navigate(['/app/main/finance/transferBudgets']);
+                this._router.navigate(['/app/main/lookupArea/lookupPages']);
             });
     }
 
     saveAndNew(): void {
         this.saving = true;
 
-        this._transferBudgetsServiceProxy
-            .createOrEdit(this.transferBudget)
+        this._lookupPagesServiceProxy
+            .createOrEdit(this.lookupPage)
             .pipe(
                 finalize(() => {
                     this.saving = false;
@@ -93,28 +93,26 @@ export class CreateOrEditTransferBudgetComponent extends AppComponentBase implem
             .subscribe((x) => {
                 this.saving = false;
                 this.notify.info(this.l('SavedSuccessfully'));
-                this.transferBudget = new CreateOrEditTransferBudgetDto();
+                this.lookupPage = new CreateOrEditLookupPageDto();
             });
     }
 
-
-
     openSelectCostCenterModal() {
-
         console.log(this.lookupPageCostCenterLookupTableModal);
-        this.lookupPageCostCenterLookupTableModal.id = this.costCenterId;
+
+        this.lookupPageCostCenterLookupTableModal.id = this.lookupPage.costCenterId;
         this.lookupPageCostCenterLookupTableModal.displayName = this.costCenterDisplayProperty;
         this.lookupPageCostCenterLookupTableModal.show();
     }
 
     setCostCenterIdNull() {
-        this.costCenterId = null;
+        this.lookupPage.costCenterId = null;
         this.costCenterDisplayProperty = '';
     }
 
     getNewCostCenterId() {
-        this.costCenterId = this.lookupPageCostCenterLookupTableModal.id;
+        console.log(this.lookupPageCostCenterLookupTableModal);
+        this.lookupPage.costCenterId = this.lookupPageCostCenterLookupTableModal.id;
         this.costCenterDisplayProperty = this.lookupPageCostCenterLookupTableModal.displayName;
     }
-
 }

@@ -129,7 +129,12 @@
                                 <!--end::Col-->
                             </div>
                             <!--end::Row-->
-                            
+                            <br />
+                            <button class="btn btn-primary blue" (click)="openSelectCostCenterModal()" type="button">
+                                <i class="fa fa-search"></i>
+                                {{ l('Pick') }}
+                            </button>
+                            <br />
 
                             <!--begin::Table wrapper-->
                             <div class="table-responsive mb-10">
@@ -458,3 +463,8 @@
 
     </div>
 </div>
+
+<lookupPageCostCenterLookupTableModal
+    #lookupPageCostCenterLookupTableModal
+    (modalSave)="getNewCostCenterId()"
+></lookupPageCostCenterLookupTableModal>

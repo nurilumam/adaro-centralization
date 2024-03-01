@@ -1,6 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="TransferBudgetItem">Transfer budget item</text>
+  <texts>    <text name="LookupArea">Lookup area</text>
+    <text name="LookupPage">Lookup page</text>
+    <text name="Adaro.Centralize.LookupArea.LookupPage">LookupPage</text>
+    <text name="LookupName">Lookup name</text>
+    <text name="LookupPagesHeaderInfo">Lookup pages header info</text>
+    <text name="CreateNewLookupPage">Create new lookup page</text>
+    <text name="EditLookupPage">Edit lookup page</text>
+    <text name="DeleteLookupPage">Delete lookup page</text>
+    <text name="LookupPages">Lookup pages</text>
+    <text name="TransferBudgetItem">Transfer budget item</text>
     <text name="Adaro.Centralize.Finance.TransferBudgetItem">TransferBudgetItem</text>
     <text name="PeriodFrom">Period from</text>
     <text name="AmountFrom">Amount from</text>
