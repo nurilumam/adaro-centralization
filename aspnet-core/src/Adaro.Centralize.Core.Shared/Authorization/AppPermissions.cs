@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_ZMM021R = "Pages.ZMM021R";
+        public const string Pages_ZMM021R_Create = "Pages.ZMM021R.Create";
+        public const string Pages_ZMM021R_Edit = "Pages.ZMM021R.Edit";
+        public const string Pages_ZMM021R_Delete = "Pages.ZMM021R.Delete";
+
         public const string Pages_LookupPages = "Pages.LookupPages";
         public const string Pages_LookupPages_Create = "Pages.LookupPages.Create";
         public const string Pages_LookupPages_Edit = "Pages.LookupPages.Edit";

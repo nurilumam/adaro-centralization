@@ -1,0 +1,1786 @@
+﻿<div [@routerTransition]>
+    <sub-header [title]="'ZMM021R' | localize" [description]="'ZMM021RHeaderInfo' | localize">
+        <div role="actions">
+            <button (click)="exportToExcel()" class="btn btn-outline btn-outline-success btn-active-light-success me-1">
+                <i class="fa fa-file-excel"></i>
+                {{ l('ExportToExcel') }}
+            </button>
+
+            <button
+                id="btn_create_zmM021R"
+                *ngIf="isGranted('Pages.ZMM021R.Create')"
+                (click)="createZMM021R()"
+                class="btn btn-primary blue"
+            >
+                <i class="fa fa-plus"></i>
+                {{ l('CreateNewZMM021R') }}
+            </button>
+        </div>
+    </sub-header>
+
+    <div [class]="containerClass">
+        <div class="card card-custom gutter-b">
+            <div class="card-body">
+                <form class="form" autocomplete="off">
+                    <div>
+                        <div class="row align-items-center">
+                            <div class="col-xl-12">
+                                <div class="my-3">
+                                    <div class="input-group mb-3">
+                                        <input
+                                            [(ngModel)]="filterText"
+                                            (ngModelChange)="getZMM021R()"
+                                            name="filterText"
+                                            autoFocus
+                                            type="text"
+                                            class="form-control"
+                                            [placeholder]="l('SearchWithThreeDot')"
+                                        />
+                                        <button class="btn btn-primary" type="submit" (click)="getZMM021R()">
+                                            <i class="flaticon-search-1"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" [hidden]="!advancedFiltersAreShown">
+                            <div class="col-md-12"></div>
+
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="PurchasingDocumentFilter">
+                                        {{ l('PurchasingDocument') }}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="PurchasingDocumentFilter"
+                                        name="purchasingDocumentFilter"
+                                        [(ngModel)]="purchasingDocumentFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="PurchasingDocTypeFilter">
+                                        {{ l('PurchasingDocType') }}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="PurchasingDocTypeFilter"
+                                        name="purchasingDocTypeFilter"
+                                        [(ngModel)]="purchasingDocTypeFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="PurchasingDocTypeDescriptionFilter">
+                                        {{ l('PurchasingDocTypeDescription') }}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="PurchasingDocTypeDescriptionFilter"
+                                        name="purchasingDocTypeDescriptionFilter"
+                                        [(ngModel)]="purchasingDocTypeDescriptionFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="ItemFilter">{{ l('Item') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="ItemFilter"
+                                        name="itemFilter"
+                                        [(ngModel)]="itemFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="LineNumberFilter">{{ l('LineNumber') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="LineNumberFilter"
+                                        name="lineNumberFilter"
+                                        [(ngModel)]="lineNumberFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="DeletionIndicatorFilter">
+                                        {{ l('DeletionIndicator') }}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="DeletionIndicatorFilter"
+                                        name="deletionIndicatorFilter"
+                                        [(ngModel)]="deletionIndicatorFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinDocumentDateFilter">
+                                        {{ l('DocumentDateRange') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            class="form-control m-input"
+                                            id="MinDocumentDateFilter"
+                                            name="MinDocumentDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MinValue') }}"
+                                            [(ngModel)]="minDocumentDateFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                        <span style="line-height: 40px; padding: 0 15px 0 15px">&mdash;</span>
+                                        <input
+                                            class="form-control m-input"
+                                            id="MaxDocumentDateFilter"
+                                            name="MaxDocumentDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MaxValue') }}"
+                                            [(ngModel)]="maxDocumentDateFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinCreatedOnFilter">{{ l('CreatedOnRange') }}</label>
+                                    <div class="input-group">
+                                        <input
+                                            class="form-control m-input"
+                                            id="MinCreatedOnFilter"
+                                            name="MinCreatedOnFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MinValue') }}"
+                                            [(ngModel)]="minCreatedOnFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                        <span style="line-height: 40px; padding: 0 15px 0 15px">&mdash;</span>
+                                        <input
+                                            class="form-control m-input"
+                                            id="MaxCreatedOnFilter"
+                                            name="MaxCreatedOnFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MaxValue') }}"
+                                            [(ngModel)]="maxCreatedOnFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="PurchaseRequisitionFilter">
+                                        {{ l('PurchaseRequisition') }}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="PurchaseRequisitionFilter"
+                                        name="purchaseRequisitionFilter"
+                                        [(ngModel)]="purchaseRequisitionFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="ItemPRFilter">{{ l('ItemPR') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="ItemPRFilter"
+                                        name="itemPRFilter"
+                                        [(ngModel)]="itemPRFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="SupplierCodeFilter">{{ l('SupplierCode') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="SupplierCodeFilter"
+                                        name="supplierCodeFilter"
+                                        [(ngModel)]="supplierCodeFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="SupplierNameFilter">{{ l('SupplierName') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="SupplierNameFilter"
+                                        name="supplierNameFilter"
+                                        [(ngModel)]="supplierNameFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="AddressFilter">{{ l('Address') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="AddressFilter"
+                                        name="addressFilter"
+                                        [(ngModel)]="addressFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="ItemNoFilter">{{ l('ItemNo') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="ItemNoFilter"
+                                        name="itemNoFilter"
+                                        [(ngModel)]="itemNoFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MaterialGroupFilter">{{ l('MaterialGroup') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="MaterialGroupFilter"
+                                        name="materialGroupFilter"
+                                        [(ngModel)]="materialGroupFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="ShortTextFilter">{{ l('ShortText') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="ShortTextFilter"
+                                        name="shortTextFilter"
+                                        [(ngModel)]="shortTextFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinOrderQuantityFilter">
+                                        {{ l('MinMax') }} {{ l('OrderQuantity') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            id="MinOrderQuantityFilter"
+                                            [(ngModel)]="minOrderQuantityFilter"
+                                            placeholder="{{ l('MinValue') }}"
+                                            name="minOrderQuantityFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            [(ngModel)]="maxOrderQuantityFilter"
+                                            placeholder="{{ l('MaxValue') }}"
+                                            name="maxOrderQuantityFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="OrderUnitFilter">{{ l('OrderUnit') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="OrderUnitFilter"
+                                        name="orderUnitFilter"
+                                        [(ngModel)]="orderUnitFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="CurrencyFilter">{{ l('Currency') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="CurrencyFilter"
+                                        name="currencyFilter"
+                                        [(ngModel)]="currencyFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinDeliveryDateFilter">
+                                        {{ l('DeliveryDateRange') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            class="form-control m-input"
+                                            id="MinDeliveryDateFilter"
+                                            name="MinDeliveryDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MinValue') }}"
+                                            [(ngModel)]="minDeliveryDateFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                        <span style="line-height: 40px; padding: 0 15px 0 15px">&mdash;</span>
+                                        <input
+                                            class="form-control m-input"
+                                            id="MaxDeliveryDateFilter"
+                                            name="MaxDeliveryDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MaxValue') }}"
+                                            [(ngModel)]="maxDeliveryDateFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinNetPriceFilter">
+                                        {{ l('MinMax') }} {{ l('NetPrice') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            id="MinNetPriceFilter"
+                                            [(ngModel)]="minNetPriceFilter"
+                                            placeholder="{{ l('MinValue') }}"
+                                            name="minNetPriceFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            [(ngModel)]="maxNetPriceFilter"
+                                            placeholder="{{ l('MaxValue') }}"
+                                            name="maxNetPriceFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinNetOrderValueFilter">
+                                        {{ l('MinMax') }} {{ l('NetOrderValue') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            id="MinNetOrderValueFilter"
+                                            [(ngModel)]="minNetOrderValueFilter"
+                                            placeholder="{{ l('MinValue') }}"
+                                            name="minNetOrderValueFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            [(ngModel)]="maxNetOrderValueFilter"
+                                            placeholder="{{ l('MaxValue') }}"
+                                            name="maxNetOrderValueFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinDemurrageFilter">
+                                        {{ l('MinMax') }} {{ l('Demurrage') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            id="MinDemurrageFilter"
+                                            [(ngModel)]="minDemurrageFilter"
+                                            placeholder="{{ l('MinValue') }}"
+                                            name="minDemurrageFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            [(ngModel)]="maxDemurrageFilter"
+                                            placeholder="{{ l('MaxValue') }}"
+                                            name="maxDemurrageFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinGrossPriceFilter">
+                                        {{ l('MinMax') }} {{ l('GrossPrice') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            id="MinGrossPriceFilter"
+                                            [(ngModel)]="minGrossPriceFilter"
+                                            placeholder="{{ l('MinValue') }}"
+                                            name="minGrossPriceFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            [(ngModel)]="maxGrossPriceFilter"
+                                            placeholder="{{ l('MaxValue') }}"
+                                            name="maxGrossPriceFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinTotalDiscountFilter">
+                                        {{ l('MinMax') }} {{ l('TotalDiscount') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            id="MinTotalDiscountFilter"
+                                            [(ngModel)]="minTotalDiscountFilter"
+                                            placeholder="{{ l('MinValue') }}"
+                                            name="minTotalDiscountFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            [(ngModel)]="maxTotalDiscountFilter"
+                                            placeholder="{{ l('MaxValue') }}"
+                                            name="maxTotalDiscountFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinFreightCostFilter">
+                                        {{ l('MinMax') }} {{ l('FreightCost') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            id="MinFreightCostFilter"
+                                            [(ngModel)]="minFreightCostFilter"
+                                            placeholder="{{ l('MinValue') }}"
+                                            name="minFreightCostFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            [(ngModel)]="maxFreightCostFilter"
+                                            placeholder="{{ l('MaxValue') }}"
+                                            name="maxFreightCostFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="ReleaseIndicatorFilter">
+                                        {{ l('ReleaseIndicator') }}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="ReleaseIndicatorFilter"
+                                        name="releaseIndicatorFilter"
+                                        [(ngModel)]="releaseIndicatorFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="PlantFilter">{{ l('Plant') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="PlantFilter"
+                                        name="plantFilter"
+                                        [(ngModel)]="plantFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="PurchasingGroupFilter">
+                                        {{ l('PurchasingGroup') }}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="PurchasingGroupFilter"
+                                        name="purchasingGroupFilter"
+                                        [(ngModel)]="purchasingGroupFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="TaxCodeFilter">{{ l('TaxCode') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="TaxCodeFilter"
+                                        name="taxCodeFilter"
+                                        [(ngModel)]="taxCodeFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="CollectiveNumberFilter">
+                                        {{ l('CollectiveNumber') }}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="CollectiveNumberFilter"
+                                        name="collectiveNumberFilter"
+                                        [(ngModel)]="collectiveNumberFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="ItemCategoryFilter">{{ l('ItemCategory') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="ItemCategoryFilter"
+                                        name="itemCategoryFilter"
+                                        [(ngModel)]="itemCategoryFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="AccountAssignmentFilter">
+                                        {{ l('AccountAssignment') }}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="AccountAssignmentFilter"
+                                        name="accountAssignmentFilter"
+                                        [(ngModel)]="accountAssignmentFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="OutlineAgreementFilter">
+                                        {{ l('OutlineAgreement') }}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="OutlineAgreementFilter"
+                                        name="outlineAgreementFilter"
+                                        [(ngModel)]="outlineAgreementFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="RFQNoFilter">{{ l('RFQNo') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="RFQNoFilter"
+                                        name="rfqNoFilter"
+                                        [(ngModel)]="rfqNoFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinQtyPendingFilter">
+                                        {{ l('MinMax') }} {{ l('QtyPending') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            id="MinQtyPendingFilter"
+                                            [(ngModel)]="minQtyPendingFilter"
+                                            placeholder="{{ l('MinValue') }}"
+                                            name="minQtyPendingFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            [(ngModel)]="maxQtyPendingFilter"
+                                            placeholder="{{ l('MaxValue') }}"
+                                            name="maxQtyPendingFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MaterialServiceFilter">
+                                        {{ l('MaterialService') }}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="MaterialServiceFilter"
+                                        name="materialServiceFilter"
+                                        [(ngModel)]="materialServiceFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="ApprovalStatusFilter">
+                                        {{ l('ApprovalStatus') }}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="ApprovalStatusFilter"
+                                        name="approvalStatusFilter"
+                                        [(ngModel)]="approvalStatusFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="POStatusFilter">{{ l('POStatus') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="POStatusFilter"
+                                        name="poStatusFilter"
+                                        [(ngModel)]="poStatusFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="PeriodFilter">{{ l('Period') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="PeriodFilter"
+                                        name="periodFilter"
+                                        [(ngModel)]="periodFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="CommentVendorFilter">{{ l('CommentVendor') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="CommentVendorFilter"
+                                        name="commentVendorFilter"
+                                        [(ngModel)]="commentVendorFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="ItemTextFilter">{{ l('ItemText') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="ItemTextFilter"
+                                        name="itemTextFilter"
+                                        [(ngModel)]="itemTextFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="LongTextFilter">{{ l('LongText') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="LongTextFilter"
+                                        name="longTextFilter"
+                                        [(ngModel)]="longTextFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="OurReferenceFilter">{{ l('OurReference') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="OurReferenceFilter"
+                                        name="ourReferenceFilter"
+                                        [(ngModel)]="ourReferenceFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinPRFinalFirstApprovalDateFilter">
+                                        {{ l('PRFinalFirstApprovalDateRange') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            class="form-control m-input"
+                                            id="MinPRFinalFirstApprovalDateFilter"
+                                            name="MinPRFinalFirstApprovalDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MinValue') }}"
+                                            [(ngModel)]="minPRFinalFirstApprovalDateFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                        <span style="line-height: 40px; padding: 0 15px 0 15px">&mdash;</span>
+                                        <input
+                                            class="form-control m-input"
+                                            id="MaxPRFinalFirstApprovalDateFilter"
+                                            name="MaxPRFinalFirstApprovalDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MaxValue') }}"
+                                            [(ngModel)]="maxPRFinalFirstApprovalDateFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinPRFinalLastApprovalDateFilter">
+                                        {{ l('PRFinalLastApprovalDateRange') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            class="form-control m-input"
+                                            id="MinPRFinalLastApprovalDateFilter"
+                                            name="MinPRFinalLastApprovalDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MinValue') }}"
+                                            [(ngModel)]="minPRFinalLastApprovalDateFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                        <span style="line-height: 40px; padding: 0 15px 0 15px">&mdash;</span>
+                                        <input
+                                            class="form-control m-input"
+                                            id="MaxPRFinalLastApprovalDateFilter"
+                                            name="MaxPRFinalLastApprovalDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MaxValue') }}"
+                                            [(ngModel)]="maxPRFinalLastApprovalDateFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinPOFirstApprovalDateFilter">
+                                        {{ l('POFirstApprovalDateRange') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            class="form-control m-input"
+                                            id="MinPOFirstApprovalDateFilter"
+                                            name="MinPOFirstApprovalDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MinValue') }}"
+                                            [(ngModel)]="minPOFirstApprovalDateFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                        <span style="line-height: 40px; padding: 0 15px 0 15px">&mdash;</span>
+                                        <input
+                                            class="form-control m-input"
+                                            id="MaxPOFirstApprovalDateFilter"
+                                            name="MaxPOFirstApprovalDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MaxValue') }}"
+                                            [(ngModel)]="maxPOFirstApprovalDateFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinPOLastApprovalDateFilter">
+                                        {{ l('POLastApprovalDateRange') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            class="form-control m-input"
+                                            id="MinPOLastApprovalDateFilter"
+                                            name="MinPOLastApprovalDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MinValue') }}"
+                                            [(ngModel)]="minPOLastApprovalDateFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                        <span style="line-height: 40px; padding: 0 15px 0 15px">&mdash;</span>
+                                        <input
+                                            class="form-control m-input"
+                                            id="MaxPOLastApprovalDateFilter"
+                                            name="MaxPOLastApprovalDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MaxValue') }}"
+                                            [(ngModel)]="maxPOLastApprovalDateFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="POApprovalNameFilter">
+                                        {{ l('POApprovalName') }}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="POApprovalNameFilter"
+                                        name="poApprovalNameFilter"
+                                        [(ngModel)]="poApprovalNameFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="BuyerCodeFilter">{{ l('BuyerCode') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="BuyerCodeFilter"
+                                        name="buyerCodeFilter"
+                                        [(ngModel)]="buyerCodeFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="BuyerNameFilter">{{ l('BuyerName') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="BuyerNameFilter"
+                                        name="buyerNameFilter"
+                                        [(ngModel)]="buyerNameFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="PICDeptFilter">{{ l('PICDept') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="PICDeptFilter"
+                                        name="picDeptFilter"
+                                        [(ngModel)]="picDeptFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="PICSectFilter">{{ l('PICSect') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="PICSectFilter"
+                                        name="picSectFilter"
+                                        [(ngModel)]="picSectFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="FuelAllocationFilter">
+                                        {{ l('FuelAllocation') }}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="FuelAllocationFilter"
+                                        name="fuelAllocationFilter"
+                                        [(ngModel)]="fuelAllocationFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="CostCenterFilter">{{ l('CostCenter') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="CostCenterFilter"
+                                        name="costCenterFilter"
+                                        [(ngModel)]="costCenterFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="CostCenterDescriptionFilter">
+                                        {{ l('CostCenterDescription') }}
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="CostCenterDescriptionFilter"
+                                        name="costCenterDescriptionFilter"
+                                        [(ngModel)]="costCenterDescriptionFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="WBSElementFilter">{{ l('WBSElement') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="WBSElementFilter"
+                                        name="wbsElementFilter"
+                                        [(ngModel)]="wbsElementFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="AssetNoFilter">{{ l('AssetNo') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="AssetNoFilter"
+                                        name="assetNoFilter"
+                                        [(ngModel)]="assetNoFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="FundCenterFilter">{{ l('FundCenter') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="FundCenterFilter"
+                                        name="fundCenterFilter"
+                                        [(ngModel)]="fundCenterFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinCreatedDateFilter">
+                                        {{ l('CreatedDateRange') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            class="form-control m-input"
+                                            id="MinCreatedDateFilter"
+                                            name="MinCreatedDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MinValue') }}"
+                                            [(ngModel)]="minCreatedDateFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                        <span style="line-height: 40px; padding: 0 15px 0 15px">&mdash;</span>
+                                        <input
+                                            class="form-control m-input"
+                                            id="MaxCreatedDateFilter"
+                                            name="MaxCreatedDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MaxValue') }}"
+                                            [(ngModel)]="maxCreatedDateFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="MinUpdatedDateFilter">
+                                        {{ l('UpdatedDateRange') }}
+                                    </label>
+                                    <div class="input-group">
+                                        <input
+                                            class="form-control m-input"
+                                            id="MinUpdatedDateFilter"
+                                            name="MinUpdatedDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MinValue') }}"
+                                            [(ngModel)]="minUpdatedDateFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                        <span style="line-height: 40px; padding: 0 15px 0 15px">&mdash;</span>
+                                        <input
+                                            class="form-control m-input"
+                                            id="MaxUpdatedDateFilter"
+                                            name="MaxUpdatedDateFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MaxValue') }}"
+                                            [(ngModel)]="maxUpdatedDateFilter"
+                                            (ngModelChange)="getZMM021R()"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="my-3">
+                                    <label class="form-label" for="DocumentIdFilter">{{ l('DocumentId') }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="DocumentIdFilter"
+                                        name="documentIdFilter"
+                                        [(ngModel)]="documentIdFilter"
+                                        (ngModelChange)="getZMM021R()"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 mt-5">
+                                <button
+                                    (click)="resetFilters()"
+                                    class="btn btn-secondary btn-sm"
+                                    id="btn-reset-filters"
+                                >
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row my-4">
+                            <div class="col-sm-12">
+                                <span
+                                    class="clickable-item text-muted"
+                                    *ngIf="!advancedFiltersAreShown"
+                                    (click)="advancedFiltersAreShown = !advancedFiltersAreShown"
+                                >
+                                    <i class="fa fa-angle-down"></i>
+                                    {{ l('ShowAdvancedFilters') }}
+                                </span>
+                                <span
+                                    class="clickable-item text-muted"
+                                    *ngIf="advancedFiltersAreShown"
+                                    (click)="advancedFiltersAreShown = !advancedFiltersAreShown"
+                                >
+                                    <i class="fa fa-angle-up"></i>
+                                    {{ l('HideAdvancedFilters') }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="row align-items-center">
+                    <!--<Primeng-Datatable-Start>-->
+                    <div class="primeng-datatable-container col-12" [busyIf]="primengTableHelper.isLoading">
+                        <p-table
+                            #dataTable
+                            (onLazyLoad)="getZMM021R($event)"
+                            [value]="primengTableHelper.records"
+                            rows="{{ primengTableHelper.defaultRecordsCountPerPage }}"
+                            [paginator]="false"
+                            [lazy]="true"
+                            [scrollable]="true"
+                            ScrollWidth="100%"
+                            [tableStyle]="{ 'min-width': '50rem' }"
+                            [resizableColumns]="primengTableHelper.resizableColumns"
+                        >
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th
+                                        style="width: 130px"
+                                        [hidden]="!isGrantedAny('Pages.ZMM021R.Edit', 'Pages.ZMM021R.Delete')"
+                                    >
+                                        {{ l('Actions') }}
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="purchasingDocument">
+                                        {{ l('PurchasingDocument') }}
+                                        <p-sortIcon field="zmM021R.purchasingDocument"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="purchasingDocType">
+                                        {{ l('PurchasingDocType') }}
+                                        <p-sortIcon field="zmM021R.purchasingDocType"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="purchasingDocTypeDescription">
+                                        {{ l('PurchasingDocTypeDescription') }}
+                                        <p-sortIcon field="zmM021R.purchasingDocTypeDescription"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="item">
+                                        {{ l('Item') }}
+                                        <p-sortIcon field="zmM021R.item"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="lineNumber">
+                                        {{ l('LineNumber') }}
+                                        <p-sortIcon field="zmM021R.lineNumber"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="deletionIndicator">
+                                        {{ l('DeletionIndicator') }}
+                                        <p-sortIcon field="zmM021R.deletionIndicator"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="documentDate">
+                                        {{ l('DocumentDate') }}
+                                        <p-sortIcon field="zmM021R.documentDate"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="createdOn">
+                                        {{ l('CreatedOn') }}
+                                        <p-sortIcon field="zmM021R.createdOn"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="purchaseRequisition">
+                                        {{ l('PurchaseRequisition') }}
+                                        <p-sortIcon field="zmM021R.purchaseRequisition"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="itemPR">
+                                        {{ l('ItemPR') }}
+                                        <p-sortIcon field="zmM021R.itemPR"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="supplierCode">
+                                        {{ l('SupplierCode') }}
+                                        <p-sortIcon field="zmM021R.supplierCode"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="supplierName">
+                                        {{ l('SupplierName') }}
+                                        <p-sortIcon field="zmM021R.supplierName"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="address">
+                                        {{ l('Address') }}
+                                        <p-sortIcon field="zmM021R.address"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="itemNo">
+                                        {{ l('ItemNo') }}
+                                        <p-sortIcon field="zmM021R.itemNo"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="materialGroup">
+                                        {{ l('MaterialGroup') }}
+                                        <p-sortIcon field="zmM021R.materialGroup"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="shortText">
+                                        {{ l('ShortText') }}
+                                        <p-sortIcon field="zmM021R.shortText"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="orderQuantity">
+                                        {{ l('OrderQuantity') }}
+                                        <p-sortIcon field="zmM021R.orderQuantity"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="orderUnit">
+                                        {{ l('OrderUnit') }}
+                                        <p-sortIcon field="zmM021R.orderUnit"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="currency">
+                                        {{ l('Currency') }}
+                                        <p-sortIcon field="zmM021R.currency"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="deliveryDate">
+                                        {{ l('DeliveryDate') }}
+                                        <p-sortIcon field="zmM021R.deliveryDate"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="netPrice">
+                                        {{ l('NetPrice') }}
+                                        <p-sortIcon field="zmM021R.netPrice"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="netOrderValue">
+                                        {{ l('NetOrderValue') }}
+                                        <p-sortIcon field="zmM021R.netOrderValue"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="demurrage">
+                                        {{ l('Demurrage') }}
+                                        <p-sortIcon field="zmM021R.demurrage"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="grossPrice">
+                                        {{ l('GrossPrice') }}
+                                        <p-sortIcon field="zmM021R.grossPrice"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="totalDiscount">
+                                        {{ l('TotalDiscount') }}
+                                        <p-sortIcon field="zmM021R.totalDiscount"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="freightCost">
+                                        {{ l('FreightCost') }}
+                                        <p-sortIcon field="zmM021R.freightCost"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="releaseIndicator">
+                                        {{ l('ReleaseIndicator') }}
+                                        <p-sortIcon field="zmM021R.releaseIndicator"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="plant">
+                                        {{ l('Plant') }}
+                                        <p-sortIcon field="zmM021R.plant"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="purchasingGroup">
+                                        {{ l('PurchasingGroup') }}
+                                        <p-sortIcon field="zmM021R.purchasingGroup"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="taxCode">
+                                        {{ l('TaxCode') }}
+                                        <p-sortIcon field="zmM021R.taxCode"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="collectiveNumber">
+                                        {{ l('CollectiveNumber') }}
+                                        <p-sortIcon field="zmM021R.collectiveNumber"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="itemCategory">
+                                        {{ l('ItemCategory') }}
+                                        <p-sortIcon field="zmM021R.itemCategory"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="accountAssignment">
+                                        {{ l('AccountAssignment') }}
+                                        <p-sortIcon field="zmM021R.accountAssignment"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="outlineAgreement">
+                                        {{ l('OutlineAgreement') }}
+                                        <p-sortIcon field="zmM021R.outlineAgreement"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="rfqNo">
+                                        {{ l('RFQNo') }}
+                                        <p-sortIcon field="zmM021R.rfqNo"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="qtyPending">
+                                        {{ l('QtyPending') }}
+                                        <p-sortIcon field="zmM021R.qtyPending"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="materialService">
+                                        {{ l('MaterialService') }}
+                                        <p-sortIcon field="zmM021R.materialService"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="approvalStatus">
+                                        {{ l('ApprovalStatus') }}
+                                        <p-sortIcon field="zmM021R.approvalStatus"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="poStatus">
+                                        {{ l('POStatus') }}
+                                        <p-sortIcon field="zmM021R.poStatus"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="period">
+                                        {{ l('Period') }}
+                                        <p-sortIcon field="zmM021R.period"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="commentVendor">
+                                        {{ l('CommentVendor') }}
+                                        <p-sortIcon field="zmM021R.commentVendor"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="itemText">
+                                        {{ l('ItemText') }}
+                                        <p-sortIcon field="zmM021R.itemText"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="longText">
+                                        {{ l('LongText') }}
+                                        <p-sortIcon field="zmM021R.longText"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="ourReference">
+                                        {{ l('OurReference') }}
+                                        <p-sortIcon field="zmM021R.ourReference"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="prFinalFirstApprovalDate">
+                                        {{ l('PRFinalFirstApprovalDate') }}
+                                        <p-sortIcon field="zmM021R.prFinalFirstApprovalDate"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="prFinalLastApprovalDate">
+                                        {{ l('PRFinalLastApprovalDate') }}
+                                        <p-sortIcon field="zmM021R.prFinalLastApprovalDate"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="poFirstApprovalDate">
+                                        {{ l('POFirstApprovalDate') }}
+                                        <p-sortIcon field="zmM021R.poFirstApprovalDate"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="poLastApprovalDate">
+                                        {{ l('POLastApprovalDate') }}
+                                        <p-sortIcon field="zmM021R.poLastApprovalDate"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="poApprovalName">
+                                        {{ l('POApprovalName') }}
+                                        <p-sortIcon field="zmM021R.poApprovalName"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="buyerCode">
+                                        {{ l('BuyerCode') }}
+                                        <p-sortIcon field="zmM021R.buyerCode"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="buyerName">
+                                        {{ l('BuyerName') }}
+                                        <p-sortIcon field="zmM021R.buyerName"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="picDept">
+                                        {{ l('PICDept') }}
+                                        <p-sortIcon field="zmM021R.picDept"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="picSect">
+                                        {{ l('PICSect') }}
+                                        <p-sortIcon field="zmM021R.picSect"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="fuelAllocation">
+                                        {{ l('FuelAllocation') }}
+                                        <p-sortIcon field="zmM021R.fuelAllocation"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="costCenter">
+                                        {{ l('CostCenter') }}
+                                        <p-sortIcon field="zmM021R.costCenter"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="costCenterDescription">
+                                        {{ l('CostCenterDescription') }}
+                                        <p-sortIcon field="zmM021R.costCenterDescription"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="wbsElement">
+                                        {{ l('WBSElement') }}
+                                        <p-sortIcon field="zmM021R.wbsElement"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="assetNo">
+                                        {{ l('AssetNo') }}
+                                        <p-sortIcon field="zmM021R.assetNo"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="fundCenter">
+                                        {{ l('FundCenter') }}
+                                        <p-sortIcon field="zmM021R.fundCenter"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="createdDate">
+                                        {{ l('CreatedDate') }}
+                                        <p-sortIcon field="zmM021R.createdDate"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="updatedDate">
+                                        {{ l('UpdatedDate') }}
+                                        <p-sortIcon field="zmM021R.updatedDate"></p-sortIcon>
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-record="$implicit" let-i="rowIndex">
+                                <tr>
+                                    <td
+                                        style="width: 130px"
+                                        [hidden]="!isGrantedAny('Pages.ZMM021R.Edit', 'Pages.ZMM021R.Delete')"
+                                    >
+                                        <div class="btn-group dropdown" dropdown container="body">
+                                            <button class="dropdown-toggle btn btn-sm btn-primary" dropdownToggle>
+                                                <i class="fa fa-cog"></i>
+                                                <span class="caret"></span>
+                                                {{ l('Actions') }}
+                                            </button>
+                                            <ul class="dropdown-menu" *dropdownMenu>
+                                                <li>
+                                                    <a
+                                                        href="javascript:;"
+                                                        class="dropdown-item"
+                                                        (click)="viewZMM021RModal.show(record)"
+                                                    >
+                                                        {{ l('View') }}
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a
+                                                        href="javascript:;"
+                                                        *ngIf="permission.isGranted('Pages.ZMM021R.Edit')"
+                                                        class="dropdown-item"
+                                                        (click)="createOrEditZMM021RModal.show(record.zmM021R.id)"
+                                                    >
+                                                        {{ l('Edit') }}
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a
+                                                        class="dropdown-item"
+                                                        href="javascript:;"
+                                                        *ngIf="permission.isGranted('Pages.ZMM021R.Delete')"
+                                                        (click)="deleteZMM021R(record.zmM021R)"
+                                                    >
+                                                        {{ l('Delete') }}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('PurchasingDocument') }}</span>
+                                        {{ record.zmM021R.purchasingDocument }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('PurchasingDocType') }}</span>
+                                        {{ record.zmM021R.purchasingDocType }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('PurchasingDocTypeDescription') }}</span>
+                                        {{ record.zmM021R.purchasingDocTypeDescription }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('Item') }}</span>
+                                        {{ record.zmM021R.item }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('LineNumber') }}</span>
+                                        {{ record.zmM021R.lineNumber }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('DeletionIndicator') }}</span>
+                                        {{ record.zmM021R.deletionIndicator }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('DocumentDate') }}</span>
+                                        <span *ngIf="record.zmM021R.documentDate">
+                                            {{ record.zmM021R.documentDate | luxonFormat : 'F' }}
+                                        </span>
+                                        <span *ngIf="!record.zmM021R.documentDate">-</span>
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('CreatedOn') }}</span>
+                                        <span *ngIf="record.zmM021R.createdOn">
+                                            {{ record.zmM021R.createdOn | luxonFormat : 'F' }}
+                                        </span>
+                                        <span *ngIf="!record.zmM021R.createdOn">-</span>
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('PurchaseRequisition') }}</span>
+                                        {{ record.zmM021R.purchaseRequisition }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('ItemPR') }}</span>
+                                        {{ record.zmM021R.itemPR }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('SupplierCode') }}</span>
+                                        {{ record.zmM021R.supplierCode }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('SupplierName') }}</span>
+                                        {{ record.zmM021R.supplierName }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('Address') }}</span>
+                                        {{ record.zmM021R.address }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('ItemNo') }}</span>
+                                        {{ record.zmM021R.itemNo }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('MaterialGroup') }}</span>
+                                        {{ record.zmM021R.materialGroup }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('ShortText') }}</span>
+                                        {{ record.zmM021R.shortText }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('OrderQuantity') }}</span>
+                                        {{ record.zmM021R.orderQuantity }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('OrderUnit') }}</span>
+                                        {{ record.zmM021R.orderUnit }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('Currency') }}</span>
+                                        {{ record.zmM021R.currency }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('DeliveryDate') }}</span>
+                                        <span *ngIf="record.zmM021R.deliveryDate">
+                                            {{ record.zmM021R.deliveryDate | luxonFormat : 'F' }}
+                                        </span>
+                                        <span *ngIf="!record.zmM021R.deliveryDate">-</span>
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('NetPrice') }}</span>
+                                        {{ record.zmM021R.netPrice }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('NetOrderValue') }}</span>
+                                        {{ record.zmM021R.netOrderValue }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('Demurrage') }}</span>
+                                        {{ record.zmM021R.demurrage }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('GrossPrice') }}</span>
+                                        {{ record.zmM021R.grossPrice }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('TotalDiscount') }}</span>
+                                        {{ record.zmM021R.totalDiscount }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('FreightCost') }}</span>
+                                        {{ record.zmM021R.freightCost }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('ReleaseIndicator') }}</span>
+                                        {{ record.zmM021R.releaseIndicator }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('Plant') }}</span>
+                                        {{ record.zmM021R.plant }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('PurchasingGroup') }}</span>
+                                        {{ record.zmM021R.purchasingGroup }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('TaxCode') }}</span>
+                                        {{ record.zmM021R.taxCode }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('CollectiveNumber') }}</span>
+                                        {{ record.zmM021R.collectiveNumber }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('ItemCategory') }}</span>
+                                        {{ record.zmM021R.itemCategory }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('AccountAssignment') }}</span>
+                                        {{ record.zmM021R.accountAssignment }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('OutlineAgreement') }}</span>
+                                        {{ record.zmM021R.outlineAgreement }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('RFQNo') }}</span>
+                                        {{ record.zmM021R.rfqNo }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('QtyPending') }}</span>
+                                        {{ record.zmM021R.qtyPending }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('MaterialService') }}</span>
+                                        {{ record.zmM021R.materialService }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('ApprovalStatus') }}</span>
+                                        {{ record.zmM021R.approvalStatus }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('POStatus') }}</span>
+                                        {{ record.zmM021R.poStatus }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('Period') }}</span>
+                                        {{ record.zmM021R.period }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('CommentVendor') }}</span>
+                                        {{ record.zmM021R.commentVendor }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('ItemText') }}</span>
+                                        {{ record.zmM021R.itemText }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('LongText') }}</span>
+                                        {{ record.zmM021R.longText }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('OurReference') }}</span>
+                                        {{ record.zmM021R.ourReference }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('PRFinalFirstApprovalDate') }}</span>
+                                        <span *ngIf="record.zmM021R.prFinalFirstApprovalDate">
+                                            {{ record.zmM021R.prFinalFirstApprovalDate | luxonFormat : 'F' }}
+                                        </span>
+                                        <span *ngIf="!record.zmM021R.prFinalFirstApprovalDate">-</span>
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('PRFinalLastApprovalDate') }}</span>
+                                        <span *ngIf="record.zmM021R.prFinalLastApprovalDate">
+                                            {{ record.zmM021R.prFinalLastApprovalDate | luxonFormat : 'F' }}
+                                        </span>
+                                        <span *ngIf="!record.zmM021R.prFinalLastApprovalDate">-</span>
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('POFirstApprovalDate') }}</span>
+                                        <span *ngIf="record.zmM021R.poFirstApprovalDate">
+                                            {{ record.zmM021R.poFirstApprovalDate | luxonFormat : 'F' }}
+                                        </span>
+                                        <span *ngIf="!record.zmM021R.poFirstApprovalDate">-</span>
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('POLastApprovalDate') }}</span>
+                                        <span *ngIf="record.zmM021R.poLastApprovalDate">
+                                            {{ record.zmM021R.poLastApprovalDate | luxonFormat : 'F' }}
+                                        </span>
+                                        <span *ngIf="!record.zmM021R.poLastApprovalDate">-</span>
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('POApprovalName') }}</span>
+                                        {{ record.zmM021R.poApprovalName }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('BuyerCode') }}</span>
+                                        {{ record.zmM021R.buyerCode }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('BuyerName') }}</span>
+                                        {{ record.zmM021R.buyerName }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('PICDept') }}</span>
+                                        {{ record.zmM021R.picDept }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('PICSect') }}</span>
+                                        {{ record.zmM021R.picSect }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('FuelAllocation') }}</span>
+                                        {{ record.zmM021R.fuelAllocation }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('CostCenter') }}</span>
+                                        {{ record.zmM021R.costCenter }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('CostCenterDescription') }}</span>
+                                        {{ record.zmM021R.costCenterDescription }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('WBSElement') }}</span>
+                                        {{ record.zmM021R.wbsElement }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('AssetNo') }}</span>
+                                        {{ record.zmM021R.assetNo }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('FundCenter') }}</span>
+                                        {{ record.zmM021R.fundCenter }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('CreatedDate') }}</span>
+                                        <span *ngIf="record.zmM021R.createdDate">
+                                            {{ record.zmM021R.createdDate | luxonFormat : 'F' }}
+                                        </span>
+                                        <span *ngIf="!record.zmM021R.createdDate">-</span>
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="p-column-title">{{ l('UpdatedDate') }}</span>
+                                        <span *ngIf="record.zmM021R.updatedDate">
+                                            {{ record.zmM021R.updatedDate | luxonFormat : 'F' }}
+                                        </span>
+                                        <span *ngIf="!record.zmM021R.updatedDate">-</span>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                        <div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">
+                            {{ l('NoData') }}
+                        </div>
+                        <div class="primeng-paging-container">
+                            <p-paginator
+                                [rows]="primengTableHelper.defaultRecordsCountPerPage"
+                                #paginator
+                                (onPageChange)="getZMM021R($event)"
+                                [totalRecords]="primengTableHelper.totalRecordsCount"
+                                [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage"
+                                [showCurrentPageReport]="true"
+                                [currentPageReportTemplate]="
+                                    'TotalRecordsCount' | localize : primengTableHelper.totalRecordsCount
+                                "
+                            ></p-paginator>
+                        </div>
+                    </div>
+                    <!--<Primeng-Datatable-End>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <createOrEditZMM021RModal #createOrEditZMM021RModal (modalSave)="getZMM021R()"></createOrEditZMM021RModal>
+    <viewZMM021RModal #viewZMM021RModal></viewZMM021RModal>
+</div>

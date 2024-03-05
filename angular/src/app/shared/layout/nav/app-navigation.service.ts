@@ -96,6 +96,8 @@ export class AppNavigationService {
                     ),
                    
             new AppMenuItem('LookupPages', 'Pages.LookupPages', 'flaticon-more', '/app/main/lookupArea/lookupPages'),
+            
+            new AppMenuItem('ZMM021R', 'Pages.ZMM021R', 'flaticon-more', '/app/main/sapConnector/zmM021R'),
              new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
                     new AppMenuItem(
                         'AuditLogs',

@@ -1,0 +1,281 @@
+﻿<div
+    bsModal
+    #createOrEditModal="bs-modal"
+    class="modal fade"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="createOrEditModal"
+    aria-hidden="true"
+    [config]="{ backdrop: 'static' }"
+>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span>{{ l('Details') }}</span>
+                </h4>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    (click)="close()"
+                    aria-label="Close"
+                    [disabled]="saving"
+                ></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('PurchasingDocument') }} :</h6>
+                        {{ item.zmM021R.purchasingDocument }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('PurchasingDocType') }} :</h6>
+                        {{ item.zmM021R.purchasingDocType }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('PurchasingDocTypeDescription') }} :</h6>
+                        {{ item.zmM021R.purchasingDocTypeDescription }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('Item') }} :</h6>
+                        {{ item.zmM021R.item }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('LineNumber') }} :</h6>
+                        {{ item.zmM021R.lineNumber }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('DeletionIndicator') }} :</h6>
+                        {{ item.zmM021R.deletionIndicator }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('DocumentDate') }} :</h6>
+                        {{ item.zmM021R.documentDate | luxonFormat : 'yyyy-LL-dd HH:mm:ss' }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('CreatedOn') }} :</h6>
+                        {{ item.zmM021R.createdOn | luxonFormat : 'yyyy-LL-dd HH:mm:ss' }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('PurchaseRequisition') }} :</h6>
+                        {{ item.zmM021R.purchaseRequisition }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('ItemPR') }} :</h6>
+                        {{ item.zmM021R.itemPR }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('SupplierCode') }} :</h6>
+                        {{ item.zmM021R.supplierCode }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('SupplierName') }} :</h6>
+                        {{ item.zmM021R.supplierName }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('Address') }} :</h6>
+                        {{ item.zmM021R.address }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('ItemNo') }} :</h6>
+                        {{ item.zmM021R.itemNo }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('MaterialGroup') }} :</h6>
+                        {{ item.zmM021R.materialGroup }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('ShortText') }} :</h6>
+                        {{ item.zmM021R.shortText }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('OrderQuantity') }} :</h6>
+                        {{ item.zmM021R.orderQuantity }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('OrderUnit') }} :</h6>
+                        {{ item.zmM021R.orderUnit }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('Currency') }} :</h6>
+                        {{ item.zmM021R.currency }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('DeliveryDate') }} :</h6>
+                        {{ item.zmM021R.deliveryDate | luxonFormat : 'yyyy-LL-dd HH:mm:ss' }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('NetPrice') }} :</h6>
+                        {{ item.zmM021R.netPrice }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('NetOrderValue') }} :</h6>
+                        {{ item.zmM021R.netOrderValue }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('Demurrage') }} :</h6>
+                        {{ item.zmM021R.demurrage }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('GrossPrice') }} :</h6>
+                        {{ item.zmM021R.grossPrice }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('TotalDiscount') }} :</h6>
+                        {{ item.zmM021R.totalDiscount }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('FreightCost') }} :</h6>
+                        {{ item.zmM021R.freightCost }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('ReleaseIndicator') }} :</h6>
+                        {{ item.zmM021R.releaseIndicator }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('Plant') }} :</h6>
+                        {{ item.zmM021R.plant }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('PurchasingGroup') }} :</h6>
+                        {{ item.zmM021R.purchasingGroup }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('TaxCode') }} :</h6>
+                        {{ item.zmM021R.taxCode }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('CollectiveNumber') }} :</h6>
+                        {{ item.zmM021R.collectiveNumber }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('ItemCategory') }} :</h6>
+                        {{ item.zmM021R.itemCategory }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('AccountAssignment') }} :</h6>
+                        {{ item.zmM021R.accountAssignment }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('OutlineAgreement') }} :</h6>
+                        {{ item.zmM021R.outlineAgreement }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('RFQNo') }} :</h6>
+                        {{ item.zmM021R.rfqNo }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('QtyPending') }} :</h6>
+                        {{ item.zmM021R.qtyPending }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('MaterialService') }} :</h6>
+                        {{ item.zmM021R.materialService }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('ApprovalStatus') }} :</h6>
+                        {{ item.zmM021R.approvalStatus }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('POStatus') }} :</h6>
+                        {{ item.zmM021R.poStatus }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('Period') }} :</h6>
+                        {{ item.zmM021R.period }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('CommentVendor') }} :</h6>
+                        {{ item.zmM021R.commentVendor }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('ItemText') }} :</h6>
+                        {{ item.zmM021R.itemText }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('LongText') }} :</h6>
+                        {{ item.zmM021R.longText }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('OurReference') }} :</h6>
+                        {{ item.zmM021R.ourReference }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('PRFinalFirstApprovalDate') }} :</h6>
+                        {{ item.zmM021R.prFinalFirstApprovalDate | luxonFormat : 'yyyy-LL-dd HH:mm:ss' }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('PRFinalLastApprovalDate') }} :</h6>
+                        {{ item.zmM021R.prFinalLastApprovalDate | luxonFormat : 'yyyy-LL-dd HH:mm:ss' }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('POFirstApprovalDate') }} :</h6>
+                        {{ item.zmM021R.poFirstApprovalDate | luxonFormat : 'yyyy-LL-dd HH:mm:ss' }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('POLastApprovalDate') }} :</h6>
+                        {{ item.zmM021R.poLastApprovalDate | luxonFormat : 'yyyy-LL-dd HH:mm:ss' }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('POApprovalName') }} :</h6>
+                        {{ item.zmM021R.poApprovalName }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('BuyerCode') }} :</h6>
+                        {{ item.zmM021R.buyerCode }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('BuyerName') }} :</h6>
+                        {{ item.zmM021R.buyerName }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('PICDept') }} :</h6>
+                        {{ item.zmM021R.picDept }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('PICSect') }} :</h6>
+                        {{ item.zmM021R.picSect }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('FuelAllocation') }} :</h6>
+                        {{ item.zmM021R.fuelAllocation }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('CostCenter') }} :</h6>
+                        {{ item.zmM021R.costCenter }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('CostCenterDescription') }} :</h6>
+                        {{ item.zmM021R.costCenterDescription }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('WBSElement') }} :</h6>
+                        {{ item.zmM021R.wbsElement }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('AssetNo') }} :</h6>
+                        {{ item.zmM021R.assetNo }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('FundCenter') }} :</h6>
+                        {{ item.zmM021R.fundCenter }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('CreatedDate') }} :</h6>
+                        {{ item.zmM021R.createdDate | luxonFormat : 'yyyy-LL-dd HH:mm:ss' }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('UpdatedDate') }} :</h6>
+                        {{ item.zmM021R.updatedDate | luxonFormat : 'yyyy-LL-dd HH:mm:ss' }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button [disabled]="saving" type="button" class="btn btn-primary blue" (click)="close()">
+                    {{ l('Close') }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

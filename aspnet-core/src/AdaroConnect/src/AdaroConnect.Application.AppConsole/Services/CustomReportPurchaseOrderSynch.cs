@@ -39,9 +39,12 @@ namespace AdaroConnect.Application.AppConsole.Services
             DirectoryInfo d = new DirectoryInfo(SAP_EXCEL_PATH); //Assuming Test is your Folder
             FileInfo[] Files = d.GetFiles("ZMM021R*.XLSX"); //Getting Text files
 
+            List<Zmm021r> ZMM021R_DATAS = new List<Zmm021r>();
+
             if (Files.Length > 0)
             {
                 var ZMM021Rs = Files.OrderBy(x => x.CreationTime).ToList();
+
                 foreach (var zmm021r in ZMM021Rs)
                 {
                     var excel = new ExcelMapper(zmm021r.FullName);
@@ -110,6 +113,7 @@ namespace AdaroConnect.Application.AppConsole.Services
                     #region Cleaning Data
                     datas.ForEach(x => {
                         x.Id = Guid.NewGuid();
+                        x.DocumentId = $"{x.PurchasingDocument}{x.Item}{x.LineNumber}";
                         if (!string.IsNullOrEmpty(x.SupplierName))
                         {
                             var supplier = x.SupplierName.Split("-");
@@ -131,16 +135,115 @@ namespace AdaroConnect.Application.AppConsole.Services
                             x.CostCenterDescription = CostCenter[1].Trim();
                         }
 
+                        x.CreatedDate = DateTime.Now;
+                        x.UpdatedDate = DateTime.Now;
+
                     });
                     #endregion
 
-                    Console.WriteLine(datas.Count);
+                    ZMM021R_DATAS.AddRange(datas);
 
-                    _connectContext.Zmm021rs.AddRange(datas);
-                    _connectContext.SaveChanges();
+                    
+                    if (!Directory.Exists(Path.Combine(SAP_EXCEL_PATH, "OLD_DATA")))
+                    {
+                        Directory.CreateDirectory(Path.Combine(SAP_EXCEL_PATH, "OLD_DATA"));
+                    }
+
+                    zmm021r.MoveTo(Path.Combine(SAP_EXCEL_PATH, "OLD_DATA", zmm021r.Name));
+
+                    //zmm021r.Delete();
                 }
 
 
+                ZMM021R_DATAS = ZMM021R_DATAS.GroupBy(l => l.DocumentId)
+                    .Select(g => g.OrderByDescending(c => c.CreatedDate).FirstOrDefault())
+                    .ToList();
+
+                List<Zmm021r> ZMM021R_NEW = new List<Zmm021r>();
+                List<Zmm021r> ZMM021R_UPDATES = new List<Zmm021r>();
+
+                foreach (var ZMM021R_ITEM in ZMM021R_DATAS)
+                {
+                    var ZMM021R_UPDATE = _connectContext.Zmm021rs.FirstOrDefault(x => x.DocumentId == ZMM021R_ITEM.DocumentId);
+                    if(ZMM021R_UPDATE != null)
+                    {
+                        #region UPDATE
+                        ZMM021R_UPDATE.PurchasingDocument = ZMM021R_ITEM.PurchasingDocument;
+                        ZMM021R_UPDATE.PurchasingDocType = ZMM021R_ITEM.PurchasingDocType;
+                        ZMM021R_UPDATE.PurchasingDocTypeDescription = ZMM021R_ITEM.PurchasingDocTypeDescription;
+                        ZMM021R_UPDATE.Item = ZMM021R_ITEM.Item;
+                        ZMM021R_UPDATE.LineNumber = ZMM021R_ITEM.LineNumber;
+                        ZMM021R_UPDATE.DeletionIndicator = ZMM021R_ITEM.DeletionIndicator;
+                        ZMM021R_UPDATE.DocumentDate = ZMM021R_ITEM.DocumentDate;
+                        ZMM021R_UPDATE.CreatedOn = ZMM021R_ITEM.CreatedOn;
+                        ZMM021R_UPDATE.PurchaseRequisition = ZMM021R_ITEM.PurchaseRequisition;
+                        ZMM021R_UPDATE.ItemPr = ZMM021R_ITEM.ItemPr;
+                        ZMM021R_UPDATE.SupplierCode = ZMM021R_ITEM.SupplierCode;
+                        ZMM021R_UPDATE.SupplierName = ZMM021R_ITEM.SupplierName;
+                        ZMM021R_UPDATE.Address = ZMM021R_ITEM.Address;
+                        ZMM021R_UPDATE.ItemNo = ZMM021R_ITEM.ItemNo;
+                        ZMM021R_UPDATE.MaterialGroup = ZMM021R_ITEM.MaterialGroup;
+                        ZMM021R_UPDATE.ShortText = ZMM021R_ITEM.ShortText;
+                        ZMM021R_UPDATE.OrderQuantity = ZMM021R_ITEM.OrderQuantity;
+                        ZMM021R_UPDATE.OrderUnit = ZMM021R_ITEM.OrderUnit;
+                        ZMM021R_UPDATE.Currency = ZMM021R_ITEM.Currency;
+                        ZMM021R_UPDATE.DeliveryDate = ZMM021R_ITEM.DeliveryDate;
+                        ZMM021R_UPDATE.NetPrice = ZMM021R_ITEM.NetPrice;
+                        ZMM021R_UPDATE.NetOrderValue = ZMM021R_ITEM.NetOrderValue;
+                        ZMM021R_UPDATE.Demurrage = ZMM021R_ITEM.Demurrage;
+                        ZMM021R_UPDATE.GrossPrice = ZMM021R_ITEM.GrossPrice;
+                        ZMM021R_UPDATE.TotalDiscount = ZMM021R_ITEM.TotalDiscount;
+                        ZMM021R_UPDATE.FreightCost = ZMM021R_ITEM.FreightCost;
+                        ZMM021R_UPDATE.ReleaseIndicator = ZMM021R_ITEM.ReleaseIndicator;
+                        ZMM021R_UPDATE.Plant = ZMM021R_ITEM.Plant;
+                        ZMM021R_UPDATE.PurchasingGroup = ZMM021R_ITEM.PurchasingGroup;
+                        ZMM021R_UPDATE.TaxCode = ZMM021R_ITEM.TaxCode;
+                        ZMM021R_UPDATE.CollectiveNumber = ZMM021R_ITEM.CollectiveNumber;
+                        ZMM021R_UPDATE.ItemCategory = ZMM021R_ITEM.ItemCategory;
+                        ZMM021R_UPDATE.AccountAssignment = ZMM021R_ITEM.AccountAssignment;
+                        ZMM021R_UPDATE.OutlineAgreement = ZMM021R_ITEM.OutlineAgreement;
+                        ZMM021R_UPDATE.Rfqno = ZMM021R_ITEM.Rfqno;
+                        ZMM021R_UPDATE.QtyPending = ZMM021R_ITEM.QtyPending;
+                        ZMM021R_UPDATE.MaterialService = ZMM021R_ITEM.MaterialService;
+                        ZMM021R_UPDATE.ApprovalStatus = ZMM021R_ITEM.ApprovalStatus;
+                        ZMM021R_UPDATE.Postatus = ZMM021R_ITEM.Postatus;
+                        ZMM021R_UPDATE.Period = ZMM021R_ITEM.Period;
+                        ZMM021R_UPDATE.CommentVendor = ZMM021R_ITEM.CommentVendor;
+                        ZMM021R_UPDATE.ItemText = ZMM021R_ITEM.ItemText;
+                        ZMM021R_UPDATE.LongText = ZMM021R_ITEM.LongText;
+                        ZMM021R_UPDATE.OurReference = ZMM021R_ITEM.OurReference;
+                        ZMM021R_UPDATE.PrfinalFirstApprovalDate = ZMM021R_ITEM.PrfinalFirstApprovalDate;
+                        ZMM021R_UPDATE.PrfinalLastApprovalDate = ZMM021R_ITEM.PrfinalLastApprovalDate;
+                        ZMM021R_UPDATE.PofirstApprovalDate = ZMM021R_ITEM.PofirstApprovalDate;
+                        ZMM021R_UPDATE.PolastApprovalDate = ZMM021R_ITEM.PolastApprovalDate;
+                        ZMM021R_UPDATE.PoapprovalName = ZMM021R_ITEM.PoapprovalName;
+                        ZMM021R_UPDATE.BuyerCode = ZMM021R_ITEM.BuyerCode;
+                        ZMM021R_UPDATE.BuyerName = ZMM021R_ITEM.BuyerName;
+                        ZMM021R_UPDATE.Picdept = ZMM021R_ITEM.Picdept;
+                        ZMM021R_UPDATE.Picsect = ZMM021R_ITEM.Picsect;
+                        ZMM021R_UPDATE.FuelAllocation = ZMM021R_ITEM.FuelAllocation;
+                        ZMM021R_UPDATE.CostCenter = ZMM021R_ITEM.CostCenter;
+                        ZMM021R_UPDATE.CostCenterDescription = ZMM021R_ITEM.CostCenterDescription;
+                        ZMM021R_UPDATE.Wbselement = ZMM021R_ITEM.Wbselement;
+                        ZMM021R_UPDATE.AssetNo = ZMM021R_ITEM.AssetNo;
+                        ZMM021R_UPDATE.FundCenter = ZMM021R_ITEM.FundCenter;
+                        ZMM021R_UPDATE.UpdatedDate = DateTime.Now;
+                        #endregion
+
+                        ZMM021R_UPDATES.Add(ZMM021R_UPDATE);
+                    } else
+                    {
+                        ZMM021R_NEW.Add(ZMM021R_ITEM);
+                    }
+                }
+
+                if (ZMM021R_UPDATES.Count > 0)
+                    _connectContext.Zmm021rs.UpdateRange(ZMM021R_UPDATES);
+
+                if (ZMM021R_NEW.Count > 0)
+                    _connectContext.Zmm021rs.AddRange(ZMM021R_NEW);
+
+                _connectContext.SaveChanges();
 
             }
 

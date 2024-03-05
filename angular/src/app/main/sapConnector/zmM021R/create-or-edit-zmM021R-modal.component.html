@@ -1,0 +1,975 @@
+﻿<div
+    bsModal
+    #createOrEditModal="bs-modal"
+    class="modal fade"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="createOrEditModal"
+    aria-hidden="true"
+    [config]="{ backdrop: 'static' }"
+>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #zmM021RForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="zmM021R.id">{{ l('EditZMM021R') }}</span>
+                        <span *ngIf="!zmM021R.id">{{ l('CreateNewZMM021R') }}</span>
+                    </h4>
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        (click)="close()"
+                        aria-label="Close"
+                        [disabled]="saving"
+                    ></button>
+                </div>
+                <div class="modal-body">
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_PurchasingDocument">
+                            {{ l('PurchasingDocument') }} *
+                        </label>
+                        <input
+                            type="text"
+                            #ZMM021R_PurchasingDocument="ngModel"
+                            id="ZMM021R_PurchasingDocument"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.purchasingDocument"
+                            name="PurchasingDocument"
+                            minlength="0"
+                            maxlength="50"
+                            required
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_PurchasingDocument"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_PurchasingDocType">{{ l('PurchasingDocType') }} *</label>
+                        <input
+                            type="text"
+                            #ZMM021R_PurchasingDocType="ngModel"
+                            id="ZMM021R_PurchasingDocType"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.purchasingDocType"
+                            name="PurchasingDocType"
+                            minlength="0"
+                            maxlength="10"
+                            required
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_PurchasingDocType"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_PurchasingDocTypeDescription">
+                            {{ l('PurchasingDocTypeDescription') }}
+                        </label>
+                        <input
+                            type="text"
+                            #ZMM021R_PurchasingDocTypeDescription="ngModel"
+                            id="ZMM021R_PurchasingDocTypeDescription"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.purchasingDocTypeDescription"
+                            name="PurchasingDocTypeDescription"
+                            minlength="0"
+                            maxlength="50"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_PurchasingDocTypeDescription"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_Item">{{ l('Item') }} *</label>
+                        <input
+                            type="text"
+                            #ZMM021R_Item="ngModel"
+                            id="ZMM021R_Item"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.item"
+                            name="Item"
+                            minlength="0"
+                            maxlength="10"
+                            required
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_Item"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_LineNumber">{{ l('LineNumber') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_LineNumber="ngModel"
+                            id="ZMM021R_LineNumber"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.lineNumber"
+                            name="LineNumber"
+                            minlength="0"
+                            maxlength="10"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_LineNumber"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_DeletionIndicator">{{ l('DeletionIndicator') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_DeletionIndicator="ngModel"
+                            id="ZMM021R_DeletionIndicator"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.deletionIndicator"
+                            name="DeletionIndicator"
+                            minlength="0"
+                            maxlength="255"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_DeletionIndicator"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_DocumentDate">{{ l('DocumentDate') }}</label>
+                        <input
+                            required
+                            class="form-control m-input"
+                            #ZMM021R_DocumentDate
+                            type="datetime"
+                            bsDatepicker
+                            datePickerLuxonModifier
+                            [(date)]="zmM021R.documentDate"
+                            id="ZMM021R_DocumentDate"
+                            name="ZMM021R_DocumentDate"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_DocumentDate"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_CreatedOn">{{ l('CreatedOn') }}</label>
+                        <input
+                            required
+                            class="form-control m-input"
+                            #ZMM021R_CreatedOn
+                            type="datetime"
+                            bsDatepicker
+                            datePickerLuxonModifier
+                            [(date)]="zmM021R.createdOn"
+                            id="ZMM021R_CreatedOn"
+                            name="ZMM021R_CreatedOn"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_CreatedOn"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_PurchaseRequisition">
+                            {{ l('PurchaseRequisition') }}
+                        </label>
+                        <input
+                            type="text"
+                            #ZMM021R_PurchaseRequisition="ngModel"
+                            id="ZMM021R_PurchaseRequisition"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.purchaseRequisition"
+                            name="PurchaseRequisition"
+                            minlength="0"
+                            maxlength="255"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_PurchaseRequisition"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_ItemPR">{{ l('ItemPR') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_ItemPR="ngModel"
+                            id="ZMM021R_ItemPR"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.itemPR"
+                            name="ItemPR"
+                            minlength="0"
+                            maxlength="255"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_ItemPR"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_SupplierCode">{{ l('SupplierCode') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_SupplierCode="ngModel"
+                            id="ZMM021R_SupplierCode"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.supplierCode"
+                            name="SupplierCode"
+                            minlength="0"
+                            maxlength="50"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_SupplierCode"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_SupplierName">{{ l('SupplierName') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_SupplierName="ngModel"
+                            id="ZMM021R_SupplierName"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.supplierName"
+                            name="SupplierName"
+                            minlength="0"
+                            maxlength="255"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_SupplierName"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_Address">{{ l('Address') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_Address="ngModel"
+                            id="ZMM021R_Address"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.address"
+                            name="Address"
+                            minlength="0"
+                            maxlength="255"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_Address"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_ItemNo">{{ l('ItemNo') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_ItemNo="ngModel"
+                            id="ZMM021R_ItemNo"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.itemNo"
+                            name="ItemNo"
+                            minlength="0"
+                            maxlength="50"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_ItemNo"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_MaterialGroup">{{ l('MaterialGroup') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_MaterialGroup="ngModel"
+                            id="ZMM021R_MaterialGroup"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.materialGroup"
+                            name="MaterialGroup"
+                            minlength="0"
+                            maxlength="255"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_MaterialGroup"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_ShortText">{{ l('ShortText') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_ShortText="ngModel"
+                            id="ZMM021R_ShortText"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.shortText"
+                            name="ShortText"
+                            minlength="0"
+                            maxlength="500"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_ShortText"></validation-messages>
+                    </div>
+
+                    <div class="my5">
+                        <label class="form-label" for="ZMM021R_OrderQuantity">{{ l('OrderQuantity') }}</label>
+                        <input
+                            type="number"
+                            #ZMM021R_OrderQuantity="ngModel"
+                            id="ZMM021R_OrderQuantity"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.orderQuantity"
+                            name="OrderQuantity"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_OrderQuantity"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_OrderUnit">{{ l('OrderUnit') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_OrderUnit="ngModel"
+                            id="ZMM021R_OrderUnit"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.orderUnit"
+                            name="OrderUnit"
+                            minlength="0"
+                            maxlength="50"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_OrderUnit"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_Currency">{{ l('Currency') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_Currency="ngModel"
+                            id="ZMM021R_Currency"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.currency"
+                            name="Currency"
+                            minlength="0"
+                            maxlength="50"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_Currency"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_DeliveryDate">{{ l('DeliveryDate') }}</label>
+                        <input
+                            class="form-control m-input"
+                            #ZMM021R_DeliveryDate
+                            type="datetime"
+                            bsDatepicker
+                            datePickerLuxonModifier
+                            [(date)]="zmM021R.deliveryDate"
+                            id="ZMM021R_DeliveryDate"
+                            name="ZMM021R_DeliveryDate"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_DeliveryDate"></validation-messages>
+                    </div>
+
+                    <div class="my5">
+                        <label class="form-label" for="ZMM021R_NetPrice">{{ l('NetPrice') }}</label>
+                        <input
+                            type="number"
+                            #ZMM021R_NetPrice="ngModel"
+                            id="ZMM021R_NetPrice"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.netPrice"
+                            name="NetPrice"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_NetPrice"></validation-messages>
+                    </div>
+
+                    <div class="my5">
+                        <label class="form-label" for="ZMM021R_NetOrderValue">{{ l('NetOrderValue') }}</label>
+                        <input
+                            type="number"
+                            #ZMM021R_NetOrderValue="ngModel"
+                            id="ZMM021R_NetOrderValue"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.netOrderValue"
+                            name="NetOrderValue"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_NetOrderValue"></validation-messages>
+                    </div>
+
+                    <div class="my5">
+                        <label class="form-label" for="ZMM021R_Demurrage">{{ l('Demurrage') }}</label>
+                        <input
+                            type="number"
+                            #ZMM021R_Demurrage="ngModel"
+                            id="ZMM021R_Demurrage"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.demurrage"
+                            name="Demurrage"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_Demurrage"></validation-messages>
+                    </div>
+
+                    <div class="my5">
+                        <label class="form-label" for="ZMM021R_GrossPrice">{{ l('GrossPrice') }}</label>
+                        <input
+                            type="number"
+                            #ZMM021R_GrossPrice="ngModel"
+                            id="ZMM021R_GrossPrice"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.grossPrice"
+                            name="GrossPrice"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_GrossPrice"></validation-messages>
+                    </div>
+
+                    <div class="my5">
+                        <label class="form-label" for="ZMM021R_TotalDiscount">{{ l('TotalDiscount') }}</label>
+                        <input
+                            type="number"
+                            #ZMM021R_TotalDiscount="ngModel"
+                            id="ZMM021R_TotalDiscount"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.totalDiscount"
+                            name="TotalDiscount"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_TotalDiscount"></validation-messages>
+                    </div>
+
+                    <div class="my5">
+                        <label class="form-label" for="ZMM021R_FreightCost">{{ l('FreightCost') }}</label>
+                        <input
+                            type="number"
+                            #ZMM021R_FreightCost="ngModel"
+                            id="ZMM021R_FreightCost"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.freightCost"
+                            name="FreightCost"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_FreightCost"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_ReleaseIndicator">{{ l('ReleaseIndicator') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_ReleaseIndicator="ngModel"
+                            id="ZMM021R_ReleaseIndicator"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.releaseIndicator"
+                            name="ReleaseIndicator"
+                            minlength="0"
+                            maxlength="50"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_ReleaseIndicator"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_Plant">{{ l('Plant') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_Plant="ngModel"
+                            id="ZMM021R_Plant"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.plant"
+                            name="Plant"
+                            minlength="0"
+                            maxlength="50"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_Plant"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_PurchasingGroup">{{ l('PurchasingGroup') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_PurchasingGroup="ngModel"
+                            id="ZMM021R_PurchasingGroup"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.purchasingGroup"
+                            name="PurchasingGroup"
+                            minlength="0"
+                            maxlength="50"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_PurchasingGroup"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_TaxCode">{{ l('TaxCode') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_TaxCode="ngModel"
+                            id="ZMM021R_TaxCode"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.taxCode"
+                            name="TaxCode"
+                            minlength="0"
+                            maxlength="50"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_TaxCode"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_CollectiveNumber">{{ l('CollectiveNumber') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_CollectiveNumber="ngModel"
+                            id="ZMM021R_CollectiveNumber"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.collectiveNumber"
+                            name="CollectiveNumber"
+                            minlength="0"
+                            maxlength="50"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_CollectiveNumber"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_ItemCategory">{{ l('ItemCategory') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_ItemCategory="ngModel"
+                            id="ZMM021R_ItemCategory"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.itemCategory"
+                            name="ItemCategory"
+                            minlength="0"
+                            maxlength="50"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_ItemCategory"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_AccountAssignment">{{ l('AccountAssignment') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_AccountAssignment="ngModel"
+                            id="ZMM021R_AccountAssignment"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.accountAssignment"
+                            name="AccountAssignment"
+                            minlength="0"
+                            maxlength="50"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_AccountAssignment"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_OutlineAgreement">{{ l('OutlineAgreement') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_OutlineAgreement="ngModel"
+                            id="ZMM021R_OutlineAgreement"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.outlineAgreement"
+                            name="OutlineAgreement"
+                            minlength="0"
+                            maxlength="255"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_OutlineAgreement"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_RFQNo">{{ l('RFQNo') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_RFQNo="ngModel"
+                            id="ZMM021R_RFQNo"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.rfqNo"
+                            name="RFQNo"
+                            minlength="0"
+                            maxlength="255"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_RFQNo"></validation-messages>
+                    </div>
+
+                    <div class="my5">
+                        <label class="form-label" for="ZMM021R_QtyPending">{{ l('QtyPending') }}</label>
+                        <input
+                            type="number"
+                            #ZMM021R_QtyPending="ngModel"
+                            id="ZMM021R_QtyPending"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.qtyPending"
+                            name="QtyPending"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_QtyPending"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_MaterialService">{{ l('MaterialService') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_MaterialService="ngModel"
+                            id="ZMM021R_MaterialService"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.materialService"
+                            name="MaterialService"
+                            minlength="0"
+                            maxlength="50"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_MaterialService"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_ApprovalStatus">{{ l('ApprovalStatus') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_ApprovalStatus="ngModel"
+                            id="ZMM021R_ApprovalStatus"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.approvalStatus"
+                            name="ApprovalStatus"
+                            minlength="0"
+                            maxlength="50"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_ApprovalStatus"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_POStatus">{{ l('POStatus') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_POStatus="ngModel"
+                            id="ZMM021R_POStatus"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.poStatus"
+                            name="POStatus"
+                            minlength="0"
+                            maxlength="50"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_POStatus"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_Period">{{ l('Period') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_Period="ngModel"
+                            id="ZMM021R_Period"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.period"
+                            name="Period"
+                            minlength="0"
+                            maxlength="50"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_Period"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_CommentVendor">{{ l('CommentVendor') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_CommentVendor="ngModel"
+                            id="ZMM021R_CommentVendor"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.commentVendor"
+                            name="CommentVendor"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_CommentVendor"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_ItemText">{{ l('ItemText') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_ItemText="ngModel"
+                            id="ZMM021R_ItemText"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.itemText"
+                            name="ItemText"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_ItemText"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_LongText">{{ l('LongText') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_LongText="ngModel"
+                            id="ZMM021R_LongText"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.longText"
+                            name="LongText"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_LongText"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_OurReference">{{ l('OurReference') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_OurReference="ngModel"
+                            id="ZMM021R_OurReference"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.ourReference"
+                            name="OurReference"
+                            minlength="0"
+                            maxlength="255"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_OurReference"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_PRFinalFirstApprovalDate">
+                            {{ l('PRFinalFirstApprovalDate') }}
+                        </label>
+                        <input
+                            class="form-control m-input"
+                            #ZMM021R_PRFinalFirstApprovalDate
+                            type="datetime"
+                            bsDatepicker
+                            datePickerLuxonModifier
+                            [(date)]="zmM021R.prFinalFirstApprovalDate"
+                            id="ZMM021R_PRFinalFirstApprovalDate"
+                            name="ZMM021R_PRFinalFirstApprovalDate"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_PRFinalFirstApprovalDate"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_PRFinalLastApprovalDate">
+                            {{ l('PRFinalLastApprovalDate') }}
+                        </label>
+                        <input
+                            class="form-control m-input"
+                            #ZMM021R_PRFinalLastApprovalDate
+                            type="datetime"
+                            bsDatepicker
+                            datePickerLuxonModifier
+                            [(date)]="zmM021R.prFinalLastApprovalDate"
+                            id="ZMM021R_PRFinalLastApprovalDate"
+                            name="ZMM021R_PRFinalLastApprovalDate"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_PRFinalLastApprovalDate"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_POFirstApprovalDate">
+                            {{ l('POFirstApprovalDate') }}
+                        </label>
+                        <input
+                            class="form-control m-input"
+                            #ZMM021R_POFirstApprovalDate
+                            type="datetime"
+                            bsDatepicker
+                            datePickerLuxonModifier
+                            [(date)]="zmM021R.poFirstApprovalDate"
+                            id="ZMM021R_POFirstApprovalDate"
+                            name="ZMM021R_POFirstApprovalDate"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_POFirstApprovalDate"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_POLastApprovalDate">{{ l('POLastApprovalDate') }}</label>
+                        <input
+                            class="form-control m-input"
+                            #ZMM021R_POLastApprovalDate
+                            type="datetime"
+                            bsDatepicker
+                            datePickerLuxonModifier
+                            [(date)]="zmM021R.poLastApprovalDate"
+                            id="ZMM021R_POLastApprovalDate"
+                            name="ZMM021R_POLastApprovalDate"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_POLastApprovalDate"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_POApprovalName">{{ l('POApprovalName') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_POApprovalName="ngModel"
+                            id="ZMM021R_POApprovalName"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.poApprovalName"
+                            name="POApprovalName"
+                            minlength="0"
+                            maxlength="255"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_POApprovalName"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_BuyerCode">{{ l('BuyerCode') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_BuyerCode="ngModel"
+                            id="ZMM021R_BuyerCode"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.buyerCode"
+                            name="BuyerCode"
+                            minlength="0"
+                            maxlength="50"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_BuyerCode"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_BuyerName">{{ l('BuyerName') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_BuyerName="ngModel"
+                            id="ZMM021R_BuyerName"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.buyerName"
+                            name="BuyerName"
+                            minlength="0"
+                            maxlength="255"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_BuyerName"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_PICDept">{{ l('PICDept') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_PICDept="ngModel"
+                            id="ZMM021R_PICDept"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.picDept"
+                            name="PICDept"
+                            minlength="0"
+                            maxlength="255"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_PICDept"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_PICSect">{{ l('PICSect') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_PICSect="ngModel"
+                            id="ZMM021R_PICSect"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.picSect"
+                            name="PICSect"
+                            minlength="0"
+                            maxlength="255"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_PICSect"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_FuelAllocation">{{ l('FuelAllocation') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_FuelAllocation="ngModel"
+                            id="ZMM021R_FuelAllocation"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.fuelAllocation"
+                            name="FuelAllocation"
+                            minlength="0"
+                            maxlength="255"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_FuelAllocation"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_CostCenter">{{ l('CostCenter') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_CostCenter="ngModel"
+                            id="ZMM021R_CostCenter"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.costCenter"
+                            name="CostCenter"
+                            minlength="0"
+                            maxlength="50"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_CostCenter"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_CostCenterDescription">
+                            {{ l('CostCenterDescription') }}
+                        </label>
+                        <input
+                            type="text"
+                            #ZMM021R_CostCenterDescription="ngModel"
+                            id="ZMM021R_CostCenterDescription"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.costCenterDescription"
+                            name="CostCenterDescription"
+                            minlength="0"
+                            maxlength="255"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_CostCenterDescription"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_WBSElement">{{ l('WBSElement') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_WBSElement="ngModel"
+                            id="ZMM021R_WBSElement"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.wbsElement"
+                            name="WBSElement"
+                            minlength="0"
+                            maxlength="255"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_WBSElement"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_AssetNo">{{ l('AssetNo') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_AssetNo="ngModel"
+                            id="ZMM021R_AssetNo"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.assetNo"
+                            name="AssetNo"
+                            minlength="0"
+                            maxlength="255"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_AssetNo"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_FundCenter">{{ l('FundCenter') }}</label>
+                        <input
+                            type="text"
+                            #ZMM021R_FundCenter="ngModel"
+                            id="ZMM021R_FundCenter"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.fundCenter"
+                            name="FundCenter"
+                            minlength="0"
+                            maxlength="255"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_FundCenter"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_CreatedDate">{{ l('CreatedDate') }}</label>
+                        <input
+                            required
+                            class="form-control m-input"
+                            #ZMM021R_CreatedDate
+                            type="datetime"
+                            bsDatepicker
+                            datePickerLuxonModifier
+                            [(date)]="zmM021R.createdDate"
+                            id="ZMM021R_CreatedDate"
+                            name="ZMM021R_CreatedDate"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_CreatedDate"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_UpdatedDate">{{ l('UpdatedDate') }}</label>
+                        <input
+                            required
+                            class="form-control m-input"
+                            #ZMM021R_UpdatedDate
+                            type="datetime"
+                            bsDatepicker
+                            datePickerLuxonModifier
+                            [(date)]="zmM021R.updatedDate"
+                            id="ZMM021R_UpdatedDate"
+                            name="ZMM021R_UpdatedDate"
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_UpdatedDate"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="ZMM021R_DocumentId">{{ l('DocumentId') }} *</label>
+                        <input
+                            type="text"
+                            #ZMM021R_DocumentId="ngModel"
+                            id="ZMM021R_DocumentId"
+                            class="form-control"
+                            [(ngModel)]="zmM021R.documentId"
+                            name="DocumentId"
+                            required
+                        />
+                        <validation-messages [formCtrl]="ZMM021R_DocumentId"></validation-messages>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">
+                        {{ l('Cancel') }}
+                    </button>
+                    <button
+                        type="submit"
+                        class="btn btn-primary blue"
+                        [disabled]="!zmM021RForm.form.valid"
+                        [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot')"
+                    >
+                        <i class="fa fa-save"></i>
+                        <span>{{ l('Save') }}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

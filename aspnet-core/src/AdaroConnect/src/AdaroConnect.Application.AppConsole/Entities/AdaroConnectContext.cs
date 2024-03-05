@@ -299,68 +299,76 @@ public partial class AdaroConnectContext : DbContext
         {
             entity.ToTable("ZMM021R");
 
+            entity.HasIndex(e => e.DocumentId, "IX_ZMM021R").IsUnique();
+
             entity.HasIndex(e => e.TenantId, "IX_ZMM021R_TenantId");
 
             entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.AccountAssignment).HasMaxLength(255);
+            entity.Property(e => e.AccountAssignment).HasMaxLength(50);
             entity.Property(e => e.Address).HasMaxLength(255);
-            entity.Property(e => e.ApprovalStatus).HasMaxLength(255);
+            entity.Property(e => e.ApprovalStatus).HasMaxLength(50);
             entity.Property(e => e.AssetNo).HasMaxLength(255);
-            entity.Property(e => e.BuyerCode).HasMaxLength(255);
+            entity.Property(e => e.BuyerCode).HasMaxLength(50);
             entity.Property(e => e.BuyerName).HasMaxLength(255);
-            entity.Property(e => e.CollectiveNumber).HasMaxLength(255);
-            entity.Property(e => e.CommentVendor).HasMaxLength(255);
-            entity.Property(e => e.CostCenter).HasMaxLength(255);
+            entity.Property(e => e.CollectiveNumber).HasMaxLength(50);
+            entity.Property(e => e.CostCenter).HasMaxLength(50);
             entity.Property(e => e.CostCenterDescription).HasMaxLength(255);
-            entity.Property(e => e.Currency).HasMaxLength(255);
+            entity.Property(e => e.Currency).HasMaxLength(50);
             entity.Property(e => e.DeletionIndicator).HasMaxLength(255);
+            entity.Property(e => e.DocumentId)
+                .IsRequired()
+                .HasMaxLength(50);
             entity.Property(e => e.FuelAllocation).HasMaxLength(255);
             entity.Property(e => e.FundCenter).HasMaxLength(255);
-            entity.Property(e => e.Item).HasMaxLength(255);
-            entity.Property(e => e.ItemCategory).HasMaxLength(255);
-            entity.Property(e => e.ItemNo).HasMaxLength(255);
+            entity.Property(e => e.Item)
+                .IsRequired()
+                .HasMaxLength(10);
+            entity.Property(e => e.ItemCategory).HasMaxLength(50);
+            entity.Property(e => e.ItemNo).HasMaxLength(50);
             entity.Property(e => e.ItemPr)
                 .HasMaxLength(255)
                 .HasColumnName("ItemPR");
-            entity.Property(e => e.ItemText).HasMaxLength(255);
-            entity.Property(e => e.LineNumber).HasMaxLength(255);
-            entity.Property(e => e.LongText).HasMaxLength(255);
+            entity.Property(e => e.LineNumber).HasMaxLength(10);
             entity.Property(e => e.MaterialGroup).HasMaxLength(255);
-            entity.Property(e => e.MaterialService).HasMaxLength(255);
-            entity.Property(e => e.OrderUnit).HasMaxLength(255);
+            entity.Property(e => e.MaterialService).HasMaxLength(50);
+            entity.Property(e => e.OrderUnit).HasMaxLength(50);
             entity.Property(e => e.OurReference).HasMaxLength(255);
             entity.Property(e => e.OutlineAgreement).HasMaxLength(255);
-            entity.Property(e => e.Period).HasMaxLength(255);
+            entity.Property(e => e.Period).HasMaxLength(50);
             entity.Property(e => e.Picdept)
                 .HasMaxLength(255)
                 .HasColumnName("PICDept");
             entity.Property(e => e.Picsect)
                 .HasMaxLength(255)
                 .HasColumnName("PICSect");
-            entity.Property(e => e.Plant).HasMaxLength(255);
+            entity.Property(e => e.Plant).HasMaxLength(50);
             entity.Property(e => e.PoapprovalName)
                 .HasMaxLength(255)
                 .HasColumnName("POApprovalName");
             entity.Property(e => e.PofirstApprovalDate).HasColumnName("POFirstApprovalDate");
             entity.Property(e => e.PolastApprovalDate).HasColumnName("POLastApprovalDate");
             entity.Property(e => e.Postatus)
-                .HasMaxLength(255)
+                .HasMaxLength(50)
                 .HasColumnName("POStatus");
             entity.Property(e => e.PrfinalFirstApprovalDate).HasColumnName("PRFinalFirstApprovalDate");
             entity.Property(e => e.PrfinalLastApprovalDate).HasColumnName("PRFinalLastApprovalDate");
             entity.Property(e => e.PurchaseRequisition).HasMaxLength(255);
-            entity.Property(e => e.PurchasingDocType).HasMaxLength(255);
-            entity.Property(e => e.PurchasingDocTypeDescription).HasMaxLength(255);
-            entity.Property(e => e.PurchasingDocument).HasMaxLength(255);
-            entity.Property(e => e.PurchasingGroup).HasMaxLength(255);
-            entity.Property(e => e.ReleaseIndicator).HasMaxLength(255);
+            entity.Property(e => e.PurchasingDocType)
+                .IsRequired()
+                .HasMaxLength(10);
+            entity.Property(e => e.PurchasingDocTypeDescription).HasMaxLength(50);
+            entity.Property(e => e.PurchasingDocument)
+                .IsRequired()
+                .HasMaxLength(50);
+            entity.Property(e => e.PurchasingGroup).HasMaxLength(50);
+            entity.Property(e => e.ReleaseIndicator).HasMaxLength(50);
             entity.Property(e => e.Rfqno)
                 .HasMaxLength(255)
                 .HasColumnName("RFQNo");
-            entity.Property(e => e.ShortText).HasMaxLength(255);
-            entity.Property(e => e.SupplierCode).HasMaxLength(255);
+            entity.Property(e => e.ShortText).HasMaxLength(500);
+            entity.Property(e => e.SupplierCode).HasMaxLength(50);
             entity.Property(e => e.SupplierName).HasMaxLength(255);
-            entity.Property(e => e.TaxCode).HasMaxLength(255);
+            entity.Property(e => e.TaxCode).HasMaxLength(50);
             entity.Property(e => e.Wbselement)
                 .HasMaxLength(255)
                 .HasColumnName("WBSElement");

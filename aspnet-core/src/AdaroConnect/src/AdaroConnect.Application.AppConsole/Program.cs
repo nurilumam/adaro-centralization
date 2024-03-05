@@ -64,7 +64,7 @@ namespace AdaroConnect.Application.AppConsole
             ServiceCollection.Configure<AdaroConfigurations>(ApplicationConfiguration.GetSection("AdaroConfiguration"));
 
             ServiceCollection.AddDbContext<AdaroConnectContext>(
-                options => options.UseSqlServer(ApplicationConfiguration.GetConnectionString("Default"))
+                options => options.UseSqlServer(ApplicationConfiguration.GetConnectionString("Default"), sqlServerOptions => sqlServerOptions.CommandTimeout(1200))
             );            
 
 

@@ -22,6 +22,8 @@ namespace Adaro.Centralize.EntityFrameworkCore
 {
     public class CentralizeDbContext : AbpZeroDbContext<Tenant, Role, User, CentralizeDbContext>
     {
+        public virtual DbSet<ZMM021R> ZMM021R { get; set; }
+
         public virtual DbSet<LookupPage> LookupPages { get; set; }
 
         public virtual DbSet<TransferBudgetItem> TransferBudgetItems { get; set; }
@@ -84,10 +86,14 @@ namespace Adaro.Centralize.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<LookupPage>(l =>
+            modelBuilder.Entity<ZMM021R>(z =>
             {
-                l.HasIndex(e => new { e.TenantId });
+                z.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<LookupPage>(l =>
+                       {
+                           l.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<TransferBudgetItem>(t =>
                        {
                            t.HasIndex(e => new { e.TenantId });
