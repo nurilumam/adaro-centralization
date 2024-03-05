@@ -20,7 +20,7 @@ namespace AdaroConnect.Query
             case RfcDataTypes.DECIMAL_COMMAND_SIGN:
             case RfcDataTypes.DECIMAL_COMMAND_SIGN_TR:
             case RfcDataTypes.QUAN_DOUBLE:
-                return value.ToString();
+                return value != null ? value.ToString() : string.Empty;
 
             case RfcDataTypes.NUMERIC:
                 return string.Empty;

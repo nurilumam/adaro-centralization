@@ -8,6 +8,12 @@ using AdaroConnect.Models;
 using AdaroConnect.Application.Core.Abstracts;
 using AdaroConnect.Application.Core.Extensions;
 using AdaroConnect.Application.Core.Models;
+using AdaroConnect.Application.AppConsole.Services;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using AdaroConnect.Application.AppConsole.Entities;
+using Microsoft.EntityFrameworkCore;
+using System.IO;
+using Microsoft.Extensions.Options;
 
 namespace AdaroConnect.Application.AppConsole
 {
@@ -45,7 +51,7 @@ namespace AdaroConnect.Application.AppConsole
         #region Properties
 
         private static IServiceProvider ServiceProvider { get; set; }
-        private static IConfiguration ApplicationConfiguration { get; set; }
+        public static IConfiguration ApplicationConfiguration { get; set; }
 
         #endregion
 
@@ -55,6 +61,14 @@ namespace AdaroConnect.Application.AppConsole
         {
             ServiceCollection = new ServiceCollection();
             ServiceCollection.AddAdaroConnectSampleCore(ApplicationConfiguration);
+            ServiceCollection.Configure<AdaroConfigurations>(ApplicationConfiguration.GetSection("AdaroConfiguration"));
+
+            ServiceCollection.AddDbContext<AdaroConnectContext>(
+                options => options.UseSqlServer(ApplicationConfiguration.GetConnectionString("Default"))
+            );            
+
+
+            ServiceCollection.TryAddSingleton<ICustomReportPurchaseOrderSynch, CustomReportPurchaseOrderSynch>();
             ServiceProvider = ServiceCollection.BuildServiceProvider();
         }
 
@@ -74,7 +88,7 @@ namespace AdaroConnect.Application.AppConsole
 
             ConfigureServices();
 
-            TableGenerator.Exec();
+            //TableGenerator.Exec();
 
             try
             {
@@ -103,6 +117,10 @@ namespace AdaroConnect.Application.AppConsole
         private static async Task Menu()
         {
             ConsoleKeyInfo keyCode;
+
+            ICustomReportPurchaseOrderSynch manager = ServiceProvider.GetRequiredService<ICustomReportPurchaseOrderSynch>();
+            manager.DownloadExcel();
+
 
             do
             {
@@ -276,7 +294,7 @@ namespace AdaroConnect.Application.AppConsole
         private static async Task GetPurchaseOrder()
         {
             IPurchaseOrderManager manager = ServiceProvider.GetRequiredService<IPurchaseOrderManager>();
-            var result = await manager.GetPurchaseOrder(new SAPGeneralParameterModel());
+            var result = await manager.GetPurchaseOrder(new SAPGeneralParameterModel() { CompanyCode = "2000", DateFrom = DateTime.Now.AddMonths(-3) });
             var strObj = Newtonsoft.Json.JsonConvert.SerializeObject(result);
             System.Console.WriteLine($"Total Item {result.Count}");
         }
