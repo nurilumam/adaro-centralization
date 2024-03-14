@@ -76,9 +76,9 @@ namespace Adaro.Centralize.Web.Startup
                 options.Filters.Add(new AbpAutoValidateAntiforgeryTokenAttribute());
                 options.AddAbpHtmlSanitizer();
             })
-#if DEBUG
+                #if DEBUG
                 .AddRazorRuntimeCompilation()
-#endif
+                #endif
                 .AddNewtonsoftJson();
 
             services.AddSignalR();
@@ -175,6 +175,7 @@ namespace Adaro.Centralize.Web.Startup
             {
                 options.UseAbpRequestLocalization = false; //used below: UseAbpRequestLocalization
             });
+
 
             if (env.IsDevelopment())
             {

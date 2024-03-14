@@ -25032,6 +25032,1151 @@ export class WebLogServiceProxy {
     }
 }
 
+@Injectable()
+export class ZMM021RServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param purchasingDocumentFilter (optional) 
+     * @param purchasingDocTypeFilter (optional) 
+     * @param purchasingDocTypeDescriptionFilter (optional) 
+     * @param itemFilter (optional) 
+     * @param lineNumberFilter (optional) 
+     * @param deletionIndicatorFilter (optional) 
+     * @param maxDocumentDateFilter (optional) 
+     * @param minDocumentDateFilter (optional) 
+     * @param maxCreatedOnFilter (optional) 
+     * @param minCreatedOnFilter (optional) 
+     * @param purchaseRequisitionFilter (optional) 
+     * @param itemPRFilter (optional) 
+     * @param supplierCodeFilter (optional) 
+     * @param supplierNameFilter (optional) 
+     * @param addressFilter (optional) 
+     * @param itemNoFilter (optional) 
+     * @param materialGroupFilter (optional) 
+     * @param shortTextFilter (optional) 
+     * @param maxOrderQuantityFilter (optional) 
+     * @param minOrderQuantityFilter (optional) 
+     * @param orderUnitFilter (optional) 
+     * @param currencyFilter (optional) 
+     * @param maxDeliveryDateFilter (optional) 
+     * @param minDeliveryDateFilter (optional) 
+     * @param maxNetPriceFilter (optional) 
+     * @param minNetPriceFilter (optional) 
+     * @param maxNetOrderValueFilter (optional) 
+     * @param minNetOrderValueFilter (optional) 
+     * @param maxDemurrageFilter (optional) 
+     * @param minDemurrageFilter (optional) 
+     * @param maxGrossPriceFilter (optional) 
+     * @param minGrossPriceFilter (optional) 
+     * @param maxTotalDiscountFilter (optional) 
+     * @param minTotalDiscountFilter (optional) 
+     * @param maxFreightCostFilter (optional) 
+     * @param minFreightCostFilter (optional) 
+     * @param releaseIndicatorFilter (optional) 
+     * @param plantFilter (optional) 
+     * @param purchasingGroupFilter (optional) 
+     * @param taxCodeFilter (optional) 
+     * @param collectiveNumberFilter (optional) 
+     * @param itemCategoryFilter (optional) 
+     * @param accountAssignmentFilter (optional) 
+     * @param outlineAgreementFilter (optional) 
+     * @param rFQNoFilter (optional) 
+     * @param maxQtyPendingFilter (optional) 
+     * @param minQtyPendingFilter (optional) 
+     * @param materialServiceFilter (optional) 
+     * @param approvalStatusFilter (optional) 
+     * @param pOStatusFilter (optional) 
+     * @param periodFilter (optional) 
+     * @param commentVendorFilter (optional) 
+     * @param itemTextFilter (optional) 
+     * @param longTextFilter (optional) 
+     * @param ourReferenceFilter (optional) 
+     * @param maxPRFinalFirstApprovalDateFilter (optional) 
+     * @param minPRFinalFirstApprovalDateFilter (optional) 
+     * @param maxPRFinalLastApprovalDateFilter (optional) 
+     * @param minPRFinalLastApprovalDateFilter (optional) 
+     * @param maxPOFirstApprovalDateFilter (optional) 
+     * @param minPOFirstApprovalDateFilter (optional) 
+     * @param maxPOLastApprovalDateFilter (optional) 
+     * @param minPOLastApprovalDateFilter (optional) 
+     * @param pOApprovalNameFilter (optional) 
+     * @param buyerCodeFilter (optional) 
+     * @param buyerNameFilter (optional) 
+     * @param pICDeptFilter (optional) 
+     * @param pICSectFilter (optional) 
+     * @param fuelAllocationFilter (optional) 
+     * @param costCenterFilter (optional) 
+     * @param costCenterDescriptionFilter (optional) 
+     * @param wBSElementFilter (optional) 
+     * @param assetNoFilter (optional) 
+     * @param fundCenterFilter (optional) 
+     * @param maxCreatedDateFilter (optional) 
+     * @param minCreatedDateFilter (optional) 
+     * @param maxUpdatedDateFilter (optional) 
+     * @param minUpdatedDateFilter (optional) 
+     * @param documentIdFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | undefined, purchasingDocumentFilter: string | undefined, purchasingDocTypeFilter: string | undefined, purchasingDocTypeDescriptionFilter: string | undefined, itemFilter: string | undefined, lineNumberFilter: string | undefined, deletionIndicatorFilter: string | undefined, maxDocumentDateFilter: DateTime | undefined, minDocumentDateFilter: DateTime | undefined, maxCreatedOnFilter: DateTime | undefined, minCreatedOnFilter: DateTime | undefined, purchaseRequisitionFilter: string | undefined, itemPRFilter: string | undefined, supplierCodeFilter: string | undefined, supplierNameFilter: string | undefined, addressFilter: string | undefined, itemNoFilter: string | undefined, materialGroupFilter: string | undefined, shortTextFilter: string | undefined, maxOrderQuantityFilter: number | undefined, minOrderQuantityFilter: number | undefined, orderUnitFilter: string | undefined, currencyFilter: string | undefined, maxDeliveryDateFilter: DateTime | undefined, minDeliveryDateFilter: DateTime | undefined, maxNetPriceFilter: number | undefined, minNetPriceFilter: number | undefined, maxNetOrderValueFilter: number | undefined, minNetOrderValueFilter: number | undefined, maxDemurrageFilter: number | undefined, minDemurrageFilter: number | undefined, maxGrossPriceFilter: number | undefined, minGrossPriceFilter: number | undefined, maxTotalDiscountFilter: number | undefined, minTotalDiscountFilter: number | undefined, maxFreightCostFilter: number | undefined, minFreightCostFilter: number | undefined, releaseIndicatorFilter: string | undefined, plantFilter: string | undefined, purchasingGroupFilter: string | undefined, taxCodeFilter: string | undefined, collectiveNumberFilter: string | undefined, itemCategoryFilter: string | undefined, accountAssignmentFilter: string | undefined, outlineAgreementFilter: string | undefined, rFQNoFilter: string | undefined, maxQtyPendingFilter: number | undefined, minQtyPendingFilter: number | undefined, materialServiceFilter: string | undefined, approvalStatusFilter: string | undefined, pOStatusFilter: string | undefined, periodFilter: string | undefined, commentVendorFilter: string | undefined, itemTextFilter: string | undefined, longTextFilter: string | undefined, ourReferenceFilter: string | undefined, maxPRFinalFirstApprovalDateFilter: DateTime | undefined, minPRFinalFirstApprovalDateFilter: DateTime | undefined, maxPRFinalLastApprovalDateFilter: DateTime | undefined, minPRFinalLastApprovalDateFilter: DateTime | undefined, maxPOFirstApprovalDateFilter: DateTime | undefined, minPOFirstApprovalDateFilter: DateTime | undefined, maxPOLastApprovalDateFilter: DateTime | undefined, minPOLastApprovalDateFilter: DateTime | undefined, pOApprovalNameFilter: string | undefined, buyerCodeFilter: string | undefined, buyerNameFilter: string | undefined, pICDeptFilter: string | undefined, pICSectFilter: string | undefined, fuelAllocationFilter: string | undefined, costCenterFilter: string | undefined, costCenterDescriptionFilter: string | undefined, wBSElementFilter: string | undefined, assetNoFilter: string | undefined, fundCenterFilter: string | undefined, maxCreatedDateFilter: DateTime | undefined, minCreatedDateFilter: DateTime | undefined, maxUpdatedDateFilter: DateTime | undefined, minUpdatedDateFilter: DateTime | undefined, documentIdFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetZMM021RForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/ZMM021R/GetAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (purchasingDocumentFilter === null)
+            throw new Error("The parameter 'purchasingDocumentFilter' cannot be null.");
+        else if (purchasingDocumentFilter !== undefined)
+            url_ += "PurchasingDocumentFilter=" + encodeURIComponent("" + purchasingDocumentFilter) + "&";
+        if (purchasingDocTypeFilter === null)
+            throw new Error("The parameter 'purchasingDocTypeFilter' cannot be null.");
+        else if (purchasingDocTypeFilter !== undefined)
+            url_ += "PurchasingDocTypeFilter=" + encodeURIComponent("" + purchasingDocTypeFilter) + "&";
+        if (purchasingDocTypeDescriptionFilter === null)
+            throw new Error("The parameter 'purchasingDocTypeDescriptionFilter' cannot be null.");
+        else if (purchasingDocTypeDescriptionFilter !== undefined)
+            url_ += "PurchasingDocTypeDescriptionFilter=" + encodeURIComponent("" + purchasingDocTypeDescriptionFilter) + "&";
+        if (itemFilter === null)
+            throw new Error("The parameter 'itemFilter' cannot be null.");
+        else if (itemFilter !== undefined)
+            url_ += "ItemFilter=" + encodeURIComponent("" + itemFilter) + "&";
+        if (lineNumberFilter === null)
+            throw new Error("The parameter 'lineNumberFilter' cannot be null.");
+        else if (lineNumberFilter !== undefined)
+            url_ += "LineNumberFilter=" + encodeURIComponent("" + lineNumberFilter) + "&";
+        if (deletionIndicatorFilter === null)
+            throw new Error("The parameter 'deletionIndicatorFilter' cannot be null.");
+        else if (deletionIndicatorFilter !== undefined)
+            url_ += "DeletionIndicatorFilter=" + encodeURIComponent("" + deletionIndicatorFilter) + "&";
+        if (maxDocumentDateFilter === null)
+            throw new Error("The parameter 'maxDocumentDateFilter' cannot be null.");
+        else if (maxDocumentDateFilter !== undefined)
+            url_ += "MaxDocumentDateFilter=" + encodeURIComponent(maxDocumentDateFilter ? "" + maxDocumentDateFilter.toString() : "") + "&";
+        if (minDocumentDateFilter === null)
+            throw new Error("The parameter 'minDocumentDateFilter' cannot be null.");
+        else if (minDocumentDateFilter !== undefined)
+            url_ += "MinDocumentDateFilter=" + encodeURIComponent(minDocumentDateFilter ? "" + minDocumentDateFilter.toString() : "") + "&";
+        if (maxCreatedOnFilter === null)
+            throw new Error("The parameter 'maxCreatedOnFilter' cannot be null.");
+        else if (maxCreatedOnFilter !== undefined)
+            url_ += "MaxCreatedOnFilter=" + encodeURIComponent(maxCreatedOnFilter ? "" + maxCreatedOnFilter.toString() : "") + "&";
+        if (minCreatedOnFilter === null)
+            throw new Error("The parameter 'minCreatedOnFilter' cannot be null.");
+        else if (minCreatedOnFilter !== undefined)
+            url_ += "MinCreatedOnFilter=" + encodeURIComponent(minCreatedOnFilter ? "" + minCreatedOnFilter.toString() : "") + "&";
+        if (purchaseRequisitionFilter === null)
+            throw new Error("The parameter 'purchaseRequisitionFilter' cannot be null.");
+        else if (purchaseRequisitionFilter !== undefined)
+            url_ += "PurchaseRequisitionFilter=" + encodeURIComponent("" + purchaseRequisitionFilter) + "&";
+        if (itemPRFilter === null)
+            throw new Error("The parameter 'itemPRFilter' cannot be null.");
+        else if (itemPRFilter !== undefined)
+            url_ += "ItemPRFilter=" + encodeURIComponent("" + itemPRFilter) + "&";
+        if (supplierCodeFilter === null)
+            throw new Error("The parameter 'supplierCodeFilter' cannot be null.");
+        else if (supplierCodeFilter !== undefined)
+            url_ += "SupplierCodeFilter=" + encodeURIComponent("" + supplierCodeFilter) + "&";
+        if (supplierNameFilter === null)
+            throw new Error("The parameter 'supplierNameFilter' cannot be null.");
+        else if (supplierNameFilter !== undefined)
+            url_ += "SupplierNameFilter=" + encodeURIComponent("" + supplierNameFilter) + "&";
+        if (addressFilter === null)
+            throw new Error("The parameter 'addressFilter' cannot be null.");
+        else if (addressFilter !== undefined)
+            url_ += "AddressFilter=" + encodeURIComponent("" + addressFilter) + "&";
+        if (itemNoFilter === null)
+            throw new Error("The parameter 'itemNoFilter' cannot be null.");
+        else if (itemNoFilter !== undefined)
+            url_ += "ItemNoFilter=" + encodeURIComponent("" + itemNoFilter) + "&";
+        if (materialGroupFilter === null)
+            throw new Error("The parameter 'materialGroupFilter' cannot be null.");
+        else if (materialGroupFilter !== undefined)
+            url_ += "MaterialGroupFilter=" + encodeURIComponent("" + materialGroupFilter) + "&";
+        if (shortTextFilter === null)
+            throw new Error("The parameter 'shortTextFilter' cannot be null.");
+        else if (shortTextFilter !== undefined)
+            url_ += "ShortTextFilter=" + encodeURIComponent("" + shortTextFilter) + "&";
+        if (maxOrderQuantityFilter === null)
+            throw new Error("The parameter 'maxOrderQuantityFilter' cannot be null.");
+        else if (maxOrderQuantityFilter !== undefined)
+            url_ += "MaxOrderQuantityFilter=" + encodeURIComponent("" + maxOrderQuantityFilter) + "&";
+        if (minOrderQuantityFilter === null)
+            throw new Error("The parameter 'minOrderQuantityFilter' cannot be null.");
+        else if (minOrderQuantityFilter !== undefined)
+            url_ += "MinOrderQuantityFilter=" + encodeURIComponent("" + minOrderQuantityFilter) + "&";
+        if (orderUnitFilter === null)
+            throw new Error("The parameter 'orderUnitFilter' cannot be null.");
+        else if (orderUnitFilter !== undefined)
+            url_ += "OrderUnitFilter=" + encodeURIComponent("" + orderUnitFilter) + "&";
+        if (currencyFilter === null)
+            throw new Error("The parameter 'currencyFilter' cannot be null.");
+        else if (currencyFilter !== undefined)
+            url_ += "CurrencyFilter=" + encodeURIComponent("" + currencyFilter) + "&";
+        if (maxDeliveryDateFilter === null)
+            throw new Error("The parameter 'maxDeliveryDateFilter' cannot be null.");
+        else if (maxDeliveryDateFilter !== undefined)
+            url_ += "MaxDeliveryDateFilter=" + encodeURIComponent(maxDeliveryDateFilter ? "" + maxDeliveryDateFilter.toString() : "") + "&";
+        if (minDeliveryDateFilter === null)
+            throw new Error("The parameter 'minDeliveryDateFilter' cannot be null.");
+        else if (minDeliveryDateFilter !== undefined)
+            url_ += "MinDeliveryDateFilter=" + encodeURIComponent(minDeliveryDateFilter ? "" + minDeliveryDateFilter.toString() : "") + "&";
+        if (maxNetPriceFilter === null)
+            throw new Error("The parameter 'maxNetPriceFilter' cannot be null.");
+        else if (maxNetPriceFilter !== undefined)
+            url_ += "MaxNetPriceFilter=" + encodeURIComponent("" + maxNetPriceFilter) + "&";
+        if (minNetPriceFilter === null)
+            throw new Error("The parameter 'minNetPriceFilter' cannot be null.");
+        else if (minNetPriceFilter !== undefined)
+            url_ += "MinNetPriceFilter=" + encodeURIComponent("" + minNetPriceFilter) + "&";
+        if (maxNetOrderValueFilter === null)
+            throw new Error("The parameter 'maxNetOrderValueFilter' cannot be null.");
+        else if (maxNetOrderValueFilter !== undefined)
+            url_ += "MaxNetOrderValueFilter=" + encodeURIComponent("" + maxNetOrderValueFilter) + "&";
+        if (minNetOrderValueFilter === null)
+            throw new Error("The parameter 'minNetOrderValueFilter' cannot be null.");
+        else if (minNetOrderValueFilter !== undefined)
+            url_ += "MinNetOrderValueFilter=" + encodeURIComponent("" + minNetOrderValueFilter) + "&";
+        if (maxDemurrageFilter === null)
+            throw new Error("The parameter 'maxDemurrageFilter' cannot be null.");
+        else if (maxDemurrageFilter !== undefined)
+            url_ += "MaxDemurrageFilter=" + encodeURIComponent("" + maxDemurrageFilter) + "&";
+        if (minDemurrageFilter === null)
+            throw new Error("The parameter 'minDemurrageFilter' cannot be null.");
+        else if (minDemurrageFilter !== undefined)
+            url_ += "MinDemurrageFilter=" + encodeURIComponent("" + minDemurrageFilter) + "&";
+        if (maxGrossPriceFilter === null)
+            throw new Error("The parameter 'maxGrossPriceFilter' cannot be null.");
+        else if (maxGrossPriceFilter !== undefined)
+            url_ += "MaxGrossPriceFilter=" + encodeURIComponent("" + maxGrossPriceFilter) + "&";
+        if (minGrossPriceFilter === null)
+            throw new Error("The parameter 'minGrossPriceFilter' cannot be null.");
+        else if (minGrossPriceFilter !== undefined)
+            url_ += "MinGrossPriceFilter=" + encodeURIComponent("" + minGrossPriceFilter) + "&";
+        if (maxTotalDiscountFilter === null)
+            throw new Error("The parameter 'maxTotalDiscountFilter' cannot be null.");
+        else if (maxTotalDiscountFilter !== undefined)
+            url_ += "MaxTotalDiscountFilter=" + encodeURIComponent("" + maxTotalDiscountFilter) + "&";
+        if (minTotalDiscountFilter === null)
+            throw new Error("The parameter 'minTotalDiscountFilter' cannot be null.");
+        else if (minTotalDiscountFilter !== undefined)
+            url_ += "MinTotalDiscountFilter=" + encodeURIComponent("" + minTotalDiscountFilter) + "&";
+        if (maxFreightCostFilter === null)
+            throw new Error("The parameter 'maxFreightCostFilter' cannot be null.");
+        else if (maxFreightCostFilter !== undefined)
+            url_ += "MaxFreightCostFilter=" + encodeURIComponent("" + maxFreightCostFilter) + "&";
+        if (minFreightCostFilter === null)
+            throw new Error("The parameter 'minFreightCostFilter' cannot be null.");
+        else if (minFreightCostFilter !== undefined)
+            url_ += "MinFreightCostFilter=" + encodeURIComponent("" + minFreightCostFilter) + "&";
+        if (releaseIndicatorFilter === null)
+            throw new Error("The parameter 'releaseIndicatorFilter' cannot be null.");
+        else if (releaseIndicatorFilter !== undefined)
+            url_ += "ReleaseIndicatorFilter=" + encodeURIComponent("" + releaseIndicatorFilter) + "&";
+        if (plantFilter === null)
+            throw new Error("The parameter 'plantFilter' cannot be null.");
+        else if (plantFilter !== undefined)
+            url_ += "PlantFilter=" + encodeURIComponent("" + plantFilter) + "&";
+        if (purchasingGroupFilter === null)
+            throw new Error("The parameter 'purchasingGroupFilter' cannot be null.");
+        else if (purchasingGroupFilter !== undefined)
+            url_ += "PurchasingGroupFilter=" + encodeURIComponent("" + purchasingGroupFilter) + "&";
+        if (taxCodeFilter === null)
+            throw new Error("The parameter 'taxCodeFilter' cannot be null.");
+        else if (taxCodeFilter !== undefined)
+            url_ += "TaxCodeFilter=" + encodeURIComponent("" + taxCodeFilter) + "&";
+        if (collectiveNumberFilter === null)
+            throw new Error("The parameter 'collectiveNumberFilter' cannot be null.");
+        else if (collectiveNumberFilter !== undefined)
+            url_ += "CollectiveNumberFilter=" + encodeURIComponent("" + collectiveNumberFilter) + "&";
+        if (itemCategoryFilter === null)
+            throw new Error("The parameter 'itemCategoryFilter' cannot be null.");
+        else if (itemCategoryFilter !== undefined)
+            url_ += "ItemCategoryFilter=" + encodeURIComponent("" + itemCategoryFilter) + "&";
+        if (accountAssignmentFilter === null)
+            throw new Error("The parameter 'accountAssignmentFilter' cannot be null.");
+        else if (accountAssignmentFilter !== undefined)
+            url_ += "AccountAssignmentFilter=" + encodeURIComponent("" + accountAssignmentFilter) + "&";
+        if (outlineAgreementFilter === null)
+            throw new Error("The parameter 'outlineAgreementFilter' cannot be null.");
+        else if (outlineAgreementFilter !== undefined)
+            url_ += "OutlineAgreementFilter=" + encodeURIComponent("" + outlineAgreementFilter) + "&";
+        if (rFQNoFilter === null)
+            throw new Error("The parameter 'rFQNoFilter' cannot be null.");
+        else if (rFQNoFilter !== undefined)
+            url_ += "RFQNoFilter=" + encodeURIComponent("" + rFQNoFilter) + "&";
+        if (maxQtyPendingFilter === null)
+            throw new Error("The parameter 'maxQtyPendingFilter' cannot be null.");
+        else if (maxQtyPendingFilter !== undefined)
+            url_ += "MaxQtyPendingFilter=" + encodeURIComponent("" + maxQtyPendingFilter) + "&";
+        if (minQtyPendingFilter === null)
+            throw new Error("The parameter 'minQtyPendingFilter' cannot be null.");
+        else if (minQtyPendingFilter !== undefined)
+            url_ += "MinQtyPendingFilter=" + encodeURIComponent("" + minQtyPendingFilter) + "&";
+        if (materialServiceFilter === null)
+            throw new Error("The parameter 'materialServiceFilter' cannot be null.");
+        else if (materialServiceFilter !== undefined)
+            url_ += "MaterialServiceFilter=" + encodeURIComponent("" + materialServiceFilter) + "&";
+        if (approvalStatusFilter === null)
+            throw new Error("The parameter 'approvalStatusFilter' cannot be null.");
+        else if (approvalStatusFilter !== undefined)
+            url_ += "ApprovalStatusFilter=" + encodeURIComponent("" + approvalStatusFilter) + "&";
+        if (pOStatusFilter === null)
+            throw new Error("The parameter 'pOStatusFilter' cannot be null.");
+        else if (pOStatusFilter !== undefined)
+            url_ += "POStatusFilter=" + encodeURIComponent("" + pOStatusFilter) + "&";
+        if (periodFilter === null)
+            throw new Error("The parameter 'periodFilter' cannot be null.");
+        else if (periodFilter !== undefined)
+            url_ += "PeriodFilter=" + encodeURIComponent("" + periodFilter) + "&";
+        if (commentVendorFilter === null)
+            throw new Error("The parameter 'commentVendorFilter' cannot be null.");
+        else if (commentVendorFilter !== undefined)
+            url_ += "CommentVendorFilter=" + encodeURIComponent("" + commentVendorFilter) + "&";
+        if (itemTextFilter === null)
+            throw new Error("The parameter 'itemTextFilter' cannot be null.");
+        else if (itemTextFilter !== undefined)
+            url_ += "ItemTextFilter=" + encodeURIComponent("" + itemTextFilter) + "&";
+        if (longTextFilter === null)
+            throw new Error("The parameter 'longTextFilter' cannot be null.");
+        else if (longTextFilter !== undefined)
+            url_ += "LongTextFilter=" + encodeURIComponent("" + longTextFilter) + "&";
+        if (ourReferenceFilter === null)
+            throw new Error("The parameter 'ourReferenceFilter' cannot be null.");
+        else if (ourReferenceFilter !== undefined)
+            url_ += "OurReferenceFilter=" + encodeURIComponent("" + ourReferenceFilter) + "&";
+        if (maxPRFinalFirstApprovalDateFilter === null)
+            throw new Error("The parameter 'maxPRFinalFirstApprovalDateFilter' cannot be null.");
+        else if (maxPRFinalFirstApprovalDateFilter !== undefined)
+            url_ += "MaxPRFinalFirstApprovalDateFilter=" + encodeURIComponent(maxPRFinalFirstApprovalDateFilter ? "" + maxPRFinalFirstApprovalDateFilter.toString() : "") + "&";
+        if (minPRFinalFirstApprovalDateFilter === null)
+            throw new Error("The parameter 'minPRFinalFirstApprovalDateFilter' cannot be null.");
+        else if (minPRFinalFirstApprovalDateFilter !== undefined)
+            url_ += "MinPRFinalFirstApprovalDateFilter=" + encodeURIComponent(minPRFinalFirstApprovalDateFilter ? "" + minPRFinalFirstApprovalDateFilter.toString() : "") + "&";
+        if (maxPRFinalLastApprovalDateFilter === null)
+            throw new Error("The parameter 'maxPRFinalLastApprovalDateFilter' cannot be null.");
+        else if (maxPRFinalLastApprovalDateFilter !== undefined)
+            url_ += "MaxPRFinalLastApprovalDateFilter=" + encodeURIComponent(maxPRFinalLastApprovalDateFilter ? "" + maxPRFinalLastApprovalDateFilter.toString() : "") + "&";
+        if (minPRFinalLastApprovalDateFilter === null)
+            throw new Error("The parameter 'minPRFinalLastApprovalDateFilter' cannot be null.");
+        else if (minPRFinalLastApprovalDateFilter !== undefined)
+            url_ += "MinPRFinalLastApprovalDateFilter=" + encodeURIComponent(minPRFinalLastApprovalDateFilter ? "" + minPRFinalLastApprovalDateFilter.toString() : "") + "&";
+        if (maxPOFirstApprovalDateFilter === null)
+            throw new Error("The parameter 'maxPOFirstApprovalDateFilter' cannot be null.");
+        else if (maxPOFirstApprovalDateFilter !== undefined)
+            url_ += "MaxPOFirstApprovalDateFilter=" + encodeURIComponent(maxPOFirstApprovalDateFilter ? "" + maxPOFirstApprovalDateFilter.toString() : "") + "&";
+        if (minPOFirstApprovalDateFilter === null)
+            throw new Error("The parameter 'minPOFirstApprovalDateFilter' cannot be null.");
+        else if (minPOFirstApprovalDateFilter !== undefined)
+            url_ += "MinPOFirstApprovalDateFilter=" + encodeURIComponent(minPOFirstApprovalDateFilter ? "" + minPOFirstApprovalDateFilter.toString() : "") + "&";
+        if (maxPOLastApprovalDateFilter === null)
+            throw new Error("The parameter 'maxPOLastApprovalDateFilter' cannot be null.");
+        else if (maxPOLastApprovalDateFilter !== undefined)
+            url_ += "MaxPOLastApprovalDateFilter=" + encodeURIComponent(maxPOLastApprovalDateFilter ? "" + maxPOLastApprovalDateFilter.toString() : "") + "&";
+        if (minPOLastApprovalDateFilter === null)
+            throw new Error("The parameter 'minPOLastApprovalDateFilter' cannot be null.");
+        else if (minPOLastApprovalDateFilter !== undefined)
+            url_ += "MinPOLastApprovalDateFilter=" + encodeURIComponent(minPOLastApprovalDateFilter ? "" + minPOLastApprovalDateFilter.toString() : "") + "&";
+        if (pOApprovalNameFilter === null)
+            throw new Error("The parameter 'pOApprovalNameFilter' cannot be null.");
+        else if (pOApprovalNameFilter !== undefined)
+            url_ += "POApprovalNameFilter=" + encodeURIComponent("" + pOApprovalNameFilter) + "&";
+        if (buyerCodeFilter === null)
+            throw new Error("The parameter 'buyerCodeFilter' cannot be null.");
+        else if (buyerCodeFilter !== undefined)
+            url_ += "BuyerCodeFilter=" + encodeURIComponent("" + buyerCodeFilter) + "&";
+        if (buyerNameFilter === null)
+            throw new Error("The parameter 'buyerNameFilter' cannot be null.");
+        else if (buyerNameFilter !== undefined)
+            url_ += "BuyerNameFilter=" + encodeURIComponent("" + buyerNameFilter) + "&";
+        if (pICDeptFilter === null)
+            throw new Error("The parameter 'pICDeptFilter' cannot be null.");
+        else if (pICDeptFilter !== undefined)
+            url_ += "PICDeptFilter=" + encodeURIComponent("" + pICDeptFilter) + "&";
+        if (pICSectFilter === null)
+            throw new Error("The parameter 'pICSectFilter' cannot be null.");
+        else if (pICSectFilter !== undefined)
+            url_ += "PICSectFilter=" + encodeURIComponent("" + pICSectFilter) + "&";
+        if (fuelAllocationFilter === null)
+            throw new Error("The parameter 'fuelAllocationFilter' cannot be null.");
+        else if (fuelAllocationFilter !== undefined)
+            url_ += "FuelAllocationFilter=" + encodeURIComponent("" + fuelAllocationFilter) + "&";
+        if (costCenterFilter === null)
+            throw new Error("The parameter 'costCenterFilter' cannot be null.");
+        else if (costCenterFilter !== undefined)
+            url_ += "CostCenterFilter=" + encodeURIComponent("" + costCenterFilter) + "&";
+        if (costCenterDescriptionFilter === null)
+            throw new Error("The parameter 'costCenterDescriptionFilter' cannot be null.");
+        else if (costCenterDescriptionFilter !== undefined)
+            url_ += "CostCenterDescriptionFilter=" + encodeURIComponent("" + costCenterDescriptionFilter) + "&";
+        if (wBSElementFilter === null)
+            throw new Error("The parameter 'wBSElementFilter' cannot be null.");
+        else if (wBSElementFilter !== undefined)
+            url_ += "WBSElementFilter=" + encodeURIComponent("" + wBSElementFilter) + "&";
+        if (assetNoFilter === null)
+            throw new Error("The parameter 'assetNoFilter' cannot be null.");
+        else if (assetNoFilter !== undefined)
+            url_ += "AssetNoFilter=" + encodeURIComponent("" + assetNoFilter) + "&";
+        if (fundCenterFilter === null)
+            throw new Error("The parameter 'fundCenterFilter' cannot be null.");
+        else if (fundCenterFilter !== undefined)
+            url_ += "FundCenterFilter=" + encodeURIComponent("" + fundCenterFilter) + "&";
+        if (maxCreatedDateFilter === null)
+            throw new Error("The parameter 'maxCreatedDateFilter' cannot be null.");
+        else if (maxCreatedDateFilter !== undefined)
+            url_ += "MaxCreatedDateFilter=" + encodeURIComponent(maxCreatedDateFilter ? "" + maxCreatedDateFilter.toString() : "") + "&";
+        if (minCreatedDateFilter === null)
+            throw new Error("The parameter 'minCreatedDateFilter' cannot be null.");
+        else if (minCreatedDateFilter !== undefined)
+            url_ += "MinCreatedDateFilter=" + encodeURIComponent(minCreatedDateFilter ? "" + minCreatedDateFilter.toString() : "") + "&";
+        if (maxUpdatedDateFilter === null)
+            throw new Error("The parameter 'maxUpdatedDateFilter' cannot be null.");
+        else if (maxUpdatedDateFilter !== undefined)
+            url_ += "MaxUpdatedDateFilter=" + encodeURIComponent(maxUpdatedDateFilter ? "" + maxUpdatedDateFilter.toString() : "") + "&";
+        if (minUpdatedDateFilter === null)
+            throw new Error("The parameter 'minUpdatedDateFilter' cannot be null.");
+        else if (minUpdatedDateFilter !== undefined)
+            url_ += "MinUpdatedDateFilter=" + encodeURIComponent(minUpdatedDateFilter ? "" + minUpdatedDateFilter.toString() : "") + "&";
+        if (documentIdFilter === null)
+            throw new Error("The parameter 'documentIdFilter' cannot be null.");
+        else if (documentIdFilter !== undefined)
+            url_ += "DocumentIdFilter=" + encodeURIComponent("" + documentIdFilter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<PagedResultDtoOfGetZMM021RForViewDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<PagedResultDtoOfGetZMM021RForViewDto>;
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetZMM021RForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetZMM021RForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getZMM021RForView(id: string | undefined): Observable<GetZMM021RForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/ZMM021R/GetZMM021RForView?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetZMM021RForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetZMM021RForView(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetZMM021RForViewDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetZMM021RForViewDto>;
+        }));
+    }
+
+    protected processGetZMM021RForView(response: HttpResponseBase): Observable<GetZMM021RForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetZMM021RForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getZMM021RForEdit(id: string | undefined): Observable<GetZMM021RForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/ZMM021R/GetZMM021RForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetZMM021RForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetZMM021RForEdit(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetZMM021RForEditOutput>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetZMM021RForEditOutput>;
+        }));
+    }
+
+    protected processGetZMM021RForEdit(response: HttpResponseBase): Observable<GetZMM021RForEditOutput> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetZMM021RForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditZMM021RDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ZMM021R/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: string | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ZMM021R/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param purchasingDocumentFilter (optional) 
+     * @param purchasingDocTypeFilter (optional) 
+     * @param purchasingDocTypeDescriptionFilter (optional) 
+     * @param itemFilter (optional) 
+     * @param lineNumberFilter (optional) 
+     * @param deletionIndicatorFilter (optional) 
+     * @param maxDocumentDateFilter (optional) 
+     * @param minDocumentDateFilter (optional) 
+     * @param maxCreatedOnFilter (optional) 
+     * @param minCreatedOnFilter (optional) 
+     * @param purchaseRequisitionFilter (optional) 
+     * @param itemPRFilter (optional) 
+     * @param supplierCodeFilter (optional) 
+     * @param supplierNameFilter (optional) 
+     * @param addressFilter (optional) 
+     * @param itemNoFilter (optional) 
+     * @param materialGroupFilter (optional) 
+     * @param shortTextFilter (optional) 
+     * @param maxOrderQuantityFilter (optional) 
+     * @param minOrderQuantityFilter (optional) 
+     * @param orderUnitFilter (optional) 
+     * @param currencyFilter (optional) 
+     * @param maxDeliveryDateFilter (optional) 
+     * @param minDeliveryDateFilter (optional) 
+     * @param maxNetPriceFilter (optional) 
+     * @param minNetPriceFilter (optional) 
+     * @param maxNetOrderValueFilter (optional) 
+     * @param minNetOrderValueFilter (optional) 
+     * @param maxDemurrageFilter (optional) 
+     * @param minDemurrageFilter (optional) 
+     * @param maxGrossPriceFilter (optional) 
+     * @param minGrossPriceFilter (optional) 
+     * @param maxTotalDiscountFilter (optional) 
+     * @param minTotalDiscountFilter (optional) 
+     * @param maxFreightCostFilter (optional) 
+     * @param minFreightCostFilter (optional) 
+     * @param releaseIndicatorFilter (optional) 
+     * @param plantFilter (optional) 
+     * @param purchasingGroupFilter (optional) 
+     * @param taxCodeFilter (optional) 
+     * @param collectiveNumberFilter (optional) 
+     * @param itemCategoryFilter (optional) 
+     * @param accountAssignmentFilter (optional) 
+     * @param outlineAgreementFilter (optional) 
+     * @param rFQNoFilter (optional) 
+     * @param maxQtyPendingFilter (optional) 
+     * @param minQtyPendingFilter (optional) 
+     * @param materialServiceFilter (optional) 
+     * @param approvalStatusFilter (optional) 
+     * @param pOStatusFilter (optional) 
+     * @param periodFilter (optional) 
+     * @param commentVendorFilter (optional) 
+     * @param itemTextFilter (optional) 
+     * @param longTextFilter (optional) 
+     * @param ourReferenceFilter (optional) 
+     * @param maxPRFinalFirstApprovalDateFilter (optional) 
+     * @param minPRFinalFirstApprovalDateFilter (optional) 
+     * @param maxPRFinalLastApprovalDateFilter (optional) 
+     * @param minPRFinalLastApprovalDateFilter (optional) 
+     * @param maxPOFirstApprovalDateFilter (optional) 
+     * @param minPOFirstApprovalDateFilter (optional) 
+     * @param maxPOLastApprovalDateFilter (optional) 
+     * @param minPOLastApprovalDateFilter (optional) 
+     * @param pOApprovalNameFilter (optional) 
+     * @param buyerCodeFilter (optional) 
+     * @param buyerNameFilter (optional) 
+     * @param pICDeptFilter (optional) 
+     * @param pICSectFilter (optional) 
+     * @param fuelAllocationFilter (optional) 
+     * @param costCenterFilter (optional) 
+     * @param costCenterDescriptionFilter (optional) 
+     * @param wBSElementFilter (optional) 
+     * @param assetNoFilter (optional) 
+     * @param fundCenterFilter (optional) 
+     * @param maxCreatedDateFilter (optional) 
+     * @param minCreatedDateFilter (optional) 
+     * @param maxUpdatedDateFilter (optional) 
+     * @param minUpdatedDateFilter (optional) 
+     * @param documentIdFilter (optional) 
+     * @return Success
+     */
+    getZMM021RToExcel(filter: string | undefined, purchasingDocumentFilter: string | undefined, purchasingDocTypeFilter: string | undefined, purchasingDocTypeDescriptionFilter: string | undefined, itemFilter: string | undefined, lineNumberFilter: string | undefined, deletionIndicatorFilter: string | undefined, maxDocumentDateFilter: DateTime | undefined, minDocumentDateFilter: DateTime | undefined, maxCreatedOnFilter: DateTime | undefined, minCreatedOnFilter: DateTime | undefined, purchaseRequisitionFilter: string | undefined, itemPRFilter: string | undefined, supplierCodeFilter: string | undefined, supplierNameFilter: string | undefined, addressFilter: string | undefined, itemNoFilter: string | undefined, materialGroupFilter: string | undefined, shortTextFilter: string | undefined, maxOrderQuantityFilter: number | undefined, minOrderQuantityFilter: number | undefined, orderUnitFilter: string | undefined, currencyFilter: string | undefined, maxDeliveryDateFilter: DateTime | undefined, minDeliveryDateFilter: DateTime | undefined, maxNetPriceFilter: number | undefined, minNetPriceFilter: number | undefined, maxNetOrderValueFilter: number | undefined, minNetOrderValueFilter: number | undefined, maxDemurrageFilter: number | undefined, minDemurrageFilter: number | undefined, maxGrossPriceFilter: number | undefined, minGrossPriceFilter: number | undefined, maxTotalDiscountFilter: number | undefined, minTotalDiscountFilter: number | undefined, maxFreightCostFilter: number | undefined, minFreightCostFilter: number | undefined, releaseIndicatorFilter: string | undefined, plantFilter: string | undefined, purchasingGroupFilter: string | undefined, taxCodeFilter: string | undefined, collectiveNumberFilter: string | undefined, itemCategoryFilter: string | undefined, accountAssignmentFilter: string | undefined, outlineAgreementFilter: string | undefined, rFQNoFilter: string | undefined, maxQtyPendingFilter: number | undefined, minQtyPendingFilter: number | undefined, materialServiceFilter: string | undefined, approvalStatusFilter: string | undefined, pOStatusFilter: string | undefined, periodFilter: string | undefined, commentVendorFilter: string | undefined, itemTextFilter: string | undefined, longTextFilter: string | undefined, ourReferenceFilter: string | undefined, maxPRFinalFirstApprovalDateFilter: DateTime | undefined, minPRFinalFirstApprovalDateFilter: DateTime | undefined, maxPRFinalLastApprovalDateFilter: DateTime | undefined, minPRFinalLastApprovalDateFilter: DateTime | undefined, maxPOFirstApprovalDateFilter: DateTime | undefined, minPOFirstApprovalDateFilter: DateTime | undefined, maxPOLastApprovalDateFilter: DateTime | undefined, minPOLastApprovalDateFilter: DateTime | undefined, pOApprovalNameFilter: string | undefined, buyerCodeFilter: string | undefined, buyerNameFilter: string | undefined, pICDeptFilter: string | undefined, pICSectFilter: string | undefined, fuelAllocationFilter: string | undefined, costCenterFilter: string | undefined, costCenterDescriptionFilter: string | undefined, wBSElementFilter: string | undefined, assetNoFilter: string | undefined, fundCenterFilter: string | undefined, maxCreatedDateFilter: DateTime | undefined, minCreatedDateFilter: DateTime | undefined, maxUpdatedDateFilter: DateTime | undefined, minUpdatedDateFilter: DateTime | undefined, documentIdFilter: string | undefined): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/ZMM021R/GetZMM021RToExcel?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (purchasingDocumentFilter === null)
+            throw new Error("The parameter 'purchasingDocumentFilter' cannot be null.");
+        else if (purchasingDocumentFilter !== undefined)
+            url_ += "PurchasingDocumentFilter=" + encodeURIComponent("" + purchasingDocumentFilter) + "&";
+        if (purchasingDocTypeFilter === null)
+            throw new Error("The parameter 'purchasingDocTypeFilter' cannot be null.");
+        else if (purchasingDocTypeFilter !== undefined)
+            url_ += "PurchasingDocTypeFilter=" + encodeURIComponent("" + purchasingDocTypeFilter) + "&";
+        if (purchasingDocTypeDescriptionFilter === null)
+            throw new Error("The parameter 'purchasingDocTypeDescriptionFilter' cannot be null.");
+        else if (purchasingDocTypeDescriptionFilter !== undefined)
+            url_ += "PurchasingDocTypeDescriptionFilter=" + encodeURIComponent("" + purchasingDocTypeDescriptionFilter) + "&";
+        if (itemFilter === null)
+            throw new Error("The parameter 'itemFilter' cannot be null.");
+        else if (itemFilter !== undefined)
+            url_ += "ItemFilter=" + encodeURIComponent("" + itemFilter) + "&";
+        if (lineNumberFilter === null)
+            throw new Error("The parameter 'lineNumberFilter' cannot be null.");
+        else if (lineNumberFilter !== undefined)
+            url_ += "LineNumberFilter=" + encodeURIComponent("" + lineNumberFilter) + "&";
+        if (deletionIndicatorFilter === null)
+            throw new Error("The parameter 'deletionIndicatorFilter' cannot be null.");
+        else if (deletionIndicatorFilter !== undefined)
+            url_ += "DeletionIndicatorFilter=" + encodeURIComponent("" + deletionIndicatorFilter) + "&";
+        if (maxDocumentDateFilter === null)
+            throw new Error("The parameter 'maxDocumentDateFilter' cannot be null.");
+        else if (maxDocumentDateFilter !== undefined)
+            url_ += "MaxDocumentDateFilter=" + encodeURIComponent(maxDocumentDateFilter ? "" + maxDocumentDateFilter.toString() : "") + "&";
+        if (minDocumentDateFilter === null)
+            throw new Error("The parameter 'minDocumentDateFilter' cannot be null.");
+        else if (minDocumentDateFilter !== undefined)
+            url_ += "MinDocumentDateFilter=" + encodeURIComponent(minDocumentDateFilter ? "" + minDocumentDateFilter.toString() : "") + "&";
+        if (maxCreatedOnFilter === null)
+            throw new Error("The parameter 'maxCreatedOnFilter' cannot be null.");
+        else if (maxCreatedOnFilter !== undefined)
+            url_ += "MaxCreatedOnFilter=" + encodeURIComponent(maxCreatedOnFilter ? "" + maxCreatedOnFilter.toString() : "") + "&";
+        if (minCreatedOnFilter === null)
+            throw new Error("The parameter 'minCreatedOnFilter' cannot be null.");
+        else if (minCreatedOnFilter !== undefined)
+            url_ += "MinCreatedOnFilter=" + encodeURIComponent(minCreatedOnFilter ? "" + minCreatedOnFilter.toString() : "") + "&";
+        if (purchaseRequisitionFilter === null)
+            throw new Error("The parameter 'purchaseRequisitionFilter' cannot be null.");
+        else if (purchaseRequisitionFilter !== undefined)
+            url_ += "PurchaseRequisitionFilter=" + encodeURIComponent("" + purchaseRequisitionFilter) + "&";
+        if (itemPRFilter === null)
+            throw new Error("The parameter 'itemPRFilter' cannot be null.");
+        else if (itemPRFilter !== undefined)
+            url_ += "ItemPRFilter=" + encodeURIComponent("" + itemPRFilter) + "&";
+        if (supplierCodeFilter === null)
+            throw new Error("The parameter 'supplierCodeFilter' cannot be null.");
+        else if (supplierCodeFilter !== undefined)
+            url_ += "SupplierCodeFilter=" + encodeURIComponent("" + supplierCodeFilter) + "&";
+        if (supplierNameFilter === null)
+            throw new Error("The parameter 'supplierNameFilter' cannot be null.");
+        else if (supplierNameFilter !== undefined)
+            url_ += "SupplierNameFilter=" + encodeURIComponent("" + supplierNameFilter) + "&";
+        if (addressFilter === null)
+            throw new Error("The parameter 'addressFilter' cannot be null.");
+        else if (addressFilter !== undefined)
+            url_ += "AddressFilter=" + encodeURIComponent("" + addressFilter) + "&";
+        if (itemNoFilter === null)
+            throw new Error("The parameter 'itemNoFilter' cannot be null.");
+        else if (itemNoFilter !== undefined)
+            url_ += "ItemNoFilter=" + encodeURIComponent("" + itemNoFilter) + "&";
+        if (materialGroupFilter === null)
+            throw new Error("The parameter 'materialGroupFilter' cannot be null.");
+        else if (materialGroupFilter !== undefined)
+            url_ += "MaterialGroupFilter=" + encodeURIComponent("" + materialGroupFilter) + "&";
+        if (shortTextFilter === null)
+            throw new Error("The parameter 'shortTextFilter' cannot be null.");
+        else if (shortTextFilter !== undefined)
+            url_ += "ShortTextFilter=" + encodeURIComponent("" + shortTextFilter) + "&";
+        if (maxOrderQuantityFilter === null)
+            throw new Error("The parameter 'maxOrderQuantityFilter' cannot be null.");
+        else if (maxOrderQuantityFilter !== undefined)
+            url_ += "MaxOrderQuantityFilter=" + encodeURIComponent("" + maxOrderQuantityFilter) + "&";
+        if (minOrderQuantityFilter === null)
+            throw new Error("The parameter 'minOrderQuantityFilter' cannot be null.");
+        else if (minOrderQuantityFilter !== undefined)
+            url_ += "MinOrderQuantityFilter=" + encodeURIComponent("" + minOrderQuantityFilter) + "&";
+        if (orderUnitFilter === null)
+            throw new Error("The parameter 'orderUnitFilter' cannot be null.");
+        else if (orderUnitFilter !== undefined)
+            url_ += "OrderUnitFilter=" + encodeURIComponent("" + orderUnitFilter) + "&";
+        if (currencyFilter === null)
+            throw new Error("The parameter 'currencyFilter' cannot be null.");
+        else if (currencyFilter !== undefined)
+            url_ += "CurrencyFilter=" + encodeURIComponent("" + currencyFilter) + "&";
+        if (maxDeliveryDateFilter === null)
+            throw new Error("The parameter 'maxDeliveryDateFilter' cannot be null.");
+        else if (maxDeliveryDateFilter !== undefined)
+            url_ += "MaxDeliveryDateFilter=" + encodeURIComponent(maxDeliveryDateFilter ? "" + maxDeliveryDateFilter.toString() : "") + "&";
+        if (minDeliveryDateFilter === null)
+            throw new Error("The parameter 'minDeliveryDateFilter' cannot be null.");
+        else if (minDeliveryDateFilter !== undefined)
+            url_ += "MinDeliveryDateFilter=" + encodeURIComponent(minDeliveryDateFilter ? "" + minDeliveryDateFilter.toString() : "") + "&";
+        if (maxNetPriceFilter === null)
+            throw new Error("The parameter 'maxNetPriceFilter' cannot be null.");
+        else if (maxNetPriceFilter !== undefined)
+            url_ += "MaxNetPriceFilter=" + encodeURIComponent("" + maxNetPriceFilter) + "&";
+        if (minNetPriceFilter === null)
+            throw new Error("The parameter 'minNetPriceFilter' cannot be null.");
+        else if (minNetPriceFilter !== undefined)
+            url_ += "MinNetPriceFilter=" + encodeURIComponent("" + minNetPriceFilter) + "&";
+        if (maxNetOrderValueFilter === null)
+            throw new Error("The parameter 'maxNetOrderValueFilter' cannot be null.");
+        else if (maxNetOrderValueFilter !== undefined)
+            url_ += "MaxNetOrderValueFilter=" + encodeURIComponent("" + maxNetOrderValueFilter) + "&";
+        if (minNetOrderValueFilter === null)
+            throw new Error("The parameter 'minNetOrderValueFilter' cannot be null.");
+        else if (minNetOrderValueFilter !== undefined)
+            url_ += "MinNetOrderValueFilter=" + encodeURIComponent("" + minNetOrderValueFilter) + "&";
+        if (maxDemurrageFilter === null)
+            throw new Error("The parameter 'maxDemurrageFilter' cannot be null.");
+        else if (maxDemurrageFilter !== undefined)
+            url_ += "MaxDemurrageFilter=" + encodeURIComponent("" + maxDemurrageFilter) + "&";
+        if (minDemurrageFilter === null)
+            throw new Error("The parameter 'minDemurrageFilter' cannot be null.");
+        else if (minDemurrageFilter !== undefined)
+            url_ += "MinDemurrageFilter=" + encodeURIComponent("" + minDemurrageFilter) + "&";
+        if (maxGrossPriceFilter === null)
+            throw new Error("The parameter 'maxGrossPriceFilter' cannot be null.");
+        else if (maxGrossPriceFilter !== undefined)
+            url_ += "MaxGrossPriceFilter=" + encodeURIComponent("" + maxGrossPriceFilter) + "&";
+        if (minGrossPriceFilter === null)
+            throw new Error("The parameter 'minGrossPriceFilter' cannot be null.");
+        else if (minGrossPriceFilter !== undefined)
+            url_ += "MinGrossPriceFilter=" + encodeURIComponent("" + minGrossPriceFilter) + "&";
+        if (maxTotalDiscountFilter === null)
+            throw new Error("The parameter 'maxTotalDiscountFilter' cannot be null.");
+        else if (maxTotalDiscountFilter !== undefined)
+            url_ += "MaxTotalDiscountFilter=" + encodeURIComponent("" + maxTotalDiscountFilter) + "&";
+        if (minTotalDiscountFilter === null)
+            throw new Error("The parameter 'minTotalDiscountFilter' cannot be null.");
+        else if (minTotalDiscountFilter !== undefined)
+            url_ += "MinTotalDiscountFilter=" + encodeURIComponent("" + minTotalDiscountFilter) + "&";
+        if (maxFreightCostFilter === null)
+            throw new Error("The parameter 'maxFreightCostFilter' cannot be null.");
+        else if (maxFreightCostFilter !== undefined)
+            url_ += "MaxFreightCostFilter=" + encodeURIComponent("" + maxFreightCostFilter) + "&";
+        if (minFreightCostFilter === null)
+            throw new Error("The parameter 'minFreightCostFilter' cannot be null.");
+        else if (minFreightCostFilter !== undefined)
+            url_ += "MinFreightCostFilter=" + encodeURIComponent("" + minFreightCostFilter) + "&";
+        if (releaseIndicatorFilter === null)
+            throw new Error("The parameter 'releaseIndicatorFilter' cannot be null.");
+        else if (releaseIndicatorFilter !== undefined)
+            url_ += "ReleaseIndicatorFilter=" + encodeURIComponent("" + releaseIndicatorFilter) + "&";
+        if (plantFilter === null)
+            throw new Error("The parameter 'plantFilter' cannot be null.");
+        else if (plantFilter !== undefined)
+            url_ += "PlantFilter=" + encodeURIComponent("" + plantFilter) + "&";
+        if (purchasingGroupFilter === null)
+            throw new Error("The parameter 'purchasingGroupFilter' cannot be null.");
+        else if (purchasingGroupFilter !== undefined)
+            url_ += "PurchasingGroupFilter=" + encodeURIComponent("" + purchasingGroupFilter) + "&";
+        if (taxCodeFilter === null)
+            throw new Error("The parameter 'taxCodeFilter' cannot be null.");
+        else if (taxCodeFilter !== undefined)
+            url_ += "TaxCodeFilter=" + encodeURIComponent("" + taxCodeFilter) + "&";
+        if (collectiveNumberFilter === null)
+            throw new Error("The parameter 'collectiveNumberFilter' cannot be null.");
+        else if (collectiveNumberFilter !== undefined)
+            url_ += "CollectiveNumberFilter=" + encodeURIComponent("" + collectiveNumberFilter) + "&";
+        if (itemCategoryFilter === null)
+            throw new Error("The parameter 'itemCategoryFilter' cannot be null.");
+        else if (itemCategoryFilter !== undefined)
+            url_ += "ItemCategoryFilter=" + encodeURIComponent("" + itemCategoryFilter) + "&";
+        if (accountAssignmentFilter === null)
+            throw new Error("The parameter 'accountAssignmentFilter' cannot be null.");
+        else if (accountAssignmentFilter !== undefined)
+            url_ += "AccountAssignmentFilter=" + encodeURIComponent("" + accountAssignmentFilter) + "&";
+        if (outlineAgreementFilter === null)
+            throw new Error("The parameter 'outlineAgreementFilter' cannot be null.");
+        else if (outlineAgreementFilter !== undefined)
+            url_ += "OutlineAgreementFilter=" + encodeURIComponent("" + outlineAgreementFilter) + "&";
+        if (rFQNoFilter === null)
+            throw new Error("The parameter 'rFQNoFilter' cannot be null.");
+        else if (rFQNoFilter !== undefined)
+            url_ += "RFQNoFilter=" + encodeURIComponent("" + rFQNoFilter) + "&";
+        if (maxQtyPendingFilter === null)
+            throw new Error("The parameter 'maxQtyPendingFilter' cannot be null.");
+        else if (maxQtyPendingFilter !== undefined)
+            url_ += "MaxQtyPendingFilter=" + encodeURIComponent("" + maxQtyPendingFilter) + "&";
+        if (minQtyPendingFilter === null)
+            throw new Error("The parameter 'minQtyPendingFilter' cannot be null.");
+        else if (minQtyPendingFilter !== undefined)
+            url_ += "MinQtyPendingFilter=" + encodeURIComponent("" + minQtyPendingFilter) + "&";
+        if (materialServiceFilter === null)
+            throw new Error("The parameter 'materialServiceFilter' cannot be null.");
+        else if (materialServiceFilter !== undefined)
+            url_ += "MaterialServiceFilter=" + encodeURIComponent("" + materialServiceFilter) + "&";
+        if (approvalStatusFilter === null)
+            throw new Error("The parameter 'approvalStatusFilter' cannot be null.");
+        else if (approvalStatusFilter !== undefined)
+            url_ += "ApprovalStatusFilter=" + encodeURIComponent("" + approvalStatusFilter) + "&";
+        if (pOStatusFilter === null)
+            throw new Error("The parameter 'pOStatusFilter' cannot be null.");
+        else if (pOStatusFilter !== undefined)
+            url_ += "POStatusFilter=" + encodeURIComponent("" + pOStatusFilter) + "&";
+        if (periodFilter === null)
+            throw new Error("The parameter 'periodFilter' cannot be null.");
+        else if (periodFilter !== undefined)
+            url_ += "PeriodFilter=" + encodeURIComponent("" + periodFilter) + "&";
+        if (commentVendorFilter === null)
+            throw new Error("The parameter 'commentVendorFilter' cannot be null.");
+        else if (commentVendorFilter !== undefined)
+            url_ += "CommentVendorFilter=" + encodeURIComponent("" + commentVendorFilter) + "&";
+        if (itemTextFilter === null)
+            throw new Error("The parameter 'itemTextFilter' cannot be null.");
+        else if (itemTextFilter !== undefined)
+            url_ += "ItemTextFilter=" + encodeURIComponent("" + itemTextFilter) + "&";
+        if (longTextFilter === null)
+            throw new Error("The parameter 'longTextFilter' cannot be null.");
+        else if (longTextFilter !== undefined)
+            url_ += "LongTextFilter=" + encodeURIComponent("" + longTextFilter) + "&";
+        if (ourReferenceFilter === null)
+            throw new Error("The parameter 'ourReferenceFilter' cannot be null.");
+        else if (ourReferenceFilter !== undefined)
+            url_ += "OurReferenceFilter=" + encodeURIComponent("" + ourReferenceFilter) + "&";
+        if (maxPRFinalFirstApprovalDateFilter === null)
+            throw new Error("The parameter 'maxPRFinalFirstApprovalDateFilter' cannot be null.");
+        else if (maxPRFinalFirstApprovalDateFilter !== undefined)
+            url_ += "MaxPRFinalFirstApprovalDateFilter=" + encodeURIComponent(maxPRFinalFirstApprovalDateFilter ? "" + maxPRFinalFirstApprovalDateFilter.toString() : "") + "&";
+        if (minPRFinalFirstApprovalDateFilter === null)
+            throw new Error("The parameter 'minPRFinalFirstApprovalDateFilter' cannot be null.");
+        else if (minPRFinalFirstApprovalDateFilter !== undefined)
+            url_ += "MinPRFinalFirstApprovalDateFilter=" + encodeURIComponent(minPRFinalFirstApprovalDateFilter ? "" + minPRFinalFirstApprovalDateFilter.toString() : "") + "&";
+        if (maxPRFinalLastApprovalDateFilter === null)
+            throw new Error("The parameter 'maxPRFinalLastApprovalDateFilter' cannot be null.");
+        else if (maxPRFinalLastApprovalDateFilter !== undefined)
+            url_ += "MaxPRFinalLastApprovalDateFilter=" + encodeURIComponent(maxPRFinalLastApprovalDateFilter ? "" + maxPRFinalLastApprovalDateFilter.toString() : "") + "&";
+        if (minPRFinalLastApprovalDateFilter === null)
+            throw new Error("The parameter 'minPRFinalLastApprovalDateFilter' cannot be null.");
+        else if (minPRFinalLastApprovalDateFilter !== undefined)
+            url_ += "MinPRFinalLastApprovalDateFilter=" + encodeURIComponent(minPRFinalLastApprovalDateFilter ? "" + minPRFinalLastApprovalDateFilter.toString() : "") + "&";
+        if (maxPOFirstApprovalDateFilter === null)
+            throw new Error("The parameter 'maxPOFirstApprovalDateFilter' cannot be null.");
+        else if (maxPOFirstApprovalDateFilter !== undefined)
+            url_ += "MaxPOFirstApprovalDateFilter=" + encodeURIComponent(maxPOFirstApprovalDateFilter ? "" + maxPOFirstApprovalDateFilter.toString() : "") + "&";
+        if (minPOFirstApprovalDateFilter === null)
+            throw new Error("The parameter 'minPOFirstApprovalDateFilter' cannot be null.");
+        else if (minPOFirstApprovalDateFilter !== undefined)
+            url_ += "MinPOFirstApprovalDateFilter=" + encodeURIComponent(minPOFirstApprovalDateFilter ? "" + minPOFirstApprovalDateFilter.toString() : "") + "&";
+        if (maxPOLastApprovalDateFilter === null)
+            throw new Error("The parameter 'maxPOLastApprovalDateFilter' cannot be null.");
+        else if (maxPOLastApprovalDateFilter !== undefined)
+            url_ += "MaxPOLastApprovalDateFilter=" + encodeURIComponent(maxPOLastApprovalDateFilter ? "" + maxPOLastApprovalDateFilter.toString() : "") + "&";
+        if (minPOLastApprovalDateFilter === null)
+            throw new Error("The parameter 'minPOLastApprovalDateFilter' cannot be null.");
+        else if (minPOLastApprovalDateFilter !== undefined)
+            url_ += "MinPOLastApprovalDateFilter=" + encodeURIComponent(minPOLastApprovalDateFilter ? "" + minPOLastApprovalDateFilter.toString() : "") + "&";
+        if (pOApprovalNameFilter === null)
+            throw new Error("The parameter 'pOApprovalNameFilter' cannot be null.");
+        else if (pOApprovalNameFilter !== undefined)
+            url_ += "POApprovalNameFilter=" + encodeURIComponent("" + pOApprovalNameFilter) + "&";
+        if (buyerCodeFilter === null)
+            throw new Error("The parameter 'buyerCodeFilter' cannot be null.");
+        else if (buyerCodeFilter !== undefined)
+            url_ += "BuyerCodeFilter=" + encodeURIComponent("" + buyerCodeFilter) + "&";
+        if (buyerNameFilter === null)
+            throw new Error("The parameter 'buyerNameFilter' cannot be null.");
+        else if (buyerNameFilter !== undefined)
+            url_ += "BuyerNameFilter=" + encodeURIComponent("" + buyerNameFilter) + "&";
+        if (pICDeptFilter === null)
+            throw new Error("The parameter 'pICDeptFilter' cannot be null.");
+        else if (pICDeptFilter !== undefined)
+            url_ += "PICDeptFilter=" + encodeURIComponent("" + pICDeptFilter) + "&";
+        if (pICSectFilter === null)
+            throw new Error("The parameter 'pICSectFilter' cannot be null.");
+        else if (pICSectFilter !== undefined)
+            url_ += "PICSectFilter=" + encodeURIComponent("" + pICSectFilter) + "&";
+        if (fuelAllocationFilter === null)
+            throw new Error("The parameter 'fuelAllocationFilter' cannot be null.");
+        else if (fuelAllocationFilter !== undefined)
+            url_ += "FuelAllocationFilter=" + encodeURIComponent("" + fuelAllocationFilter) + "&";
+        if (costCenterFilter === null)
+            throw new Error("The parameter 'costCenterFilter' cannot be null.");
+        else if (costCenterFilter !== undefined)
+            url_ += "CostCenterFilter=" + encodeURIComponent("" + costCenterFilter) + "&";
+        if (costCenterDescriptionFilter === null)
+            throw new Error("The parameter 'costCenterDescriptionFilter' cannot be null.");
+        else if (costCenterDescriptionFilter !== undefined)
+            url_ += "CostCenterDescriptionFilter=" + encodeURIComponent("" + costCenterDescriptionFilter) + "&";
+        if (wBSElementFilter === null)
+            throw new Error("The parameter 'wBSElementFilter' cannot be null.");
+        else if (wBSElementFilter !== undefined)
+            url_ += "WBSElementFilter=" + encodeURIComponent("" + wBSElementFilter) + "&";
+        if (assetNoFilter === null)
+            throw new Error("The parameter 'assetNoFilter' cannot be null.");
+        else if (assetNoFilter !== undefined)
+            url_ += "AssetNoFilter=" + encodeURIComponent("" + assetNoFilter) + "&";
+        if (fundCenterFilter === null)
+            throw new Error("The parameter 'fundCenterFilter' cannot be null.");
+        else if (fundCenterFilter !== undefined)
+            url_ += "FundCenterFilter=" + encodeURIComponent("" + fundCenterFilter) + "&";
+        if (maxCreatedDateFilter === null)
+            throw new Error("The parameter 'maxCreatedDateFilter' cannot be null.");
+        else if (maxCreatedDateFilter !== undefined)
+            url_ += "MaxCreatedDateFilter=" + encodeURIComponent(maxCreatedDateFilter ? "" + maxCreatedDateFilter.toString() : "") + "&";
+        if (minCreatedDateFilter === null)
+            throw new Error("The parameter 'minCreatedDateFilter' cannot be null.");
+        else if (minCreatedDateFilter !== undefined)
+            url_ += "MinCreatedDateFilter=" + encodeURIComponent(minCreatedDateFilter ? "" + minCreatedDateFilter.toString() : "") + "&";
+        if (maxUpdatedDateFilter === null)
+            throw new Error("The parameter 'maxUpdatedDateFilter' cannot be null.");
+        else if (maxUpdatedDateFilter !== undefined)
+            url_ += "MaxUpdatedDateFilter=" + encodeURIComponent(maxUpdatedDateFilter ? "" + maxUpdatedDateFilter.toString() : "") + "&";
+        if (minUpdatedDateFilter === null)
+            throw new Error("The parameter 'minUpdatedDateFilter' cannot be null.");
+        else if (minUpdatedDateFilter !== undefined)
+            url_ += "MinUpdatedDateFilter=" + encodeURIComponent(minUpdatedDateFilter ? "" + minUpdatedDateFilter.toString() : "") + "&";
+        if (documentIdFilter === null)
+            throw new Error("The parameter 'documentIdFilter' cannot be null.");
+        else if (documentIdFilter !== undefined)
+            url_ += "DocumentIdFilter=" + encodeURIComponent("" + documentIdFilter) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetZMM021RToExcel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetZMM021RToExcel(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<FileDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<FileDto>;
+        }));
+    }
+
+    protected processGetZMM021RToExcel(response: HttpResponseBase): Observable<FileDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FileDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
 export enum AbpLoginResultType {
     Success = 1,
     InvalidUserNameOrEmailAddress = 2,
@@ -28103,6 +29248,290 @@ export interface ICreateOrEditUNSPSCDto {
     description: string | undefined;
     accountCode: string | undefined;
     descriptionId: string | undefined;
+    id: string | undefined;
+}
+
+export class CreateOrEditZMM021RDto implements ICreateOrEditZMM021RDto {
+    purchasingDocument!: string;
+    purchasingDocType!: string;
+    purchasingDocTypeDescription!: string | undefined;
+    item!: string;
+    lineNumber!: string | undefined;
+    deletionIndicator!: string | undefined;
+    documentDate!: DateTime;
+    createdOn!: DateTime;
+    purchaseRequisition!: string | undefined;
+    itemPR!: string | undefined;
+    supplierCode!: string | undefined;
+    supplierName!: string | undefined;
+    address!: string | undefined;
+    itemNo!: string | undefined;
+    materialGroup!: string | undefined;
+    shortText!: string | undefined;
+    orderQuantity!: number | undefined;
+    orderUnit!: string | undefined;
+    currency!: string | undefined;
+    deliveryDate!: DateTime | undefined;
+    netPrice!: number | undefined;
+    netOrderValue!: number | undefined;
+    demurrage!: number | undefined;
+    grossPrice!: number | undefined;
+    totalDiscount!: number | undefined;
+    freightCost!: number | undefined;
+    releaseIndicator!: string | undefined;
+    plant!: string | undefined;
+    purchasingGroup!: string | undefined;
+    taxCode!: string | undefined;
+    collectiveNumber!: string | undefined;
+    itemCategory!: string | undefined;
+    accountAssignment!: string | undefined;
+    outlineAgreement!: string | undefined;
+    rfqNo!: string | undefined;
+    qtyPending!: number | undefined;
+    materialService!: string | undefined;
+    approvalStatus!: string | undefined;
+    poStatus!: string | undefined;
+    period!: string | undefined;
+    commentVendor!: string | undefined;
+    itemText!: string | undefined;
+    longText!: string | undefined;
+    ourReference!: string | undefined;
+    prFinalFirstApprovalDate!: DateTime | undefined;
+    prFinalLastApprovalDate!: DateTime | undefined;
+    poFirstApprovalDate!: DateTime | undefined;
+    poLastApprovalDate!: DateTime | undefined;
+    poApprovalName!: string | undefined;
+    buyerCode!: string | undefined;
+    buyerName!: string | undefined;
+    picDept!: string | undefined;
+    picSect!: string | undefined;
+    fuelAllocation!: string | undefined;
+    costCenter!: string | undefined;
+    costCenterDescription!: string | undefined;
+    wbsElement!: string | undefined;
+    assetNo!: string | undefined;
+    fundCenter!: string | undefined;
+    createdDate!: DateTime;
+    updatedDate!: DateTime;
+    documentId!: string;
+    id!: string | undefined;
+
+    constructor(data?: ICreateOrEditZMM021RDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.purchasingDocument = _data["purchasingDocument"];
+            this.purchasingDocType = _data["purchasingDocType"];
+            this.purchasingDocTypeDescription = _data["purchasingDocTypeDescription"];
+            this.item = _data["item"];
+            this.lineNumber = _data["lineNumber"];
+            this.deletionIndicator = _data["deletionIndicator"];
+            this.documentDate = _data["documentDate"] ? DateTime.fromISO(_data["documentDate"].toString()) : <any>undefined;
+            this.createdOn = _data["createdOn"] ? DateTime.fromISO(_data["createdOn"].toString()) : <any>undefined;
+            this.purchaseRequisition = _data["purchaseRequisition"];
+            this.itemPR = _data["itemPR"];
+            this.supplierCode = _data["supplierCode"];
+            this.supplierName = _data["supplierName"];
+            this.address = _data["address"];
+            this.itemNo = _data["itemNo"];
+            this.materialGroup = _data["materialGroup"];
+            this.shortText = _data["shortText"];
+            this.orderQuantity = _data["orderQuantity"];
+            this.orderUnit = _data["orderUnit"];
+            this.currency = _data["currency"];
+            this.deliveryDate = _data["deliveryDate"] ? DateTime.fromISO(_data["deliveryDate"].toString()) : <any>undefined;
+            this.netPrice = _data["netPrice"];
+            this.netOrderValue = _data["netOrderValue"];
+            this.demurrage = _data["demurrage"];
+            this.grossPrice = _data["grossPrice"];
+            this.totalDiscount = _data["totalDiscount"];
+            this.freightCost = _data["freightCost"];
+            this.releaseIndicator = _data["releaseIndicator"];
+            this.plant = _data["plant"];
+            this.purchasingGroup = _data["purchasingGroup"];
+            this.taxCode = _data["taxCode"];
+            this.collectiveNumber = _data["collectiveNumber"];
+            this.itemCategory = _data["itemCategory"];
+            this.accountAssignment = _data["accountAssignment"];
+            this.outlineAgreement = _data["outlineAgreement"];
+            this.rfqNo = _data["rfqNo"];
+            this.qtyPending = _data["qtyPending"];
+            this.materialService = _data["materialService"];
+            this.approvalStatus = _data["approvalStatus"];
+            this.poStatus = _data["poStatus"];
+            this.period = _data["period"];
+            this.commentVendor = _data["commentVendor"];
+            this.itemText = _data["itemText"];
+            this.longText = _data["longText"];
+            this.ourReference = _data["ourReference"];
+            this.prFinalFirstApprovalDate = _data["prFinalFirstApprovalDate"] ? DateTime.fromISO(_data["prFinalFirstApprovalDate"].toString()) : <any>undefined;
+            this.prFinalLastApprovalDate = _data["prFinalLastApprovalDate"] ? DateTime.fromISO(_data["prFinalLastApprovalDate"].toString()) : <any>undefined;
+            this.poFirstApprovalDate = _data["poFirstApprovalDate"] ? DateTime.fromISO(_data["poFirstApprovalDate"].toString()) : <any>undefined;
+            this.poLastApprovalDate = _data["poLastApprovalDate"] ? DateTime.fromISO(_data["poLastApprovalDate"].toString()) : <any>undefined;
+            this.poApprovalName = _data["poApprovalName"];
+            this.buyerCode = _data["buyerCode"];
+            this.buyerName = _data["buyerName"];
+            this.picDept = _data["picDept"];
+            this.picSect = _data["picSect"];
+            this.fuelAllocation = _data["fuelAllocation"];
+            this.costCenter = _data["costCenter"];
+            this.costCenterDescription = _data["costCenterDescription"];
+            this.wbsElement = _data["wbsElement"];
+            this.assetNo = _data["assetNo"];
+            this.fundCenter = _data["fundCenter"];
+            this.createdDate = _data["createdDate"] ? DateTime.fromISO(_data["createdDate"].toString()) : <any>undefined;
+            this.updatedDate = _data["updatedDate"] ? DateTime.fromISO(_data["updatedDate"].toString()) : <any>undefined;
+            this.documentId = _data["documentId"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditZMM021RDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditZMM021RDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["purchasingDocument"] = this.purchasingDocument;
+        data["purchasingDocType"] = this.purchasingDocType;
+        data["purchasingDocTypeDescription"] = this.purchasingDocTypeDescription;
+        data["item"] = this.item;
+        data["lineNumber"] = this.lineNumber;
+        data["deletionIndicator"] = this.deletionIndicator;
+        data["documentDate"] = this.documentDate ? this.documentDate.toString() : <any>undefined;
+        data["createdOn"] = this.createdOn ? this.createdOn.toString() : <any>undefined;
+        data["purchaseRequisition"] = this.purchaseRequisition;
+        data["itemPR"] = this.itemPR;
+        data["supplierCode"] = this.supplierCode;
+        data["supplierName"] = this.supplierName;
+        data["address"] = this.address;
+        data["itemNo"] = this.itemNo;
+        data["materialGroup"] = this.materialGroup;
+        data["shortText"] = this.shortText;
+        data["orderQuantity"] = this.orderQuantity;
+        data["orderUnit"] = this.orderUnit;
+        data["currency"] = this.currency;
+        data["deliveryDate"] = this.deliveryDate ? this.deliveryDate.toString() : <any>undefined;
+        data["netPrice"] = this.netPrice;
+        data["netOrderValue"] = this.netOrderValue;
+        data["demurrage"] = this.demurrage;
+        data["grossPrice"] = this.grossPrice;
+        data["totalDiscount"] = this.totalDiscount;
+        data["freightCost"] = this.freightCost;
+        data["releaseIndicator"] = this.releaseIndicator;
+        data["plant"] = this.plant;
+        data["purchasingGroup"] = this.purchasingGroup;
+        data["taxCode"] = this.taxCode;
+        data["collectiveNumber"] = this.collectiveNumber;
+        data["itemCategory"] = this.itemCategory;
+        data["accountAssignment"] = this.accountAssignment;
+        data["outlineAgreement"] = this.outlineAgreement;
+        data["rfqNo"] = this.rfqNo;
+        data["qtyPending"] = this.qtyPending;
+        data["materialService"] = this.materialService;
+        data["approvalStatus"] = this.approvalStatus;
+        data["poStatus"] = this.poStatus;
+        data["period"] = this.period;
+        data["commentVendor"] = this.commentVendor;
+        data["itemText"] = this.itemText;
+        data["longText"] = this.longText;
+        data["ourReference"] = this.ourReference;
+        data["prFinalFirstApprovalDate"] = this.prFinalFirstApprovalDate ? this.prFinalFirstApprovalDate.toString() : <any>undefined;
+        data["prFinalLastApprovalDate"] = this.prFinalLastApprovalDate ? this.prFinalLastApprovalDate.toString() : <any>undefined;
+        data["poFirstApprovalDate"] = this.poFirstApprovalDate ? this.poFirstApprovalDate.toString() : <any>undefined;
+        data["poLastApprovalDate"] = this.poLastApprovalDate ? this.poLastApprovalDate.toString() : <any>undefined;
+        data["poApprovalName"] = this.poApprovalName;
+        data["buyerCode"] = this.buyerCode;
+        data["buyerName"] = this.buyerName;
+        data["picDept"] = this.picDept;
+        data["picSect"] = this.picSect;
+        data["fuelAllocation"] = this.fuelAllocation;
+        data["costCenter"] = this.costCenter;
+        data["costCenterDescription"] = this.costCenterDescription;
+        data["wbsElement"] = this.wbsElement;
+        data["assetNo"] = this.assetNo;
+        data["fundCenter"] = this.fundCenter;
+        data["createdDate"] = this.createdDate ? this.createdDate.toString() : <any>undefined;
+        data["updatedDate"] = this.updatedDate ? this.updatedDate.toString() : <any>undefined;
+        data["documentId"] = this.documentId;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface ICreateOrEditZMM021RDto {
+    purchasingDocument: string;
+    purchasingDocType: string;
+    purchasingDocTypeDescription: string | undefined;
+    item: string;
+    lineNumber: string | undefined;
+    deletionIndicator: string | undefined;
+    documentDate: DateTime;
+    createdOn: DateTime;
+    purchaseRequisition: string | undefined;
+    itemPR: string | undefined;
+    supplierCode: string | undefined;
+    supplierName: string | undefined;
+    address: string | undefined;
+    itemNo: string | undefined;
+    materialGroup: string | undefined;
+    shortText: string | undefined;
+    orderQuantity: number | undefined;
+    orderUnit: string | undefined;
+    currency: string | undefined;
+    deliveryDate: DateTime | undefined;
+    netPrice: number | undefined;
+    netOrderValue: number | undefined;
+    demurrage: number | undefined;
+    grossPrice: number | undefined;
+    totalDiscount: number | undefined;
+    freightCost: number | undefined;
+    releaseIndicator: string | undefined;
+    plant: string | undefined;
+    purchasingGroup: string | undefined;
+    taxCode: string | undefined;
+    collectiveNumber: string | undefined;
+    itemCategory: string | undefined;
+    accountAssignment: string | undefined;
+    outlineAgreement: string | undefined;
+    rfqNo: string | undefined;
+    qtyPending: number | undefined;
+    materialService: string | undefined;
+    approvalStatus: string | undefined;
+    poStatus: string | undefined;
+    period: string | undefined;
+    commentVendor: string | undefined;
+    itemText: string | undefined;
+    longText: string | undefined;
+    ourReference: string | undefined;
+    prFinalFirstApprovalDate: DateTime | undefined;
+    prFinalLastApprovalDate: DateTime | undefined;
+    poFirstApprovalDate: DateTime | undefined;
+    poLastApprovalDate: DateTime | undefined;
+    poApprovalName: string | undefined;
+    buyerCode: string | undefined;
+    buyerName: string | undefined;
+    picDept: string | undefined;
+    picSect: string | undefined;
+    fuelAllocation: string | undefined;
+    costCenter: string | undefined;
+    costCenterDescription: string | undefined;
+    wbsElement: string | undefined;
+    assetNo: string | undefined;
+    fundCenter: string | undefined;
+    createdDate: DateTime;
+    updatedDate: DateTime;
+    documentId: string;
     id: string | undefined;
 }
 
@@ -34699,6 +36128,78 @@ export interface IGetUsersInput {
     skipCount: number;
 }
 
+export class GetZMM021RForEditOutput implements IGetZMM021RForEditOutput {
+    zmM021R!: CreateOrEditZMM021RDto;
+
+    constructor(data?: IGetZMM021RForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.zmM021R = _data["zmM021R"] ? CreateOrEditZMM021RDto.fromJS(_data["zmM021R"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetZMM021RForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetZMM021RForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["zmM021R"] = this.zmM021R ? this.zmM021R.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+export interface IGetZMM021RForEditOutput {
+    zmM021R: CreateOrEditZMM021RDto;
+}
+
+export class GetZMM021RForViewDto implements IGetZMM021RForViewDto {
+    zmM021R!: ZMM021RDto;
+
+    constructor(data?: IGetZMM021RForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.zmM021R = _data["zmM021R"] ? ZMM021RDto.fromJS(_data["zmM021R"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetZMM021RForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetZMM021RForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["zmM021R"] = this.zmM021R ? this.zmM021R.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+export interface IGetZMM021RForViewDto {
+    zmM021R: ZMM021RDto;
+}
+
 export class GoogleExternalLoginProviderSettings implements IGoogleExternalLoginProviderSettings {
     clientId!: string | undefined;
     clientSecret!: string | undefined;
@@ -39038,6 +40539,54 @@ export class PagedResultDtoOfGetUNSPSCForViewDto implements IPagedResultDtoOfGet
 export interface IPagedResultDtoOfGetUNSPSCForViewDto {
     totalCount: number;
     items: GetUNSPSCForViewDto[] | undefined;
+}
+
+export class PagedResultDtoOfGetZMM021RForViewDto implements IPagedResultDtoOfGetZMM021RForViewDto {
+    totalCount!: number;
+    items!: GetZMM021RForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetZMM021RForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetZMM021RForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetZMM021RForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetZMM021RForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IPagedResultDtoOfGetZMM021RForViewDto {
+    totalCount: number;
+    items: GetZMM021RForViewDto[] | undefined;
 }
 
 export class PagedResultDtoOfLanguageTextListDto implements IPagedResultDtoOfLanguageTextListDto {
@@ -45449,6 +46998,286 @@ export interface IWsFederationExternalLoginProviderSettings {
     metaDataAddress: string | undefined;
     wtrealm: string | undefined;
     authority: string | undefined;
+}
+
+export class ZMM021RDto implements IZMM021RDto {
+    purchasingDocument!: string | undefined;
+    purchasingDocType!: string | undefined;
+    purchasingDocTypeDescription!: string | undefined;
+    item!: string | undefined;
+    lineNumber!: string | undefined;
+    deletionIndicator!: string | undefined;
+    documentDate!: DateTime;
+    createdOn!: DateTime;
+    purchaseRequisition!: string | undefined;
+    itemPR!: string | undefined;
+    supplierCode!: string | undefined;
+    supplierName!: string | undefined;
+    address!: string | undefined;
+    itemNo!: string | undefined;
+    materialGroup!: string | undefined;
+    shortText!: string | undefined;
+    orderQuantity!: number | undefined;
+    orderUnit!: string | undefined;
+    currency!: string | undefined;
+    deliveryDate!: DateTime | undefined;
+    netPrice!: number | undefined;
+    netOrderValue!: number | undefined;
+    demurrage!: number | undefined;
+    grossPrice!: number | undefined;
+    totalDiscount!: number | undefined;
+    freightCost!: number | undefined;
+    releaseIndicator!: string | undefined;
+    plant!: string | undefined;
+    purchasingGroup!: string | undefined;
+    taxCode!: string | undefined;
+    collectiveNumber!: string | undefined;
+    itemCategory!: string | undefined;
+    accountAssignment!: string | undefined;
+    outlineAgreement!: string | undefined;
+    rfqNo!: string | undefined;
+    qtyPending!: number | undefined;
+    materialService!: string | undefined;
+    approvalStatus!: string | undefined;
+    poStatus!: string | undefined;
+    period!: string | undefined;
+    commentVendor!: string | undefined;
+    itemText!: string | undefined;
+    longText!: string | undefined;
+    ourReference!: string | undefined;
+    prFinalFirstApprovalDate!: DateTime | undefined;
+    prFinalLastApprovalDate!: DateTime | undefined;
+    poFirstApprovalDate!: DateTime | undefined;
+    poLastApprovalDate!: DateTime | undefined;
+    poApprovalName!: string | undefined;
+    buyerCode!: string | undefined;
+    buyerName!: string | undefined;
+    picDept!: string | undefined;
+    picSect!: string | undefined;
+    fuelAllocation!: string | undefined;
+    costCenter!: string | undefined;
+    costCenterDescription!: string | undefined;
+    wbsElement!: string | undefined;
+    assetNo!: string | undefined;
+    fundCenter!: string | undefined;
+    createdDate!: DateTime;
+    updatedDate!: DateTime;
+    id!: string;
+
+    constructor(data?: IZMM021RDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.purchasingDocument = _data["purchasingDocument"];
+            this.purchasingDocType = _data["purchasingDocType"];
+            this.purchasingDocTypeDescription = _data["purchasingDocTypeDescription"];
+            this.item = _data["item"];
+            this.lineNumber = _data["lineNumber"];
+            this.deletionIndicator = _data["deletionIndicator"];
+            this.documentDate = _data["documentDate"] ? DateTime.fromISO(_data["documentDate"].toString()) : <any>undefined;
+            this.createdOn = _data["createdOn"] ? DateTime.fromISO(_data["createdOn"].toString()) : <any>undefined;
+            this.purchaseRequisition = _data["purchaseRequisition"];
+            this.itemPR = _data["itemPR"];
+            this.supplierCode = _data["supplierCode"];
+            this.supplierName = _data["supplierName"];
+            this.address = _data["address"];
+            this.itemNo = _data["itemNo"];
+            this.materialGroup = _data["materialGroup"];
+            this.shortText = _data["shortText"];
+            this.orderQuantity = _data["orderQuantity"];
+            this.orderUnit = _data["orderUnit"];
+            this.currency = _data["currency"];
+            this.deliveryDate = _data["deliveryDate"] ? DateTime.fromISO(_data["deliveryDate"].toString()) : <any>undefined;
+            this.netPrice = _data["netPrice"];
+            this.netOrderValue = _data["netOrderValue"];
+            this.demurrage = _data["demurrage"];
+            this.grossPrice = _data["grossPrice"];
+            this.totalDiscount = _data["totalDiscount"];
+            this.freightCost = _data["freightCost"];
+            this.releaseIndicator = _data["releaseIndicator"];
+            this.plant = _data["plant"];
+            this.purchasingGroup = _data["purchasingGroup"];
+            this.taxCode = _data["taxCode"];
+            this.collectiveNumber = _data["collectiveNumber"];
+            this.itemCategory = _data["itemCategory"];
+            this.accountAssignment = _data["accountAssignment"];
+            this.outlineAgreement = _data["outlineAgreement"];
+            this.rfqNo = _data["rfqNo"];
+            this.qtyPending = _data["qtyPending"];
+            this.materialService = _data["materialService"];
+            this.approvalStatus = _data["approvalStatus"];
+            this.poStatus = _data["poStatus"];
+            this.period = _data["period"];
+            this.commentVendor = _data["commentVendor"];
+            this.itemText = _data["itemText"];
+            this.longText = _data["longText"];
+            this.ourReference = _data["ourReference"];
+            this.prFinalFirstApprovalDate = _data["prFinalFirstApprovalDate"] ? DateTime.fromISO(_data["prFinalFirstApprovalDate"].toString()) : <any>undefined;
+            this.prFinalLastApprovalDate = _data["prFinalLastApprovalDate"] ? DateTime.fromISO(_data["prFinalLastApprovalDate"].toString()) : <any>undefined;
+            this.poFirstApprovalDate = _data["poFirstApprovalDate"] ? DateTime.fromISO(_data["poFirstApprovalDate"].toString()) : <any>undefined;
+            this.poLastApprovalDate = _data["poLastApprovalDate"] ? DateTime.fromISO(_data["poLastApprovalDate"].toString()) : <any>undefined;
+            this.poApprovalName = _data["poApprovalName"];
+            this.buyerCode = _data["buyerCode"];
+            this.buyerName = _data["buyerName"];
+            this.picDept = _data["picDept"];
+            this.picSect = _data["picSect"];
+            this.fuelAllocation = _data["fuelAllocation"];
+            this.costCenter = _data["costCenter"];
+            this.costCenterDescription = _data["costCenterDescription"];
+            this.wbsElement = _data["wbsElement"];
+            this.assetNo = _data["assetNo"];
+            this.fundCenter = _data["fundCenter"];
+            this.createdDate = _data["createdDate"] ? DateTime.fromISO(_data["createdDate"].toString()) : <any>undefined;
+            this.updatedDate = _data["updatedDate"] ? DateTime.fromISO(_data["updatedDate"].toString()) : <any>undefined;
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): ZMM021RDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ZMM021RDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["purchasingDocument"] = this.purchasingDocument;
+        data["purchasingDocType"] = this.purchasingDocType;
+        data["purchasingDocTypeDescription"] = this.purchasingDocTypeDescription;
+        data["item"] = this.item;
+        data["lineNumber"] = this.lineNumber;
+        data["deletionIndicator"] = this.deletionIndicator;
+        data["documentDate"] = this.documentDate ? this.documentDate.toString() : <any>undefined;
+        data["createdOn"] = this.createdOn ? this.createdOn.toString() : <any>undefined;
+        data["purchaseRequisition"] = this.purchaseRequisition;
+        data["itemPR"] = this.itemPR;
+        data["supplierCode"] = this.supplierCode;
+        data["supplierName"] = this.supplierName;
+        data["address"] = this.address;
+        data["itemNo"] = this.itemNo;
+        data["materialGroup"] = this.materialGroup;
+        data["shortText"] = this.shortText;
+        data["orderQuantity"] = this.orderQuantity;
+        data["orderUnit"] = this.orderUnit;
+        data["currency"] = this.currency;
+        data["deliveryDate"] = this.deliveryDate ? this.deliveryDate.toString() : <any>undefined;
+        data["netPrice"] = this.netPrice;
+        data["netOrderValue"] = this.netOrderValue;
+        data["demurrage"] = this.demurrage;
+        data["grossPrice"] = this.grossPrice;
+        data["totalDiscount"] = this.totalDiscount;
+        data["freightCost"] = this.freightCost;
+        data["releaseIndicator"] = this.releaseIndicator;
+        data["plant"] = this.plant;
+        data["purchasingGroup"] = this.purchasingGroup;
+        data["taxCode"] = this.taxCode;
+        data["collectiveNumber"] = this.collectiveNumber;
+        data["itemCategory"] = this.itemCategory;
+        data["accountAssignment"] = this.accountAssignment;
+        data["outlineAgreement"] = this.outlineAgreement;
+        data["rfqNo"] = this.rfqNo;
+        data["qtyPending"] = this.qtyPending;
+        data["materialService"] = this.materialService;
+        data["approvalStatus"] = this.approvalStatus;
+        data["poStatus"] = this.poStatus;
+        data["period"] = this.period;
+        data["commentVendor"] = this.commentVendor;
+        data["itemText"] = this.itemText;
+        data["longText"] = this.longText;
+        data["ourReference"] = this.ourReference;
+        data["prFinalFirstApprovalDate"] = this.prFinalFirstApprovalDate ? this.prFinalFirstApprovalDate.toString() : <any>undefined;
+        data["prFinalLastApprovalDate"] = this.prFinalLastApprovalDate ? this.prFinalLastApprovalDate.toString() : <any>undefined;
+        data["poFirstApprovalDate"] = this.poFirstApprovalDate ? this.poFirstApprovalDate.toString() : <any>undefined;
+        data["poLastApprovalDate"] = this.poLastApprovalDate ? this.poLastApprovalDate.toString() : <any>undefined;
+        data["poApprovalName"] = this.poApprovalName;
+        data["buyerCode"] = this.buyerCode;
+        data["buyerName"] = this.buyerName;
+        data["picDept"] = this.picDept;
+        data["picSect"] = this.picSect;
+        data["fuelAllocation"] = this.fuelAllocation;
+        data["costCenter"] = this.costCenter;
+        data["costCenterDescription"] = this.costCenterDescription;
+        data["wbsElement"] = this.wbsElement;
+        data["assetNo"] = this.assetNo;
+        data["fundCenter"] = this.fundCenter;
+        data["createdDate"] = this.createdDate ? this.createdDate.toString() : <any>undefined;
+        data["updatedDate"] = this.updatedDate ? this.updatedDate.toString() : <any>undefined;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface IZMM021RDto {
+    purchasingDocument: string | undefined;
+    purchasingDocType: string | undefined;
+    purchasingDocTypeDescription: string | undefined;
+    item: string | undefined;
+    lineNumber: string | undefined;
+    deletionIndicator: string | undefined;
+    documentDate: DateTime;
+    createdOn: DateTime;
+    purchaseRequisition: string | undefined;
+    itemPR: string | undefined;
+    supplierCode: string | undefined;
+    supplierName: string | undefined;
+    address: string | undefined;
+    itemNo: string | undefined;
+    materialGroup: string | undefined;
+    shortText: string | undefined;
+    orderQuantity: number | undefined;
+    orderUnit: string | undefined;
+    currency: string | undefined;
+    deliveryDate: DateTime | undefined;
+    netPrice: number | undefined;
+    netOrderValue: number | undefined;
+    demurrage: number | undefined;
+    grossPrice: number | undefined;
+    totalDiscount: number | undefined;
+    freightCost: number | undefined;
+    releaseIndicator: string | undefined;
+    plant: string | undefined;
+    purchasingGroup: string | undefined;
+    taxCode: string | undefined;
+    collectiveNumber: string | undefined;
+    itemCategory: string | undefined;
+    accountAssignment: string | undefined;
+    outlineAgreement: string | undefined;
+    rfqNo: string | undefined;
+    qtyPending: number | undefined;
+    materialService: string | undefined;
+    approvalStatus: string | undefined;
+    poStatus: string | undefined;
+    period: string | undefined;
+    commentVendor: string | undefined;
+    itemText: string | undefined;
+    longText: string | undefined;
+    ourReference: string | undefined;
+    prFinalFirstApprovalDate: DateTime | undefined;
+    prFinalLastApprovalDate: DateTime | undefined;
+    poFirstApprovalDate: DateTime | undefined;
+    poLastApprovalDate: DateTime | undefined;
+    poApprovalName: string | undefined;
+    buyerCode: string | undefined;
+    buyerName: string | undefined;
+    picDept: string | undefined;
+    picSect: string | undefined;
+    fuelAllocation: string | undefined;
+    costCenter: string | undefined;
+    costCenterDescription: string | undefined;
+    wbsElement: string | undefined;
+    assetNo: string | undefined;
+    fundCenter: string | undefined;
+    createdDate: DateTime;
+    updatedDate: DateTime;
+    id: string;
 }
 
 export class ApiException extends Error {

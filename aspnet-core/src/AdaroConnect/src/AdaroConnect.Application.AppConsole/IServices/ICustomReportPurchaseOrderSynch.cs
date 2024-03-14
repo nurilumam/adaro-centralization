@@ -8,11 +8,6 @@ namespace AdaroConnect.Application.AppConsole.Services
 {
     public interface ICustomReportPurchaseOrderSynch
     {
-
-
-        public void DownloadExcel()
-        {
-
-        }
+        public void SynchronizeData();
     }
 }

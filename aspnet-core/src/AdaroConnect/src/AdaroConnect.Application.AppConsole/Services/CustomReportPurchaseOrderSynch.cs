@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -14,6 +15,7 @@ using ExcelObjectMapper.Readers;
 using Ganss.Excel;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using NPOI.HPSF;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.Formula.Functions;
 using NPOI.SS.UserModel;
@@ -33,8 +35,16 @@ namespace AdaroConnect.Application.AppConsole.Services
             _connectContext = adaroConnectContext;
         }
 
-        public void DownloadExcel()
+        public void SynchronizeData()
         {
+            //GenerateScript();
+            ReadExcel();
+        }
+
+        private void ReadExcel()
+        {
+            System.Console.WriteLine("====== STARTING SYNCH ===========");
+
             string SAP_EXCEL_PATH = _configuration.SAP_EXCEL_PATH;
             DirectoryInfo d = new DirectoryInfo(SAP_EXCEL_PATH); //Assuming Test is your Folder
             FileInfo[] Files = d.GetFiles("ZMM021R*.XLSX"); //Getting Text files
@@ -44,9 +54,12 @@ namespace AdaroConnect.Application.AppConsole.Services
             if (Files.Length > 0)
             {
                 var ZMM021Rs = Files.OrderBy(x => x.CreationTime).ToList();
+                Console.WriteLine($"Total Files : {ZMM021Rs.Count}");
 
                 foreach (var zmm021r in ZMM021Rs)
                 {
+                    Console.WriteLine($"Synch File : {zmm021r.Name}");
+
                     var excel = new ExcelMapper(zmm021r.FullName);
                     #region MAPPING EXCEL
                     excel.AddMapping<Zmm021r>("Purchasing Document", p => p.PurchasingDocument);
@@ -109,6 +122,8 @@ namespace AdaroConnect.Application.AppConsole.Services
                     #endregion
 
                     var datas = excel.Fetch<Zmm021r>().ToList();
+                    Console.WriteLine($"Total Rows : {datas.Count}");
+
 
                     #region Cleaning Data
                     datas.ForEach(x => {
@@ -142,22 +157,16 @@ namespace AdaroConnect.Application.AppConsole.Services
                     #endregion
 
                     ZMM021R_DATAS.AddRange(datas);
-
-                    
-                    if (!Directory.Exists(Path.Combine(SAP_EXCEL_PATH, "OLD_DATA")))
-                    {
-                        Directory.CreateDirectory(Path.Combine(SAP_EXCEL_PATH, "OLD_DATA"));
-                    }
-
-                    zmm021r.MoveTo(Path.Combine(SAP_EXCEL_PATH, "OLD_DATA", zmm021r.Name));
-
-                    //zmm021r.Delete();
                 }
+
+                Console.WriteLine($"Total All Rows : {ZMM021R_DATAS.Count}");
 
 
                 ZMM021R_DATAS = ZMM021R_DATAS.GroupBy(l => l.DocumentId)
                     .Select(g => g.OrderByDescending(c => c.CreatedDate).FirstOrDefault())
                     .ToList();
+
+                Console.WriteLine($"Total Clean Rows : {ZMM021R_DATAS.Count}");
 
                 List<Zmm021r> ZMM021R_NEW = new List<Zmm021r>();
                 List<Zmm021r> ZMM021R_UPDATES = new List<Zmm021r>();
@@ -165,7 +174,7 @@ namespace AdaroConnect.Application.AppConsole.Services
                 foreach (var ZMM021R_ITEM in ZMM021R_DATAS)
                 {
                     var ZMM021R_UPDATE = _connectContext.Zmm021rs.FirstOrDefault(x => x.DocumentId == ZMM021R_ITEM.DocumentId);
-                    if(ZMM021R_UPDATE != null)
+                    if (ZMM021R_UPDATE != null)
                     {
                         #region UPDATE
                         ZMM021R_UPDATE.PurchasingDocument = ZMM021R_ITEM.PurchasingDocument;
@@ -231,29 +240,94 @@ namespace AdaroConnect.Application.AppConsole.Services
                         #endregion
 
                         ZMM021R_UPDATES.Add(ZMM021R_UPDATE);
-                    } else
+                    }
+                    else
                     {
                         ZMM021R_NEW.Add(ZMM021R_ITEM);
                     }
                 }
 
                 if (ZMM021R_UPDATES.Count > 0)
+                {
                     _connectContext.Zmm021rs.UpdateRange(ZMM021R_UPDATES);
+                    Console.WriteLine($"Total Update Rows : {ZMM021R_UPDATES.Count}");
+                }
 
                 if (ZMM021R_NEW.Count > 0)
+                {
                     _connectContext.Zmm021rs.AddRange(ZMM021R_NEW);
+                    Console.WriteLine($"Total Insert Rows : {ZMM021R_NEW.Count}");
+                }
 
-                _connectContext.SaveChanges();
+                if ((ZMM021R_UPDATES.Count + ZMM021R_NEW.Count) > 0)
+                {
+                    _connectContext.SaveChanges();
+                    foreach (var zmm021r in ZMM021Rs)
+                    {
+                        if (!Directory.Exists(Path.Combine(SAP_EXCEL_PATH, "OLD_DATA")))
+                        {
+                            Directory.CreateDirectory(Path.Combine(SAP_EXCEL_PATH, "OLD_DATA"));
+                        }
+
+                        zmm021r.MoveTo(Path.Combine(SAP_EXCEL_PATH, "OLD_DATA", zmm021r.Name));
+                    }
+                }
+            }
+            else
+            {
+                System.Console.WriteLine("File not exists");
+            }
+
+            System.Console.WriteLine("====== END SYNCH ===========");
+        }
+        private void GenerateScript()
+        {
+            var PathCurrent = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var SCRIPT_TEMPLATE = File.ReadAllText(Path.Combine(PathCurrent, "SCRIPT_TEMPLATE", "ZMM021R.txt"));
+
+            var DateCurrent = DateTime.Now;
+            var DateFrom = DateCurrent.AddYears(-1);
+            DateFrom = new DateTime(DateFrom.Year, DateFrom.Month, 1);
+
+            SCRIPT_TEMPLATE = SCRIPT_TEMPLATE
+                .Replace("[DATE_FROM]", DateFrom.ToString("dd.MM.yyyy"))
+                .Replace("[DATE_TO]", DateCurrent.ToString("dd.MM.yyyy"))
+                .Replace("[PATH_FILE]", _configuration.SAP_EXCEL_PATH)
+                .Replace("[FILE_NAME]", $"ZMM021R_{DateFrom.ToString("ddMMyyyy")}_{DateCurrent.ToString("ddMMyyyy")}_{DateCurrent.ToString("HHmmss")}.XLSX");
+
+
+            string FILE_NAME = Path.Combine(_configuration.SAP_EXCEL_PATH, "SAP_SCRIPT", "ZMM021R.vbs");
+
+            try
+            {
+                // Check if file already exists. If yes, delete it.
+                if (File.Exists(FILE_NAME))
+                {
+                    File.Delete(FILE_NAME);
+                }
+
+                // Create a new file
+                using (StreamWriter sw = File.CreateText(FILE_NAME))
+                {
+                    sw.WriteLine(SCRIPT_TEMPLATE);
+                }
+
 
             }
+            catch (Exception Ex)
+            {
+                Console.WriteLine(Ex.ToString());
+            }
+
 
         }
 
-        //public void SynchDatabase()
-        //{
-
-
-            
-        //}
+        private void RunningSAP()
+        {
+            Process p = new Process();
+            p.StartInfo.FileName = "C:\\PrintingArgs.exe";
+            p.StartInfo.Arguments = "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18";
+            p.Start();
+        }
     }
 }
