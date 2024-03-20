@@ -23,5 +23,15 @@ namespace Adaro.Centralize.SAPConnector
 
         public virtual bool IsActive { get; set; }
 
+        [Required]
+        public virtual string CostCenterCode { get; set; }
+
+        public virtual string CostCenterShort { get; set; }
+
+        public virtual string DepartmentName { get; set; }
+
+        [Required]
+        public virtual string Period { get; set; }
+
     }
 }

@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_RptProcurementAdjusts = "Pages.RptProcurementAdjusts";
+        public const string Pages_RptProcurementAdjusts_Create = "Pages.RptProcurementAdjusts.Create";
+        public const string Pages_RptProcurementAdjusts_Edit = "Pages.RptProcurementAdjusts.Edit";
+        public const string Pages_RptProcurementAdjusts_Delete = "Pages.RptProcurementAdjusts.Delete";
+
         public const string Pages_ZMM021R = "Pages.ZMM021R";
         public const string Pages_ZMM021R_Create = "Pages.ZMM021R.Create";
         public const string Pages_ZMM021R_Edit = "Pages.ZMM021R.Edit";

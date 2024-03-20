@@ -9,6 +9,13 @@ import { RouterModule } from '@angular/router';
                 children: [
                     
                     {
+                        path: 'reportArea/rptProcurementAdjusts',
+                        loadChildren: () => import('./reportArea/rptProcurementAdjusts/rptProcurementAdjust.module').then(m => m.RptProcurementAdjustModule),
+                        data: { permission: 'Pages.RptProcurementAdjusts' }
+                    },
+                
+                    
+                    {
                         path: 'sapConnector/zmM021R',
                         loadChildren: () => import('./sapConnector/zmM021R/zmM021R.module').then(m => m.ZMM021RModule),
                         data: { permission: 'Pages.ZMM021R' }

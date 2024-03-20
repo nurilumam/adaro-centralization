@@ -34,6 +34,9 @@ namespace Adaro.Centralize.Tests.SAPConnector
                 CostCenterName = "Test value",
                 Description = "Test value",
                 IsActive = false,
+                CostCenterCode = "Test value",
+                DepartmentName = "Test value",
+                Period = "Test value",
                 Id = _costCenterTestId,
                 TenantId = currentTenant.Id
             };
@@ -80,6 +83,9 @@ namespace Adaro.Centralize.Tests.SAPConnector
                 CostCenterName = "Test value",
                 Description = "Test value",
                 IsActive = false,
+                CostCenterCode = "Test value",
+                DepartmentName = "Test value",
+                Period = "Test value",
                 Id = _costCenterTestId
             };
 
@@ -101,6 +107,9 @@ namespace Adaro.Centralize.Tests.SAPConnector
                 CostCenterName = "Updated test value",
                 Description = "Updated test value",
                 IsActive = true,
+                CostCenterCode = "Updated test value",
+                DepartmentName = "Updated test value",
+                Period = "Updated test value",
                 Id = _costCenterTestId
             };
 
@@ -115,6 +124,9 @@ namespace Adaro.Centralize.Tests.SAPConnector
                 entity.CostCenterName.ShouldBe("Updated test value");
                 entity.Description.ShouldBe("Updated test value");
                 entity.IsActive.ShouldBe(true);
+                entity.CostCenterCode.ShouldBe("Updated test value");
+                entity.DepartmentName.ShouldBe("Updated test value");
+                entity.Period.ShouldBe("Updated test value");
             });
         }
 

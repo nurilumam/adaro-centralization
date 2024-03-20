@@ -95,6 +95,60 @@
                         </span>
                     </label>
                     <validation-messages [formCtrl]="CostCenter_IsActive"></validation-messages>
+
+                    <div class="my-3">
+                        <label class="form-label" for="CostCenter_CostCenterCode">{{ l('CostCenterCode') }} *</label>
+                        <input
+                            type="text"
+                            #CostCenter_CostCenterCode="ngModel"
+                            id="CostCenter_CostCenterCode"
+                            class="form-control"
+                            [(ngModel)]="costCenter.costCenterCode"
+                            name="CostCenterCode"
+                            required
+                        />
+                        <validation-messages [formCtrl]="CostCenter_CostCenterCode"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="CostCenter_CostCenterShort">{{ l('CostCenterShort') }}</label>
+                        <input
+                            type="text"
+                            #CostCenter_CostCenterShort="ngModel"
+                            id="CostCenter_CostCenterShort"
+                            class="form-control"
+                            [(ngModel)]="costCenter.costCenterShort"
+                            name="CostCenterShort"
+                        />
+                        <validation-messages [formCtrl]="CostCenter_CostCenterShort"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="CostCenter_DepartmentName">{{ l('DepartmentName') }}</label>
+                        <input
+                            type="text"
+                            #CostCenter_DepartmentName="ngModel"
+                            id="CostCenter_DepartmentName"
+                            class="form-control"
+                            [(ngModel)]="costCenter.departmentName"
+                            name="DepartmentName"
+                        />
+                        <validation-messages [formCtrl]="CostCenter_DepartmentName"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="CostCenter_Period">{{ l('Period') }} *</label>
+                        <input
+                            type="text"
+                            #CostCenter_Period="ngModel"
+                            id="CostCenter_Period"
+                            class="form-control"
+                            [(ngModel)]="costCenter.period"
+                            name="Period"
+                            required
+                        />
+                        <validation-messages [formCtrl]="CostCenter_Period"></validation-messages>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">

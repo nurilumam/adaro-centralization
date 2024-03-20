@@ -1,4 +1,6 @@
-﻿using Adaro.Centralize.LookupArea.Dtos;
+﻿using Adaro.Centralize.ReportArea.Dtos;
+using Adaro.Centralize.ReportArea;
+using Adaro.Centralize.LookupArea.Dtos;
 using Adaro.Centralize.LookupArea;
 using Adaro.Centralize.Finance.Dtos;
 using Adaro.Centralize.Finance;
@@ -64,6 +66,8 @@ namespace Adaro.Centralize
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditRptProcurementAdjustDto, RptProcurementAdjust>().ReverseMap();
+            configuration.CreateMap<RptProcurementAdjustDto, RptProcurementAdjust>().ReverseMap();
             configuration.CreateMap<CreateOrEditZMM021RDto, ZMM021R>().ReverseMap();
             configuration.CreateMap<ZMM021RDto, ZMM021R>().ReverseMap();
             configuration.CreateMap<CreateOrEditLookupPageDto, LookupPage>().ReverseMap();

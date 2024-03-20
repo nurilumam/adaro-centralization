@@ -2276,12 +2276,16 @@ export class CostCentersServiceProxy {
      * @param descriptionFilter (optional) 
      * @param actStateFilter (optional) 
      * @param isActiveFilter (optional) 
+     * @param costCenterCodeFilter (optional) 
+     * @param costCenterShortFilter (optional) 
+     * @param departmentNameFilter (optional) 
+     * @param periodFilter (optional) 
      * @param sorting (optional) 
      * @param skipCount (optional) 
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAll(filter: string | undefined, controllingAreaFilter: string | undefined, costCenterNameFilter: string | undefined, descriptionFilter: string | undefined, actStateFilter: string | undefined, isActiveFilter: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetCostCenterForViewDto> {
+    getAll(filter: string | undefined, controllingAreaFilter: string | undefined, costCenterNameFilter: string | undefined, descriptionFilter: string | undefined, actStateFilter: string | undefined, isActiveFilter: number | undefined, costCenterCodeFilter: string | undefined, costCenterShortFilter: string | undefined, departmentNameFilter: string | undefined, periodFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetCostCenterForViewDto> {
         let url_ = this.baseUrl + "/api/services/app/CostCenters/GetAll?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -2307,6 +2311,22 @@ export class CostCentersServiceProxy {
             throw new Error("The parameter 'isActiveFilter' cannot be null.");
         else if (isActiveFilter !== undefined)
             url_ += "IsActiveFilter=" + encodeURIComponent("" + isActiveFilter) + "&";
+        if (costCenterCodeFilter === null)
+            throw new Error("The parameter 'costCenterCodeFilter' cannot be null.");
+        else if (costCenterCodeFilter !== undefined)
+            url_ += "CostCenterCodeFilter=" + encodeURIComponent("" + costCenterCodeFilter) + "&";
+        if (costCenterShortFilter === null)
+            throw new Error("The parameter 'costCenterShortFilter' cannot be null.");
+        else if (costCenterShortFilter !== undefined)
+            url_ += "CostCenterShortFilter=" + encodeURIComponent("" + costCenterShortFilter) + "&";
+        if (departmentNameFilter === null)
+            throw new Error("The parameter 'departmentNameFilter' cannot be null.");
+        else if (departmentNameFilter !== undefined)
+            url_ += "DepartmentNameFilter=" + encodeURIComponent("" + departmentNameFilter) + "&";
+        if (periodFilter === null)
+            throw new Error("The parameter 'periodFilter' cannot be null.");
+        else if (periodFilter !== undefined)
+            url_ += "PeriodFilter=" + encodeURIComponent("" + periodFilter) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -2588,9 +2608,13 @@ export class CostCentersServiceProxy {
      * @param descriptionFilter (optional) 
      * @param actStateFilter (optional) 
      * @param isActiveFilter (optional) 
+     * @param costCenterCodeFilter (optional) 
+     * @param costCenterShortFilter (optional) 
+     * @param departmentNameFilter (optional) 
+     * @param periodFilter (optional) 
      * @return Success
      */
-    getCostCentersToExcel(filter: string | undefined, controllingAreaFilter: string | undefined, costCenterNameFilter: string | undefined, descriptionFilter: string | undefined, actStateFilter: string | undefined, isActiveFilter: number | undefined): Observable<FileDto> {
+    getCostCentersToExcel(filter: string | undefined, controllingAreaFilter: string | undefined, costCenterNameFilter: string | undefined, descriptionFilter: string | undefined, actStateFilter: string | undefined, isActiveFilter: number | undefined, costCenterCodeFilter: string | undefined, costCenterShortFilter: string | undefined, departmentNameFilter: string | undefined, periodFilter: string | undefined): Observable<FileDto> {
         let url_ = this.baseUrl + "/api/services/app/CostCenters/GetCostCentersToExcel?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -2616,6 +2640,22 @@ export class CostCentersServiceProxy {
             throw new Error("The parameter 'isActiveFilter' cannot be null.");
         else if (isActiveFilter !== undefined)
             url_ += "IsActiveFilter=" + encodeURIComponent("" + isActiveFilter) + "&";
+        if (costCenterCodeFilter === null)
+            throw new Error("The parameter 'costCenterCodeFilter' cannot be null.");
+        else if (costCenterCodeFilter !== undefined)
+            url_ += "CostCenterCodeFilter=" + encodeURIComponent("" + costCenterCodeFilter) + "&";
+        if (costCenterShortFilter === null)
+            throw new Error("The parameter 'costCenterShortFilter' cannot be null.");
+        else if (costCenterShortFilter !== undefined)
+            url_ += "CostCenterShortFilter=" + encodeURIComponent("" + costCenterShortFilter) + "&";
+        if (departmentNameFilter === null)
+            throw new Error("The parameter 'departmentNameFilter' cannot be null.");
+        else if (departmentNameFilter !== undefined)
+            url_ += "DepartmentNameFilter=" + encodeURIComponent("" + departmentNameFilter) + "&";
+        if (periodFilter === null)
+            throw new Error("The parameter 'periodFilter' cannot be null.");
+        else if (periodFilter !== undefined)
+            url_ += "PeriodFilter=" + encodeURIComponent("" + periodFilter) + "&";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -2652,57 +2692,6 @@ export class CostCentersServiceProxy {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result200 = FileDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @return Success
-     */
-    getFromSAP(): Observable<DtoResponseModel> {
-        let url_ = this.baseUrl + "/api/services/app/CostCenters/GetFromSAP";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetFromSAP(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetFromSAP(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<DtoResponseModel>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<DtoResponseModel>;
-        }));
-    }
-
-    protected processGetFromSAP(response: HttpResponseBase): Observable<DtoResponseModel> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = DtoResponseModel.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -17674,6 +17663,421 @@ export class RoleServiceProxy {
 }
 
 @Injectable()
+export class RptProcurementAdjustsServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param purchasingDocumentFilter (optional) 
+     * @param isContractFilter (optional) 
+     * @param isAdjustFilter (optional) 
+     * @param maxDayAdjustFilter (optional) 
+     * @param minDayAdjustFilter (optional) 
+     * @param remarkFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | undefined, purchasingDocumentFilter: string | undefined, isContractFilter: number | undefined, isAdjustFilter: number | undefined, maxDayAdjustFilter: number | undefined, minDayAdjustFilter: number | undefined, remarkFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetRptProcurementAdjustForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/RptProcurementAdjusts/GetAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (purchasingDocumentFilter === null)
+            throw new Error("The parameter 'purchasingDocumentFilter' cannot be null.");
+        else if (purchasingDocumentFilter !== undefined)
+            url_ += "PurchasingDocumentFilter=" + encodeURIComponent("" + purchasingDocumentFilter) + "&";
+        if (isContractFilter === null)
+            throw new Error("The parameter 'isContractFilter' cannot be null.");
+        else if (isContractFilter !== undefined)
+            url_ += "IsContractFilter=" + encodeURIComponent("" + isContractFilter) + "&";
+        if (isAdjustFilter === null)
+            throw new Error("The parameter 'isAdjustFilter' cannot be null.");
+        else if (isAdjustFilter !== undefined)
+            url_ += "IsAdjustFilter=" + encodeURIComponent("" + isAdjustFilter) + "&";
+        if (maxDayAdjustFilter === null)
+            throw new Error("The parameter 'maxDayAdjustFilter' cannot be null.");
+        else if (maxDayAdjustFilter !== undefined)
+            url_ += "MaxDayAdjustFilter=" + encodeURIComponent("" + maxDayAdjustFilter) + "&";
+        if (minDayAdjustFilter === null)
+            throw new Error("The parameter 'minDayAdjustFilter' cannot be null.");
+        else if (minDayAdjustFilter !== undefined)
+            url_ += "MinDayAdjustFilter=" + encodeURIComponent("" + minDayAdjustFilter) + "&";
+        if (remarkFilter === null)
+            throw new Error("The parameter 'remarkFilter' cannot be null.");
+        else if (remarkFilter !== undefined)
+            url_ += "RemarkFilter=" + encodeURIComponent("" + remarkFilter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<PagedResultDtoOfGetRptProcurementAdjustForViewDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<PagedResultDtoOfGetRptProcurementAdjustForViewDto>;
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetRptProcurementAdjustForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetRptProcurementAdjustForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getRptProcurementAdjustForView(id: string | undefined): Observable<GetRptProcurementAdjustForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/RptProcurementAdjusts/GetRptProcurementAdjustForView?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetRptProcurementAdjustForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetRptProcurementAdjustForView(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetRptProcurementAdjustForViewDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetRptProcurementAdjustForViewDto>;
+        }));
+    }
+
+    protected processGetRptProcurementAdjustForView(response: HttpResponseBase): Observable<GetRptProcurementAdjustForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetRptProcurementAdjustForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getRptProcurementAdjustForEdit(id: string | undefined): Observable<GetRptProcurementAdjustForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/RptProcurementAdjusts/GetRptProcurementAdjustForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetRptProcurementAdjustForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetRptProcurementAdjustForEdit(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetRptProcurementAdjustForEditOutput>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetRptProcurementAdjustForEditOutput>;
+        }));
+    }
+
+    protected processGetRptProcurementAdjustForEdit(response: HttpResponseBase): Observable<GetRptProcurementAdjustForEditOutput> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetRptProcurementAdjustForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditRptProcurementAdjustDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/RptProcurementAdjusts/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: string | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/RptProcurementAdjusts/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param purchasingDocumentFilter (optional) 
+     * @param isContractFilter (optional) 
+     * @param isAdjustFilter (optional) 
+     * @param maxDayAdjustFilter (optional) 
+     * @param minDayAdjustFilter (optional) 
+     * @param remarkFilter (optional) 
+     * @return Success
+     */
+    getRptProcurementAdjustsToExcel(filter: string | undefined, purchasingDocumentFilter: string | undefined, isContractFilter: number | undefined, isAdjustFilter: number | undefined, maxDayAdjustFilter: number | undefined, minDayAdjustFilter: number | undefined, remarkFilter: string | undefined): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/RptProcurementAdjusts/GetRptProcurementAdjustsToExcel?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (purchasingDocumentFilter === null)
+            throw new Error("The parameter 'purchasingDocumentFilter' cannot be null.");
+        else if (purchasingDocumentFilter !== undefined)
+            url_ += "PurchasingDocumentFilter=" + encodeURIComponent("" + purchasingDocumentFilter) + "&";
+        if (isContractFilter === null)
+            throw new Error("The parameter 'isContractFilter' cannot be null.");
+        else if (isContractFilter !== undefined)
+            url_ += "IsContractFilter=" + encodeURIComponent("" + isContractFilter) + "&";
+        if (isAdjustFilter === null)
+            throw new Error("The parameter 'isAdjustFilter' cannot be null.");
+        else if (isAdjustFilter !== undefined)
+            url_ += "IsAdjustFilter=" + encodeURIComponent("" + isAdjustFilter) + "&";
+        if (maxDayAdjustFilter === null)
+            throw new Error("The parameter 'maxDayAdjustFilter' cannot be null.");
+        else if (maxDayAdjustFilter !== undefined)
+            url_ += "MaxDayAdjustFilter=" + encodeURIComponent("" + maxDayAdjustFilter) + "&";
+        if (minDayAdjustFilter === null)
+            throw new Error("The parameter 'minDayAdjustFilter' cannot be null.");
+        else if (minDayAdjustFilter !== undefined)
+            url_ += "MinDayAdjustFilter=" + encodeURIComponent("" + minDayAdjustFilter) + "&";
+        if (remarkFilter === null)
+            throw new Error("The parameter 'remarkFilter' cannot be null.");
+        else if (remarkFilter !== undefined)
+            url_ += "RemarkFilter=" + encodeURIComponent("" + remarkFilter) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetRptProcurementAdjustsToExcel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetRptProcurementAdjustsToExcel(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<FileDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<FileDto>;
+        }));
+    }
+
+    protected processGetRptProcurementAdjustsToExcel(response: HttpResponseBase): Observable<FileDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FileDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
+@Injectable()
 export class SAPSynchServiceServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -27420,6 +27824,9 @@ export class CostCenterDto implements ICostCenterDto {
     costCenterName!: string | undefined;
     description!: string | undefined;
     isActive!: boolean;
+    costCenterCode!: string | undefined;
+    departmentName!: string | undefined;
+    period!: string | undefined;
     id!: string;
 
     constructor(data?: ICostCenterDto) {
@@ -27437,6 +27844,9 @@ export class CostCenterDto implements ICostCenterDto {
             this.costCenterName = _data["costCenterName"];
             this.description = _data["description"];
             this.isActive = _data["isActive"];
+            this.costCenterCode = _data["costCenterCode"];
+            this.departmentName = _data["departmentName"];
+            this.period = _data["period"];
             this.id = _data["id"];
         }
     }
@@ -27454,6 +27864,9 @@ export class CostCenterDto implements ICostCenterDto {
         data["costCenterName"] = this.costCenterName;
         data["description"] = this.description;
         data["isActive"] = this.isActive;
+        data["costCenterCode"] = this.costCenterCode;
+        data["departmentName"] = this.departmentName;
+        data["period"] = this.period;
         data["id"] = this.id;
         return data;
     }
@@ -27464,6 +27877,9 @@ export interface ICostCenterDto {
     costCenterName: string | undefined;
     description: string | undefined;
     isActive: boolean;
+    costCenterCode: string | undefined;
+    departmentName: string | undefined;
+    period: string | undefined;
     id: string;
 }
 
@@ -27845,6 +28261,10 @@ export class CreateOrEditCostCenterDto implements ICreateOrEditCostCenterDto {
     description!: string | undefined;
     actState!: string | undefined;
     isActive!: boolean;
+    costCenterCode!: string;
+    costCenterShort!: string | undefined;
+    departmentName!: string | undefined;
+    period!: string;
     id!: string | undefined;
 
     constructor(data?: ICreateOrEditCostCenterDto) {
@@ -27863,6 +28283,10 @@ export class CreateOrEditCostCenterDto implements ICreateOrEditCostCenterDto {
             this.description = _data["description"];
             this.actState = _data["actState"];
             this.isActive = _data["isActive"];
+            this.costCenterCode = _data["costCenterCode"];
+            this.costCenterShort = _data["costCenterShort"];
+            this.departmentName = _data["departmentName"];
+            this.period = _data["period"];
             this.id = _data["id"];
         }
     }
@@ -27881,6 +28305,10 @@ export class CreateOrEditCostCenterDto implements ICreateOrEditCostCenterDto {
         data["description"] = this.description;
         data["actState"] = this.actState;
         data["isActive"] = this.isActive;
+        data["costCenterCode"] = this.costCenterCode;
+        data["costCenterShort"] = this.costCenterShort;
+        data["departmentName"] = this.departmentName;
+        data["period"] = this.period;
         data["id"] = this.id;
         return data;
     }
@@ -27892,6 +28320,10 @@ export interface ICreateOrEditCostCenterDto {
     description: string | undefined;
     actState: string | undefined;
     isActive: boolean;
+    costCenterCode: string;
+    costCenterShort: string | undefined;
+    departmentName: string | undefined;
+    period: string;
     id: string | undefined;
 }
 
@@ -28980,6 +29412,62 @@ export interface ICreateOrEditMaterialRequestDto {
     imageColletion: string | undefined;
     unspscId: string | undefined;
     valuationClassId: string | undefined;
+    id: string | undefined;
+}
+
+export class CreateOrEditRptProcurementAdjustDto implements ICreateOrEditRptProcurementAdjustDto {
+    purchasingDocument!: string;
+    isContract!: boolean;
+    isAdjust!: boolean;
+    dayAdjust!: number;
+    remark!: string | undefined;
+    id!: string | undefined;
+
+    constructor(data?: ICreateOrEditRptProcurementAdjustDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.purchasingDocument = _data["purchasingDocument"];
+            this.isContract = _data["isContract"];
+            this.isAdjust = _data["isAdjust"];
+            this.dayAdjust = _data["dayAdjust"];
+            this.remark = _data["remark"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditRptProcurementAdjustDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditRptProcurementAdjustDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["purchasingDocument"] = this.purchasingDocument;
+        data["isContract"] = this.isContract;
+        data["isAdjust"] = this.isAdjust;
+        data["dayAdjust"] = this.dayAdjust;
+        data["remark"] = this.remark;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface ICreateOrEditRptProcurementAdjustDto {
+    purchasingDocument: string;
+    isContract: boolean;
+    isAdjust: boolean;
+    dayAdjust: number;
+    remark: string | undefined;
     id: string | undefined;
 }
 
@@ -35364,6 +35852,78 @@ export interface IGetRolesInput {
     permissions: string[] | undefined;
 }
 
+export class GetRptProcurementAdjustForEditOutput implements IGetRptProcurementAdjustForEditOutput {
+    rptProcurementAdjust!: CreateOrEditRptProcurementAdjustDto;
+
+    constructor(data?: IGetRptProcurementAdjustForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.rptProcurementAdjust = _data["rptProcurementAdjust"] ? CreateOrEditRptProcurementAdjustDto.fromJS(_data["rptProcurementAdjust"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetRptProcurementAdjustForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetRptProcurementAdjustForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["rptProcurementAdjust"] = this.rptProcurementAdjust ? this.rptProcurementAdjust.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+export interface IGetRptProcurementAdjustForEditOutput {
+    rptProcurementAdjust: CreateOrEditRptProcurementAdjustDto;
+}
+
+export class GetRptProcurementAdjustForViewDto implements IGetRptProcurementAdjustForViewDto {
+    rptProcurementAdjust!: RptProcurementAdjustDto;
+
+    constructor(data?: IGetRptProcurementAdjustForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.rptProcurementAdjust = _data["rptProcurementAdjust"] ? RptProcurementAdjustDto.fromJS(_data["rptProcurementAdjust"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetRptProcurementAdjustForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetRptProcurementAdjustForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["rptProcurementAdjust"] = this.rptProcurementAdjust ? this.rptProcurementAdjust.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+export interface IGetRptProcurementAdjustForViewDto {
+    rptProcurementAdjust: RptProcurementAdjustDto;
+}
+
 export class GetSalesSummaryOutput implements IGetSalesSummaryOutput {
     totalSales!: number;
     revenue!: number;
@@ -40349,6 +40909,54 @@ export interface IPagedResultDtoOfGetMaterialRequestForViewDto {
     items: GetMaterialRequestForViewDto[] | undefined;
 }
 
+export class PagedResultDtoOfGetRptProcurementAdjustForViewDto implements IPagedResultDtoOfGetRptProcurementAdjustForViewDto {
+    totalCount!: number;
+    items!: GetRptProcurementAdjustForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetRptProcurementAdjustForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetRptProcurementAdjustForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetRptProcurementAdjustForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetRptProcurementAdjustForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IPagedResultDtoOfGetRptProcurementAdjustForViewDto {
+    totalCount: number;
+    items: GetRptProcurementAdjustForViewDto[] | undefined;
+}
+
 export class PagedResultDtoOfGetTransferBudgetForViewDto implements IPagedResultDtoOfGetTransferBudgetForViewDto {
     totalCount!: number;
     items!: GetTransferBudgetForViewDto[] | undefined;
@@ -42594,6 +43202,62 @@ export class RolesToOrganizationUnitInput implements IRolesToOrganizationUnitInp
 export interface IRolesToOrganizationUnitInput {
     roleIds: number[] | undefined;
     organizationUnitId: number;
+}
+
+export class RptProcurementAdjustDto implements IRptProcurementAdjustDto {
+    purchasingDocument!: string | undefined;
+    isContract!: boolean;
+    isAdjust!: boolean;
+    dayAdjust!: number;
+    remark!: string | undefined;
+    id!: string;
+
+    constructor(data?: IRptProcurementAdjustDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.purchasingDocument = _data["purchasingDocument"];
+            this.isContract = _data["isContract"];
+            this.isAdjust = _data["isAdjust"];
+            this.dayAdjust = _data["dayAdjust"];
+            this.remark = _data["remark"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): RptProcurementAdjustDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new RptProcurementAdjustDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["purchasingDocument"] = this.purchasingDocument;
+        data["isContract"] = this.isContract;
+        data["isAdjust"] = this.isAdjust;
+        data["dayAdjust"] = this.dayAdjust;
+        data["remark"] = this.remark;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface IRptProcurementAdjustDto {
+    purchasingDocument: string | undefined;
+    isContract: boolean;
+    isAdjust: boolean;
+    dayAdjust: number;
+    remark: string | undefined;
+    id: string;
 }
 
 export class SalesSummaryData implements ISalesSummaryData {

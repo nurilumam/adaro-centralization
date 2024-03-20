@@ -37,6 +37,9 @@ namespace Adaro.Centralize.SAPConnector.Exporting
                         {L("CostCenterName"), costCenter.CostCenter.CostCenterName},
                         {L("Description"), costCenter.CostCenter.Description},
                         {L("IsActive"), costCenter.CostCenter.IsActive},
+                        {L("CostCenterCode"), costCenter.CostCenter.CostCenterCode},
+                        {L("DepartmentName"), costCenter.CostCenter.DepartmentName},
+                        {L("Period"), costCenter.CostCenter.Period},
 
                     });
             }

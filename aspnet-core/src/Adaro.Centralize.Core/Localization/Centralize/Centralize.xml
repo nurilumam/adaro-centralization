@@ -1,6 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="ZMM021R">Z m m 0 2 1 r</text>
+  <texts>    <text name="CostCenterCode">Cost center code</text>
+    <text name="CostCenterShort">Cost center short</text>
+    <text name="DepartmentName">Department name</text>
+    <text name="Remark">Remark</text>
+    <text name="ReportArea">Report area</text>
+    <text name="RptProcurementAdjust">Rpt procurement adjust</text>
+    <text name="Adaro.Centralize.ReportArea.RptProcurementAdjust">RptProcurementAdjust</text>
+    <text name="IsContract">Is contract</text>
+    <text name="NotIsContract">Not is contract</text>
+    <text name="IsAdjust">Is adjust</text>
+    <text name="NotIsAdjust">Not is adjust</text>
+    <text name="DayAdjust">Day adjust</text>
+    <text name="RptProcurementAdjustsHeaderInfo">Rpt procurement adjusts header info</text>
+    <text name="CreateNewRptProcurementAdjust">Create new rpt procurement adjust</text>
+    <text name="EditRptProcurementAdjust">Edit rpt procurement adjust</text>
+    <text name="DeleteRptProcurementAdjust">Delete rpt procurement adjust</text>
+    <text name="RptProcurementAdjusts">Rpt procurement adjusts</text>
+    <text name="ZMM021R">Z m m 0 2 1 r</text>
     <text name="Adaro.Centralize.SAPConnector.ZMM021R">ZMM021R</text>
     <text name="PurchasingDocument">Purchasing document</text>
     <text name="PurchasingDocType">Purchasing doc type</text>

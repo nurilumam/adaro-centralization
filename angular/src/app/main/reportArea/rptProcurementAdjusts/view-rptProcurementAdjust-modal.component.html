@@ -26,37 +26,34 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-6 mb-3">
-                        <h6>{{ l('ControllingArea') }} :</h6>
-                        {{ item.costCenter.controllingArea }}
+                        <h6>{{ l('PurchasingDocument') }} :</h6>
+                        {{ item.rptProcurementAdjust.purchasingDocument }}
                     </div>
                     <div class="col-6 mb-3">
-                        <h6>{{ l('CostCenterName') }} :</h6>
-                        {{ item.costCenter.costCenterName }}
-                    </div>
-                    <div class="col-6 mb-3">
-                        <h6>{{ l('Description') }} :</h6>
-                        {{ item.costCenter.description }}
-                    </div>
-                    <div class="col-6 mb-3">
-                        <h6>{{ l('IsActive') }} :</h6>
-                        <div *ngIf="item.costCenter.isActive" class="text-left">
+                        <h6>{{ l('IsContract') }} :</h6>
+                        <div *ngIf="item.rptProcurementAdjust.isContract" class="text-left">
                             <i class="fa fa-check-circle text-success" title="True"></i>
                         </div>
-                        <div *ngIf="!item.costCenter.isActive" class="text-left">
+                        <div *ngIf="!item.rptProcurementAdjust.isContract" class="text-left">
                             <i class="fa fa-times-circle" title="False"></i>
                         </div>
                     </div>
                     <div class="col-6 mb-3">
-                        <h6>{{ l('CostCenterCode') }} :</h6>
-                        {{ item.costCenter.costCenterCode }}
+                        <h6>{{ l('IsAdjust') }} :</h6>
+                        <div *ngIf="item.rptProcurementAdjust.isAdjust" class="text-left">
+                            <i class="fa fa-check-circle text-success" title="True"></i>
+                        </div>
+                        <div *ngIf="!item.rptProcurementAdjust.isAdjust" class="text-left">
+                            <i class="fa fa-times-circle" title="False"></i>
+                        </div>
                     </div>
                     <div class="col-6 mb-3">
-                        <h6>{{ l('DepartmentName') }} :</h6>
-                        {{ item.costCenter.departmentName }}
+                        <h6>{{ l('DayAdjust') }} :</h6>
+                        {{ item.rptProcurementAdjust.dayAdjust }}
                     </div>
                     <div class="col-6 mb-3">
-                        <h6>{{ l('Period') }} :</h6>
-                        {{ item.costCenter.period }}
+                        <h6>{{ l('Remark') }} :</h6>
+                        {{ item.rptProcurementAdjust.remark }}
                     </div>
                 </div>
             </div>

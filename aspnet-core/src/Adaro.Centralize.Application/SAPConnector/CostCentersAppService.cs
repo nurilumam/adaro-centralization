@@ -15,11 +15,6 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Adaro.Centralize.Storage;
-using AdaroConnect.Application.Core.Abstracts;
-using AdaroConnect.Application.Core.Models;
-using Adaro.Centralize.Common;
-using Abp.Domain.Uow;
-using Abp.EntityFrameworkCore.Repositories;
 
 namespace Adaro.Centralize.SAPConnector
 {
@@ -28,35 +23,28 @@ namespace Adaro.Centralize.SAPConnector
     {
         private readonly IRepository<CostCenter, Guid> _costCenterRepository;
         private readonly ICostCentersExcelExporter _costCentersExcelExporter;
-        private readonly ICostCenterManager _costCenterManagerSAP;
-        private readonly IUnitOfWorkManager _unitOfWorkManager;
-        private readonly ICostCentersSynchService _costCentersSynchService;
 
-
-        public CostCentersAppService(
-            IRepository<CostCenter, Guid> costCenterRepository, 
-            ICostCentersExcelExporter costCentersExcelExporter,
-            ICostCenterManager costCenterManagerSAP,
-            IUnitOfWorkManager unitOfWorkManager,
-            ICostCentersSynchService costCentersSynchService)
+        public CostCentersAppService(IRepository<CostCenter, Guid> costCenterRepository, ICostCentersExcelExporter costCentersExcelExporter)
         {
             _costCenterRepository = costCenterRepository;
             _costCentersExcelExporter = costCentersExcelExporter;
-            _costCenterManagerSAP = costCenterManagerSAP;
-            _unitOfWorkManager = unitOfWorkManager;
-            _costCentersSynchService = costCentersSynchService;
+
         }
 
         public virtual async Task<PagedResultDto<GetCostCenterForViewDto>> GetAll(GetAllCostCentersInput input)
         {
 
             var filteredCostCenters = _costCenterRepository.GetAll()
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.ControllingArea.Contains(input.Filter) || e.CostCenterName.Contains(input.Filter) || e.Description.Contains(input.Filter) || e.ActState.Contains(input.Filter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.ControllingArea.Contains(input.Filter) || e.CostCenterName.Contains(input.Filter) || e.Description.Contains(input.Filter) || e.ActState.Contains(input.Filter) || e.CostCenterCode.Contains(input.Filter) || e.CostCenterShort.Contains(input.Filter) || e.DepartmentName.Contains(input.Filter) || e.Period.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ControllingAreaFilter), e => e.ControllingArea.Contains(input.ControllingAreaFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CostCenterNameFilter), e => e.CostCenterName.Contains(input.CostCenterNameFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DescriptionFilter), e => e.Description.Contains(input.DescriptionFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ActStateFilter), e => e.ActState.Contains(input.ActStateFilter))
-                        .WhereIf(input.IsActiveFilter.HasValue && input.IsActiveFilter > -1, e => (input.IsActiveFilter == 1 && e.IsActive) || (input.IsActiveFilter == 0 && !e.IsActive));
+                        .WhereIf(input.IsActiveFilter.HasValue && input.IsActiveFilter > -1, e => (input.IsActiveFilter == 1 && e.IsActive) || (input.IsActiveFilter == 0 && !e.IsActive))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.CostCenterCodeFilter), e => e.CostCenterCode.Contains(input.CostCenterCodeFilter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.CostCenterShortFilter), e => e.CostCenterShort.Contains(input.CostCenterShortFilter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.DepartmentNameFilter), e => e.DepartmentName.Contains(input.DepartmentNameFilter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.PeriodFilter), e => e.Period.Contains(input.PeriodFilter));
 
             var pagedAndFilteredCostCenters = filteredCostCenters
                 .OrderBy(input.Sorting ?? "id asc")
@@ -70,6 +58,9 @@ namespace Adaro.Centralize.SAPConnector
                                   o.CostCenterName,
                                   o.Description,
                                   o.IsActive,
+                                  o.CostCenterCode,
+                                  o.DepartmentName,
+                                  o.Period,
                                   Id = o.Id
                               };
 
@@ -89,6 +80,9 @@ namespace Adaro.Centralize.SAPConnector
                         CostCenterName = o.CostCenterName,
                         Description = o.Description,
                         IsActive = o.IsActive,
+                        CostCenterCode = o.CostCenterCode,
+                        DepartmentName = o.DepartmentName,
+                        Period = o.Period,
                         Id = o.Id,
                     }
                 };
@@ -166,12 +160,16 @@ namespace Adaro.Centralize.SAPConnector
         {
 
             var filteredCostCenters = _costCenterRepository.GetAll()
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.ControllingArea.Contains(input.Filter) || e.CostCenterName.Contains(input.Filter) || e.Description.Contains(input.Filter) || e.ActState.Contains(input.Filter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.ControllingArea.Contains(input.Filter) || e.CostCenterName.Contains(input.Filter) || e.Description.Contains(input.Filter) || e.ActState.Contains(input.Filter) || e.CostCenterCode.Contains(input.Filter) || e.CostCenterShort.Contains(input.Filter) || e.DepartmentName.Contains(input.Filter) || e.Period.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ControllingAreaFilter), e => e.ControllingArea.Contains(input.ControllingAreaFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.CostCenterNameFilter), e => e.CostCenterName.Contains(input.CostCenterNameFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.DescriptionFilter), e => e.Description.Contains(input.DescriptionFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ActStateFilter), e => e.ActState.Contains(input.ActStateFilter))
-                        .WhereIf(input.IsActiveFilter.HasValue && input.IsActiveFilter > -1, e => (input.IsActiveFilter == 1 && e.IsActive) || (input.IsActiveFilter == 0 && !e.IsActive));
+                        .WhereIf(input.IsActiveFilter.HasValue && input.IsActiveFilter > -1, e => (input.IsActiveFilter == 1 && e.IsActive) || (input.IsActiveFilter == 0 && !e.IsActive))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.CostCenterCodeFilter), e => e.CostCenterCode.Contains(input.CostCenterCodeFilter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.CostCenterShortFilter), e => e.CostCenterShort.Contains(input.CostCenterShortFilter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.DepartmentNameFilter), e => e.DepartmentName.Contains(input.DepartmentNameFilter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.PeriodFilter), e => e.Period.Contains(input.PeriodFilter));
 
             var query = (from o in filteredCostCenters
                          select new GetCostCenterForViewDto()
@@ -182,6 +180,9 @@ namespace Adaro.Centralize.SAPConnector
                                  CostCenterName = o.CostCenterName,
                                  Description = o.Description,
                                  IsActive = o.IsActive,
+                                 CostCenterCode = o.CostCenterCode,
+                                 DepartmentName = o.DepartmentName,
+                                 Period = o.Period,
                                  Id = o.Id
                              }
                          });
@@ -189,13 +190,6 @@ namespace Adaro.Centralize.SAPConnector
             var costCenterListDtos = await query.ToListAsync();
 
             return _costCentersExcelExporter.ExportToFile(costCenterListDtos);
-        }
-
-        public virtual async Task<DtoResponseModel> GetFromSAP()
-        {
-            var response = await _costCentersSynchService.SynchronizeFromSAP(new CostCenterSynchDto());
-            return response;
-
         }
 
     }

@@ -19,5 +19,15 @@ namespace Adaro.Centralize.SAPConnector.Dtos
 
         public bool IsActive { get; set; }
 
+        [Required]
+        public string CostCenterCode { get; set; }
+
+        public string CostCenterShort { get; set; }
+
+        public string DepartmentName { get; set; }
+
+        [Required]
+        public string Period { get; set; }
+
     }
 }

@@ -1,13 +1,13 @@
 ﻿import { AppConsts } from '@shared/AppConsts';
 import { Component, Injector, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CostCentersServiceProxy, CostCenterDto } from '@shared/service-proxies/service-proxies';
+import { RptProcurementAdjustsServiceProxy, RptProcurementAdjustDto } from '@shared/service-proxies/service-proxies';
 import { NotifyService } from 'abp-ng2-module';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { TokenAuthServiceProxy } from '@shared/service-proxies/service-proxies';
-import { CreateOrEditCostCenterModalComponent } from './create-or-edit-costCenter-modal.component';
+import { CreateOrEditRptProcurementAdjustModalComponent } from './create-or-edit-rptProcurementAdjust-modal.component';
 
-import { ViewCostCenterModalComponent } from './view-costCenter-modal.component';
+import { ViewRptProcurementAdjustModalComponent } from './view-rptProcurementAdjust-modal.component';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
@@ -19,33 +19,33 @@ import { DateTime } from 'luxon';
 import { DateTimeService } from '@app/shared/common/timing/date-time.service';
 
 @Component({
-    templateUrl: './costCenters.component.html',
+    templateUrl: './rptProcurementAdjusts.component.html',
     encapsulation: ViewEncapsulation.None,
     animations: [appModuleAnimation()],
 })
-export class CostCentersComponent extends AppComponentBase {
-    @ViewChild('createOrEditCostCenterModal', { static: true })
-    createOrEditCostCenterModal: CreateOrEditCostCenterModalComponent;
-    @ViewChild('viewCostCenterModal', { static: true }) viewCostCenterModal: ViewCostCenterModalComponent;
+export class RptProcurementAdjustsComponent extends AppComponentBase {
+    @ViewChild('createOrEditRptProcurementAdjustModal', { static: true })
+    createOrEditRptProcurementAdjustModal: CreateOrEditRptProcurementAdjustModalComponent;
+    @ViewChild('viewRptProcurementAdjustModal', { static: true })
+    viewRptProcurementAdjustModal: ViewRptProcurementAdjustModalComponent;
 
     @ViewChild('dataTable', { static: true }) dataTable: Table;
     @ViewChild('paginator', { static: true }) paginator: Paginator;
 
     advancedFiltersAreShown = false;
     filterText = '';
-    controllingAreaFilter = '';
-    costCenterNameFilter = '';
-    descriptionFilter = '';
-    actStateFilter = '';
-    isActiveFilter = -1;
-    costCenterCodeFilter = '';
-    costCenterShortFilter = '';
-    departmentNameFilter = '';
-    periodFilter = '';
+    purchasingDocumentFilter = '';
+    isContractFilter = -1;
+    isAdjustFilter = -1;
+    maxDayAdjustFilter: number;
+    maxDayAdjustFilterEmpty: number;
+    minDayAdjustFilter: number;
+    minDayAdjustFilterEmpty: number;
+    remarkFilter = '';
 
     constructor(
         injector: Injector,
-        private _costCentersServiceProxy: CostCentersServiceProxy,
+        private _rptProcurementAdjustsServiceProxy: RptProcurementAdjustsServiceProxy,
         private _notifyService: NotifyService,
         private _tokenAuth: TokenAuthServiceProxy,
         private _activatedRoute: ActivatedRoute,
@@ -55,7 +55,7 @@ export class CostCentersComponent extends AppComponentBase {
         super(injector);
     }
 
-    getCostCenters(event?: LazyLoadEvent) {
+    getRptProcurementAdjusts(event?: LazyLoadEvent) {
         if (this.primengTableHelper.shouldResetPaging(event)) {
             this.paginator.changePage(0);
             if (this.primengTableHelper.records && this.primengTableHelper.records.length > 0) {
@@ -65,18 +65,15 @@ export class CostCentersComponent extends AppComponentBase {
 
         this.primengTableHelper.showLoadingIndicator();
 
-        this._costCentersServiceProxy
+        this._rptProcurementAdjustsServiceProxy
             .getAll(
                 this.filterText,
-                this.controllingAreaFilter,
-                this.costCenterNameFilter,
-                this.descriptionFilter,
-                this.actStateFilter,
-                this.isActiveFilter,
-                this.costCenterCodeFilter,
-                this.costCenterShortFilter,
-                this.departmentNameFilter,
-                this.periodFilter,
+                this.purchasingDocumentFilter,
+                this.isContractFilter,
+                this.isAdjustFilter,
+                this.maxDayAdjustFilter == null ? this.maxDayAdjustFilterEmpty : this.maxDayAdjustFilter,
+                this.minDayAdjustFilter == null ? this.minDayAdjustFilterEmpty : this.minDayAdjustFilter,
+                this.remarkFilter,
                 this.primengTableHelper.getSorting(this.dataTable),
                 this.primengTableHelper.getSkipCount(this.paginator, event),
                 this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -92,14 +89,14 @@ export class CostCentersComponent extends AppComponentBase {
         this.paginator.changePage(this.paginator.getPage());
     }
 
-    createCostCenter(): void {
-        this.createOrEditCostCenterModal.show();
+    createRptProcurementAdjust(): void {
+        this.createOrEditRptProcurementAdjustModal.show();
     }
 
-    deleteCostCenter(costCenter: CostCenterDto): void {
+    deleteRptProcurementAdjust(rptProcurementAdjust: RptProcurementAdjustDto): void {
         this.message.confirm('', this.l('AreYouSure'), (isConfirmed) => {
             if (isConfirmed) {
-                this._costCentersServiceProxy.delete(costCenter.id).subscribe(() => {
+                this._rptProcurementAdjustsServiceProxy.delete(rptProcurementAdjust.id).subscribe(() => {
                     this.reloadPage();
                     this.notify.success(this.l('SuccessfullyDeleted'));
                 });
@@ -108,18 +105,15 @@ export class CostCentersComponent extends AppComponentBase {
     }
 
     exportToExcel(): void {
-        this._costCentersServiceProxy
-            .getCostCentersToExcel(
+        this._rptProcurementAdjustsServiceProxy
+            .getRptProcurementAdjustsToExcel(
                 this.filterText,
-                this.controllingAreaFilter,
-                this.costCenterNameFilter,
-                this.descriptionFilter,
-                this.actStateFilter,
-                this.isActiveFilter,
-                this.costCenterCodeFilter,
-                this.costCenterShortFilter,
-                this.departmentNameFilter,
-                this.periodFilter
+                this.purchasingDocumentFilter,
+                this.isContractFilter,
+                this.isAdjustFilter,
+                this.maxDayAdjustFilter == null ? this.maxDayAdjustFilterEmpty : this.maxDayAdjustFilter,
+                this.minDayAdjustFilter == null ? this.minDayAdjustFilterEmpty : this.minDayAdjustFilter,
+                this.remarkFilter
             )
             .subscribe((result) => {
                 this._fileDownloadService.downloadTempFile(result);
@@ -128,16 +122,13 @@ export class CostCentersComponent extends AppComponentBase {
 
     resetFilters(): void {
         this.filterText = '';
-        this.controllingAreaFilter = '';
-        this.costCenterNameFilter = '';
-        this.descriptionFilter = '';
-        this.actStateFilter = '';
-        this.isActiveFilter = -1;
-        this.costCenterCodeFilter = '';
-        this.costCenterShortFilter = '';
-        this.departmentNameFilter = '';
-        this.periodFilter = '';
+        this.purchasingDocumentFilter = '';
+        this.isContractFilter = -1;
+        this.isAdjustFilter = -1;
+        this.maxDayAdjustFilter = this.maxDayAdjustFilterEmpty;
+        this.minDayAdjustFilter = this.maxDayAdjustFilterEmpty;
+        this.remarkFilter = '';
 
-        this.getCostCenters();
+        this.getRptProcurementAdjusts();
     }
 }

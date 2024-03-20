@@ -30,6 +30,11 @@ namespace Adaro.Centralize.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var rptProcurementAdjusts = pages.CreateChildPermission(AppPermissions.Pages_RptProcurementAdjusts, L("RptProcurementAdjusts"));
+            rptProcurementAdjusts.CreateChildPermission(AppPermissions.Pages_RptProcurementAdjusts_Create, L("CreateNewRptProcurementAdjust"));
+            rptProcurementAdjusts.CreateChildPermission(AppPermissions.Pages_RptProcurementAdjusts_Edit, L("EditRptProcurementAdjust"));
+            rptProcurementAdjusts.CreateChildPermission(AppPermissions.Pages_RptProcurementAdjusts_Delete, L("DeleteRptProcurementAdjust"));
+
             var zmM021R = pages.CreateChildPermission(AppPermissions.Pages_ZMM021R, L("ZMM021R"));
             zmM021R.CreateChildPermission(AppPermissions.Pages_ZMM021R_Create, L("CreateNewZMM021R"));
             zmM021R.CreateChildPermission(AppPermissions.Pages_ZMM021R_Edit, L("EditZMM021R"));

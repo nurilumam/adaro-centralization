@@ -1,4 +1,5 @@
-﻿using Adaro.Centralize.LookupArea;
+﻿using Adaro.Centralize.ReportArea;
+using Adaro.Centralize.LookupArea;
 using Adaro.Centralize.Finance;
 using Adaro.Centralize.JobScheduler;
 using Adaro.Centralize.SAPConnector;
@@ -22,6 +23,8 @@ namespace Adaro.Centralize.EntityFrameworkCore
 {
     public class CentralizeDbContext : AbpZeroDbContext<Tenant, Role, User, CentralizeDbContext>
     {
+        public virtual DbSet<RptProcurementAdjust> RptProcurementAdjusts { get; set; }
+
         public virtual DbSet<ZMM021R> ZMM021R { get; set; }
 
         public virtual DbSet<LookupPage> LookupPages { get; set; }
@@ -86,10 +89,18 @@ namespace Adaro.Centralize.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ZMM021R>(z =>
+            modelBuilder.Entity<CostCenter>(c =>
             {
-                z.HasIndex(e => new { e.TenantId });
+                c.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<RptProcurementAdjust>(r =>
+                       {
+                           r.HasIndex(e => new { e.TenantId });
+                       });
+            modelBuilder.Entity<ZMM021R>(z =>
+                       {
+                           z.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<LookupPage>(l =>
                        {
                            l.HasIndex(e => new { e.TenantId });

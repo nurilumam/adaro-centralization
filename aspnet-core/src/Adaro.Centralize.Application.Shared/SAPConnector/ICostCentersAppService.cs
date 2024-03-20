@@ -4,7 +4,6 @@ using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Adaro.Centralize.SAPConnector.Dtos;
 using Adaro.Centralize.Dto;
-using Adaro.Centralize.Common;
 
 namespace Adaro.Centralize.SAPConnector
 {
@@ -21,8 +20,6 @@ namespace Adaro.Centralize.SAPConnector
         Task Delete(EntityDto<Guid> input);
 
         Task<FileDto> GetCostCentersToExcel(GetAllCostCentersForExcelInput input);
-
-        Task<DtoResponseModel> GetFromSAP();
 
     }
 }

@@ -17,5 +17,13 @@ namespace Adaro.Centralize.SAPConnector.Dtos
 
         public int? IsActiveFilter { get; set; }
 
+        public string CostCenterCodeFilter { get; set; }
+
+        public string CostCenterShortFilter { get; set; }
+
+        public string DepartmentNameFilter { get; set; }
+
+        public string PeriodFilter { get; set; }
+
     }
 }
