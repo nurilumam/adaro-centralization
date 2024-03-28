@@ -19,6 +19,10 @@ export class LookupPageCostCenterLookupTableModalComponent extends AppComponentB
     filterText = '';
     id: string;
     displayName: string;
+    costCenterCode: string;
+    costCenterName: string | undefined;
+    departmentName: string;
+    isSender:boolean;
 
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
     active = false;
@@ -30,7 +34,7 @@ export class LookupPageCostCenterLookupTableModalComponent extends AppComponentB
 
     show(): void {
         this.active = true;
-        this.paginator.rows = 5;
+        this.paginator.rows = 50;
         this.getAll();
         this.modal.show();
     }
@@ -48,6 +52,7 @@ export class LookupPageCostCenterLookupTableModalComponent extends AppComponentB
         }
 
         this.primengTableHelper.showLoadingIndicator();
+        console.log(this.isSender);
 
         this._lookupPagesServiceProxy
             .getAllCostCenterForLookupTable(
@@ -69,7 +74,10 @@ export class LookupPageCostCenterLookupTableModalComponent extends AppComponentB
 
     setAndSave(costCenter: LookupPageCostCenterLookupTableDto) {
         this.id = costCenter.id;
+        this.costCenterCode = costCenter.costCenterCode;
+        this.costCenterName = costCenter.costCenterName;
         this.displayName = costCenter.displayName;
+        this.departmentName = costCenter.departmentName;
         this.active = false;
         this.modal.hide();
         this.modalSave.emit(null);

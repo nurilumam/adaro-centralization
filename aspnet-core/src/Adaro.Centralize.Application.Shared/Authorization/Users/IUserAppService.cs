@@ -25,5 +25,7 @@ namespace Adaro.Centralize.Authorization.Users
         Task DeleteUser(EntityDto<long> input);
 
         Task UnlockUser(EntityDto<long> input);
+
+        Task<PagedResultDto<UserListDto>> GetActiveDirectoryUsers(GetUsersInput input);
     }
 }

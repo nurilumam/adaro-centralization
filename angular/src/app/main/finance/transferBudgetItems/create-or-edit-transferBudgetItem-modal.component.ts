@@ -93,12 +93,12 @@ export class CreateOrEditTransferBudgetItemModalComponent extends AppComponentBa
         this.transferBudgetItemTransferBudgetLookupTableModal.show();
     }
     openSelectCostCenterModal() {
-        this.transferBudgetItemCostCenterLookupTableModal.id = this.transferBudgetItem.costCenterIdFrom;
+        this.transferBudgetItemCostCenterLookupTableModal.id = this.transferBudgetItem.costCenterId;
         this.transferBudgetItemCostCenterLookupTableModal.displayName = this.costCenterDisplayProperty;
         this.transferBudgetItemCostCenterLookupTableModal.show();
     }
     openSelectCostCenterModal2() {
-        this.transferBudgetItemCostCenterLookupTableModal2.id = this.transferBudgetItem.costCenterIdTo;
+        this.transferBudgetItemCostCenterLookupTableModal2.id = this.transferBudgetItem.costCenterId;
         this.transferBudgetItemCostCenterLookupTableModal2.displayName = this.costCenterDisplayProperty2;
         this.transferBudgetItemCostCenterLookupTableModal2.show();
     }
@@ -108,11 +108,11 @@ export class CreateOrEditTransferBudgetItemModalComponent extends AppComponentBa
         this.transferBudgetDisplayProperty = '';
     }
     setCostCenterIdFromNull() {
-        this.transferBudgetItem.costCenterIdFrom = null;
+        this.transferBudgetItem.costCenterId = null;
         this.costCenterDisplayProperty = '';
     }
     setCostCenterIdToNull() {
-        this.transferBudgetItem.costCenterIdTo = null;
+        this.transferBudgetItem.costCenterId = null;
         this.costCenterDisplayProperty2 = '';
     }
 
@@ -121,11 +121,11 @@ export class CreateOrEditTransferBudgetItemModalComponent extends AppComponentBa
         this.transferBudgetDisplayProperty = this.transferBudgetItemTransferBudgetLookupTableModal.displayName;
     }
     getNewCostCenterIdFrom() {
-        this.transferBudgetItem.costCenterIdFrom = this.transferBudgetItemCostCenterLookupTableModal.id;
+        this.transferBudgetItem.costCenterId = this.transferBudgetItemCostCenterLookupTableModal.id;
         this.costCenterDisplayProperty = this.transferBudgetItemCostCenterLookupTableModal.displayName;
     }
     getNewCostCenterIdTo() {
-        this.transferBudgetItem.costCenterIdTo = this.transferBudgetItemCostCenterLookupTableModal2.id;
+        this.transferBudgetItem.costCenterId = this.transferBudgetItemCostCenterLookupTableModal2.id;
         this.costCenterDisplayProperty2 = this.transferBudgetItemCostCenterLookupTableModal2.displayName;
     }
 

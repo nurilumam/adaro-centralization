@@ -25,7 +25,7 @@
                             <!--begin::Input group-->
                             <div class="d-flex flex-center flex-equal fw-row text-nowrap order-1 order-xxl-2 me-4"
                                 data-bs-toggle="tooltip" data-bs-trigger="hover" title="Enter invoice number">
-                                <span class="fs-2x fw-bold text-gray-800">Form Budget Transfer XXX</span>
+                                <span class="fs-2x fw-bold text-gray-800">Form Budget Transfer</span>
                             </div>
                             <!--end::Input group-->
                             <!--begin::Input group-->
@@ -49,7 +49,9 @@
                                     <div class="form-floating">
                                         <input type="text" #TransferBudget_DocumentNo="ngModel"
                                             id="TransferBudget_DocumentNo" class="form-control form-control-solid"
-                                            [(ngModel)]="transferBudget.documentNo" name="DocumentNo" placeholder="Document No (Auto Generate)" required />
+                                            [(ngModel)]="transferBudget.documentNo" name="DocumentNo"
+                                            placeholder="Document No (Auto Generate)" value="(Auto Generate)" />
+                                        <label for="TransferBudget_DocumentNo">Document No</label>
                                         <validation-messages
                                             [formCtrl]="TransferBudget_DocumentNo"></validation-messages>
                                     </div>
@@ -64,12 +66,12 @@
                                 <div class="col-lg-6">
                                     <!--begin::Input group-->
                                     <div class="form-floating">
-                                        <select class="form-control" [(ngModel)]="transferBudget.division" 
-                                        name="Division"  #TransferBudget_Division="ngModel" id="TransferBudget_Division">
-                                            <option selected>Open this select menu</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                        <select class="form-control" [(ngModel)]="transferBudget.division"
+                                            name="Division" #TransferBudget_Division="ngModel"
+                                            id="TransferBudget_Division" (ngModelChange)="changeDivision()">
+                                            <!-- <option selected>Select Division</option> -->
+                                            <option *ngFor="let divisonItem of allDivision" [value]="divisonItem.id">{{
+                                                divisonItem.displayName }}</option>
                                         </select>
                                         <label for="TransferBudget_Division">{{ l('Division') }} *</label>
                                         <validation-messages [formCtrl]="TransferBudget_Division"></validation-messages>
@@ -81,15 +83,16 @@
                                 <div class="col-lg-6">
                                     <!--begin::Input group-->
                                     <div class="form-floating">
-                                        <select class="form-control" [(ngModel)]="transferBudget.department" 
-                                        name="Department"  #TransferBudget_Department="ngModel" id="TransferBudget_Department">
-                                            <option selected>Open this select menu</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                        <select class="form-control" [(ngModel)]="transferBudget.department"
+                                            name="Department" #TransferBudget_Department="ngModel"
+                                            id="TransferBudget_Department" (ngModelChange)="changeDepartment()">
+                                            <option selected>Select Department</option>
+                                            <option *ngFor="let departmentItem of allDepartment"
+                                                [value]="departmentItem.id">{{ departmentItem.displayName }}</option>
                                         </select>
                                         <label for="TransferBudget_Department">{{ l('Department') }} *</label>
-                                        <validation-messages [formCtrl]="TransferBudget_Department"></validation-messages>
+                                        <validation-messages
+                                            [formCtrl]="TransferBudget_Department"></validation-messages>
 
                                     </div>
                                     <!--end::Input group-->
@@ -107,7 +110,8 @@
                                         <input type="text" #TransferBudget_ProjectActivities="ngModel"
                                             id="TransferBudget_ProjectActivities" class="form-control"
                                             [(ngModel)]="transferBudget.projectActivities" name="ProjectActivities" />
-                                        <label for="TransferBudget_ProjectActivities">{{ l('ProjectActivities') }}</label>
+                                        <label for="TransferBudget_ProjectActivities">{{ l('ProjectActivities')
+                                            }}</label>
                                         <validation-messages
                                             [formCtrl]="TransferBudget_ProjectActivities"></validation-messages>
 
@@ -119,114 +123,195 @@
                             <!--end::Row-->
 
                             <!--begin::Row-->
-                            <div class="row gx-10 mb-5">
+                            <div class="row gx-10 mb-15">
                                 <!--begin::Col-->
                                 <div class="col-lg-12">
-                                    <textarea #TransferBudget_Purpose="ngModel" id="TransferBudget_Purpose" placeholder="Whats Purpose?" 
-                                        class="form-control form-control-solid" rows="3" [(ngModel)]="transferBudget.purpose" name="Purpose" required></textarea>
+                                    <textarea #TransferBudget_Purpose="ngModel" id="TransferBudget_Purpose"
+                                        placeholder="Whats Purpose?" class="form-control form-control-solid" rows="3"
+                                        [(ngModel)]="transferBudget.purpose" name="Purpose" required></textarea>
                                     <validation-messages [formCtrl]="TransferBudget_Purpose"></validation-messages>
                                 </div>
                                 <!--end::Col-->
                             </div>
                             <!--end::Row-->
-                            <br />
-                            <button class="btn btn-primary blue" (click)="openSelectCostCenterModal()" type="button">
-                                <i class="fa fa-search"></i>
-                                {{ l('Pick') }}
-                            </button>
-                            <br />
 
-                            <!--begin::Table wrapper-->
-                            <div class="table-responsive mb-10">
+                            <div class="card mb-15 bg-light">
+                                <div class="card-header">
+                                    <h3 class="card-title">SENDER COST CENTER</h3>
+                                    <div class="card-toolbar">
+                                        <button type="button" (click)="openSelectCostCenterModal()"
+                                            class="btn btn-sm btn-primary blue rounded-1">
+                                            <i class="fa fa-search ng-tns-c248-6"></i> Pick
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body p-5 pb-0">
+                                    <!--begin::Table wrapper-->
+                                    <div class="table-responsive mb-10">
+                                        <div class="primeng-datatable-container col-12"
+                                            [busyIf]="primengTableHelper.isLoading">
+                                            <p-table #dataTable [value]="primengTableHelperCostCenterFrom.records"
+                                                rows="{{ primengTableHelperCostCenterFrom.defaultRecordsCountPerPage }}"
+                                                [paginator]="false" [lazy]="true" [scrollable]="true" ScrollWidth="100%"
+                                                [tableStyle]="{ 'min-width': '50rem' }"
+                                                [resizableColumns]="primengTableHelperCostCenterFrom.resizableColumns">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                        <th pSortableColumn="department" class="bg-black text-white"
+                                                            style="width: 300px;">
+                                                            DEPARTMENT
+                                                        </th>
+                                                        <th style="width: 150px" pSortableColumn="costCenterCode"
+                                                            class="bg-black text-white">
+                                                            COST CENTER
+                                                        </th>
+                                                        <th pSortableColumn="costCenterName"
+                                                            class="bg-black text-white">
+                                                            DESCRIPTION
+                                                        </th>
+                                                        <th style="width: 150px" pSortableColumn="department"
+                                                            class="bg-black text-white">
+                                                            AMOUNT
+                                                        </th>
+                                                        <th style="width: 50px" class="bg-black"></th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-record="$implicit"
+                                                    let-editing="editing" let-i="rowIndex">
+                                                    <tr [pEditableRow]="record">
+                                                        <td>
+                                                            {{ record.departmentName }}
+                                                        </td>
+                                                        <td style="width: 150px">
+                                                            {{ record.costCenterCode }}
+                                                        </td>
+                                                        <td>
+                                                            {{ record.costCenterName }}
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" [(ngModel)]="record.amountTo"
+                                                                class="form-control py-2 rounded-1 text-right" required>
+                                                        </td>
+                                                        <td>
+                                                            <button type="button"
+                                                                (click)="deleteBudgetItemSender(record)"
+                                                                class="btn btn-active-icon-danger btn-text-danger"><i
+                                                                    class="bi bi-x-circle fs-4"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                            <div class="primeng-no-data"
+                                                *ngIf="primengTableHelperCostCenterFrom.totalRecordsCount == 0">
+                                                {{ l('NoData') }}
+                                            </div>
 
-                                <table
-                                    class="table table-border-custom table-hover table-rounded table-striped border gy-3 gs-3">
-                                    <thead>
-                                        <tr
-                                            class="border-bottom fs-7 fw-bold text-gray-700 text-uppercase bg-secondary">
-                                            <th colspan="3" class="min-w-300px w-475px">Sender</th>
-                                        </tr>
-                                        <tr class="border-bottom fs-7 fw-bold text-gray-700 text-uppercase bg-light">
-                                            <th class="min-w-250px w-300px fs-8 ng-tns-c247-6">Cost Center <br />(GL
-                                                Account/Cost Element)</th>
-                                            <th class="min-w-75px w-75px">Period</th>
-                                            <th class="min-w-75px w-75px text-end">Amount</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td><input type="text" class="form-control form-control-transparent" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td><input type="text" class="form-control form-control-transparent" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td><input type="text" class="form-control form-control-transparent" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td><input type="text" class="form-control form-control-transparent" /></td>
-                                        </tr>
-                                    </tbody>
+                                            <div class="primeng-paging-container d-none">
+                                                <p-paginator
+                                                    [rows]="primengTableHelperCostCenterFrom.defaultRecordsCountPerPage"
+                                                    #paginator (onPageChange)="getTransferBudgetSender($event)"
+                                                    [totalRecords]="primengTableHelperCostCenterFrom.totalRecordsCount"
+                                                    [rowsPerPageOptions]="primengTableHelperCostCenterFrom.predefinedRecordsCountPerPage"
+                                                    [showCurrentPageReport]="true" [currentPageReportTemplate]="
+                                                'TotalRecordsCount' | localize : primengTableHelperCostCenterFrom.totalRecordsCount
+                                            "></p-paginator>
+                                            </div>
+                                        </div>
 
-                                </table>
-
-
+                                    </div>
+                                    <!--end::Table-->
+                                </div>
                             </div>
-                            <!--end::Table-->
-
-                            <!--begin::Table wrapper-->
-                            <div class="table-responsive">
-
-                                <table
-                                    class="table table-border-custom table-hover table-rounded table-striped border gy-3 gs-3">
-                                    <thead>
-                                        <tr
-                                            class="border-bottom fs-7 fw-bold text-gray-700 text-uppercase bg-secondary">
-                                            <th colspan="3" class="min-w-300px w-475px">Receiver</th>
-                                        </tr>
-                                        <tr class="border-bottom fs-7 fw-bold text-gray-700 text-uppercase bg-light">
-                                            <th class="min-w-250px w-300px fs-8 ng-tns-c247-6">Cost Center <br />(GL
-                                                Account/Cost Element)</th>
-                                            <th class="min-w-75px w-75px">Period</th>
-                                            <th class="min-w-75px w-75px text-end">Amount</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td><input type="text" class="form-control form-control-transparent" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td><input type="text" class="form-control form-control-transparent" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td><input type="text" class="form-control form-control-transparent" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td><input type="text" class="form-control form-control-transparent" /></td>
-                                        </tr>
-                                    </tbody>
-
-                                </table>
 
 
+                            <div class="card mb-15 bg-light">
+                                <div class="card-header">
+                                    <h3 class="card-title">RECEIVER COST CENTER</h3>
+                                    <div class="card-toolbar">
+                                        <button type="button" (click)="openSelectCostCenterToModal()"
+                                            [disabled]="!transferBudget.department"
+                                            class="btn btn-sm btn-primary blue rounded-1">
+                                            <i class="fa fa-search ng-tns-c248-6"></i> Pick
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body p-5 pb-0">
+                                    <!--begin::Table wrapper-->
+                                    <div class="table-responsive mb-10">
+                                        <div class="primeng-datatable-container col-12"
+                                            [busyIf]="primengTableHelper.isLoading">
+                                            <p-table #dataTable [value]="primengTableHelperCostCenterTo.records"
+                                                rows="{{ primengTableHelperCostCenterTo.defaultRecordsCountPerPage }}"
+                                                [paginator]="false" [lazy]="true" [scrollable]="true" ScrollWidth="100%"
+                                                [tableStyle]="{ 'min-width': '50rem' }"
+                                                [resizableColumns]="primengTableHelperCostCenterTo.resizableColumns">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                        <th pSortableColumn="department" class="bg-black text-white"
+                                                            style="width: 300px;">
+                                                            DEPARTMENT
+                                                        </th>
+                                                        <th style="width: 150px" pSortableColumn="costCenterCode"
+                                                            class="bg-black text-white">
+                                                            COST CENTER
+                                                        </th>
+                                                        <th pSortableColumn="costCenterName"
+                                                            class="bg-black text-white">
+                                                            DESCRIPTION
+                                                        </th>
+                                                        <th style="width: 150px" pSortableColumn="department"
+                                                            class="bg-black text-white">
+                                                            AMOUNT
+                                                        </th>
+                                                        <th style="width: 50px" class="bg-black"></th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-record="$implicit"
+                                                    let-editing="editing" let-i="rowIndex">
+                                                    <tr [pEditableRow]="record">
+                                                        <td>
+                                                            {{ record.departmentName }}
+                                                        </td>
+                                                        <td style="width: 150px">
+                                                            {{ record.costCenterCode }}
+                                                        </td>
+                                                        <td>
+                                                            {{ record.costCenterName }}
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" [(ngModel)]="record.amountTo"
+                                                                class="form-control py-2 rounded-1 text-right" required>
+                                                        </td>
+                                                        <td>
+                                                            <button type="button"
+                                                                (click)="deleteBudgetItemReceiver(record)"
+                                                                class="btn btn-active-icon-danger btn-text-danger"><i
+                                                                    class="bi bi-x-circle fs-4"></i></button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                            <div class="primeng-no-data"
+                                                *ngIf="primengTableHelperCostCenterTo.totalRecordsCount == 0">
+                                                {{ l('NoData') }}
+                                            </div>
+
+                                            <div class="primeng-paging-container d-none">
+                                                <p-paginator
+                                                    [rows]="primengTableHelperCostCenterTo.defaultRecordsCountPerPage"
+                                                    #paginator (onPageChange)="getTransferBudgetReceiver($event)"
+                                                    [totalRecords]="primengTableHelperCostCenterTo.totalRecordsCount"
+                                                    [rowsPerPageOptions]="primengTableHelperCostCenterTo.predefinedRecordsCountPerPage"
+                                                    [showCurrentPageReport]="true" [currentPageReportTemplate]="
+                                                'TotalRecordsCount' | localize : primengTableHelperCostCenterTo.totalRecordsCount
+                                            "></p-paginator>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!--end::Table-->
+                                </div>
                             </div>
-                            <!--end::Table-->
 
                         </div>
                         <!--end::Form-->
@@ -298,17 +383,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-                <div class="card card-custom gutter-b">
+                <div class="card card-custom gutter-b d-none">
                     <div class="card-body">
 
 
@@ -331,8 +406,11 @@
                     </div>
                 </div>
 
+
+
             </div>
             <!--end::Content-->
+
             <!--begin::Sidebar-->
             <div class="flex-lg-auto min-w-lg-400px">
                 <!--begin::Card-->
@@ -341,89 +419,57 @@
                     data-kt-sticky-width="{lg: '350px', lg: '400px'}" data-kt-sticky-left="auto"
                     data-kt-sticky-top="100px" data-kt-sticky-animation="false" data-kt-sticky-zindex="95">
                     <!--begin::Card body-->
-                    <div class="card-body p-10">
-                        <!--begin::Input group-->
-                        <div class="mb-10">
-                            <!--begin::Label-->
-                            <label class="form-label fw-bold fs-6 text-gray-700">Currency</label>
-                            <!--end::Label-->
-                            <!--begin::Select-->
-                            <select name="currnecy" aria-label="Select a Timezone" data-control="select2"
-                                data-placeholder="Select currency" class="form-select form-select-solid">
-                                <option value=""></option>
-                                <option data-kt-flag="flags/united-states.svg" value="USD">
-                                    <b>USD</b>&nbsp;-&nbsp;USA dollar
-                                </option>
-                                <option data-kt-flag="flags/united-kingdom.svg" value="GBP">
-                                    <b>GBP</b>&nbsp;-&nbsp;British pound
-                                </option>
-                                <option data-kt-flag="flags/australia.svg" value="AUD">
-                                    <b>AUD</b>&nbsp;-&nbsp;Australian dollar
-                                </option>
-                                <option data-kt-flag="flags/japan.svg" value="JPY">
-                                    <b>JPY</b>&nbsp;-&nbsp;Japanese yen
-                                </option>
-                                <option data-kt-flag="flags/sweden.svg" value="SEK">
-                                    <b>SEK</b>&nbsp;-&nbsp;Swedish krona
-                                </option>
-                                <option data-kt-flag="flags/canada.svg" value="CAD">
-                                    <b>CAD</b>&nbsp;-&nbsp;Canadian dollar
-                                </option>
-                                <option data-kt-flag="flags/switzerland.svg" value="CHF">
-                                    <b>CHF</b>&nbsp;-&nbsp;Swiss franc
-                                </option>
-                            </select>
-                            <!--end::Select-->
+
+                    <div class="card-header">
+                        <h3 class="card-title">Approval List</h3>
+                    </div>
+
+                    <div class="card-body p-5">
+
+                        <div class="hover-scroll-overlay-y pe-6 me-n6" style="height: 400px;">
+
+                            <!--begin::Item-->
+                            <div *ngFor="let approvalTitle of approvalList" 
+                            class="border border-dashed border-gray-300 rounded px-7 py-3 mb-5">
+                                <!--begin::Info-->
+                                <div class="d-flex flex-stack">
+                                    <!--begin::Wrapper-->
+                                    <div class="me-3 mb-3">
+                                        <span class="text-gray-400 text-hover-primary fw-bold">Please select Person</span>
+                                        <!--end::Title-->
+                                    </div>
+                                    <!--end::Wrapper-->
+                                </div>
+                                <!--end::Info-->
+                                
+                                <div class="d-flex flex-stack">
+                                    <!--begin::Name-->
+                                    <span class="text-gray-500 fw-bold">To:
+                                        <span class="text-gray-800 text-hover-primary fw-bold">{{ approvalTitle }}</span>
+                                    </span>
+                                    <!--end::Name-->
+
+                                    <!--begin::Label-->
+                                    <button type="button" class="btn btn-sm py-1 btn-light-primary">Select</button>
+                                    <!--end::Label-->
+                                </div>
+                            </div>
+                            <!--end::Item-->
+
                         </div>
-                        <!--end::Input group-->
-                        <!--begin::Separator-->
-                        <div class="separator separator-dashed mb-8"></div>
-                        <!--end::Separator-->
-                        <!--begin::Input group-->
-                        <div class="mb-8">
-                            <!--begin::Option-->
-                            <label
-                                class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack mb-5">
-                                <span class="form-check-label ms-0 fw-bold fs-6 text-gray-700">Payment method</span>
-                                <input class="form-check-input" type="checkbox" checked="checked" value="" />
-                            </label>
-                            <!--end::Option-->
-                            <!--begin::Option-->
-                            <label
-                                class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack mb-5">
-                                <span class="form-check-label ms-0 fw-bold fs-6 text-gray-700">Late fees</span>
-                                <input class="form-check-input" type="checkbox" value="" />
-                            </label>
-                            <!--end::Option-->
-                            <!--begin::Option-->
-                            <label
-                                class="form-check form-switch form-switch-sm form-check-custom form-check-solid flex-stack">
-                                <span class="form-check-label ms-0 fw-bold fs-6 text-gray-700">Notes</span>
-                                <input class="form-check-input" type="checkbox" value="" />
-                            </label>
-                            <!--end::Option-->
-                        </div>
-                        <!--end::Input group-->
+
                         <!--begin::Separator-->
                         <div class="separator separator-dashed mb-8"></div>
                         <!--end::Separator-->
                         <!--begin::Actions-->
                         <div class="mb-0">
-                            <!--begin::Row-->
-                            <div class="row mb-5">
-                                <!--begin::Col-->
-                                <div class="col">
-                                    <a href="#" class="btn btn-light btn-active-light-primary w-100">Preview</a>
-                                </div>
-                                <!--end::Col-->
-                                <!--begin::Col-->
-                                <div class="col">
-                                    <a href="#" class="btn btn-light btn-active-light-primary w-100">Download</a>
-                                </div>
-                                <!--end::Col-->
-                            </div>
-                            <!--end::Row-->
-                            <button type="submit" href="#" class="btn btn-primary w-100" id="kt_invoice_submit_button">
+                            <button (click)="save()" class="btn btn-primary w-100" [buttonBusy]="saving"
+                                [busyText]="l('SavingWithThreeDot')">
+                                <i class="fa fa-save"></i>
+                                <span>{{ l('Save') }}</span>
+                            </button>
+
+                            <button type="submit" href="#" class="btn btn-primary w-100 d-none" id="kt_invoice_submit_button">
                                 <i class="ki-duotone ki-triangle fs-3">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
@@ -435,7 +481,7 @@
                     <!--end::Card body-->
 
 
-                    <div class="card-footer">
+                    <div class="card-footer d-none">
                         <div class="col-lg-12">
                             <button (click)="save()" class="btn btn-primary blue float-right" [buttonBusy]="saving"
                                 [busyText]="l('SavingWithThreeDot')">
@@ -464,7 +510,5 @@
     </div>
 </div>
 
-<lookupPageCostCenterLookupTableModal
-    #lookupPageCostCenterLookupTableModal
-    (modalSave)="getNewCostCenterId()"
-></lookupPageCostCenterLookupTableModal>
+<lookupPageCostCenterLookupTableModal #lookupPageCostCenterLookupTableModal (modalSave)="getNewCostCenterId()">
+</lookupPageCostCenterLookupTableModal>

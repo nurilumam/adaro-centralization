@@ -1,7 +1,7 @@
 ﻿import { Component, ViewChild, Injector, Output, EventEmitter, OnInit, ElementRef } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { finalize } from 'rxjs/operators';
-import { TransferBudgetsServiceProxy, CreateOrEditTransferBudgetDto } from '@shared/service-proxies/service-proxies';
+import { TransferBudgetsServiceProxy, CreateOrEditTransferBudgetDto, CreateOrEditTransferBudgetItemDto, OrganizationUnitDto, OrganizationUnitServiceProxy, CostCentersServiceProxy } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { DateTime } from 'luxon';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,8 +12,14 @@ import { BreadcrumbItem } from '@app/shared/common/sub-header/sub-header.compone
 import { DateTimeService } from '@app/shared/common/timing/date-time.service';
 
 import { LookupPageCostCenterLookupTableModalComponent } from './lookupPage-costCenter-lookup-table-modal.component';
+import { LazyLoadEvent } from 'primeng/api';
+import { Table } from 'primeng/table';
+import { Paginator } from 'primeng/paginator';
+import { PrimengTableHelper } from 'shared/helpers/PrimengTableHelper';
+import { forEach } from 'lodash-es';
 
 @Component({
+    styleUrls: ['./create-or-edit-transfer-budget.component.less'],
     templateUrl: './create-or-edit-transfer-budget.component.html',
     animations: [appModuleAnimation()],
 })
@@ -21,31 +27,71 @@ export class CreateOrEditTransferBudgetComponent extends AppComponentBase implem
     active = false;
     saving = false;
     costCenterId = '';
+    costCenterDisplayProperty = '';
+    costCenterCode = '';
+    costCenterName = '';
+    costCenterDepartmentName = '';
+
+    costCenterCodeSender = '';
+    costCenterCodeReceiver = '';
+
+
+    allOrganizationUnits: OrganizationUnitDto[];
+    allDivision: OrganizationUnitDto[];
+    allDepartment: OrganizationUnitDto[];
+    approvalList: string[];
+
+    lookupFrom = true;
+
+    primengTableHelperCostCenterFrom: PrimengTableHelper = new PrimengTableHelper();
+    primengTableHelperCostCenterTo: PrimengTableHelper = new PrimengTableHelper();
+
 
     transferBudget: CreateOrEditTransferBudgetDto = new CreateOrEditTransferBudgetDto();
 
+    costCenterFrom: CreateOrEditTransferBudgetItemDto = new CreateOrEditTransferBudgetItemDto();
+    costCenterTo: CreateOrEditTransferBudgetItemDto = new CreateOrEditTransferBudgetItemDto();
+
+    clonedProducts: { [s: string]: CreateOrEditTransferBudgetItemDto; } = {};
+
+
+    @ViewChild('dataTable', { static: true }) dataTable: Table;
+    @ViewChild('paginator', { static: true }) paginator: Paginator;
+
     @ViewChild('lookupPageCostCenterLookupTableModal', { static: true })
     lookupPageCostCenterLookupTableModal: LookupPageCostCenterLookupTableModalComponent;
-
-    costCenterDisplayProperty = '';
 
     breadcrumbs: BreadcrumbItem[] = [
         new BreadcrumbItem(this.l('TransferBudget'), '/app/main/finance/transferBudgets'),
         new BreadcrumbItem(this.l('Entity_Name_Plural_Here') + '' + this.l('Details')),
     ];
 
+
+
     constructor(
         injector: Injector,
         private _activatedRoute: ActivatedRoute,
         private _transferBudgetsServiceProxy: TransferBudgetsServiceProxy,
         private _router: Router,
-        private _dateTimeService: DateTimeService
+        private _dateTimeService: DateTimeService,
+        private _organizationUnitServiceProxy: OrganizationUnitServiceProxy,
+        private _costCentersServiceProxy: CostCentersServiceProxy,
     ) {
         super(injector);
     }
 
     ngOnInit(): void {
         this.show(this._activatedRoute.snapshot.queryParams['id']);
+        this.getOrganizationUnits();
+
+        this.approvalList = [
+            'Department Head (Receiver)',
+            'Division Head (Receiver)',
+            'Department Head (Sender)',
+            'Division Head (Sender)',
+            'Respectiver Director',
+            'Finance Division/Director'
+        ];
     }
 
     show(transferBudgetId?: string): void {
@@ -63,21 +109,55 @@ export class CreateOrEditTransferBudgetComponent extends AppComponentBase implem
         }
     }
 
-    save(): void {
-        this.saving = true;
+    getOrganizationUnits(): void {
+        this._organizationUnitServiceProxy.getAll().subscribe((result) => {
+            this.allOrganizationUnits = result;
+            this.allDivision = [];
+            for (let index = 0; index < result.length; index++) {
+                if (result[index].parentId == null) this.allDivision.push(result[index]);
+            }
+        });
+    }
 
-        this._transferBudgetsServiceProxy
-            .createOrEdit(this.transferBudget)
-            .pipe(
-                finalize(() => {
-                    this.saving = false;
-                })
-            )
-            .subscribe((x) => {
-                this.saving = false;
-                this.notify.info(this.l('SavedSuccessfully'));
-                this._router.navigate(['/app/main/finance/transferBudgets']);
-            });
+    changeDivision(): void {
+        this.allDepartment = [];
+        for (let index = 0; index < this.allOrganizationUnits.length; index++) {
+            if (this.allOrganizationUnits[index].parentId == parseInt(this.transferBudget.division)) this.allDepartment.push(this.allOrganizationUnits[index]);
+        }
+    }
+
+    changeDepartment(): void {
+        this._costCentersServiceProxy.getCostCenterFromDepartmentId(parseInt(this.transferBudget.department)).subscribe((result) => {
+            const costCenterReceiver = result.costCenter;
+            this.costCenterCodeReceiver = costCenterReceiver.costCenterCode.substring(0, (costCenterReceiver.costCenterCode.length - 3));
+        });
+
+        this.transferBudget.transferBudgetItemToDtos = [];
+        this.primengTableHelperCostCenterTo.showLoadingIndicator();
+        this.primengTableHelperCostCenterTo.totalRecordsCount = this.transferBudget.transferBudgetItemToDtos.length;
+        this.primengTableHelperCostCenterTo.records = this.transferBudget.transferBudgetItemToDtos;
+        this.primengTableHelperCostCenterTo.hideLoadingIndicator();
+    }
+
+    save(): void {
+
+        console.log(this.transferBudget);
+
+        // this.saving = true;
+
+
+        // this._transferBudgetsServiceProxy
+        //     .createOrEdit(this.transferBudget)
+        //     .pipe(
+        //         finalize(() => {
+        //             this.saving = false;
+        //         })
+        //     )
+        //     .subscribe((x) => {
+        //         this.saving = false;
+        //         this.notify.info(this.l('SavedSuccessfully'));
+        //         this._router.navigate(['/app/main/finance/transferBudgets']);
+        //     });
     }
 
     saveAndNew(): void {
@@ -100,8 +180,27 @@ export class CreateOrEditTransferBudgetComponent extends AppComponentBase implem
 
 
     openSelectCostCenterModal() {
+        this.lookupFrom = true;
+        this.costCenterId = "";        
 
-        console.log(this.lookupPageCostCenterLookupTableModal);
+        this.lookupPageCostCenterLookupTableModal.isSender = true;
+        this.lookupPageCostCenterLookupTableModal.filterText = "";
+
+        if(this.costCenterCodeSender!=undefined&&this.costCenterCodeSender!=''){
+            this.lookupPageCostCenterLookupTableModal.isSender = false;
+            this.lookupPageCostCenterLookupTableModal.filterText = this.costCenterCodeSender;
+        }
+
+        this.lookupPageCostCenterLookupTableModal.id = this.costCenterId;
+        this.lookupPageCostCenterLookupTableModal.displayName = this.costCenterDisplayProperty;
+        this.lookupPageCostCenterLookupTableModal.show();
+    }
+
+    openSelectCostCenterToModal() {
+        this.lookupFrom = false;
+        this.costCenterId = "";
+        this.lookupPageCostCenterLookupTableModal.filterText = this.costCenterCodeReceiver;
+        this.lookupPageCostCenterLookupTableModal.isSender = false;
         this.lookupPageCostCenterLookupTableModal.id = this.costCenterId;
         this.lookupPageCostCenterLookupTableModal.displayName = this.costCenterDisplayProperty;
         this.lookupPageCostCenterLookupTableModal.show();
@@ -115,6 +214,116 @@ export class CreateOrEditTransferBudgetComponent extends AppComponentBase implem
     getNewCostCenterId() {
         this.costCenterId = this.lookupPageCostCenterLookupTableModal.id;
         this.costCenterDisplayProperty = this.lookupPageCostCenterLookupTableModal.displayName;
+        this.costCenterCode = this.lookupPageCostCenterLookupTableModal.costCenterCode;
+        this.costCenterName = this.lookupPageCostCenterLookupTableModal.costCenterName;
+        this.costCenterDepartmentName = this.lookupPageCostCenterLookupTableModal.departmentName;
+
+        if (this.costCenterId != "") {
+            if (this.lookupFrom) {
+                this.getTransferBudgetSender();
+            } else {
+                this.getTransferBudgetReceiver();
+            }
+        }
     }
+
+
+    getTransferBudgetSender(event?: LazyLoadEvent) {
+        if (this.transferBudget.transferBudgetItemFromDtos == undefined) {
+            this.transferBudget.transferBudgetItemFromDtos = [];
+        }
+
+
+        this.costCenterFrom.costCenterId = this.costCenterId;
+        this.costCenterFrom = new CreateOrEditTransferBudgetItemDto();
+        this.costCenterFrom.id = this.costCenterId;
+        this.costCenterFrom.costCenterCode = this.lookupPageCostCenterLookupTableModal.costCenterCode;
+        this.costCenterFrom.costCenterName = this.lookupPageCostCenterLookupTableModal.costCenterName;
+        this.costCenterFrom.departmentName = this.lookupPageCostCenterLookupTableModal.departmentName;
+        this.transferBudget.transferBudgetItemFromDtos.push(this.costCenterFrom);
+
+        this.primengTableHelperCostCenterFrom.showLoadingIndicator();
+        this.primengTableHelperCostCenterFrom.totalRecordsCount = this.transferBudget.transferBudgetItemFromDtos.length;
+        this.primengTableHelperCostCenterFrom.records = this.transferBudget.transferBudgetItemFromDtos;
+        this.primengTableHelperCostCenterFrom.hideLoadingIndicator();
+
+        if(this.primengTableHelperCostCenterFrom.records.length>0){
+            this.costCenterCodeSender = this.primengTableHelperCostCenterFrom.records[0].costCenterCode;
+            this.costCenterCodeSender = this.costCenterCodeSender.substring(0, (this.costCenterCodeSender.length - 3));
+        }
+    }
+
+    getTransferBudgetReceiver(event?: LazyLoadEvent) {
+        if (this.transferBudget.transferBudgetItemToDtos == undefined) {
+            this.transferBudget.transferBudgetItemToDtos = [];
+        }
+
+        this.costCenterTo = new CreateOrEditTransferBudgetItemDto();
+        this.costCenterTo.id = this.costCenterId;
+
+        console.log(this.lookupFrom);
+        this.costCenterTo.costCenterId = this.costCenterId;
+
+        this.costCenterTo.costCenterCode = this.lookupPageCostCenterLookupTableModal.costCenterCode;
+        this.costCenterTo.costCenterName = this.lookupPageCostCenterLookupTableModal.costCenterName;
+        this.costCenterTo.departmentName = this.lookupPageCostCenterLookupTableModal.departmentName;
+        this.transferBudget.transferBudgetItemToDtos.push(this.costCenterTo);
+
+        this.primengTableHelperCostCenterTo.showLoadingIndicator();
+        this.primengTableHelperCostCenterTo.totalRecordsCount = this.transferBudget.transferBudgetItemToDtos.length;
+        this.primengTableHelperCostCenterTo.records = this.transferBudget.transferBudgetItemToDtos;
+        this.primengTableHelperCostCenterTo.hideLoadingIndicator();
+        
+    }
+
+    deleteBudgetItemSender(transferBudgetItem: CreateOrEditTransferBudgetItemDto) {
+
+        this.transferBudget.transferBudgetItemFromDtos.splice(
+            this.transferBudget.transferBudgetItemFromDtos.findIndex(item => item.id === transferBudgetItem.id), 1);
+
+        // this.transferBudget.transferBudgetItemFromDtos.push(this.costCenterFrom);
+
+        this.primengTableHelperCostCenterFrom.showLoadingIndicator();
+        this.primengTableHelperCostCenterFrom.totalRecordsCount = this.transferBudget.transferBudgetItemFromDtos.length;
+        this.primengTableHelperCostCenterFrom.records = this.transferBudget.transferBudgetItemFromDtos;
+        this.primengTableHelperCostCenterFrom.hideLoadingIndicator();
+
+        if(this.primengTableHelperCostCenterFrom.records.length==0){
+            this.costCenterCodeSender = '';
+        }
+    }
+
+    deleteBudgetItemReceiver(transferBudgetItem: CreateOrEditTransferBudgetItemDto) {
+
+        this.transferBudget.transferBudgetItemToDtos.splice(
+            this.transferBudget.transferBudgetItemToDtos.findIndex(item => item.id === transferBudgetItem.id), 1);
+
+
+        this.primengTableHelperCostCenterTo.showLoadingIndicator();
+        this.primengTableHelperCostCenterTo.totalRecordsCount = this.transferBudget.transferBudgetItemToDtos.length;
+        this.primengTableHelperCostCenterTo.records = this.transferBudget.transferBudgetItemToDtos;
+        this.primengTableHelperCostCenterTo.hideLoadingIndicator();
+    }
+
+
+
+    onRowEditInit(product: CreateOrEditTransferBudgetItemDto) {
+        // this.clonedProducts[product.id] = {...product};
+    }
+
+    // onRowEditSave(product: CreateOrEditTransferBudgetItemDto) {
+    //     if (product.price > 0) {
+    //         delete this.clonedProducts[product.id];
+    //         this.messageService.add({severity:'success', summary: 'Success', detail:'Product is updated'});
+    //     }
+    //     else {
+    //         this.messageService.add({severity:'error', summary: 'Error', detail:'Invalid Price'});
+    //     }
+    // }
+
+    // onRowEditCancel(product: CreateOrEditTransferBudgetItemDto, index: number) {
+    //     this.products2[index] = this.clonedProducts[product.id];
+    //     delete this.clonedProducts[product.id];
+    // }
 
 }

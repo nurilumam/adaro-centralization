@@ -202,10 +202,41 @@ namespace Adaro.Centralize.LookupArea
         [AbpAuthorize(AppPermissions.Pages_LookupPages)]
         public async Task<PagedResultDto<LookupPageCostCenterLookupTableDto>> GetAllCostCenterForLookupTable(GetAllForLookupTableInput input)
         {
-            var query = _lookup_costCenterRepository.GetAll().WhereIf(
-                   !string.IsNullOrWhiteSpace(input.Filter),
-                  e => string.Format("{0} {1} {2}", e.ControllingArea, e.CostCenterName, e.Description).Contains(input.Filter)
+            var query = _lookup_costCenterRepository.GetAll();
+
+            if (!string.IsNullOrEmpty(input.Filter))
+            {
+                query = query.Where( e => 
+                e.CostCenterCode.Contains(input.Filter) ||
+                e.CostCenterName.Contains(input.Filter) ||
+                e.DepartmentName.Contains(input.Filter)
                );
+            }
+
+            switch (input.Sorting)
+            {
+                case "costCenterCode ASC":
+                    query = query.OrderBy(e => e.CostCenterCode);
+                    break;
+                case "costCenterCode DESC":
+                    query = query.OrderByDescending(e => e.CostCenterCode);
+                    break;
+                case "costCenterName ASC":
+                    query = query.OrderBy(e => e.CostCenterName);
+                    break;
+                case "costCenterName DESC":
+                    query = query.OrderByDescending(e => e.CostCenterName);
+                    break;
+                case "departmentName ASC":
+                    query = query.OrderBy(e => e.DepartmentName);
+                    break;
+                case "departmentName DESC":
+                    query = query.OrderByDescending(e => e.DepartmentName);
+                    break;
+                default:
+                    query = query.OrderBy(e => e.CostCenterCode);
+                    break;
+            }
 
             var totalCount = await query.CountAsync();
 
@@ -219,7 +250,10 @@ namespace Adaro.Centralize.LookupArea
                 lookupTableDtoList.Add(new LookupPageCostCenterLookupTableDto
                 {
                     Id = costCenter.Id.ToString(),
-                    DisplayName = string.Format("{0} {1} {2}", costCenter.ControllingArea, costCenter.CostCenterName, costCenter.Description)
+                    DisplayName = string.Format("{0}-{1}", costCenter.CostCenterCode, costCenter.CostCenterName),
+                    CostCenterCode = costCenter.CostCenterCode,
+                    CostCenterName = costCenter.CostCenterName,
+                    DepartmentName = costCenter.DepartmentName
                 });
             }
 

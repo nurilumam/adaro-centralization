@@ -21,5 +21,7 @@ namespace Adaro.Centralize.SAPConnector
 
         Task<FileDto> GetCostCentersToExcel(GetAllCostCentersForExcelInput input);
 
+        Task<GetCostCenterForViewDto> GetCostCenterFromDepartmentId(long id);
+
     }
 }

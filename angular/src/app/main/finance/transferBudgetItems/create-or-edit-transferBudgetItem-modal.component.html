@@ -81,7 +81,7 @@
                     <input
                         class="form-control"
                         name="transferBudgetItem.costCenterIdFrom"
-                        [(ngModel)]="transferBudgetItem.costCenterIdFrom"
+                        [(ngModel)]="transferBudgetItem.costCenterId"
                         type="text"
                         hidden
                     />
@@ -109,7 +109,7 @@
                     <input
                         class="form-control"
                         name="transferBudgetItem.costCenterIdTo"
-                        [(ngModel)]="transferBudgetItem.costCenterIdTo"
+                        [(ngModel)]="transferBudgetItem.costCenterId"
                         type="text"
                         hidden
                     />
@@ -121,7 +121,7 @@
                             #TransferBudgetItem_PeriodFrom="ngModel"
                             id="TransferBudgetItem_PeriodFrom"
                             class="form-control"
-                            [(ngModel)]="transferBudgetItem.periodFrom"
+                            [(ngModel)]="transferBudgetItem.period"
                             name="PeriodFrom"
                             required
                         />
@@ -135,7 +135,7 @@
                             #TransferBudgetItem_AmountFrom="ngModel"
                             id="TransferBudgetItem_AmountFrom"
                             class="form-control"
-                            [(ngModel)]="transferBudgetItem.amountFrom"
+                            [(ngModel)]="transferBudgetItem.amount"
                             name="AmountFrom"
                             step="18"
                         />
@@ -149,7 +149,7 @@
                             #TransferBudgetItem_PeriodTo="ngModel"
                             id="TransferBudgetItem_PeriodTo"
                             class="form-control"
-                            [(ngModel)]="transferBudgetItem.periodTo"
+                            [(ngModel)]="transferBudgetItem.period"
                             name="PeriodTo"
                             required
                         />
@@ -163,7 +163,7 @@
                             #TransferBudgetItem_AmountTo="ngModel"
                             id="TransferBudgetItem_AmountTo"
                             class="form-control"
-                            [(ngModel)]="transferBudgetItem.amountTo"
+                            [(ngModel)]="transferBudgetItem.amount"
                             name="AmountTo"
                             step="18"
                         />

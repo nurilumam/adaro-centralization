@@ -15,6 +15,7 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using Adaro.Centralize.Storage;
+using Abp.Organizations;
 
 namespace Adaro.Centralize.SAPConnector
 {
@@ -22,11 +23,16 @@ namespace Adaro.Centralize.SAPConnector
     public class CostCentersAppService : CentralizeAppServiceBase, ICostCentersAppService
     {
         private readonly IRepository<CostCenter, Guid> _costCenterRepository;
+        private readonly IRepository<OrganizationUnit, long> _organizationUnitRepository;
         private readonly ICostCentersExcelExporter _costCentersExcelExporter;
 
-        public CostCentersAppService(IRepository<CostCenter, Guid> costCenterRepository, ICostCentersExcelExporter costCentersExcelExporter)
+        public CostCentersAppService(
+            IRepository<CostCenter, Guid> costCenterRepository,
+            IRepository<OrganizationUnit, long> organizationUnitRepository,
+            ICostCentersExcelExporter costCentersExcelExporter)
         {
             _costCenterRepository = costCenterRepository;
+            _organizationUnitRepository = organizationUnitRepository;
             _costCentersExcelExporter = costCentersExcelExporter;
 
         }
@@ -190,6 +196,17 @@ namespace Adaro.Centralize.SAPConnector
             var costCenterListDtos = await query.ToListAsync();
 
             return _costCentersExcelExporter.ExportToFile(costCenterListDtos);
+        }
+
+        public virtual async Task<GetCostCenterForViewDto> GetCostCenterFromDepartmentId(long id)
+        {
+            var organizationUnit = await _organizationUnitRepository.GetAsync(id);
+
+            var costCenter = await _costCenterRepository.FirstOrDefaultAsync(x => x.DepartmentName == organizationUnit.DisplayName);
+
+            var output = new GetCostCenterForViewDto { CostCenter = ObjectMapper.Map<CostCenterDto>(costCenter) };
+
+            return output;
         }
 
     }

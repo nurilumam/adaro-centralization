@@ -1,6 +1,7 @@
 ﻿using System;
 using Abp.Application.Services.Dto;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace Adaro.Centralize.Finance.Dtos
 {
@@ -29,6 +30,9 @@ namespace Adaro.Centralize.Finance.Dtos
 
         [Required]
         public string Location { get; set; }
+
+        public List<CreateOrEditTransferBudgetItemDto> TransferBudgetItemFromDtos { get; set; }
+        public List<CreateOrEditTransferBudgetItemDto> TransferBudgetItemToDtos { get; set; }
 
     }
 }

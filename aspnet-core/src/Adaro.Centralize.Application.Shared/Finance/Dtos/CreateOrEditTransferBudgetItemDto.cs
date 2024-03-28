@@ -6,22 +6,18 @@ namespace Adaro.Centralize.Finance.Dtos
 {
     public class CreateOrEditTransferBudgetItemDto : EntityDto<Guid?>
     {
+        public Guid TransferBudgetId { get; set; }
+        public Guid CostCenterId { get; set; }
 
         [Required]
-        public string PeriodFrom { get; set; }
+        public string Period { get; set; }
 
-        public decimal AmountFrom { get; set; }
+        public decimal Amount { get; set; }
+
 
         [Required]
-        public string PeriodTo { get; set; }
-
-        public decimal AmountTo { get; set; }
-
-        public Guid? TransferBudgetId { get; set; }
-
-        public Guid? CostCenterIdFrom { get; set; }
-
-        public Guid? CostCenterIdTo { get; set; }
-
+        public string CostCenterCode { get; set; }
+        public string CostCenterName { get; set; }
+        public virtual string DepartmentName { get; set; }
     }
 }

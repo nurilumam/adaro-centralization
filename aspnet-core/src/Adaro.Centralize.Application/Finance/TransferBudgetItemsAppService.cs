@@ -169,16 +169,10 @@ namespace Adaro.Centralize.Finance
                 output.TransferBudgetDisplayProperty = string.Format("{0}-{1}", _lookupTransferBudget.DocumentNo, _lookupTransferBudget.Department);
             }
 
-            if (output.TransferBudgetItem.CostCenterIdFrom != null)
+            if (output.TransferBudgetItem.CostCenterId != null)
             {
-                var _lookupCostCenter = await _lookup_costCenterRepository.FirstOrDefaultAsync((Guid)output.TransferBudgetItem.CostCenterIdFrom);
+                var _lookupCostCenter = await _lookup_costCenterRepository.FirstOrDefaultAsync((Guid)output.TransferBudgetItem.CostCenterId);
                 output.CostCenterDisplayProperty = string.Format("{0}-{1}", _lookupCostCenter.ControllingArea, _lookupCostCenter.CostCenterName);
-            }
-
-            if (output.TransferBudgetItem.CostCenterIdTo != null)
-            {
-                var _lookupCostCenter = await _lookup_costCenterRepository.FirstOrDefaultAsync((Guid)output.TransferBudgetItem.CostCenterIdTo);
-                output.CostCenterDisplayProperty2 = string.Format("{0}-{1}", _lookupCostCenter.ControllingArea, _lookupCostCenter.CostCenterName);
             }
 
             return output;
@@ -334,7 +328,10 @@ namespace Adaro.Centralize.Finance
                 lookupTableDtoList.Add(new TransferBudgetItemCostCenterLookupTableDto
                 {
                     Id = costCenter.Id.ToString(),
-                    DisplayName = string.Format("{0}-{1}", costCenter.ControllingArea, costCenter.CostCenterName)
+                    DisplayName = string.Format("{0}-{1}", costCenter.ControllingArea, costCenter.CostCenterName),
+                    CostCenterCode = costCenter.CostCenterCode,
+                    CostCenterName = costCenter.CostCenterName,
+                    DepartmentName = costCenter.DepartmentName
                 });
             }
 
