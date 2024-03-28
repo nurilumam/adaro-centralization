@@ -26,6 +26,6 @@ namespace Adaro.Centralize.Authorization.Users
 
         Task UnlockUser(EntityDto<long> input);
 
-        Task<PagedResultDto<UserListDto>> GetActiveDirectoryUsers(GetUsersInput input);
+        //Task<PagedResultDto<UserListDto>> GetActiveDirectoryUsers(GetUsersInput input);
     }
 }

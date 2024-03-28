@@ -2701,6 +2701,62 @@ export class CostCentersServiceProxy {
         }
         return _observableOf(null as any);
     }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getCostCenterFromDepartmentId(id: number | undefined): Observable<GetCostCenterForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/CostCenters/GetCostCenterFromDepartmentId?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCostCenterFromDepartmentId(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCostCenterFromDepartmentId(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetCostCenterForViewDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetCostCenterForViewDto>;
+        }));
+    }
+
+    protected processGetCostCenterFromDepartmentId(response: HttpResponseBase): Observable<GetCostCenterForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetCostCenterForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
 }
 
 @Injectable()
@@ -29480,6 +29536,8 @@ export class CreateOrEditTransferBudgetDto implements ICreateOrEditTransferBudge
     reason!: string;
     scopeofWork!: string;
     location!: string;
+    transferBudgetItemFromDtos!: CreateOrEditTransferBudgetItemDto[] | undefined;
+    transferBudgetItemToDtos!: CreateOrEditTransferBudgetItemDto[] | undefined;
     id!: string | undefined;
 
     constructor(data?: ICreateOrEditTransferBudgetDto) {
@@ -29501,6 +29559,16 @@ export class CreateOrEditTransferBudgetDto implements ICreateOrEditTransferBudge
             this.reason = _data["reason"];
             this.scopeofWork = _data["scopeofWork"];
             this.location = _data["location"];
+            if (Array.isArray(_data["transferBudgetItemFromDtos"])) {
+                this.transferBudgetItemFromDtos = [] as any;
+                for (let item of _data["transferBudgetItemFromDtos"])
+                    this.transferBudgetItemFromDtos!.push(CreateOrEditTransferBudgetItemDto.fromJS(item));
+            }
+            if (Array.isArray(_data["transferBudgetItemToDtos"])) {
+                this.transferBudgetItemToDtos = [] as any;
+                for (let item of _data["transferBudgetItemToDtos"])
+                    this.transferBudgetItemToDtos!.push(CreateOrEditTransferBudgetItemDto.fromJS(item));
+            }
             this.id = _data["id"];
         }
     }
@@ -29522,6 +29590,16 @@ export class CreateOrEditTransferBudgetDto implements ICreateOrEditTransferBudge
         data["reason"] = this.reason;
         data["scopeofWork"] = this.scopeofWork;
         data["location"] = this.location;
+        if (Array.isArray(this.transferBudgetItemFromDtos)) {
+            data["transferBudgetItemFromDtos"] = [];
+            for (let item of this.transferBudgetItemFromDtos)
+                data["transferBudgetItemFromDtos"].push(item.toJSON());
+        }
+        if (Array.isArray(this.transferBudgetItemToDtos)) {
+            data["transferBudgetItemToDtos"] = [];
+            for (let item of this.transferBudgetItemToDtos)
+                data["transferBudgetItemToDtos"].push(item.toJSON());
+        }
         data["id"] = this.id;
         return data;
     }
@@ -29536,17 +29614,19 @@ export interface ICreateOrEditTransferBudgetDto {
     reason: string;
     scopeofWork: string;
     location: string;
+    transferBudgetItemFromDtos: CreateOrEditTransferBudgetItemDto[] | undefined;
+    transferBudgetItemToDtos: CreateOrEditTransferBudgetItemDto[] | undefined;
     id: string | undefined;
 }
 
 export class CreateOrEditTransferBudgetItemDto implements ICreateOrEditTransferBudgetItemDto {
-    periodFrom!: string;
-    amountFrom!: number;
-    periodTo!: string;
-    amountTo!: number;
-    transferBudgetId!: string | undefined;
-    costCenterIdFrom!: string | undefined;
-    costCenterIdTo!: string | undefined;
+    transferBudgetId!: string;
+    costCenterId!: string;
+    period!: string;
+    amount!: number;
+    costCenterCode!: string;
+    costCenterName!: string | undefined;
+    departmentName!: string | undefined;
     id!: string | undefined;
 
     constructor(data?: ICreateOrEditTransferBudgetItemDto) {
@@ -29560,13 +29640,13 @@ export class CreateOrEditTransferBudgetItemDto implements ICreateOrEditTransferB
 
     init(_data?: any) {
         if (_data) {
-            this.periodFrom = _data["periodFrom"];
-            this.amountFrom = _data["amountFrom"];
-            this.periodTo = _data["periodTo"];
-            this.amountTo = _data["amountTo"];
             this.transferBudgetId = _data["transferBudgetId"];
-            this.costCenterIdFrom = _data["costCenterIdFrom"];
-            this.costCenterIdTo = _data["costCenterIdTo"];
+            this.costCenterId = _data["costCenterId"];
+            this.period = _data["period"];
+            this.amount = _data["amount"];
+            this.costCenterCode = _data["costCenterCode"];
+            this.costCenterName = _data["costCenterName"];
+            this.departmentName = _data["departmentName"];
             this.id = _data["id"];
         }
     }
@@ -29580,26 +29660,26 @@ export class CreateOrEditTransferBudgetItemDto implements ICreateOrEditTransferB
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["periodFrom"] = this.periodFrom;
-        data["amountFrom"] = this.amountFrom;
-        data["periodTo"] = this.periodTo;
-        data["amountTo"] = this.amountTo;
         data["transferBudgetId"] = this.transferBudgetId;
-        data["costCenterIdFrom"] = this.costCenterIdFrom;
-        data["costCenterIdTo"] = this.costCenterIdTo;
+        data["costCenterId"] = this.costCenterId;
+        data["period"] = this.period;
+        data["amount"] = this.amount;
+        data["costCenterCode"] = this.costCenterCode;
+        data["costCenterName"] = this.costCenterName;
+        data["departmentName"] = this.departmentName;
         data["id"] = this.id;
         return data;
     }
 }
 
 export interface ICreateOrEditTransferBudgetItemDto {
-    periodFrom: string;
-    amountFrom: number;
-    periodTo: string;
-    amountTo: number;
-    transferBudgetId: string | undefined;
-    costCenterIdFrom: string | undefined;
-    costCenterIdTo: string | undefined;
+    transferBudgetId: string;
+    costCenterId: string;
+    period: string;
+    amount: number;
+    costCenterCode: string;
+    costCenterName: string | undefined;
+    departmentName: string | undefined;
     id: string | undefined;
 }
 
@@ -38814,6 +38894,9 @@ export interface ILocalizableComboboxItemSourceDto {
 export class LookupPageCostCenterLookupTableDto implements ILookupPageCostCenterLookupTableDto {
     id!: string | undefined;
     displayName!: string | undefined;
+    costCenterCode!: string | undefined;
+    costCenterName!: string | undefined;
+    departmentName!: string | undefined;
 
     constructor(data?: ILookupPageCostCenterLookupTableDto) {
         if (data) {
@@ -38828,6 +38911,9 @@ export class LookupPageCostCenterLookupTableDto implements ILookupPageCostCenter
         if (_data) {
             this.id = _data["id"];
             this.displayName = _data["displayName"];
+            this.costCenterCode = _data["costCenterCode"];
+            this.costCenterName = _data["costCenterName"];
+            this.departmentName = _data["departmentName"];
         }
     }
 
@@ -38842,6 +38928,9 @@ export class LookupPageCostCenterLookupTableDto implements ILookupPageCostCenter
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["displayName"] = this.displayName;
+        data["costCenterCode"] = this.costCenterCode;
+        data["costCenterName"] = this.costCenterName;
+        data["departmentName"] = this.departmentName;
         return data;
     }
 }
@@ -38849,6 +38938,9 @@ export class LookupPageCostCenterLookupTableDto implements ILookupPageCostCenter
 export interface ILookupPageCostCenterLookupTableDto {
     id: string | undefined;
     displayName: string | undefined;
+    costCenterCode: string | undefined;
+    costCenterName: string | undefined;
+    departmentName: string | undefined;
 }
 
 export class LookupPageDto implements ILookupPageDto {
@@ -45463,6 +45555,9 @@ export interface ITransferBudgetDto {
 export class TransferBudgetItemCostCenterLookupTableDto implements ITransferBudgetItemCostCenterLookupTableDto {
     id!: string | undefined;
     displayName!: string | undefined;
+    costCenterCode!: string | undefined;
+    costCenterName!: string | undefined;
+    departmentName!: string | undefined;
 
     constructor(data?: ITransferBudgetItemCostCenterLookupTableDto) {
         if (data) {
@@ -45477,6 +45572,9 @@ export class TransferBudgetItemCostCenterLookupTableDto implements ITransferBudg
         if (_data) {
             this.id = _data["id"];
             this.displayName = _data["displayName"];
+            this.costCenterCode = _data["costCenterCode"];
+            this.costCenterName = _data["costCenterName"];
+            this.departmentName = _data["departmentName"];
         }
     }
 
@@ -45491,6 +45589,9 @@ export class TransferBudgetItemCostCenterLookupTableDto implements ITransferBudg
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["displayName"] = this.displayName;
+        data["costCenterCode"] = this.costCenterCode;
+        data["costCenterName"] = this.costCenterName;
+        data["departmentName"] = this.departmentName;
         return data;
     }
 }
@@ -45498,6 +45599,9 @@ export class TransferBudgetItemCostCenterLookupTableDto implements ITransferBudg
 export interface ITransferBudgetItemCostCenterLookupTableDto {
     id: string | undefined;
     displayName: string | undefined;
+    costCenterCode: string | undefined;
+    costCenterName: string | undefined;
+    departmentName: string | undefined;
 }
 
 export class TransferBudgetItemDto implements ITransferBudgetItemDto {
