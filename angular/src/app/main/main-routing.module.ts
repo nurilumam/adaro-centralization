@@ -9,6 +9,20 @@ import { RouterModule } from '@angular/router';
                 children: [
                     
                     {
+                        path: 'sapConnector/glAccounts',
+                        loadChildren: () => import('./sapConnector/glAccounts/glAccount.module').then(m => m.GLAccountModule),
+                        data: { permission: 'Pages.GLAccounts' }
+                    },
+                
+                    
+                    {
+                        path: 'sapConnector/zmM020R',
+                        loadChildren: () => import('./sapConnector/zmM020R/zmM020R.module').then(m => m.ZMM020RModule),
+                        data: { permission: 'Pages.ZMM020R' }
+                    },
+                
+                    
+                    {
                         path: 'reportArea/rptProcurementAdjusts',
                         loadChildren: () => import('./reportArea/rptProcurementAdjusts/rptProcurementAdjust.module').then(m => m.RptProcurementAdjustModule),
                         data: { permission: 'Pages.RptProcurementAdjusts' }

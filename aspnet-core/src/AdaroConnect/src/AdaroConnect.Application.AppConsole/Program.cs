@@ -36,8 +36,9 @@ namespace AdaroConnect.Application.AppConsole
 
         private static readonly Dictionary<char, Tuple<string, string>> Operations = new()
         {
-            {'1', new Tuple<string, string>("Synchronize Report PO (ZMM021R)", "SAP_DownloadSynch_Procurement")},
-            {'2', new Tuple<string, string>("Cost Center", "GetCostCenter")},
+            {'1', new Tuple<string, string>("Synchronize Report PO (ZMM021R)", "SAP_DOWNLOAD_PROCUREMENT_PO_ITEMS")},
+            {'2', new Tuple<string, string>("Synchronize Report PR (ZMM020R)", "SAP_DOWNLOAD_PROCUREMENT_PR_ITEMS")},
+            {'3', new Tuple<string, string>("Cost Center", "GetCostCenter")},
 
 
 
@@ -74,6 +75,7 @@ namespace AdaroConnect.Application.AppConsole
 
 
             ServiceCollection.TryAddSingleton<ICustomReportPurchaseOrderSynch, CustomReportPurchaseOrderSynch>();
+            ServiceCollection.TryAddSingleton<ICustomReportPurchaseRequestionSynch, CustomReportPurchaseRequestionSynch>();
             ServiceProvider = ServiceCollection.BuildServiceProvider();
         }
 
@@ -93,7 +95,7 @@ namespace AdaroConnect.Application.AppConsole
 
             ConfigureServices();
 
-            
+
 
             try
             {
@@ -128,7 +130,8 @@ namespace AdaroConnect.Application.AppConsole
             if (!string.IsNullOrEmpty(MENU_BY_PASS))
             {
                 _ = ExecuteOperation(char.Parse(MENU_BY_PASS));
-            } else
+            }
+            else
             {
                 do
                 {
@@ -154,53 +157,57 @@ namespace AdaroConnect.Application.AppConsole
         {
             switch (keyCode)
             {
-                case '0':
-                    Environment.Exit(0);
-                    break;
-                case '1':
-                    await SAP_DownloadSynch_Procurement();
-                    break;
+            case '0':
+                Environment.Exit(0);
+                break;
+            case '1':
+                await SAP_DOWNLOAD_PROCUREMENT_PO_ITEMS();
+                break;
+
+            case '2':
+                await SAP_DOWNLOAD_PROCUREMENT_PR_ITEMS();
+                break;
 
 
 
 
-                case '2':
+            case '3':
                 await GetCostCenterAsync();
                 break;
 
-                case '3':
-                    await GetMaterialAsync();
-                    break;
-                case '4':
-                    await GetMaterialsByPrefixWithSubTablesAsync();
-                    break;
-                case '5':
-                    await GetVendorsUseBapi();
-                    break;
-                case '6':
-                    await GetJobsAsync();
-                    break;
-                case '7':
-                    GetFunctionMetaData();
-                    break;
-                case '8':
-                    await CreateMaterialWithTransactionAsync();
-                    break;
-                //case '9':
-                //    await GetCostCenterAsync();
-                //    break;
-                case '9':
-                    await GetPurchaseOrder();
-                    break;
-                default:
-                    System.Console.WriteLine("Menu Key not found!");
-                    break;
+            //case '3':
+            //    await GetMaterialAsync();
+            //    break;
+            case '4':
+                await GetMaterialsByPrefixWithSubTablesAsync();
+                break;
+            case '5':
+                await GetVendorsUseBapi();
+                break;
+            case '6':
+                await GetJobsAsync();
+                break;
+            case '7':
+                GetFunctionMetaData();
+                break;
+            case '8':
+                await CreateMaterialWithTransactionAsync();
+                break;
+            //case '9':
+            //    await GetCostCenterAsync();
+            //    break;
+            case '9':
+                await GetPurchaseOrder();
+                break;
+            default:
+                System.Console.WriteLine("Menu Key not found!");
+                break;
             }
         }
 
         private static void MappingMenuByPassing(string[] args)
         {
-            if(args != null && args.Length > 0)
+            if (args != null && args.Length > 0)
             {
                 foreach (var arg in args)
                 {
@@ -208,13 +215,13 @@ namespace AdaroConnect.Application.AppConsole
 
                     switch (arg_param[0])
                     {
-                        case "MENU":
-                            if(arg_param.Length > 1)
-                                MENU_BY_PASS = arg_param[1];
-                            break;
+                    case "MENU":
+                        if (arg_param.Length > 1)
+                            MENU_BY_PASS = arg_param[1];
+                        break;
 
-                        default:
-                            break;
+                    default:
+                        break;
                     }
                 }
             }
@@ -223,9 +230,15 @@ namespace AdaroConnect.Application.AppConsole
 
         #region MAIN FUNCTION METHOD
 
-        private static async Task SAP_DownloadSynch_Procurement()
+        private static async Task SAP_DOWNLOAD_PROCUREMENT_PO_ITEMS()
         {
             ICustomReportPurchaseOrderSynch manager = ServiceProvider.GetRequiredService<ICustomReportPurchaseOrderSynch>();
+            manager.SynchronizeData();
+        }
+
+        private static async Task SAP_DOWNLOAD_PROCUREMENT_PR_ITEMS()
+        {
+            ICustomReportPurchaseRequestionSynch manager = ServiceProvider.GetRequiredService<ICustomReportPurchaseRequestionSynch>();
             manager.SynchronizeData();
         }
 

@@ -100,6 +100,10 @@ export class AppNavigationService {
             new AppMenuItem('ZMM021R', 'Pages.ZMM021R', 'flaticon-more', '/app/main/sapConnector/zmM021R'),
             
             new AppMenuItem('RptProcurementAdjusts', 'Pages.RptProcurementAdjusts', 'flaticon-more', '/app/main/reportArea/rptProcurementAdjusts'),
+            
+            new AppMenuItem('ZMM020R', 'Pages.ZMM020R', 'flaticon-more', '/app/main/sapConnector/zmM020R'),
+            
+            new AppMenuItem('GLAccounts', 'Pages.GLAccounts', 'flaticon-more', '/app/main/sapConnector/glAccounts'),
              new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
                     new AppMenuItem(
                         'AuditLogs',

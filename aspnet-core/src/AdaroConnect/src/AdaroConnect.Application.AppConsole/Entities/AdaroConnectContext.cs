@@ -17,6 +17,8 @@ public partial class AdaroConnectContext : DbContext
 
     public virtual DbSet<Ekpo> Ekpos { get; set; }
 
+    public virtual DbSet<Zmm020r> Zmm020rs { get; set; }
+
     public virtual DbSet<Zmm021r> Zmm021rs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -293,6 +295,73 @@ public partial class AdaroConnectContext : DbContext
             entity.Property(e => e.Werks)
                 .HasMaxLength(500)
                 .HasColumnName("WERKS");
+        });
+
+        modelBuilder.Entity<Zmm020r>(entity =>
+        {
+            entity.ToTable("ZMM020R");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.AccountAssignment).HasMaxLength(5);
+            entity.Property(e => e.Asset).HasMaxLength(50);
+            entity.Property(e => e.CostCenter).HasMaxLength(20);
+            entity.Property(e => e.CostCenterDescription).HasMaxLength(500);
+            entity.Property(e => e.CreatedBy).HasMaxLength(500);
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("('0001-01-01T00:00:00.0000000')")
+                .HasColumnType("datetime");
+            entity.Property(e => e.Currency).HasMaxLength(10);
+            entity.Property(e => e.DeletionIndicator).HasMaxLength(5);
+            entity.Property(e => e.DocumentId)
+                .IsRequired()
+                .HasMaxLength(50);
+            entity.Property(e => e.DocumentType)
+                .IsRequired()
+                .HasMaxLength(50);
+            entity.Property(e => e.DocumentTypeText)
+                .IsRequired()
+                .HasMaxLength(255);
+            entity.Property(e => e.EntrySheet).HasMaxLength(50);
+            entity.Property(e => e.FirstApprovalName).HasMaxLength(255);
+            entity.Property(e => e.FundsCenter).HasMaxLength(50);
+            entity.Property(e => e.GoodsReceipt).HasMaxLength(50);
+            entity.Property(e => e.ItemCategory).HasMaxLength(5);
+            entity.Property(e => e.ItemRequisition)
+                .IsRequired()
+                .HasMaxLength(5);
+            entity.Property(e => e.LastApprovalName).HasMaxLength(255);
+            entity.Property(e => e.Material).HasMaxLength(50);
+            entity.Property(e => e.MaterialGroup).HasMaxLength(50);
+            entity.Property(e => e.OutlineAgreement).HasMaxLength(255);
+            entity.Property(e => e.Plant).HasMaxLength(10);
+            entity.Property(e => e.PrincAgreementItem).HasMaxLength(255);
+            entity.Property(e => e.ProcessingStatus).HasMaxLength(10);
+            entity.Property(e => e.ProcessingStatusCode).HasMaxLength(50);
+            entity.Property(e => e.PurchaseGroup).HasMaxLength(255);
+            entity.Property(e => e.PurchaseRequisition)
+                .IsRequired()
+                .HasMaxLength(50);
+            entity.Property(e => e.PurchasingDocument).HasMaxLength(50);
+            entity.Property(e => e.PurchasingInfoRec).HasMaxLength(10);
+            entity.Property(e => e.ReleaseIndicator).HasMaxLength(50);
+            entity.Property(e => e.Requisitioner).HasMaxLength(100);
+            entity.Property(e => e.RequisitionerName).HasMaxLength(500);
+            entity.Property(e => e.Service).HasMaxLength(50);
+            entity.Property(e => e.ServiceItem).HasMaxLength(5);
+            entity.Property(e => e.ServiceShortText).HasMaxLength(500);
+            entity.Property(e => e.ShortText).HasMaxLength(500);
+            entity.Property(e => e.Status).HasMaxLength(50);
+            entity.Property(e => e.StorageLocation).HasMaxLength(10);
+            entity.Property(e => e.SupplierCode).HasMaxLength(100);
+            entity.Property(e => e.SupplierName).HasMaxLength(255);
+            entity.Property(e => e.UnitOfMeasure).HasMaxLength(50);
+            entity.Property(e => e.UnitOfMeasureService).HasMaxLength(255);
+            entity.Property(e => e.UpdatedDate)
+                .HasDefaultValueSql("('0001-01-01T00:00:00.0000000')")
+                .HasColumnType("datetime");
+            entity.Property(e => e.Wbselement)
+                .HasMaxLength(255)
+                .HasColumnName("WBSElement");
         });
 
         modelBuilder.Entity<Zmm021r>(entity =>

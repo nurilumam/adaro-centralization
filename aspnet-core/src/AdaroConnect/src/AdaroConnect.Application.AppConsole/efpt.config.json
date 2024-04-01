@@ -2,7 +2,6 @@
    "CodeGenerationMode": 3,
    "ContextClassName": "AdaroConnectContext",
    "ContextNamespace": null,
-   "DefaultDacpacSchema": null,
    "FilterSchemas": false,
    "IncludeConnectionString": false,
    "ModelNamespace": null,
@@ -24,11 +23,15 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[ZMM020R]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[ZMM021R]",
          "ObjectType": 0
       }
    ],
-   "UiHint": "adrjknb280.ADARO_CENTRAL.dbo",
+   "UiHint": null,
    "UncountableWords": null,
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": false,
