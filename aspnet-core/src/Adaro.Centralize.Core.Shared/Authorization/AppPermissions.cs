@@ -6,11 +6,6 @@
     /// </summary>
     public static class AppPermissions
     {
-        public const string Pages_GLAccounts = "Pages.GLAccounts";
-        public const string Pages_GLAccounts_Create = "Pages.GLAccounts.Create";
-        public const string Pages_GLAccounts_Edit = "Pages.GLAccounts.Edit";
-        public const string Pages_GLAccounts_Delete = "Pages.GLAccounts.Delete";
-
         public const string Pages_ZMM020R = "Pages.ZMM020R";
         public const string Pages_ZMM020R_Create = "Pages.ZMM020R.Create";
         public const string Pages_ZMM020R_Edit = "Pages.ZMM020R.Edit";

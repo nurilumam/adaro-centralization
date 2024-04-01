@@ -103,7 +103,6 @@ export class AppNavigationService {
             
             new AppMenuItem('ZMM020R', 'Pages.ZMM020R', 'flaticon-more', '/app/main/sapConnector/zmM020R'),
             
-            new AppMenuItem('GLAccounts', 'Pages.GLAccounts', 'flaticon-more', '/app/main/sapConnector/glAccounts'),
              new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
                     new AppMenuItem(
                         'AuditLogs',

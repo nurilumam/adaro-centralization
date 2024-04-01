@@ -23,8 +23,6 @@ namespace Adaro.Centralize.EntityFrameworkCore
 {
     public class CentralizeDbContext : AbpZeroDbContext<Tenant, Role, User, CentralizeDbContext>
     {
-        public virtual DbSet<GLAccount> GLAccounts { get; set; }
-
         public virtual DbSet<ZMM020R> ZMM020R { get; set; }
 
         public virtual DbSet<RptProcurementAdjust> RptProcurementAdjusts { get; set; }
@@ -93,10 +91,6 @@ namespace Adaro.Centralize.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<GLAccount>(g =>
-            {
-                g.HasIndex(e => new { e.TenantId });
-            });
             modelBuilder.Entity<ZMM020R>(z =>
                        {
                            z.HasIndex(e => new { e.TenantId });

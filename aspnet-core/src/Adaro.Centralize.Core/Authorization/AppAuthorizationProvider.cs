@@ -30,11 +30,6 @@ namespace Adaro.Centralize.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
-            var glAccounts = pages.CreateChildPermission(AppPermissions.Pages_GLAccounts, L("GLAccounts"));
-            glAccounts.CreateChildPermission(AppPermissions.Pages_GLAccounts_Create, L("CreateNewGLAccount"));
-            glAccounts.CreateChildPermission(AppPermissions.Pages_GLAccounts_Edit, L("EditGLAccount"));
-            glAccounts.CreateChildPermission(AppPermissions.Pages_GLAccounts_Delete, L("DeleteGLAccount"));
-
             var zmM020R = pages.CreateChildPermission(AppPermissions.Pages_ZMM020R, L("ZMM020R"));
             zmM020R.CreateChildPermission(AppPermissions.Pages_ZMM020R_Create, L("CreateNewZMM020R"));
             zmM020R.CreateChildPermission(AppPermissions.Pages_ZMM020R_Edit, L("EditZMM020R"));
