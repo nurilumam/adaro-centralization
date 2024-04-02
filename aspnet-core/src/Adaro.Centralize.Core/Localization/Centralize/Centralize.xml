@@ -1,6 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="Adaro.Centralize.SAPConnector.GLAccount">GLAccount</text>
+  <texts>    <text name="GeneralLedgerAccount">General ledger account</text>
+    <text name="Adaro.Centralize.SAPConnector.GeneralLedgerAccount">GeneralLedgerAccount</text>
+    <text name="FundsCenterDescription">Funds center description</text>
+    <text name="GeneralLedgerAccountsHeaderInfo">General ledger accounts header info</text>
+    <text name="CreateNewGeneralLedgerAccount">Create new general ledger account</text>
+    <text name="EditGeneralLedgerAccount">Edit general ledger account</text>
+    <text name="DeleteGeneralLedgerAccount">Delete general ledger account</text>
+    <text name="GeneralLedgerAccounts">General ledger accounts</text>
+    <text name="Adaro.Centralize.SAPConnector.GLAccount">GLAccount</text>
     <text name="ConsumableBudget">Consumable budget</text>
     <text name="ConsumedBudget">Consumed budget</text>
     <text name="AvailableAmount">Available amount</text>

@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_GeneralLedgerAccounts = "Pages.GeneralLedgerAccounts";
+        public const string Pages_GeneralLedgerAccounts_Create = "Pages.GeneralLedgerAccounts.Create";
+        public const string Pages_GeneralLedgerAccounts_Edit = "Pages.GeneralLedgerAccounts.Edit";
+        public const string Pages_GeneralLedgerAccounts_Delete = "Pages.GeneralLedgerAccounts.Delete";
+
         public const string Pages_ZMM020R = "Pages.ZMM020R";
         public const string Pages_ZMM020R_Create = "Pages.ZMM020R.Create";
         public const string Pages_ZMM020R_Edit = "Pages.ZMM020R.Edit";

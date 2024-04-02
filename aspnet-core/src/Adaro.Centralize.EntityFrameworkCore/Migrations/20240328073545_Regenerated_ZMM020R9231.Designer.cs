@@ -3279,7 +3279,7 @@ namespace Adaro.Centralize.Migrations
                     b.ToTable("ZMM020R");
                 });
 
-            modelBuilder.Entity("Adaro.Centralize.SAPConnector.ZMM021R", b =>
+            modelBuilder.Entity("Adaro.Centralize.SAPConnector.GLAccount", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -3523,7 +3523,7 @@ namespace Adaro.Centralize.Migrations
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("ZMM021R");
+                    b.ToTable("GLAccount");
                 });
 
             modelBuilder.Entity("Adaro.Centralize.Storage.BinaryObject", b =>

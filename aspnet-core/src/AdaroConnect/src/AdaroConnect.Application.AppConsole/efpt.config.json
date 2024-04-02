@@ -15,11 +15,19 @@
    "T4TemplatePath": null,
    "Tables": [
       {
+         "Name": "[dbo].[CostCenters]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[EKKO]",
          "ObjectType": 0
       },
       {
          "Name": "[dbo].[EKPO]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[GeneralLedgerAccounts]",
          "ObjectType": 0
       },
       {

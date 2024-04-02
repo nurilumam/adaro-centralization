@@ -28,32 +28,6 @@ namespace AdaroConnect.Application.AppConsole
         private static bool DisplayedWelcomeMessage;
         #endregion
 
-        #region Variables
-
-        private static IServiceCollection ServiceCollection;
-        private static IConfigurationBuilder ConfigurationBuilder;
-        private static string MENU_BY_PASS { get; set; }
-
-        private static readonly Dictionary<char, Tuple<string, string>> Operations = new()
-        {
-            {'1', new Tuple<string, string>("Synchronize Report PO (ZMM021R)", "SAP_DOWNLOAD_PROCUREMENT_PO_ITEMS")},
-            {'2', new Tuple<string, string>("Synchronize Report PR (ZMM020R)", "SAP_DOWNLOAD_PROCUREMENT_PR_ITEMS")},
-            {'3', new Tuple<string, string>("Cost Center", "GetCostCenter")},
-
-
-
-            //{'3', new Tuple<string, string>("Table Samples", "GetMaterial")},
-            //{'4', new Tuple<string, string>("Table Samples", "GetMaterialsByPrefixWithSubTable")},
-            //{'5', new Tuple<string, string>("Bapi Samples", "GetVendors")},
-            //{'6', new Tuple<string, string>("RFC Samples", "GetSAPJobs")},
-            //{'7', new Tuple<string, string>("MetaData Samples", "GetFunctionMetaData")},
-            //{'8', new Tuple<string, string>("Transaction Samples", "CreateMaterialWithTransactionAsync") },
-            //{'9', new Tuple<string, string>("Cost Center", "GetCostCenter") },
-            //{'9', new Tuple<string, string>("Purchase Order", "GetPurchaseOrder") },
-        };
-
-        #endregion
-
         #region Properties
 
         private static IServiceProvider ServiceProvider { get; set; }
@@ -76,10 +50,38 @@ namespace AdaroConnect.Application.AppConsole
 
             ServiceCollection.TryAddSingleton<ICustomReportPurchaseOrderSynch, CustomReportPurchaseOrderSynch>();
             ServiceCollection.TryAddSingleton<ICustomReportPurchaseRequestionSynch, CustomReportPurchaseRequestionSynch>();
+            ServiceCollection.TryAddSingleton<IGLAccountSynch, GLAccountSynch>();
             ServiceProvider = ServiceCollection.BuildServiceProvider();
         }
 
         #endregion
+
+        #endregion
+
+
+        #region Variables Menu
+
+        private static IServiceCollection ServiceCollection;
+        private static IConfigurationBuilder ConfigurationBuilder;
+        private static string MENU_BY_PASS { get; set; }
+
+        private static readonly Dictionary<char, Tuple<string, string>> Operations = new()
+        {
+            {'1', new Tuple<string, string>("Synchronize Report PO (GLAccount)", "SAP_DOWNLOAD_PROCUREMENT_PO_ITEMS")},
+            {'2', new Tuple<string, string>("Synchronize Report PR (ZMM020R)", "SAP_DOWNLOAD_PROCUREMENT_PR_ITEMS")},
+            {'3', new Tuple<string, string>("Synchronize Report GL Account", "SAP_DOWNLOAD_FINANCE_GLACCOUNT")},
+
+
+
+            //{'3', new Tuple<string, string>("Table Samples", "GetMaterial")},
+            //{'4', new Tuple<string, string>("Table Samples", "GetMaterialsByPrefixWithSubTable")},
+            //{'5', new Tuple<string, string>("Bapi Samples", "GetVendors")},
+            //{'6', new Tuple<string, string>("RFC Samples", "GetSAPJobs")},
+            //{'7', new Tuple<string, string>("MetaData Samples", "GetFunctionMetaData")},
+            //{'8', new Tuple<string, string>("Transaction Samples", "CreateMaterialWithTransactionAsync") },
+            //{'9', new Tuple<string, string>("Cost Center", "GetCostCenter") },
+            //{'9', new Tuple<string, string>("Purchase Order", "GetPurchaseOrder") },
+        };
 
         #endregion
 
@@ -168,12 +170,11 @@ namespace AdaroConnect.Application.AppConsole
                 await SAP_DOWNLOAD_PROCUREMENT_PR_ITEMS();
                 break;
 
-
-
-
             case '3':
-                await GetCostCenterAsync();
+                await SAP_DOWNLOAD_FINANCE_GLACCOUNT();
                 break;
+
+
 
             //case '3':
             //    await GetMaterialAsync();
@@ -239,6 +240,12 @@ namespace AdaroConnect.Application.AppConsole
         private static async Task SAP_DOWNLOAD_PROCUREMENT_PR_ITEMS()
         {
             ICustomReportPurchaseRequestionSynch manager = ServiceProvider.GetRequiredService<ICustomReportPurchaseRequestionSynch>();
+            manager.SynchronizeData();
+        }
+
+        private static async Task SAP_DOWNLOAD_FINANCE_GLACCOUNT()
+        {
+            IGLAccountSynch manager = ServiceProvider.GetRequiredService<IGLAccountSynch>();
             manager.SynchronizeData();
         }
 

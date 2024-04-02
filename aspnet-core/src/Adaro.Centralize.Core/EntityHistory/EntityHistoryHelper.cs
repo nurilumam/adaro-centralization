@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Adaro.Centralize.SAPConnector;
+using System;
 using System.Linq;
 using Abp.Organizations;
 using Adaro.Centralize.Authorization.Roles;
@@ -12,11 +13,13 @@ namespace Adaro.Centralize.EntityHistory
 
         public static readonly Type[] HostSideTrackedTypes =
         {
+            typeof(GeneralLedgerAccount),
             typeof(OrganizationUnit), typeof(Role), typeof(Tenant)
         };
 
         public static readonly Type[] TenantSideTrackedTypes =
         {
+            typeof(GeneralLedgerAccount),
             typeof(OrganizationUnit), typeof(Role)
         };
 

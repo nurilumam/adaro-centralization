@@ -9445,6 +9445,562 @@ export class FriendshipServiceProxy {
 }
 
 @Injectable()
+export class GeneralLedgerAccountsServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param fundsCenterFilter (optional) 
+     * @param maxConsumableBudgetFilter (optional) 
+     * @param minConsumableBudgetFilter (optional) 
+     * @param maxConsumedBudgetFilter (optional) 
+     * @param minConsumedBudgetFilter (optional) 
+     * @param maxAvailableAmountFilter (optional) 
+     * @param minAvailableAmountFilter (optional) 
+     * @param maxCurrentBudgetFilter (optional) 
+     * @param minCurrentBudgetFilter (optional) 
+     * @param maxCommitmentActualsFilter (optional) 
+     * @param minCommitmentActualsFilter (optional) 
+     * @param fundsCenterDescriptionFilter (optional) 
+     * @param costCenterCostCenterNameFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | undefined, fundsCenterFilter: string | undefined, maxConsumableBudgetFilter: number | undefined, minConsumableBudgetFilter: number | undefined, maxConsumedBudgetFilter: number | undefined, minConsumedBudgetFilter: number | undefined, maxAvailableAmountFilter: number | undefined, minAvailableAmountFilter: number | undefined, maxCurrentBudgetFilter: number | undefined, minCurrentBudgetFilter: number | undefined, maxCommitmentActualsFilter: number | undefined, minCommitmentActualsFilter: number | undefined, fundsCenterDescriptionFilter: string | undefined, costCenterCostCenterNameFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetGeneralLedgerAccountForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/GeneralLedgerAccounts/GetAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (fundsCenterFilter === null)
+            throw new Error("The parameter 'fundsCenterFilter' cannot be null.");
+        else if (fundsCenterFilter !== undefined)
+            url_ += "FundsCenterFilter=" + encodeURIComponent("" + fundsCenterFilter) + "&";
+        if (maxConsumableBudgetFilter === null)
+            throw new Error("The parameter 'maxConsumableBudgetFilter' cannot be null.");
+        else if (maxConsumableBudgetFilter !== undefined)
+            url_ += "MaxConsumableBudgetFilter=" + encodeURIComponent("" + maxConsumableBudgetFilter) + "&";
+        if (minConsumableBudgetFilter === null)
+            throw new Error("The parameter 'minConsumableBudgetFilter' cannot be null.");
+        else if (minConsumableBudgetFilter !== undefined)
+            url_ += "MinConsumableBudgetFilter=" + encodeURIComponent("" + minConsumableBudgetFilter) + "&";
+        if (maxConsumedBudgetFilter === null)
+            throw new Error("The parameter 'maxConsumedBudgetFilter' cannot be null.");
+        else if (maxConsumedBudgetFilter !== undefined)
+            url_ += "MaxConsumedBudgetFilter=" + encodeURIComponent("" + maxConsumedBudgetFilter) + "&";
+        if (minConsumedBudgetFilter === null)
+            throw new Error("The parameter 'minConsumedBudgetFilter' cannot be null.");
+        else if (minConsumedBudgetFilter !== undefined)
+            url_ += "MinConsumedBudgetFilter=" + encodeURIComponent("" + minConsumedBudgetFilter) + "&";
+        if (maxAvailableAmountFilter === null)
+            throw new Error("The parameter 'maxAvailableAmountFilter' cannot be null.");
+        else if (maxAvailableAmountFilter !== undefined)
+            url_ += "MaxAvailableAmountFilter=" + encodeURIComponent("" + maxAvailableAmountFilter) + "&";
+        if (minAvailableAmountFilter === null)
+            throw new Error("The parameter 'minAvailableAmountFilter' cannot be null.");
+        else if (minAvailableAmountFilter !== undefined)
+            url_ += "MinAvailableAmountFilter=" + encodeURIComponent("" + minAvailableAmountFilter) + "&";
+        if (maxCurrentBudgetFilter === null)
+            throw new Error("The parameter 'maxCurrentBudgetFilter' cannot be null.");
+        else if (maxCurrentBudgetFilter !== undefined)
+            url_ += "MaxCurrentBudgetFilter=" + encodeURIComponent("" + maxCurrentBudgetFilter) + "&";
+        if (minCurrentBudgetFilter === null)
+            throw new Error("The parameter 'minCurrentBudgetFilter' cannot be null.");
+        else if (minCurrentBudgetFilter !== undefined)
+            url_ += "MinCurrentBudgetFilter=" + encodeURIComponent("" + minCurrentBudgetFilter) + "&";
+        if (maxCommitmentActualsFilter === null)
+            throw new Error("The parameter 'maxCommitmentActualsFilter' cannot be null.");
+        else if (maxCommitmentActualsFilter !== undefined)
+            url_ += "MaxCommitmentActualsFilter=" + encodeURIComponent("" + maxCommitmentActualsFilter) + "&";
+        if (minCommitmentActualsFilter === null)
+            throw new Error("The parameter 'minCommitmentActualsFilter' cannot be null.");
+        else if (minCommitmentActualsFilter !== undefined)
+            url_ += "MinCommitmentActualsFilter=" + encodeURIComponent("" + minCommitmentActualsFilter) + "&";
+        if (fundsCenterDescriptionFilter === null)
+            throw new Error("The parameter 'fundsCenterDescriptionFilter' cannot be null.");
+        else if (fundsCenterDescriptionFilter !== undefined)
+            url_ += "FundsCenterDescriptionFilter=" + encodeURIComponent("" + fundsCenterDescriptionFilter) + "&";
+        if (costCenterCostCenterNameFilter === null)
+            throw new Error("The parameter 'costCenterCostCenterNameFilter' cannot be null.");
+        else if (costCenterCostCenterNameFilter !== undefined)
+            url_ += "CostCenterCostCenterNameFilter=" + encodeURIComponent("" + costCenterCostCenterNameFilter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<PagedResultDtoOfGetGeneralLedgerAccountForViewDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<PagedResultDtoOfGetGeneralLedgerAccountForViewDto>;
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetGeneralLedgerAccountForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetGeneralLedgerAccountForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getGeneralLedgerAccountForView(id: string | undefined): Observable<GetGeneralLedgerAccountForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/GeneralLedgerAccounts/GetGeneralLedgerAccountForView?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetGeneralLedgerAccountForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetGeneralLedgerAccountForView(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetGeneralLedgerAccountForViewDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetGeneralLedgerAccountForViewDto>;
+        }));
+    }
+
+    protected processGetGeneralLedgerAccountForView(response: HttpResponseBase): Observable<GetGeneralLedgerAccountForViewDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetGeneralLedgerAccountForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getGeneralLedgerAccountForEdit(id: string | undefined): Observable<GetGeneralLedgerAccountForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/GeneralLedgerAccounts/GetGeneralLedgerAccountForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetGeneralLedgerAccountForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetGeneralLedgerAccountForEdit(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetGeneralLedgerAccountForEditOutput>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetGeneralLedgerAccountForEditOutput>;
+        }));
+    }
+
+    protected processGetGeneralLedgerAccountForEdit(response: HttpResponseBase): Observable<GetGeneralLedgerAccountForEditOutput> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetGeneralLedgerAccountForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditGeneralLedgerAccountDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/GeneralLedgerAccounts/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: string | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/GeneralLedgerAccounts/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param fundsCenterFilter (optional) 
+     * @param maxConsumableBudgetFilter (optional) 
+     * @param minConsumableBudgetFilter (optional) 
+     * @param maxConsumedBudgetFilter (optional) 
+     * @param minConsumedBudgetFilter (optional) 
+     * @param maxAvailableAmountFilter (optional) 
+     * @param minAvailableAmountFilter (optional) 
+     * @param maxCurrentBudgetFilter (optional) 
+     * @param minCurrentBudgetFilter (optional) 
+     * @param maxCommitmentActualsFilter (optional) 
+     * @param minCommitmentActualsFilter (optional) 
+     * @param fundsCenterDescriptionFilter (optional) 
+     * @param costCenterCostCenterNameFilter (optional) 
+     * @return Success
+     */
+    getGeneralLedgerAccountsToExcel(filter: string | undefined, fundsCenterFilter: string | undefined, maxConsumableBudgetFilter: number | undefined, minConsumableBudgetFilter: number | undefined, maxConsumedBudgetFilter: number | undefined, minConsumedBudgetFilter: number | undefined, maxAvailableAmountFilter: number | undefined, minAvailableAmountFilter: number | undefined, maxCurrentBudgetFilter: number | undefined, minCurrentBudgetFilter: number | undefined, maxCommitmentActualsFilter: number | undefined, minCommitmentActualsFilter: number | undefined, fundsCenterDescriptionFilter: string | undefined, costCenterCostCenterNameFilter: string | undefined): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/GeneralLedgerAccounts/GetGeneralLedgerAccountsToExcel?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (fundsCenterFilter === null)
+            throw new Error("The parameter 'fundsCenterFilter' cannot be null.");
+        else if (fundsCenterFilter !== undefined)
+            url_ += "FundsCenterFilter=" + encodeURIComponent("" + fundsCenterFilter) + "&";
+        if (maxConsumableBudgetFilter === null)
+            throw new Error("The parameter 'maxConsumableBudgetFilter' cannot be null.");
+        else if (maxConsumableBudgetFilter !== undefined)
+            url_ += "MaxConsumableBudgetFilter=" + encodeURIComponent("" + maxConsumableBudgetFilter) + "&";
+        if (minConsumableBudgetFilter === null)
+            throw new Error("The parameter 'minConsumableBudgetFilter' cannot be null.");
+        else if (minConsumableBudgetFilter !== undefined)
+            url_ += "MinConsumableBudgetFilter=" + encodeURIComponent("" + minConsumableBudgetFilter) + "&";
+        if (maxConsumedBudgetFilter === null)
+            throw new Error("The parameter 'maxConsumedBudgetFilter' cannot be null.");
+        else if (maxConsumedBudgetFilter !== undefined)
+            url_ += "MaxConsumedBudgetFilter=" + encodeURIComponent("" + maxConsumedBudgetFilter) + "&";
+        if (minConsumedBudgetFilter === null)
+            throw new Error("The parameter 'minConsumedBudgetFilter' cannot be null.");
+        else if (minConsumedBudgetFilter !== undefined)
+            url_ += "MinConsumedBudgetFilter=" + encodeURIComponent("" + minConsumedBudgetFilter) + "&";
+        if (maxAvailableAmountFilter === null)
+            throw new Error("The parameter 'maxAvailableAmountFilter' cannot be null.");
+        else if (maxAvailableAmountFilter !== undefined)
+            url_ += "MaxAvailableAmountFilter=" + encodeURIComponent("" + maxAvailableAmountFilter) + "&";
+        if (minAvailableAmountFilter === null)
+            throw new Error("The parameter 'minAvailableAmountFilter' cannot be null.");
+        else if (minAvailableAmountFilter !== undefined)
+            url_ += "MinAvailableAmountFilter=" + encodeURIComponent("" + minAvailableAmountFilter) + "&";
+        if (maxCurrentBudgetFilter === null)
+            throw new Error("The parameter 'maxCurrentBudgetFilter' cannot be null.");
+        else if (maxCurrentBudgetFilter !== undefined)
+            url_ += "MaxCurrentBudgetFilter=" + encodeURIComponent("" + maxCurrentBudgetFilter) + "&";
+        if (minCurrentBudgetFilter === null)
+            throw new Error("The parameter 'minCurrentBudgetFilter' cannot be null.");
+        else if (minCurrentBudgetFilter !== undefined)
+            url_ += "MinCurrentBudgetFilter=" + encodeURIComponent("" + minCurrentBudgetFilter) + "&";
+        if (maxCommitmentActualsFilter === null)
+            throw new Error("The parameter 'maxCommitmentActualsFilter' cannot be null.");
+        else if (maxCommitmentActualsFilter !== undefined)
+            url_ += "MaxCommitmentActualsFilter=" + encodeURIComponent("" + maxCommitmentActualsFilter) + "&";
+        if (minCommitmentActualsFilter === null)
+            throw new Error("The parameter 'minCommitmentActualsFilter' cannot be null.");
+        else if (minCommitmentActualsFilter !== undefined)
+            url_ += "MinCommitmentActualsFilter=" + encodeURIComponent("" + minCommitmentActualsFilter) + "&";
+        if (fundsCenterDescriptionFilter === null)
+            throw new Error("The parameter 'fundsCenterDescriptionFilter' cannot be null.");
+        else if (fundsCenterDescriptionFilter !== undefined)
+            url_ += "FundsCenterDescriptionFilter=" + encodeURIComponent("" + fundsCenterDescriptionFilter) + "&";
+        if (costCenterCostCenterNameFilter === null)
+            throw new Error("The parameter 'costCenterCostCenterNameFilter' cannot be null.");
+        else if (costCenterCostCenterNameFilter !== undefined)
+            url_ += "CostCenterCostCenterNameFilter=" + encodeURIComponent("" + costCenterCostCenterNameFilter) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetGeneralLedgerAccountsToExcel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetGeneralLedgerAccountsToExcel(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<FileDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<FileDto>;
+        }));
+    }
+
+    protected processGetGeneralLedgerAccountsToExcel(response: HttpResponseBase): Observable<FileDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FileDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllCostCenterForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGeneralLedgerAccountCostCenterLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/GeneralLedgerAccounts/GetAllCostCenterForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllCostCenterForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllCostCenterForLookupTable(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<PagedResultDtoOfGeneralLedgerAccountCostCenterLookupTableDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<PagedResultDtoOfGeneralLedgerAccountCostCenterLookupTableDto>;
+        }));
+    }
+
+    protected processGetAllCostCenterForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfGeneralLedgerAccountCostCenterLookupTableDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGeneralLedgerAccountCostCenterLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+}
+
+@Injectable()
 export class GeneralLedgerMappingsServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -30060,6 +30616,74 @@ export interface ICreateOrEditEnumTableDto {
     id: string | undefined;
 }
 
+export class CreateOrEditGeneralLedgerAccountDto implements ICreateOrEditGeneralLedgerAccountDto {
+    fundsCenter!: string | undefined;
+    consumableBudget!: number | undefined;
+    consumedBudget!: number | undefined;
+    availableAmount!: number | undefined;
+    currentBudget!: number | undefined;
+    commitmentActuals!: number | undefined;
+    fundsCenterDescription!: string | undefined;
+    costCenterId!: string | undefined;
+    id!: string | undefined;
+
+    constructor(data?: ICreateOrEditGeneralLedgerAccountDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.fundsCenter = _data["fundsCenter"];
+            this.consumableBudget = _data["consumableBudget"];
+            this.consumedBudget = _data["consumedBudget"];
+            this.availableAmount = _data["availableAmount"];
+            this.currentBudget = _data["currentBudget"];
+            this.commitmentActuals = _data["commitmentActuals"];
+            this.fundsCenterDescription = _data["fundsCenterDescription"];
+            this.costCenterId = _data["costCenterId"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditGeneralLedgerAccountDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditGeneralLedgerAccountDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["fundsCenter"] = this.fundsCenter;
+        data["consumableBudget"] = this.consumableBudget;
+        data["consumedBudget"] = this.consumedBudget;
+        data["availableAmount"] = this.availableAmount;
+        data["currentBudget"] = this.currentBudget;
+        data["commitmentActuals"] = this.commitmentActuals;
+        data["fundsCenterDescription"] = this.fundsCenterDescription;
+        data["costCenterId"] = this.costCenterId;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface ICreateOrEditGeneralLedgerAccountDto {
+    fundsCenter: string | undefined;
+    consumableBudget: number | undefined;
+    consumedBudget: number | undefined;
+    availableAmount: number | undefined;
+    currentBudget: number | undefined;
+    commitmentActuals: number | undefined;
+    fundsCenterDescription: string | undefined;
+    costCenterId: string | undefined;
+    id: string | undefined;
+}
+
 export class CreateOrEditGeneralLedgerMappingDto implements ICreateOrEditGeneralLedgerMappingDto {
     glAccount!: string;
     glAccountDescription!: string | undefined;
@@ -34549,6 +35173,114 @@ export enum FriendshipState {
     Blocked = 2,
 }
 
+export class GeneralLedgerAccountCostCenterLookupTableDto implements IGeneralLedgerAccountCostCenterLookupTableDto {
+    id!: string | undefined;
+    displayName!: string | undefined;
+
+    constructor(data?: IGeneralLedgerAccountCostCenterLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.displayName = _data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): GeneralLedgerAccountCostCenterLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GeneralLedgerAccountCostCenterLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data;
+    }
+}
+
+export interface IGeneralLedgerAccountCostCenterLookupTableDto {
+    id: string | undefined;
+    displayName: string | undefined;
+}
+
+export class GeneralLedgerAccountDto implements IGeneralLedgerAccountDto {
+    fundsCenter!: string | undefined;
+    consumableBudget!: number | undefined;
+    consumedBudget!: number | undefined;
+    availableAmount!: number | undefined;
+    currentBudget!: number | undefined;
+    commitmentActuals!: number | undefined;
+    fundsCenterDescription!: string | undefined;
+    costCenterId!: string | undefined;
+    id!: string;
+
+    constructor(data?: IGeneralLedgerAccountDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.fundsCenter = _data["fundsCenter"];
+            this.consumableBudget = _data["consumableBudget"];
+            this.consumedBudget = _data["consumedBudget"];
+            this.availableAmount = _data["availableAmount"];
+            this.currentBudget = _data["currentBudget"];
+            this.commitmentActuals = _data["commitmentActuals"];
+            this.fundsCenterDescription = _data["fundsCenterDescription"];
+            this.costCenterId = _data["costCenterId"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): GeneralLedgerAccountDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GeneralLedgerAccountDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["fundsCenter"] = this.fundsCenter;
+        data["consumableBudget"] = this.consumableBudget;
+        data["consumedBudget"] = this.consumedBudget;
+        data["availableAmount"] = this.availableAmount;
+        data["currentBudget"] = this.currentBudget;
+        data["commitmentActuals"] = this.commitmentActuals;
+        data["fundsCenterDescription"] = this.fundsCenterDescription;
+        data["costCenterId"] = this.costCenterId;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface IGeneralLedgerAccountDto {
+    fundsCenter: string | undefined;
+    consumableBudget: number | undefined;
+    consumedBudget: number | undefined;
+    availableAmount: number | undefined;
+    currentBudget: number | undefined;
+    commitmentActuals: number | undefined;
+    fundsCenterDescription: string | undefined;
+    costCenterId: string | undefined;
+    id: string;
+}
+
 export class GeneralLedgerMappingDto implements IGeneralLedgerMappingDto {
     glAccount!: string | undefined;
     glAccountDescription!: string | undefined;
@@ -35895,6 +36627,86 @@ export interface IGetExpiringTenantsOutput {
     maxExpiringTenantsShownCount: number;
     subscriptionEndDateStart: DateTime;
     subscriptionEndDateEnd: DateTime;
+}
+
+export class GetGeneralLedgerAccountForEditOutput implements IGetGeneralLedgerAccountForEditOutput {
+    generalLedgerAccount!: CreateOrEditGeneralLedgerAccountDto;
+    costCenterCostCenterName!: string | undefined;
+
+    constructor(data?: IGetGeneralLedgerAccountForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.generalLedgerAccount = _data["generalLedgerAccount"] ? CreateOrEditGeneralLedgerAccountDto.fromJS(_data["generalLedgerAccount"]) : <any>undefined;
+            this.costCenterCostCenterName = _data["costCenterCostCenterName"];
+        }
+    }
+
+    static fromJS(data: any): GetGeneralLedgerAccountForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetGeneralLedgerAccountForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["generalLedgerAccount"] = this.generalLedgerAccount ? this.generalLedgerAccount.toJSON() : <any>undefined;
+        data["costCenterCostCenterName"] = this.costCenterCostCenterName;
+        return data;
+    }
+}
+
+export interface IGetGeneralLedgerAccountForEditOutput {
+    generalLedgerAccount: CreateOrEditGeneralLedgerAccountDto;
+    costCenterCostCenterName: string | undefined;
+}
+
+export class GetGeneralLedgerAccountForViewDto implements IGetGeneralLedgerAccountForViewDto {
+    generalLedgerAccount!: GeneralLedgerAccountDto;
+    costCenterCostCenterName!: string | undefined;
+
+    constructor(data?: IGetGeneralLedgerAccountForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.generalLedgerAccount = _data["generalLedgerAccount"] ? GeneralLedgerAccountDto.fromJS(_data["generalLedgerAccount"]) : <any>undefined;
+            this.costCenterCostCenterName = _data["costCenterCostCenterName"];
+        }
+    }
+
+    static fromJS(data: any): GetGeneralLedgerAccountForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetGeneralLedgerAccountForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["generalLedgerAccount"] = this.generalLedgerAccount ? this.generalLedgerAccount.toJSON() : <any>undefined;
+        data["costCenterCostCenterName"] = this.costCenterCostCenterName;
+        return data;
+    }
+}
+
+export interface IGetGeneralLedgerAccountForViewDto {
+    generalLedgerAccount: GeneralLedgerAccountDto;
+    costCenterCostCenterName: string | undefined;
 }
 
 export class GetGeneralLedgerMappingForEditOutput implements IGetGeneralLedgerMappingForEditOutput {
@@ -41710,6 +42522,54 @@ export interface IPagedResultDtoOfEntityChangeListDto {
     items: EntityChangeListDto[] | undefined;
 }
 
+export class PagedResultDtoOfGeneralLedgerAccountCostCenterLookupTableDto implements IPagedResultDtoOfGeneralLedgerAccountCostCenterLookupTableDto {
+    totalCount!: number;
+    items!: GeneralLedgerAccountCostCenterLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGeneralLedgerAccountCostCenterLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GeneralLedgerAccountCostCenterLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGeneralLedgerAccountCostCenterLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGeneralLedgerAccountCostCenterLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IPagedResultDtoOfGeneralLedgerAccountCostCenterLookupTableDto {
+    totalCount: number;
+    items: GeneralLedgerAccountCostCenterLookupTableDto[] | undefined;
+}
+
 export class PagedResultDtoOfGetAirportForViewDto implements IPagedResultDtoOfGetAirportForViewDto {
     totalCount!: number;
     items!: GetAirportForViewDto[] | undefined;
@@ -42044,6 +42904,54 @@ export class PagedResultDtoOfGetEnumTableForViewDto implements IPagedResultDtoOf
 export interface IPagedResultDtoOfGetEnumTableForViewDto {
     totalCount: number;
     items: GetEnumTableForViewDto[] | undefined;
+}
+
+export class PagedResultDtoOfGetGeneralLedgerAccountForViewDto implements IPagedResultDtoOfGetGeneralLedgerAccountForViewDto {
+    totalCount!: number;
+    items!: GetGeneralLedgerAccountForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetGeneralLedgerAccountForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetGeneralLedgerAccountForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetGeneralLedgerAccountForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetGeneralLedgerAccountForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IPagedResultDtoOfGetGeneralLedgerAccountForViewDto {
+    totalCount: number;
+    items: GetGeneralLedgerAccountForViewDto[] | undefined;
 }
 
 export class PagedResultDtoOfGetGeneralLedgerMappingForViewDto implements IPagedResultDtoOfGetGeneralLedgerMappingForViewDto {

@@ -9,6 +9,13 @@ import { RouterModule } from '@angular/router';
                 children: [
                     
                     {
+                        path: 'sapConnector/generalLedgerAccounts',
+                        loadChildren: () => import('./sapConnector/generalLedgerAccounts/generalLedgerAccount.module').then(m => m.GeneralLedgerAccountModule),
+                        data: { permission: 'Pages.GeneralLedgerAccounts' }
+                    },
+                
+                    
+                    {
                         path: 'sapConnector/zmM020R',
                         loadChildren: () => import('./sapConnector/zmM020R/zmM020R.module').then(m => m.ZMM020RModule),
                         data: { permission: 'Pages.ZMM020R' }

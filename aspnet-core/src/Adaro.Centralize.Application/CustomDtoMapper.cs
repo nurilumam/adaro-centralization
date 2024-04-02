@@ -66,6 +66,8 @@ namespace Adaro.Centralize
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditGeneralLedgerAccountDto, GeneralLedgerAccount>().ReverseMap();
+            configuration.CreateMap<GeneralLedgerAccountDto, GeneralLedgerAccount>().ReverseMap();
             configuration.CreateMap<CreateOrEditZMM020RDto, ZMM020R>().ReverseMap();
             configuration.CreateMap<ZMM020RDto, ZMM020R>().ReverseMap();
             configuration.CreateMap<CreateOrEditRptProcurementAdjustDto, RptProcurementAdjust>().ReverseMap();

@@ -4,6 +4,7 @@ using Adaro.Centralize.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Adaro.Centralize.Migrations
 {
     [DbContext(typeof(CentralizeDbContext))]
-    partial class CentralizeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240402001036_Added_GeneralLedgerAccount")]
+    partial class Added_GeneralLedgerAccount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -3319,7 +3322,7 @@ namespace Adaro.Centralize.Migrations
                     b.ToTable("ZMM020R");
                 });
 
-            modelBuilder.Entity("Adaro.Centralize.SAPConnector.ZMM021R", b =>
+            modelBuilder.Entity("Adaro.Centralize.SAPConnector.GLAccount", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -3563,7 +3566,7 @@ namespace Adaro.Centralize.Migrations
 
                     b.HasIndex("TenantId");
 
-                    b.ToTable("ZMM021R");
+                    b.ToTable("GLAccount");
                 });
 
             modelBuilder.Entity("Adaro.Centralize.Storage.BinaryObject", b =>

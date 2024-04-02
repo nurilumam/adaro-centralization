@@ -1,0 +1,186 @@
+﻿<div
+    bsModal
+    #createOrEditModal="bs-modal"
+    class="modal fade"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="createOrEditModal"
+    aria-hidden="true"
+    [config]="{ backdrop: 'static' }"
+>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #generalLedgerAccountForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="generalLedgerAccount.id">{{ l('EditGeneralLedgerAccount') }}</span>
+                        <span *ngIf="!generalLedgerAccount.id">{{ l('CreateNewGeneralLedgerAccount') }}</span>
+                    </h4>
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        (click)="close()"
+                        aria-label="Close"
+                        [disabled]="saving"
+                    ></button>
+                </div>
+                <div class="modal-body">
+                    <div class="my-3">
+                        <label class="form-label" for="CostCenterCostCenterName">{{ l('CostCenter') }}</label>
+                        <div class="input-group">
+                            <input
+                                class="form-control"
+                                id="CostCenterCostCenterName"
+                                name="costCenterCostCenterName"
+                                [(ngModel)]="costCenterCostCenterName"
+                                type="text"
+                                disabled
+                            />
+                            <button class="btn btn-primary blue" (click)="openSelectCostCenterModal()" type="button">
+                                <i class="fa fa-search"></i>
+                                {{ l('Pick') }}
+                            </button>
+                            <button class="btn btn-danger btn-icon" type="button" (click)="setCostCenterIdNull()">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <input
+                        class="form-control"
+                        name="generalLedgerAccount.costCenterId"
+                        [(ngModel)]="generalLedgerAccount.costCenterId"
+                        type="text"
+                        hidden
+                    />
+
+                    <div class="my-3">
+                        <label class="form-label" for="GeneralLedgerAccount_FundsCenter">{{ l('FundsCenter') }}</label>
+                        <input
+                            type="text"
+                            #GeneralLedgerAccount_FundsCenter="ngModel"
+                            id="GeneralLedgerAccount_FundsCenter"
+                            class="form-control"
+                            [(ngModel)]="generalLedgerAccount.fundsCenter"
+                            name="FundsCenter"
+                            minlength="0"
+                            maxlength="255"
+                        />
+                        <validation-messages [formCtrl]="GeneralLedgerAccount_FundsCenter"></validation-messages>
+                    </div>
+
+                    <div class="my5">
+                        <label class="form-label" for="GeneralLedgerAccount_ConsumableBudget">
+                            {{ l('ConsumableBudget') }}
+                        </label>
+                        <input
+                            type="number"
+                            #GeneralLedgerAccount_ConsumableBudget="ngModel"
+                            id="GeneralLedgerAccount_ConsumableBudget"
+                            class="form-control"
+                            [(ngModel)]="generalLedgerAccount.consumableBudget"
+                            name="ConsumableBudget"
+                        />
+                        <validation-messages [formCtrl]="GeneralLedgerAccount_ConsumableBudget"></validation-messages>
+                    </div>
+
+                    <div class="my5">
+                        <label class="form-label" for="GeneralLedgerAccount_ConsumedBudget">
+                            {{ l('ConsumedBudget') }}
+                        </label>
+                        <input
+                            type="number"
+                            #GeneralLedgerAccount_ConsumedBudget="ngModel"
+                            id="GeneralLedgerAccount_ConsumedBudget"
+                            class="form-control"
+                            [(ngModel)]="generalLedgerAccount.consumedBudget"
+                            name="ConsumedBudget"
+                        />
+                        <validation-messages [formCtrl]="GeneralLedgerAccount_ConsumedBudget"></validation-messages>
+                    </div>
+
+                    <div class="my5">
+                        <label class="form-label" for="GeneralLedgerAccount_AvailableAmount">
+                            {{ l('AvailableAmount') }}
+                        </label>
+                        <input
+                            type="number"
+                            #GeneralLedgerAccount_AvailableAmount="ngModel"
+                            id="GeneralLedgerAccount_AvailableAmount"
+                            class="form-control"
+                            [(ngModel)]="generalLedgerAccount.availableAmount"
+                            name="AvailableAmount"
+                        />
+                        <validation-messages [formCtrl]="GeneralLedgerAccount_AvailableAmount"></validation-messages>
+                    </div>
+
+                    <div class="my5">
+                        <label class="form-label" for="GeneralLedgerAccount_CurrentBudget">
+                            {{ l('CurrentBudget') }}
+                        </label>
+                        <input
+                            type="number"
+                            #GeneralLedgerAccount_CurrentBudget="ngModel"
+                            id="GeneralLedgerAccount_CurrentBudget"
+                            class="form-control"
+                            [(ngModel)]="generalLedgerAccount.currentBudget"
+                            name="CurrentBudget"
+                        />
+                        <validation-messages [formCtrl]="GeneralLedgerAccount_CurrentBudget"></validation-messages>
+                    </div>
+
+                    <div class="my5">
+                        <label class="form-label" for="GeneralLedgerAccount_CommitmentActuals">
+                            {{ l('CommitmentActuals') }}
+                        </label>
+                        <input
+                            type="number"
+                            #GeneralLedgerAccount_CommitmentActuals="ngModel"
+                            id="GeneralLedgerAccount_CommitmentActuals"
+                            class="form-control"
+                            [(ngModel)]="generalLedgerAccount.commitmentActuals"
+                            name="CommitmentActuals"
+                        />
+                        <validation-messages [formCtrl]="GeneralLedgerAccount_CommitmentActuals"></validation-messages>
+                    </div>
+
+                    <div class="my-3">
+                        <label class="form-label" for="GeneralLedgerAccount_FundsCenterDescription">
+                            {{ l('FundsCenterDescription') }}
+                        </label>
+                        <input
+                            type="text"
+                            #GeneralLedgerAccount_FundsCenterDescription="ngModel"
+                            id="GeneralLedgerAccount_FundsCenterDescription"
+                            class="form-control"
+                            [(ngModel)]="generalLedgerAccount.fundsCenterDescription"
+                            name="FundsCenterDescription"
+                        />
+                        <validation-messages
+                            [formCtrl]="GeneralLedgerAccount_FundsCenterDescription"
+                        ></validation-messages>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">
+                        {{ l('Cancel') }}
+                    </button>
+                    <button
+                        type="submit"
+                        class="btn btn-primary blue"
+                        [disabled]="!generalLedgerAccountForm.form.valid"
+                        [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot')"
+                    >
+                        <i class="fa fa-save"></i>
+                        <span>{{ l('Save') }}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <generalLedgerAccountCostCenterLookupTableModal
+        #generalLedgerAccountCostCenterLookupTableModal
+        (modalSave)="getNewCostCenterId()"
+    ></generalLedgerAccountCostCenterLookupTableModal>
+</div>

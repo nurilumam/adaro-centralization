@@ -1,0 +1,70 @@
+﻿<div
+    bsModal
+    #createOrEditModal="bs-modal"
+    class="modal fade"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="createOrEditModal"
+    aria-hidden="true"
+    [config]="{ backdrop: 'static' }"
+>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span>{{ l('Details') }}</span>
+                </h4>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    (click)="close()"
+                    aria-label="Close"
+                    [disabled]="saving"
+                ></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('FundsCenter') }} :</h6>
+                        {{ item.generalLedgerAccount.fundsCenter }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('ConsumableBudget') }} :</h6>
+                        {{ item.generalLedgerAccount.consumableBudget }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('ConsumedBudget') }} :</h6>
+                        {{ item.generalLedgerAccount.consumedBudget }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('AvailableAmount') }} :</h6>
+                        {{ item.generalLedgerAccount.availableAmount }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('CurrentBudget') }} :</h6>
+                        {{ item.generalLedgerAccount.currentBudget }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('CommitmentActuals') }} :</h6>
+                        {{ item.generalLedgerAccount.commitmentActuals }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l('FundsCenterDescription') }} :</h6>
+                        {{ item.generalLedgerAccount.fundsCenterDescription }}
+                    </div>
+
+                    <div class="col-6 mb-3">
+                        <h6>({{ l('CostCenter') }}) {{ l('CostCenterName') }} :</h6>
+                        {{ item.costCenterCostCenterName }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button [disabled]="saving" type="button" class="btn btn-primary blue" (click)="close()">
+                    {{ l('Close') }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

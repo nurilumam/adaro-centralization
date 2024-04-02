@@ -30,6 +30,11 @@ namespace Adaro.Centralize.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var generalLedgerAccounts = pages.CreateChildPermission(AppPermissions.Pages_GeneralLedgerAccounts, L("GeneralLedgerAccounts"));
+            generalLedgerAccounts.CreateChildPermission(AppPermissions.Pages_GeneralLedgerAccounts_Create, L("CreateNewGeneralLedgerAccount"));
+            generalLedgerAccounts.CreateChildPermission(AppPermissions.Pages_GeneralLedgerAccounts_Edit, L("EditGeneralLedgerAccount"));
+            generalLedgerAccounts.CreateChildPermission(AppPermissions.Pages_GeneralLedgerAccounts_Delete, L("DeleteGeneralLedgerAccount"));
+
             var zmM020R = pages.CreateChildPermission(AppPermissions.Pages_ZMM020R, L("ZMM020R"));
             zmM020R.CreateChildPermission(AppPermissions.Pages_ZMM020R_Create, L("CreateNewZMM020R"));
             zmM020R.CreateChildPermission(AppPermissions.Pages_ZMM020R_Edit, L("EditZMM020R"));

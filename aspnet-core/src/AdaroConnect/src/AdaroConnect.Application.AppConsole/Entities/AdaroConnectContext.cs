@@ -13,9 +13,13 @@ public partial class AdaroConnectContext : DbContext
     {
     }
 
+    public virtual DbSet<CostCenter> CostCenters { get; set; }
+
     public virtual DbSet<Ekko> Ekkos { get; set; }
 
     public virtual DbSet<Ekpo> Ekpos { get; set; }
+
+    public virtual DbSet<GeneralLedgerAccount> GeneralLedgerAccounts { get; set; }
 
     public virtual DbSet<Zmm020r> Zmm020rs { get; set; }
 
@@ -23,6 +27,34 @@ public partial class AdaroConnectContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<CostCenter>(entity =>
+        {
+            entity.HasIndex(e => e.CostCenterCode, "IX_CostCenters").IsUnique();
+
+            entity.HasIndex(e => e.TenantId, "IX_CostCenters_TenantId");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.ControllingArea)
+                .IsRequired()
+                .HasMaxLength(100);
+            entity.Property(e => e.CostCenterCode)
+                .IsRequired()
+                .HasMaxLength(50);
+            entity.Property(e => e.CostCenterName)
+                .IsRequired()
+                .HasMaxLength(50);
+            entity.Property(e => e.CostCenterShort).HasMaxLength(100);
+            entity.Property(e => e.DepartmentName)
+                .IsRequired()
+                .HasMaxLength(200);
+            entity.Property(e => e.IsActive)
+                .IsRequired()
+                .HasDefaultValueSql("(CONVERT([bit],(0)))");
+            entity.Property(e => e.Period)
+                .IsRequired()
+                .HasMaxLength(10);
+        });
+
         modelBuilder.Entity<Ekko>(entity =>
         {
             entity.ToTable("EKKO");
@@ -297,6 +329,24 @@ public partial class AdaroConnectContext : DbContext
                 .HasColumnName("WERKS");
         });
 
+        modelBuilder.Entity<GeneralLedgerAccount>(entity =>
+        {
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.CreatedDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.FundsCenter).HasMaxLength(255);
+            entity.Property(e => e.FundsCenterDescription).HasMaxLength(300);
+            entity.Property(e => e.UpdatedDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+
+            entity.HasOne(d => d.CostCenter).WithMany(p => p.GeneralLedgerAccounts)
+                .HasForeignKey(d => d.CostCenterId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_GeneralLedgerAccounts_CostCenters");
+        });
+
         modelBuilder.Entity<Zmm020r>(entity =>
         {
             entity.ToTable("ZMM020R");
@@ -308,7 +358,7 @@ public partial class AdaroConnectContext : DbContext
             entity.Property(e => e.CostCenterDescription).HasMaxLength(500);
             entity.Property(e => e.CreatedBy).HasMaxLength(500);
             entity.Property(e => e.CreatedDate)
-                .HasDefaultValueSql("('0001-01-01T00:00:00.0000000')")
+                .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
             entity.Property(e => e.Currency).HasMaxLength(10);
             entity.Property(e => e.DeletionIndicator).HasMaxLength(5);
@@ -335,7 +385,7 @@ public partial class AdaroConnectContext : DbContext
             entity.Property(e => e.OutlineAgreement).HasMaxLength(255);
             entity.Property(e => e.Plant).HasMaxLength(10);
             entity.Property(e => e.PrincAgreementItem).HasMaxLength(255);
-            entity.Property(e => e.ProcessingStatus).HasMaxLength(10);
+            entity.Property(e => e.ProcessingStatus).HasMaxLength(50);
             entity.Property(e => e.ProcessingStatusCode).HasMaxLength(50);
             entity.Property(e => e.PurchaseGroup).HasMaxLength(255);
             entity.Property(e => e.PurchaseRequisition)
@@ -357,7 +407,7 @@ public partial class AdaroConnectContext : DbContext
             entity.Property(e => e.UnitOfMeasure).HasMaxLength(50);
             entity.Property(e => e.UnitOfMeasureService).HasMaxLength(255);
             entity.Property(e => e.UpdatedDate)
-                .HasDefaultValueSql("('0001-01-01T00:00:00.0000000')")
+                .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
             entity.Property(e => e.Wbselement)
                 .HasMaxLength(255)
