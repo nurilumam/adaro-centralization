@@ -26,8 +26,6 @@ namespace Adaro.Centralize.SAPConnector
     public class SAPSynchService : CentralizeAppServiceBase, ISAPSynchService
     {
         private readonly IRepository<CostCenter, Guid> _costCenterRepository;
-        private readonly IRepository<EKKO, Guid> _SAP_EKKORepository;
-        private readonly IRepository<EKPO, Guid> _SAP_EKPORepository;
         private readonly ICostCenterManager _costCenterManagerSAP;
         private readonly IPurchaseOrderManager _purchaseOrderManager;
         private readonly IUnitOfWorkManager _unitOfWorkManager;
@@ -35,15 +33,11 @@ namespace Adaro.Centralize.SAPConnector
 
         public SAPSynchService(
             IRepository<CostCenter, Guid> costCenterRepository,
-            IRepository<EKKO, Guid> SAP_EKKORepository,
-            IRepository<EKPO, Guid> SAP_EKPORepository,
             ICostCenterManager costCenterManagerSAP,
             IPurchaseOrderManager purchaseOrderManager,
             IUnitOfWorkManager unitOfWorkManager) 
         {
             _costCenterRepository = costCenterRepository;
-            _SAP_EKKORepository = SAP_EKKORepository;
-            _SAP_EKPORepository = SAP_EKPORepository;
             _costCenterManagerSAP = costCenterManagerSAP;
             _purchaseOrderManager = purchaseOrderManager;
             _unitOfWorkManager = unitOfWorkManager;

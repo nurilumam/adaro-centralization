@@ -24,18 +24,15 @@ namespace Adaro.Centralize.JobScheduler
     {
         private readonly IRepository<JobSynchronize, Guid> _jobSynchronizeRepository;
         private readonly IJobSynchronizesExcelExporter _jobSynchronizesExcelExporter;
-        private readonly ISAPSynchService _SAPSynchService;
         private readonly IBackgroundJobManager _backgroundJobManager;
 
         public JobSynchronizesAppService(
             IRepository<JobSynchronize, Guid> jobSynchronizeRepository, 
             IJobSynchronizesExcelExporter jobSynchronizesExcelExporter,
-            ISAPSynchService sapSynchService,
             IBackgroundJobManager backgroundJobManager)
         {
             _jobSynchronizeRepository = jobSynchronizeRepository;
             _jobSynchronizesExcelExporter = jobSynchronizesExcelExporter;
-            _SAPSynchService = sapSynchService;
             _backgroundJobManager = backgroundJobManager;
         }
 
@@ -118,19 +115,6 @@ namespace Adaro.Centralize.JobScheduler
 
         }
 
-        public virtual async Task<GetJobSynchronizeForViewDto> GetJobSynchronizeForView(Guid id)
-        {
-            var jobSynchronize = await _jobSynchronizeRepository.GetAsync(id);
-
-            var output = new GetJobSynchronizeForViewDto { JobSynchronize = ObjectMapper.Map<JobSynchronizeDto>(jobSynchronize) };
-
-            var input = new PurchasingOrderSynchDto();
-            input.DateFrom = DateTime.Now.AddMonths(-24);
-
-            await _SAPSynchService.PurchasingDocumentHeader(input);
-
-            return output;
-        }
 
         [AbpAuthorize(AppPermissions.Pages_JobSynchronizes_Edit)]
         public virtual async Task<GetJobSynchronizeForEditOutput> GetJobSynchronizeForEdit(EntityDto<Guid> input)

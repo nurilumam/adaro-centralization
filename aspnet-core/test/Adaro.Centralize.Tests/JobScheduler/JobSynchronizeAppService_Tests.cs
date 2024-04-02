@@ -57,14 +57,6 @@ namespace Adaro.Centralize.Tests.JobScheduler
         }
 
         [Fact]
-        public async Task Should_Get_JobSynchronize_For_View()
-        {
-            var jobSynchronize = await _jobSynchronizesAppService.GetJobSynchronizeForView(_jobSynchronizeTestId);
-
-            jobSynchronize.ShouldNotBe(null);
-        }
-
-        [Fact]
         public async Task Should_Get_JobSynchronize_For_Edit()
         {
             var jobSynchronize = await _jobSynchronizesAppService.GetJobSynchronizeForEdit(new EntityDto<Guid> { Id = _jobSynchronizeTestId });

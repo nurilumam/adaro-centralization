@@ -80,10 +80,6 @@ namespace Adaro.Centralize
             configuration.CreateMap<LookupPageDto, LookupPage>().ReverseMap();
             configuration.CreateMap<CreateOrEditTransferBudgetDto, TransferBudget>().ReverseMap();
             configuration.CreateMap<TransferBudgetDto, TransferBudget>().ReverseMap();
-            configuration.CreateMap<CreateOrEditEKPODto, EKPO>().ReverseMap();
-            configuration.CreateMap<EKPODto, EKPO>().ReverseMap();
-            configuration.CreateMap<CreateOrEditEkkoDto, EKKO>().ReverseMap();
-            configuration.CreateMap<EkkoDto, EKKO>().ReverseMap();
             configuration.CreateMap<CreateOrEditJobSynchronizeDto, JobSynchronize>().ReverseMap();
             configuration.CreateMap<JobSynchronizeDto, JobSynchronize>().ReverseMap();
             configuration.CreateMap<CreateOrEditCostCenterDto, CostCenter>().ReverseMap();
@@ -222,8 +218,6 @@ namespace Adaro.Centralize
             // SAP SYNCHRONIZE
 
             configuration.CreateMap<CostCenterItem, CostCenter>().ReverseMap();
-            configuration.CreateMap<PurchasingDocumentHeader, EKKO>().ReverseMap();
-            configuration.CreateMap<PurchasingDocumentItem, EKPO>().ReverseMap();
         }
     }
 }

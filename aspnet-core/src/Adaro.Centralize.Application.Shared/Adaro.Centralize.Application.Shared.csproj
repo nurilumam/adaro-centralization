@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="SAPConnector\IEkkosAppService.cs" />
+    <Compile Remove="SAPConnector\IEKPOsAppService.cs" />
+    <Compile Remove="SAPConnector\Synchronize\ISAPSynchService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Abp.Web.Common" Version="8.2.0" />
   </ItemGroup>
 

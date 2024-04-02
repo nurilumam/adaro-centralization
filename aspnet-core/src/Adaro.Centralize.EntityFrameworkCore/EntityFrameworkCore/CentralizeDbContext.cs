@@ -37,9 +37,9 @@ namespace Adaro.Centralize.EntityFrameworkCore
 
         public virtual DbSet<TransferBudget> TransferBudgets { get; set; }
 
-        public virtual DbSet<EKPO> EKPOs { get; set; }
+        //public virtual DbSet<EKPO> EKPOs { get; set; }
 
-        public virtual DbSet<EKKO> Ekkos { get; set; }
+        //public virtual DbSet<EKKO> Ekkos { get; set; }
 
         public virtual DbSet<JobSynchronize> JobSynchronizes { get; set; }
 
@@ -124,14 +124,6 @@ namespace Adaro.Centralize.EntityFrameworkCore
             modelBuilder.Entity<TransferBudget>(t =>
                        {
                            t.HasIndex(e => new { e.TenantId });
-                       });
-            modelBuilder.Entity<EKPO>(x =>
-                       {
-                           x.HasIndex(e => new { e.TenantId });
-                       });
-            modelBuilder.Entity<EKKO>(x =>
-                       {
-                           x.HasIndex(e => new { e.TenantId });
                        });
             modelBuilder.Entity<JobSynchronize>(j =>
                        {

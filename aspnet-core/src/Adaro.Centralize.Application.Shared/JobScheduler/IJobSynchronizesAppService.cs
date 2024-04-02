@@ -11,7 +11,6 @@ namespace Adaro.Centralize.JobScheduler
     {
         Task<PagedResultDto<GetJobSynchronizeForViewDto>> GetAll(GetAllJobSynchronizesInput input);
 
-        Task<GetJobSynchronizeForViewDto> GetJobSynchronizeForView(Guid id);
 
         Task<GetJobSynchronizeForEditOutput> GetJobSynchronizeForEdit(EntityDto<Guid> input);
 

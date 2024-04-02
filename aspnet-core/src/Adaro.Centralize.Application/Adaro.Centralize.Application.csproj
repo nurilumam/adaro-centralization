@@ -18,6 +18,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="SAPConnector\EKKOsAppService.cs" />
+    <Compile Remove="SAPConnector\EKPOsAppService.cs" />
+    <Compile Remove="SAPConnector\Synchronize\SAPSynchService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Abp.EntityFrameworkCore.EFPlus" Version="8.2.0" />
     <PackageReference Include="MiniExcel" Version="1.30.2" />
   </ItemGroup>
