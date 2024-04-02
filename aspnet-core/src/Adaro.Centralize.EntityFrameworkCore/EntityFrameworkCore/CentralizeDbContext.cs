@@ -23,6 +23,8 @@ namespace Adaro.Centralize.EntityFrameworkCore
 {
     public class CentralizeDbContext : AbpZeroDbContext<Tenant, Role, User, CentralizeDbContext>
     {
+        public virtual DbSet<TransferBudgetDetail> TransferBudgetDetails { get; set; }
+
         public virtual DbSet<GeneralLedgerAccount> GeneralLedgerAccounts { get; set; }
 
         public virtual DbSet<ZMM020R> ZMM020R { get; set; }
@@ -32,8 +34,6 @@ namespace Adaro.Centralize.EntityFrameworkCore
         public virtual DbSet<ZMM021R> ZMM021R { get; set; }
 
         public virtual DbSet<LookupPage> LookupPages { get; set; }
-
-        public virtual DbSet<TransferBudgetItem> TransferBudgetItems { get; set; }
 
         public virtual DbSet<TransferBudget> TransferBudgets { get; set; }
 
@@ -93,10 +93,14 @@ namespace Adaro.Centralize.EntityFrameworkCore
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<GeneralLedgerAccount>(g =>
+            modelBuilder.Entity<TransferBudgetDetail>(t =>
             {
-                g.HasIndex(e => new { e.TenantId });
+                t.HasIndex(e => new { e.TenantId });
             });
+            modelBuilder.Entity<GeneralLedgerAccount>(g =>
+                       {
+                           g.HasIndex(e => new { e.TenantId });
+                       });
             modelBuilder.Entity<ZMM020R>(z =>
                                   {
                                       z.HasIndex(e => new { e.TenantId });
@@ -116,10 +120,6 @@ namespace Adaro.Centralize.EntityFrameworkCore
             modelBuilder.Entity<LookupPage>(l =>
                        {
                            l.HasIndex(e => new { e.TenantId });
-                       });
-            modelBuilder.Entity<TransferBudgetItem>(t =>
-                       {
-                           t.HasIndex(e => new { e.TenantId });
                        });
             modelBuilder.Entity<TransferBudget>(t =>
                        {

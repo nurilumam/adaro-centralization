@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="GeneralLedgerAccount">General ledger account</text>
+  <texts>    <text name="TransferBudgetDetail">Transfer budget detail</text>
+    <text name="CreateNewTransferBudgetDetail">Create new transfer budget detail</text>
+    <text name="EditTransferBudgetDetail">Edit transfer budget detail</text>
+    <text name="DeleteTransferBudgetDetail">Delete transfer budget detail</text>
+    <text name="GeneralLedgerAccount">General ledger account</text>
     <text name="Adaro.Centralize.SAPConnector.GeneralLedgerAccount">GeneralLedgerAccount</text>
     <text name="FundsCenterDescription">Funds center description</text>
     <text name="GeneralLedgerAccountsHeaderInfo">General ledger accounts header info</text>

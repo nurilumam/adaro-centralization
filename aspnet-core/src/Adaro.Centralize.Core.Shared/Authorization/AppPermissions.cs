@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_TransferBudgetDetails = "Pages.TransferBudgetDetails";
+        public const string Pages_TransferBudgetDetails_Create = "Pages.TransferBudgetDetails.Create";
+        public const string Pages_TransferBudgetDetails_Edit = "Pages.TransferBudgetDetails.Edit";
+        public const string Pages_TransferBudgetDetails_Delete = "Pages.TransferBudgetDetails.Delete";
+
         public const string Pages_GeneralLedgerAccounts = "Pages.GeneralLedgerAccounts";
         public const string Pages_GeneralLedgerAccounts_Create = "Pages.GeneralLedgerAccounts.Create";
         public const string Pages_GeneralLedgerAccounts_Edit = "Pages.GeneralLedgerAccounts.Edit";

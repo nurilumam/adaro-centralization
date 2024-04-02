@@ -30,6 +30,11 @@ namespace Adaro.Centralize.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var transferBudgetDetails = pages.CreateChildPermission(AppPermissions.Pages_TransferBudgetDetails, L("TransferBudgetDetails"));
+            transferBudgetDetails.CreateChildPermission(AppPermissions.Pages_TransferBudgetDetails_Create, L("CreateNewTransferBudgetDetail"));
+            transferBudgetDetails.CreateChildPermission(AppPermissions.Pages_TransferBudgetDetails_Edit, L("EditTransferBudgetDetail"));
+            transferBudgetDetails.CreateChildPermission(AppPermissions.Pages_TransferBudgetDetails_Delete, L("DeleteTransferBudgetDetail"));
+
             var generalLedgerAccounts = pages.CreateChildPermission(AppPermissions.Pages_GeneralLedgerAccounts, L("GeneralLedgerAccounts"));
             generalLedgerAccounts.CreateChildPermission(AppPermissions.Pages_GeneralLedgerAccounts_Create, L("CreateNewGeneralLedgerAccount"));
             generalLedgerAccounts.CreateChildPermission(AppPermissions.Pages_GeneralLedgerAccounts_Edit, L("EditGeneralLedgerAccount"));
