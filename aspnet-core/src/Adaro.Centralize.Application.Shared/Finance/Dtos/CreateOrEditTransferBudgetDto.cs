@@ -31,7 +31,8 @@ namespace Adaro.Centralize.Finance.Dtos
         [Required]
         public string Location { get; set; }
 
-        public List<TransferBudgetDetailDto> Details { get; set; }
-        
+        public List<TransferBudgetDetailDto> DetailSenders { get; set; }
+        public List<TransferBudgetDetailDto> DetailReceivers { get; set; }
+
     }
 }

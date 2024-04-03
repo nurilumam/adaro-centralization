@@ -4,6 +4,8 @@ using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Adaro.Centralize.Finance.Dtos;
 using Adaro.Centralize.Dto;
+using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace Adaro.Centralize.Finance
 {
@@ -17,9 +19,11 @@ namespace Adaro.Centralize.Finance
 
         Task Delete(EntityDto<Guid> input);
 
+        Task<List<TransferBudgetDetailTransferBudgetLookupTableDto>> GetAllTransferBudgetForTableDropdown();
+
         Task<PagedResultDto<TransferBudgetDetailCostCenterLookupTableDto>> GetAllCostCenterForLookupTable(GetAllForLookupTableInput input);
 
-        Task<PagedResultDto<TransferBudgetDetailGeneralLedgerAccountLookupTableDto>> GetAllGeneralLedgerAccountForLookupTable(GetAllForLookupTableInput input);
+        Task<List<TransferBudgetDetailGeneralLedgerAccountLookupTableDto>> GetAllGeneralLedgerAccountForTableDropdown();
 
     }
 }

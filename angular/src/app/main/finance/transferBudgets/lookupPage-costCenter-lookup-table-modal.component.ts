@@ -18,6 +18,7 @@ export class LookupPageCostCenterLookupTableModalComponent extends AppComponentB
 
     filterText = '';
     id: string;
+    costCenter: LookupPageCostCenterLookupTableDto;
     displayName: string;
     costCenterCode: string;
     costCenterName: string | undefined;
@@ -74,6 +75,7 @@ export class LookupPageCostCenterLookupTableModalComponent extends AppComponentB
 
     setAndSave(costCenter: LookupPageCostCenterLookupTableDto) {
         this.id = costCenter.id;
+        this.costCenter = costCenter;
         this.costCenterCode = costCenter.costCenterCode;
         this.costCenterName = costCenter.costCenterName;
         this.displayName = costCenter.displayName;

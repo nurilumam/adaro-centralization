@@ -8,6 +8,8 @@ namespace Adaro.Centralize.Finance.Dtos
     {
         public CreateOrEditTransferBudgetDetailDto TransferBudgetDetail { get; set; }
 
+        public string TransferBudgetDocumentNo { get; set; }
+
         public string CostCenterDisplayProperty { get; set; }
 
         public string GeneralLedgerAccountFundsCenter { get; set; }

@@ -257,5 +257,58 @@ namespace Adaro.Centralize.SAPConnector
             );
         }
 
+        public virtual async Task<List<GetGeneralLedgerAccountForViewDto>> GetByCostCenterCode(string CostCenterCode)
+        {
+            var filteredGeneralLedgerAccounts = _generalLedgerAccountRepository.GetAll();
+            var pagedAndFilteredGeneralLedgerAccounts = filteredGeneralLedgerAccounts
+                .OrderBy(o => o.FundsCenter);
+
+            var generalLedgerAccounts = from o in pagedAndFilteredGeneralLedgerAccounts
+                                        join o1 in _lookup_costCenterRepository.GetAll() on o.CostCenterId equals o1.Id into j1
+                                        from s1 in j1.DefaultIfEmpty()
+                                        where s1.CostCenterCode == CostCenterCode
+                                        select new
+                                        {
+
+                                            o.FundsCenter,
+                                            o.ConsumableBudget,
+                                            o.ConsumedBudget,
+                                            o.AvailableAmount,
+                                            o.CurrentBudget,
+                                            o.CommitmentActuals,
+                                            o.FundsCenterDescription,
+                                            Id = o.Id,
+                                            CostCenterCostCenterName = s1 == null || s1.CostCenterName == null ? "" : s1.CostCenterName.ToString()
+                                        };
+
+            var totalCount = await filteredGeneralLedgerAccounts.CountAsync();
+
+            var dbList = await generalLedgerAccounts.ToListAsync();
+            var results = new List<GetGeneralLedgerAccountForViewDto>();
+
+            foreach (var o in dbList)
+            {
+                var res = new GetGeneralLedgerAccountForViewDto()
+                {
+                    GeneralLedgerAccount = new GeneralLedgerAccountDto
+                    {
+
+                        FundsCenter = o.FundsCenter,
+                        ConsumableBudget = o.ConsumableBudget,
+                        ConsumedBudget = o.ConsumedBudget,
+                        AvailableAmount = o.AvailableAmount,
+                        CurrentBudget = o.CurrentBudget,
+                        CommitmentActuals = o.CommitmentActuals,
+                        FundsCenterDescription = o.FundsCenterDescription,
+                        Id = o.Id,
+                    },
+                    CostCenterCostCenterName = o.CostCenterCostCenterName
+                };
+
+                results.Add(res);
+            }
+
+            return results;
+        }
     }
 }

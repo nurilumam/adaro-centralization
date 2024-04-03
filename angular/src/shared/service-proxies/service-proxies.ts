@@ -686,401 +686,6 @@ export class AccountServiceProxy {
 }
 
 @Injectable()
-export class AirportsServiceProxy {
-    private http: HttpClient;
-    private baseUrl: string;
-    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
-
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
-        this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
-    }
-
-    /**
-     * @param filter (optional) 
-     * @param airportNameFilter (optional) 
-     * @param iATAFilter (optional) 
-     * @param cityFilter (optional) 
-     * @param categoryFilter (optional) 
-     * @param sorting (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
-     * @return Success
-     */
-    getAll(filter: string | undefined, airportNameFilter: string | undefined, iATAFilter: string | undefined, cityFilter: string | undefined, categoryFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetAirportForViewDto> {
-        let url_ = this.baseUrl + "/api/services/app/Airports/GetAll?";
-        if (filter === null)
-            throw new Error("The parameter 'filter' cannot be null.");
-        else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (airportNameFilter === null)
-            throw new Error("The parameter 'airportNameFilter' cannot be null.");
-        else if (airportNameFilter !== undefined)
-            url_ += "AirportNameFilter=" + encodeURIComponent("" + airportNameFilter) + "&";
-        if (iATAFilter === null)
-            throw new Error("The parameter 'iATAFilter' cannot be null.");
-        else if (iATAFilter !== undefined)
-            url_ += "IATAFilter=" + encodeURIComponent("" + iATAFilter) + "&";
-        if (cityFilter === null)
-            throw new Error("The parameter 'cityFilter' cannot be null.");
-        else if (cityFilter !== undefined)
-            url_ += "CityFilter=" + encodeURIComponent("" + cityFilter) + "&";
-        if (categoryFilter === null)
-            throw new Error("The parameter 'categoryFilter' cannot be null.");
-        else if (categoryFilter !== undefined)
-            url_ += "CategoryFilter=" + encodeURIComponent("" + categoryFilter) + "&";
-        if (sorting === null)
-            throw new Error("The parameter 'sorting' cannot be null.");
-        else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (skipCount === null)
-            throw new Error("The parameter 'skipCount' cannot be null.");
-        else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
-        if (maxResultCount === null)
-            throw new Error("The parameter 'maxResultCount' cannot be null.");
-        else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAll(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetAll(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<PagedResultDtoOfGetAirportForViewDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<PagedResultDtoOfGetAirportForViewDto>;
-        }));
-    }
-
-    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetAirportForViewDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PagedResultDtoOfGetAirportForViewDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param id (optional) 
-     * @return Success
-     */
-    getAirportForView(id: string | undefined): Observable<GetAirportForViewDto> {
-        let url_ = this.baseUrl + "/api/services/app/Airports/GetAirportForView?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAirportForView(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetAirportForView(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<GetAirportForViewDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<GetAirportForViewDto>;
-        }));
-    }
-
-    protected processGetAirportForView(response: HttpResponseBase): Observable<GetAirportForViewDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetAirportForViewDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param id (optional) 
-     * @return Success
-     */
-    getAirportForEdit(id: string | undefined): Observable<GetAirportForEditOutput> {
-        let url_ = this.baseUrl + "/api/services/app/Airports/GetAirportForEdit?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAirportForEdit(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetAirportForEdit(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<GetAirportForEditOutput>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<GetAirportForEditOutput>;
-        }));
-    }
-
-    protected processGetAirportForEdit(response: HttpResponseBase): Observable<GetAirportForEditOutput> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetAirportForEditOutput.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    createOrEdit(body: CreateOrEditAirportDto | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Airports/CreateOrEdit";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processCreateOrEdit(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processCreateOrEdit(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<void>;
-        }));
-    }
-
-    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return _observableOf(null as any);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param id (optional) 
-     * @return Success
-     */
-    delete(id: string | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/Airports/Delete?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-            })
-        };
-
-        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processDelete(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processDelete(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<void>;
-        }));
-    }
-
-    protected processDelete(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return _observableOf(null as any);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param filter (optional) 
-     * @param airportNameFilter (optional) 
-     * @param iATAFilter (optional) 
-     * @param cityFilter (optional) 
-     * @param categoryFilter (optional) 
-     * @return Success
-     */
-    getAirportsToExcel(filter: string | undefined, airportNameFilter: string | undefined, iATAFilter: string | undefined, cityFilter: string | undefined, categoryFilter: string | undefined): Observable<FileDto> {
-        let url_ = this.baseUrl + "/api/services/app/Airports/GetAirportsToExcel?";
-        if (filter === null)
-            throw new Error("The parameter 'filter' cannot be null.");
-        else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (airportNameFilter === null)
-            throw new Error("The parameter 'airportNameFilter' cannot be null.");
-        else if (airportNameFilter !== undefined)
-            url_ += "AirportNameFilter=" + encodeURIComponent("" + airportNameFilter) + "&";
-        if (iATAFilter === null)
-            throw new Error("The parameter 'iATAFilter' cannot be null.");
-        else if (iATAFilter !== undefined)
-            url_ += "IATAFilter=" + encodeURIComponent("" + iATAFilter) + "&";
-        if (cityFilter === null)
-            throw new Error("The parameter 'cityFilter' cannot be null.");
-        else if (cityFilter !== undefined)
-            url_ += "CityFilter=" + encodeURIComponent("" + cityFilter) + "&";
-        if (categoryFilter === null)
-            throw new Error("The parameter 'categoryFilter' cannot be null.");
-        else if (categoryFilter !== undefined)
-            url_ += "CategoryFilter=" + encodeURIComponent("" + categoryFilter) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAirportsToExcel(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetAirportsToExcel(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<FileDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<FileDto>;
-        }));
-    }
-
-    protected processGetAirportsToExcel(response: HttpResponseBase): Observable<FileDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = FileDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-}
-
-@Injectable()
 export class AuditLogServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -7999,6 +7604,69 @@ export class GeneralLedgerAccountsServiceProxy {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result200 = PagedResultDtoOfGeneralLedgerAccountCostCenterLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param costCenterCode (optional) 
+     * @return Success
+     */
+    getByCostCenterCode(costCenterCode: string | undefined): Observable<GetGeneralLedgerAccountForViewDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/GeneralLedgerAccounts/GetByCostCenterCode?";
+        if (costCenterCode === null)
+            throw new Error("The parameter 'costCenterCode' cannot be null.");
+        else if (costCenterCode !== undefined)
+            url_ += "CostCenterCode=" + encodeURIComponent("" + costCenterCode) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetByCostCenterCode(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetByCostCenterCode(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<GetGeneralLedgerAccountForViewDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<GetGeneralLedgerAccountForViewDto[]>;
+        }));
+    }
+
+    protected processGetByCostCenterCode(response: HttpResponseBase): Observable<GetGeneralLedgerAccountForViewDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(GetGeneralLedgerAccountForViewDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -19380,14 +19048,15 @@ export class TransferBudgetDetailsServiceProxy {
      * @param maxAmountFilter (optional) 
      * @param minAmountFilter (optional) 
      * @param transferTypeFilter (optional) 
-     * @param costCenterCostCenterNameFilter (optional) 
-     * @param generalLedgerMappingGLAccountFilter (optional) 
+     * @param transferBudgetDocumentNoFilter (optional) 
+     * @param costCenterDisplayPropertyFilter (optional) 
+     * @param generalLedgerAccountFundsCenterFilter (optional) 
      * @param sorting (optional) 
      * @param skipCount (optional) 
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAll(filter: string | undefined, periodFilter: string | undefined, maxAmountFilter: number | undefined, minAmountFilter: number | undefined, transferTypeFilter: string | undefined, costCenterCostCenterNameFilter: string | undefined, generalLedgerMappingGLAccountFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetTransferBudgetDetailForViewDto> {
+    getAll(filter: string | undefined, periodFilter: string | undefined, maxAmountFilter: number | undefined, minAmountFilter: number | undefined, transferTypeFilter: string | undefined, transferBudgetDocumentNoFilter: string | undefined, costCenterDisplayPropertyFilter: string | undefined, generalLedgerAccountFundsCenterFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetTransferBudgetDetailForViewDto> {
         let url_ = this.baseUrl + "/api/services/app/TransferBudgetDetails/GetAll?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -19409,14 +19078,18 @@ export class TransferBudgetDetailsServiceProxy {
             throw new Error("The parameter 'transferTypeFilter' cannot be null.");
         else if (transferTypeFilter !== undefined)
             url_ += "TransferTypeFilter=" + encodeURIComponent("" + transferTypeFilter) + "&";
-        if (costCenterCostCenterNameFilter === null)
-            throw new Error("The parameter 'costCenterCostCenterNameFilter' cannot be null.");
-        else if (costCenterCostCenterNameFilter !== undefined)
-            url_ += "CostCenterCostCenterNameFilter=" + encodeURIComponent("" + costCenterCostCenterNameFilter) + "&";
-        if (generalLedgerMappingGLAccountFilter === null)
-            throw new Error("The parameter 'generalLedgerMappingGLAccountFilter' cannot be null.");
-        else if (generalLedgerMappingGLAccountFilter !== undefined)
-            url_ += "GeneralLedgerMappingGLAccountFilter=" + encodeURIComponent("" + generalLedgerMappingGLAccountFilter) + "&";
+        if (transferBudgetDocumentNoFilter === null)
+            throw new Error("The parameter 'transferBudgetDocumentNoFilter' cannot be null.");
+        else if (transferBudgetDocumentNoFilter !== undefined)
+            url_ += "TransferBudgetDocumentNoFilter=" + encodeURIComponent("" + transferBudgetDocumentNoFilter) + "&";
+        if (costCenterDisplayPropertyFilter === null)
+            throw new Error("The parameter 'costCenterDisplayPropertyFilter' cannot be null.");
+        else if (costCenterDisplayPropertyFilter !== undefined)
+            url_ += "CostCenterDisplayPropertyFilter=" + encodeURIComponent("" + costCenterDisplayPropertyFilter) + "&";
+        if (generalLedgerAccountFundsCenterFilter === null)
+            throw new Error("The parameter 'generalLedgerAccountFundsCenterFilter' cannot be null.");
+        else if (generalLedgerAccountFundsCenterFilter !== undefined)
+            url_ += "GeneralLedgerAccountFundsCenterFilter=" + encodeURIComponent("" + generalLedgerAccountFundsCenterFilter) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -19636,6 +19309,64 @@ export class TransferBudgetDetailsServiceProxy {
     }
 
     /**
+     * @return Success
+     */
+    getAllTransferBudgetForTableDropdown(): Observable<TransferBudgetDetailTransferBudgetLookupTableDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/TransferBudgetDetails/GetAllTransferBudgetForTableDropdown";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllTransferBudgetForTableDropdown(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllTransferBudgetForTableDropdown(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<TransferBudgetDetailTransferBudgetLookupTableDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<TransferBudgetDetailTransferBudgetLookupTableDto[]>;
+        }));
+    }
+
+    protected processGetAllTransferBudgetForTableDropdown(response: HttpResponseBase): Observable<TransferBudgetDetailTransferBudgetLookupTableDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(TransferBudgetDetailTransferBudgetLookupTableDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
      * @param filter (optional) 
      * @param sorting (optional) 
      * @param skipCount (optional) 
@@ -19707,30 +19438,10 @@ export class TransferBudgetDetailsServiceProxy {
     }
 
     /**
-     * @param filter (optional) 
-     * @param sorting (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
      * @return Success
      */
-    getAllGeneralLedgerMappingForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTransferBudgetDetailGeneralLedgerMappingLookupTableDto> {
-        let url_ = this.baseUrl + "/api/services/app/TransferBudgetDetails/GetAllGeneralLedgerMappingForLookupTable?";
-        if (filter === null)
-            throw new Error("The parameter 'filter' cannot be null.");
-        else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (sorting === null)
-            throw new Error("The parameter 'sorting' cannot be null.");
-        else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (skipCount === null)
-            throw new Error("The parameter 'skipCount' cannot be null.");
-        else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
-        if (maxResultCount === null)
-            throw new Error("The parameter 'maxResultCount' cannot be null.");
-        else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+    getAllGeneralLedgerAccountForTableDropdown(): Observable<TransferBudgetDetailGeneralLedgerAccountLookupTableDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/TransferBudgetDetails/GetAllGeneralLedgerAccountForTableDropdown";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -19742,20 +19453,20 @@ export class TransferBudgetDetailsServiceProxy {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAllGeneralLedgerMappingForLookupTable(response_);
+            return this.processGetAllGeneralLedgerAccountForTableDropdown(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetAllGeneralLedgerMappingForLookupTable(response_ as any);
+                    return this.processGetAllGeneralLedgerAccountForTableDropdown(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<PagedResultDtoOfTransferBudgetDetailGeneralLedgerMappingLookupTableDto>;
+                    return _observableThrow(e) as any as Observable<TransferBudgetDetailGeneralLedgerAccountLookupTableDto[]>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<PagedResultDtoOfTransferBudgetDetailGeneralLedgerMappingLookupTableDto>;
+                return _observableThrow(response_) as any as Observable<TransferBudgetDetailGeneralLedgerAccountLookupTableDto[]>;
         }));
     }
 
-    protected processGetAllGeneralLedgerMappingForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfTransferBudgetDetailGeneralLedgerMappingLookupTableDto> {
+    protected processGetAllGeneralLedgerAccountForTableDropdown(response: HttpResponseBase): Observable<TransferBudgetDetailGeneralLedgerAccountLookupTableDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -19766,7 +19477,14 @@ export class TransferBudgetDetailsServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PagedResultDtoOfTransferBudgetDetailGeneralLedgerMappingLookupTableDto.fromJS(resultData200);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(TransferBudgetDetailGeneralLedgerAccountLookupTableDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -20202,653 +19920,6 @@ export class TransferBudgetsServiceProxy {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result200 = FileDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-}
-
-@Injectable()
-export class TravelRequestsServiceProxy {
-    private http: HttpClient;
-    private baseUrl: string;
-    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
-
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
-        this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
-    }
-
-    /**
-     * @param filter (optional) 
-     * @param requestNoFilter (optional) 
-     * @param travelStatusFilter (optional) 
-     * @param travelTypeFilter (optional) 
-     * @param maxRequestDateFilter (optional) 
-     * @param minRequestDateFilter (optional) 
-     * @param maxRequestPlanDateFilter (optional) 
-     * @param minRequestPlanDateFilter (optional) 
-     * @param campFilter (optional) 
-     * @param transportBusFilter (optional) 
-     * @param maxCreatedDateFilter (optional) 
-     * @param minCreatedDateFilter (optional) 
-     * @param userNameFilter (optional) 
-     * @param airportDisplayPropertyFilter (optional) 
-     * @param airportDisplayProperty2Filter (optional) 
-     * @param userName2Filter (optional) 
-     * @param sorting (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
-     * @return Success
-     */
-    getAll(filter: string | undefined, requestNoFilter: string | undefined, travelStatusFilter: number | undefined, travelTypeFilter: number | undefined, maxRequestDateFilter: DateTime | undefined, minRequestDateFilter: DateTime | undefined, maxRequestPlanDateFilter: DateTime | undefined, minRequestPlanDateFilter: DateTime | undefined, campFilter: string | undefined, transportBusFilter: string | undefined, maxCreatedDateFilter: DateTime | undefined, minCreatedDateFilter: DateTime | undefined, userNameFilter: string | undefined, airportDisplayPropertyFilter: string | undefined, airportDisplayProperty2Filter: string | undefined, userName2Filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetTravelRequestForViewDto> {
-        let url_ = this.baseUrl + "/api/services/app/TravelRequests/GetAll?";
-        if (filter === null)
-            throw new Error("The parameter 'filter' cannot be null.");
-        else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (requestNoFilter === null)
-            throw new Error("The parameter 'requestNoFilter' cannot be null.");
-        else if (requestNoFilter !== undefined)
-            url_ += "RequestNoFilter=" + encodeURIComponent("" + requestNoFilter) + "&";
-        if (travelStatusFilter === null)
-            throw new Error("The parameter 'travelStatusFilter' cannot be null.");
-        else if (travelStatusFilter !== undefined)
-            url_ += "TravelStatusFilter=" + encodeURIComponent("" + travelStatusFilter) + "&";
-        if (travelTypeFilter === null)
-            throw new Error("The parameter 'travelTypeFilter' cannot be null.");
-        else if (travelTypeFilter !== undefined)
-            url_ += "TravelTypeFilter=" + encodeURIComponent("" + travelTypeFilter) + "&";
-        if (maxRequestDateFilter === null)
-            throw new Error("The parameter 'maxRequestDateFilter' cannot be null.");
-        else if (maxRequestDateFilter !== undefined)
-            url_ += "MaxRequestDateFilter=" + encodeURIComponent(maxRequestDateFilter ? "" + maxRequestDateFilter.toString() : "") + "&";
-        if (minRequestDateFilter === null)
-            throw new Error("The parameter 'minRequestDateFilter' cannot be null.");
-        else if (minRequestDateFilter !== undefined)
-            url_ += "MinRequestDateFilter=" + encodeURIComponent(minRequestDateFilter ? "" + minRequestDateFilter.toString() : "") + "&";
-        if (maxRequestPlanDateFilter === null)
-            throw new Error("The parameter 'maxRequestPlanDateFilter' cannot be null.");
-        else if (maxRequestPlanDateFilter !== undefined)
-            url_ += "MaxRequestPlanDateFilter=" + encodeURIComponent(maxRequestPlanDateFilter ? "" + maxRequestPlanDateFilter.toString() : "") + "&";
-        if (minRequestPlanDateFilter === null)
-            throw new Error("The parameter 'minRequestPlanDateFilter' cannot be null.");
-        else if (minRequestPlanDateFilter !== undefined)
-            url_ += "MinRequestPlanDateFilter=" + encodeURIComponent(minRequestPlanDateFilter ? "" + minRequestPlanDateFilter.toString() : "") + "&";
-        if (campFilter === null)
-            throw new Error("The parameter 'campFilter' cannot be null.");
-        else if (campFilter !== undefined)
-            url_ += "CampFilter=" + encodeURIComponent("" + campFilter) + "&";
-        if (transportBusFilter === null)
-            throw new Error("The parameter 'transportBusFilter' cannot be null.");
-        else if (transportBusFilter !== undefined)
-            url_ += "TransportBusFilter=" + encodeURIComponent("" + transportBusFilter) + "&";
-        if (maxCreatedDateFilter === null)
-            throw new Error("The parameter 'maxCreatedDateFilter' cannot be null.");
-        else if (maxCreatedDateFilter !== undefined)
-            url_ += "MaxCreatedDateFilter=" + encodeURIComponent(maxCreatedDateFilter ? "" + maxCreatedDateFilter.toString() : "") + "&";
-        if (minCreatedDateFilter === null)
-            throw new Error("The parameter 'minCreatedDateFilter' cannot be null.");
-        else if (minCreatedDateFilter !== undefined)
-            url_ += "MinCreatedDateFilter=" + encodeURIComponent(minCreatedDateFilter ? "" + minCreatedDateFilter.toString() : "") + "&";
-        if (userNameFilter === null)
-            throw new Error("The parameter 'userNameFilter' cannot be null.");
-        else if (userNameFilter !== undefined)
-            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&";
-        if (airportDisplayPropertyFilter === null)
-            throw new Error("The parameter 'airportDisplayPropertyFilter' cannot be null.");
-        else if (airportDisplayPropertyFilter !== undefined)
-            url_ += "AirportDisplayPropertyFilter=" + encodeURIComponent("" + airportDisplayPropertyFilter) + "&";
-        if (airportDisplayProperty2Filter === null)
-            throw new Error("The parameter 'airportDisplayProperty2Filter' cannot be null.");
-        else if (airportDisplayProperty2Filter !== undefined)
-            url_ += "AirportDisplayProperty2Filter=" + encodeURIComponent("" + airportDisplayProperty2Filter) + "&";
-        if (userName2Filter === null)
-            throw new Error("The parameter 'userName2Filter' cannot be null.");
-        else if (userName2Filter !== undefined)
-            url_ += "UserName2Filter=" + encodeURIComponent("" + userName2Filter) + "&";
-        if (sorting === null)
-            throw new Error("The parameter 'sorting' cannot be null.");
-        else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (skipCount === null)
-            throw new Error("The parameter 'skipCount' cannot be null.");
-        else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
-        if (maxResultCount === null)
-            throw new Error("The parameter 'maxResultCount' cannot be null.");
-        else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAll(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetAll(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<PagedResultDtoOfGetTravelRequestForViewDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<PagedResultDtoOfGetTravelRequestForViewDto>;
-        }));
-    }
-
-    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetTravelRequestForViewDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PagedResultDtoOfGetTravelRequestForViewDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param id (optional) 
-     * @return Success
-     */
-    getTravelRequestForView(id: string | undefined): Observable<GetTravelRequestForViewDto> {
-        let url_ = this.baseUrl + "/api/services/app/TravelRequests/GetTravelRequestForView?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetTravelRequestForView(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetTravelRequestForView(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<GetTravelRequestForViewDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<GetTravelRequestForViewDto>;
-        }));
-    }
-
-    protected processGetTravelRequestForView(response: HttpResponseBase): Observable<GetTravelRequestForViewDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetTravelRequestForViewDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param id (optional) 
-     * @return Success
-     */
-    getTravelRequestForEdit(id: string | undefined): Observable<GetTravelRequestForEditOutput> {
-        let url_ = this.baseUrl + "/api/services/app/TravelRequests/GetTravelRequestForEdit?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetTravelRequestForEdit(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetTravelRequestForEdit(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<GetTravelRequestForEditOutput>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<GetTravelRequestForEditOutput>;
-        }));
-    }
-
-    protected processGetTravelRequestForEdit(response: HttpResponseBase): Observable<GetTravelRequestForEditOutput> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetTravelRequestForEditOutput.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    createOrEdit(body: CreateOrEditTravelRequestDto | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/TravelRequests/CreateOrEdit";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processCreateOrEdit(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processCreateOrEdit(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<void>;
-        }));
-    }
-
-    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return _observableOf(null as any);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param id (optional) 
-     * @return Success
-     */
-    delete(id: string | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/TravelRequests/Delete?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-            })
-        };
-
-        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processDelete(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processDelete(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<void>;
-        }));
-    }
-
-    protected processDelete(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return _observableOf(null as any);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param filter (optional) 
-     * @param requestNoFilter (optional) 
-     * @param travelStatusFilter (optional) 
-     * @param travelTypeFilter (optional) 
-     * @param maxRequestDateFilter (optional) 
-     * @param minRequestDateFilter (optional) 
-     * @param maxRequestPlanDateFilter (optional) 
-     * @param minRequestPlanDateFilter (optional) 
-     * @param campFilter (optional) 
-     * @param transportBusFilter (optional) 
-     * @param maxCreatedDateFilter (optional) 
-     * @param minCreatedDateFilter (optional) 
-     * @param userNameFilter (optional) 
-     * @param airportDisplayPropertyFilter (optional) 
-     * @param airportDisplayProperty2Filter (optional) 
-     * @param userName2Filter (optional) 
-     * @return Success
-     */
-    getTravelRequestsToExcel(filter: string | undefined, requestNoFilter: string | undefined, travelStatusFilter: number | undefined, travelTypeFilter: number | undefined, maxRequestDateFilter: DateTime | undefined, minRequestDateFilter: DateTime | undefined, maxRequestPlanDateFilter: DateTime | undefined, minRequestPlanDateFilter: DateTime | undefined, campFilter: string | undefined, transportBusFilter: string | undefined, maxCreatedDateFilter: DateTime | undefined, minCreatedDateFilter: DateTime | undefined, userNameFilter: string | undefined, airportDisplayPropertyFilter: string | undefined, airportDisplayProperty2Filter: string | undefined, userName2Filter: string | undefined): Observable<FileDto> {
-        let url_ = this.baseUrl + "/api/services/app/TravelRequests/GetTravelRequestsToExcel?";
-        if (filter === null)
-            throw new Error("The parameter 'filter' cannot be null.");
-        else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (requestNoFilter === null)
-            throw new Error("The parameter 'requestNoFilter' cannot be null.");
-        else if (requestNoFilter !== undefined)
-            url_ += "RequestNoFilter=" + encodeURIComponent("" + requestNoFilter) + "&";
-        if (travelStatusFilter === null)
-            throw new Error("The parameter 'travelStatusFilter' cannot be null.");
-        else if (travelStatusFilter !== undefined)
-            url_ += "TravelStatusFilter=" + encodeURIComponent("" + travelStatusFilter) + "&";
-        if (travelTypeFilter === null)
-            throw new Error("The parameter 'travelTypeFilter' cannot be null.");
-        else if (travelTypeFilter !== undefined)
-            url_ += "TravelTypeFilter=" + encodeURIComponent("" + travelTypeFilter) + "&";
-        if (maxRequestDateFilter === null)
-            throw new Error("The parameter 'maxRequestDateFilter' cannot be null.");
-        else if (maxRequestDateFilter !== undefined)
-            url_ += "MaxRequestDateFilter=" + encodeURIComponent(maxRequestDateFilter ? "" + maxRequestDateFilter.toString() : "") + "&";
-        if (minRequestDateFilter === null)
-            throw new Error("The parameter 'minRequestDateFilter' cannot be null.");
-        else if (minRequestDateFilter !== undefined)
-            url_ += "MinRequestDateFilter=" + encodeURIComponent(minRequestDateFilter ? "" + minRequestDateFilter.toString() : "") + "&";
-        if (maxRequestPlanDateFilter === null)
-            throw new Error("The parameter 'maxRequestPlanDateFilter' cannot be null.");
-        else if (maxRequestPlanDateFilter !== undefined)
-            url_ += "MaxRequestPlanDateFilter=" + encodeURIComponent(maxRequestPlanDateFilter ? "" + maxRequestPlanDateFilter.toString() : "") + "&";
-        if (minRequestPlanDateFilter === null)
-            throw new Error("The parameter 'minRequestPlanDateFilter' cannot be null.");
-        else if (minRequestPlanDateFilter !== undefined)
-            url_ += "MinRequestPlanDateFilter=" + encodeURIComponent(minRequestPlanDateFilter ? "" + minRequestPlanDateFilter.toString() : "") + "&";
-        if (campFilter === null)
-            throw new Error("The parameter 'campFilter' cannot be null.");
-        else if (campFilter !== undefined)
-            url_ += "CampFilter=" + encodeURIComponent("" + campFilter) + "&";
-        if (transportBusFilter === null)
-            throw new Error("The parameter 'transportBusFilter' cannot be null.");
-        else if (transportBusFilter !== undefined)
-            url_ += "TransportBusFilter=" + encodeURIComponent("" + transportBusFilter) + "&";
-        if (maxCreatedDateFilter === null)
-            throw new Error("The parameter 'maxCreatedDateFilter' cannot be null.");
-        else if (maxCreatedDateFilter !== undefined)
-            url_ += "MaxCreatedDateFilter=" + encodeURIComponent(maxCreatedDateFilter ? "" + maxCreatedDateFilter.toString() : "") + "&";
-        if (minCreatedDateFilter === null)
-            throw new Error("The parameter 'minCreatedDateFilter' cannot be null.");
-        else if (minCreatedDateFilter !== undefined)
-            url_ += "MinCreatedDateFilter=" + encodeURIComponent(minCreatedDateFilter ? "" + minCreatedDateFilter.toString() : "") + "&";
-        if (userNameFilter === null)
-            throw new Error("The parameter 'userNameFilter' cannot be null.");
-        else if (userNameFilter !== undefined)
-            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&";
-        if (airportDisplayPropertyFilter === null)
-            throw new Error("The parameter 'airportDisplayPropertyFilter' cannot be null.");
-        else if (airportDisplayPropertyFilter !== undefined)
-            url_ += "AirportDisplayPropertyFilter=" + encodeURIComponent("" + airportDisplayPropertyFilter) + "&";
-        if (airportDisplayProperty2Filter === null)
-            throw new Error("The parameter 'airportDisplayProperty2Filter' cannot be null.");
-        else if (airportDisplayProperty2Filter !== undefined)
-            url_ += "AirportDisplayProperty2Filter=" + encodeURIComponent("" + airportDisplayProperty2Filter) + "&";
-        if (userName2Filter === null)
-            throw new Error("The parameter 'userName2Filter' cannot be null.");
-        else if (userName2Filter !== undefined)
-            url_ += "UserName2Filter=" + encodeURIComponent("" + userName2Filter) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetTravelRequestsToExcel(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetTravelRequestsToExcel(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<FileDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<FileDto>;
-        }));
-    }
-
-    protected processGetTravelRequestsToExcel(response: HttpResponseBase): Observable<FileDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = FileDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param filter (optional) 
-     * @param sorting (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
-     * @return Success
-     */
-    getAllUserForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTravelRequestUserLookupTableDto> {
-        let url_ = this.baseUrl + "/api/services/app/TravelRequests/GetAllUserForLookupTable?";
-        if (filter === null)
-            throw new Error("The parameter 'filter' cannot be null.");
-        else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (sorting === null)
-            throw new Error("The parameter 'sorting' cannot be null.");
-        else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (skipCount === null)
-            throw new Error("The parameter 'skipCount' cannot be null.");
-        else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
-        if (maxResultCount === null)
-            throw new Error("The parameter 'maxResultCount' cannot be null.");
-        else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAllUserForLookupTable(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetAllUserForLookupTable(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<PagedResultDtoOfTravelRequestUserLookupTableDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<PagedResultDtoOfTravelRequestUserLookupTableDto>;
-        }));
-    }
-
-    protected processGetAllUserForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfTravelRequestUserLookupTableDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PagedResultDtoOfTravelRequestUserLookupTableDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param filter (optional) 
-     * @param sorting (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
-     * @return Success
-     */
-    getAllAirportForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTravelRequestAirportLookupTableDto> {
-        let url_ = this.baseUrl + "/api/services/app/TravelRequests/GetAllAirportForLookupTable?";
-        if (filter === null)
-            throw new Error("The parameter 'filter' cannot be null.");
-        else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (sorting === null)
-            throw new Error("The parameter 'sorting' cannot be null.");
-        else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (skipCount === null)
-            throw new Error("The parameter 'skipCount' cannot be null.");
-        else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
-        if (maxResultCount === null)
-            throw new Error("The parameter 'maxResultCount' cannot be null.");
-        else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAllAirportForLookupTable(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetAllAirportForLookupTable(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<PagedResultDtoOfTravelRequestAirportLookupTableDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<PagedResultDtoOfTravelRequestAirportLookupTableDto>;
-        }));
-    }
-
-    protected processGetAllAirportForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfTravelRequestAirportLookupTableDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PagedResultDtoOfTravelRequestAirportLookupTableDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -26074,58 +25145,6 @@ export interface IAddWidgetInput {
     application: string | undefined;
 }
 
-export class AirportDto implements IAirportDto {
-    airportName!: string | undefined;
-    iata!: string | undefined;
-    city!: string | undefined;
-    category!: string | undefined;
-    id!: string;
-
-    constructor(data?: IAirportDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.airportName = _data["airportName"];
-            this.iata = _data["iata"];
-            this.city = _data["city"];
-            this.category = _data["category"];
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): AirportDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new AirportDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["airportName"] = this.airportName;
-        data["iata"] = this.iata;
-        data["city"] = this.city;
-        data["category"] = this.category;
-        data["id"] = this.id;
-        return data;
-    }
-}
-
-export interface IAirportDto {
-    airportName: string | undefined;
-    iata: string | undefined;
-    city: string | undefined;
-    category: string | undefined;
-    id: string;
-}
-
 export class AppSettingsJsonDto implements IAppSettingsJsonDto {
     webSiteUrl!: string | undefined;
     serverSiteUrl!: string | undefined;
@@ -27422,58 +26441,6 @@ export interface ICreateMassNotificationInput {
     targetNotifiers: string[] | undefined;
 }
 
-export class CreateOrEditAirportDto implements ICreateOrEditAirportDto {
-    airportName!: string;
-    iata!: string;
-    city!: string | undefined;
-    category!: string | undefined;
-    id!: string | undefined;
-
-    constructor(data?: ICreateOrEditAirportDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.airportName = _data["airportName"];
-            this.iata = _data["iata"];
-            this.city = _data["city"];
-            this.category = _data["category"];
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): CreateOrEditAirportDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new CreateOrEditAirportDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["airportName"] = this.airportName;
-        data["iata"] = this.iata;
-        data["city"] = this.city;
-        data["category"] = this.category;
-        data["id"] = this.id;
-        return data;
-    }
-}
-
-export interface ICreateOrEditAirportDto {
-    airportName: string;
-    iata: string;
-    city: string | undefined;
-    category: string | undefined;
-    id: string | undefined;
-}
-
 export class CreateOrEditCostCenterDto implements ICreateOrEditCostCenterDto {
     controllingArea!: string;
     costCenterName!: string;
@@ -28306,8 +27273,14 @@ export class CreateOrEditTransferBudgetDetailDto implements ICreateOrEditTransfe
     period!: string;
     amount!: number;
     transferType!: string;
+    transferBudgetId!: string | undefined;
     costCenterId!: string;
-    generalLedgerMappingId!: string | undefined;
+    costCenterCode!: string | undefined;
+    costCenterName!: string | undefined;
+    departmentName!: string | undefined;
+    generalLedgerAccountId!: string | undefined;
+    fundsCenter!: string | undefined;
+    fundsCenterDescription!: string | undefined;
     id!: string | undefined;
 
     constructor(data?: ICreateOrEditTransferBudgetDetailDto) {
@@ -28324,8 +27297,14 @@ export class CreateOrEditTransferBudgetDetailDto implements ICreateOrEditTransfe
             this.period = _data["period"];
             this.amount = _data["amount"];
             this.transferType = _data["transferType"];
+            this.transferBudgetId = _data["transferBudgetId"];
             this.costCenterId = _data["costCenterId"];
-            this.generalLedgerMappingId = _data["generalLedgerMappingId"];
+            this.costCenterCode = _data["costCenterCode"];
+            this.costCenterName = _data["costCenterName"];
+            this.departmentName = _data["departmentName"];
+            this.generalLedgerAccountId = _data["generalLedgerAccountId"];
+            this.fundsCenter = _data["fundsCenter"];
+            this.fundsCenterDescription = _data["fundsCenterDescription"];
             this.id = _data["id"];
         }
     }
@@ -28342,8 +27321,14 @@ export class CreateOrEditTransferBudgetDetailDto implements ICreateOrEditTransfe
         data["period"] = this.period;
         data["amount"] = this.amount;
         data["transferType"] = this.transferType;
+        data["transferBudgetId"] = this.transferBudgetId;
         data["costCenterId"] = this.costCenterId;
-        data["generalLedgerMappingId"] = this.generalLedgerMappingId;
+        data["costCenterCode"] = this.costCenterCode;
+        data["costCenterName"] = this.costCenterName;
+        data["departmentName"] = this.departmentName;
+        data["generalLedgerAccountId"] = this.generalLedgerAccountId;
+        data["fundsCenter"] = this.fundsCenter;
+        data["fundsCenterDescription"] = this.fundsCenterDescription;
         data["id"] = this.id;
         return data;
     }
@@ -28353,8 +27338,14 @@ export interface ICreateOrEditTransferBudgetDetailDto {
     period: string;
     amount: number;
     transferType: string;
+    transferBudgetId: string | undefined;
     costCenterId: string;
-    generalLedgerMappingId: string | undefined;
+    costCenterCode: string | undefined;
+    costCenterName: string | undefined;
+    departmentName: string | undefined;
+    generalLedgerAccountId: string | undefined;
+    fundsCenter: string | undefined;
+    fundsCenterDescription: string | undefined;
     id: string | undefined;
 }
 
@@ -28367,7 +27358,8 @@ export class CreateOrEditTransferBudgetDto implements ICreateOrEditTransferBudge
     reason!: string;
     scopeofWork!: string;
     location!: string;
-    details!: TransferBudgetDetailDto[] | undefined;
+    detailSenders!: TransferBudgetDetailDto[] | undefined;
+    detailReceivers!: TransferBudgetDetailDto[] | undefined;
     id!: string | undefined;
 
     constructor(data?: ICreateOrEditTransferBudgetDto) {
@@ -28389,10 +27381,15 @@ export class CreateOrEditTransferBudgetDto implements ICreateOrEditTransferBudge
             this.reason = _data["reason"];
             this.scopeofWork = _data["scopeofWork"];
             this.location = _data["location"];
-            if (Array.isArray(_data["details"])) {
-                this.details = [] as any;
-                for (let item of _data["details"])
-                    this.details!.push(TransferBudgetDetailDto.fromJS(item));
+            if (Array.isArray(_data["detailSenders"])) {
+                this.detailSenders = [] as any;
+                for (let item of _data["detailSenders"])
+                    this.detailSenders!.push(TransferBudgetDetailDto.fromJS(item));
+            }
+            if (Array.isArray(_data["detailReceivers"])) {
+                this.detailReceivers = [] as any;
+                for (let item of _data["detailReceivers"])
+                    this.detailReceivers!.push(TransferBudgetDetailDto.fromJS(item));
             }
             this.id = _data["id"];
         }
@@ -28415,10 +27412,15 @@ export class CreateOrEditTransferBudgetDto implements ICreateOrEditTransferBudge
         data["reason"] = this.reason;
         data["scopeofWork"] = this.scopeofWork;
         data["location"] = this.location;
-        if (Array.isArray(this.details)) {
-            data["details"] = [];
-            for (let item of this.details)
-                data["details"].push(item.toJSON());
+        if (Array.isArray(this.detailSenders)) {
+            data["detailSenders"] = [];
+            for (let item of this.detailSenders)
+                data["detailSenders"].push(item.toJSON());
+        }
+        if (Array.isArray(this.detailReceivers)) {
+            data["detailReceivers"] = [];
+            for (let item of this.detailReceivers)
+                data["detailReceivers"].push(item.toJSON());
         }
         data["id"] = this.id;
         return data;
@@ -28434,91 +27436,8 @@ export interface ICreateOrEditTransferBudgetDto {
     reason: string;
     scopeofWork: string;
     location: string;
-    details: TransferBudgetDetailDto[] | undefined;
-    id: string | undefined;
-}
-
-export class CreateOrEditTravelRequestDto implements ICreateOrEditTravelRequestDto {
-    requestNo!: string;
-    travelStatus!: TravelStatus;
-    travelType!: TravelType;
-    requestDate!: DateTime;
-    requestPlanDate!: DateTime;
-    camp!: string | undefined;
-    transportBus!: string | undefined;
-    createdDate!: DateTime;
-    userTravel!: number | undefined;
-    airportFrom!: string | undefined;
-    airportTo!: string | undefined;
-    createdBy!: number | undefined;
-    id!: string | undefined;
-
-    constructor(data?: ICreateOrEditTravelRequestDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.requestNo = _data["requestNo"];
-            this.travelStatus = _data["travelStatus"];
-            this.travelType = _data["travelType"];
-            this.requestDate = _data["requestDate"] ? DateTime.fromISO(_data["requestDate"].toString()) : <any>undefined;
-            this.requestPlanDate = _data["requestPlanDate"] ? DateTime.fromISO(_data["requestPlanDate"].toString()) : <any>undefined;
-            this.camp = _data["camp"];
-            this.transportBus = _data["transportBus"];
-            this.createdDate = _data["createdDate"] ? DateTime.fromISO(_data["createdDate"].toString()) : <any>undefined;
-            this.userTravel = _data["userTravel"];
-            this.airportFrom = _data["airportFrom"];
-            this.airportTo = _data["airportTo"];
-            this.createdBy = _data["createdBy"];
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): CreateOrEditTravelRequestDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new CreateOrEditTravelRequestDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["requestNo"] = this.requestNo;
-        data["travelStatus"] = this.travelStatus;
-        data["travelType"] = this.travelType;
-        data["requestDate"] = this.requestDate ? this.requestDate.toString() : <any>undefined;
-        data["requestPlanDate"] = this.requestPlanDate ? this.requestPlanDate.toString() : <any>undefined;
-        data["camp"] = this.camp;
-        data["transportBus"] = this.transportBus;
-        data["createdDate"] = this.createdDate ? this.createdDate.toString() : <any>undefined;
-        data["userTravel"] = this.userTravel;
-        data["airportFrom"] = this.airportFrom;
-        data["airportTo"] = this.airportTo;
-        data["createdBy"] = this.createdBy;
-        data["id"] = this.id;
-        return data;
-    }
-}
-
-export interface ICreateOrEditTravelRequestDto {
-    requestNo: string;
-    travelStatus: TravelStatus;
-    travelType: TravelType;
-    requestDate: DateTime;
-    requestPlanDate: DateTime;
-    camp: string | undefined;
-    transportBus: string | undefined;
-    createdDate: DateTime;
-    userTravel: number | undefined;
-    airportFrom: string | undefined;
-    airportTo: string | undefined;
-    createdBy: number | undefined;
+    detailSenders: TransferBudgetDetailDto[] | undefined;
+    detailReceivers: TransferBudgetDetailDto[] | undefined;
     id: string | undefined;
 }
 
@@ -32187,78 +31106,6 @@ export interface IGenerateGoogleAuthenticatorKeyOutput {
     googleAuthenticatorKey: string | undefined;
 }
 
-export class GetAirportForEditOutput implements IGetAirportForEditOutput {
-    airport!: CreateOrEditAirportDto;
-
-    constructor(data?: IGetAirportForEditOutput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.airport = _data["airport"] ? CreateOrEditAirportDto.fromJS(_data["airport"]) : <any>undefined;
-        }
-    }
-
-    static fromJS(data: any): GetAirportForEditOutput {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetAirportForEditOutput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["airport"] = this.airport ? this.airport.toJSON() : <any>undefined;
-        return data;
-    }
-}
-
-export interface IGetAirportForEditOutput {
-    airport: CreateOrEditAirportDto;
-}
-
-export class GetAirportForViewDto implements IGetAirportForViewDto {
-    airport!: AirportDto;
-
-    constructor(data?: IGetAirportForViewDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.airport = _data["airport"] ? AirportDto.fromJS(_data["airport"]) : <any>undefined;
-        }
-    }
-
-    static fromJS(data: any): GetAirportForViewDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetAirportForViewDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["airport"] = this.airport ? this.airport.toJSON() : <any>undefined;
-        return data;
-    }
-}
-
-export interface IGetAirportForViewDto {
-    airport: AirportDto;
-}
-
 export class GetAllAvailableWebhooksOutput implements IGetAllAvailableWebhooksOutput {
     name!: string | undefined;
     displayName!: string | undefined;
@@ -34869,8 +33716,9 @@ export interface IGetTopStatsOutput {
 
 export class GetTransferBudgetDetailForEditOutput implements IGetTransferBudgetDetailForEditOutput {
     transferBudgetDetail!: CreateOrEditTransferBudgetDetailDto;
-    costCenterCostCenterName!: string | undefined;
-    generalLedgerMappingGLAccount!: string | undefined;
+    transferBudgetDocumentNo!: string | undefined;
+    costCenterDisplayProperty!: string | undefined;
+    generalLedgerAccountFundsCenter!: string | undefined;
 
     constructor(data?: IGetTransferBudgetDetailForEditOutput) {
         if (data) {
@@ -34884,8 +33732,9 @@ export class GetTransferBudgetDetailForEditOutput implements IGetTransferBudgetD
     init(_data?: any) {
         if (_data) {
             this.transferBudgetDetail = _data["transferBudgetDetail"] ? CreateOrEditTransferBudgetDetailDto.fromJS(_data["transferBudgetDetail"]) : <any>undefined;
-            this.costCenterCostCenterName = _data["costCenterCostCenterName"];
-            this.generalLedgerMappingGLAccount = _data["generalLedgerMappingGLAccount"];
+            this.transferBudgetDocumentNo = _data["transferBudgetDocumentNo"];
+            this.costCenterDisplayProperty = _data["costCenterDisplayProperty"];
+            this.generalLedgerAccountFundsCenter = _data["generalLedgerAccountFundsCenter"];
         }
     }
 
@@ -34899,22 +33748,25 @@ export class GetTransferBudgetDetailForEditOutput implements IGetTransferBudgetD
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["transferBudgetDetail"] = this.transferBudgetDetail ? this.transferBudgetDetail.toJSON() : <any>undefined;
-        data["costCenterCostCenterName"] = this.costCenterCostCenterName;
-        data["generalLedgerMappingGLAccount"] = this.generalLedgerMappingGLAccount;
+        data["transferBudgetDocumentNo"] = this.transferBudgetDocumentNo;
+        data["costCenterDisplayProperty"] = this.costCenterDisplayProperty;
+        data["generalLedgerAccountFundsCenter"] = this.generalLedgerAccountFundsCenter;
         return data;
     }
 }
 
 export interface IGetTransferBudgetDetailForEditOutput {
     transferBudgetDetail: CreateOrEditTransferBudgetDetailDto;
-    costCenterCostCenterName: string | undefined;
-    generalLedgerMappingGLAccount: string | undefined;
+    transferBudgetDocumentNo: string | undefined;
+    costCenterDisplayProperty: string | undefined;
+    generalLedgerAccountFundsCenter: string | undefined;
 }
 
 export class GetTransferBudgetDetailForViewDto implements IGetTransferBudgetDetailForViewDto {
     transferBudgetDetail!: TransferBudgetDetailDto;
-    costCenterCostCenterName!: string | undefined;
-    generalLedgerMappingGLAccount!: string | undefined;
+    transferBudgetDocumentNo!: string | undefined;
+    costCenterDisplayProperty!: string | undefined;
+    generalLedgerAccountFundsCenter!: string | undefined;
 
     constructor(data?: IGetTransferBudgetDetailForViewDto) {
         if (data) {
@@ -34928,8 +33780,9 @@ export class GetTransferBudgetDetailForViewDto implements IGetTransferBudgetDeta
     init(_data?: any) {
         if (_data) {
             this.transferBudgetDetail = _data["transferBudgetDetail"] ? TransferBudgetDetailDto.fromJS(_data["transferBudgetDetail"]) : <any>undefined;
-            this.costCenterCostCenterName = _data["costCenterCostCenterName"];
-            this.generalLedgerMappingGLAccount = _data["generalLedgerMappingGLAccount"];
+            this.transferBudgetDocumentNo = _data["transferBudgetDocumentNo"];
+            this.costCenterDisplayProperty = _data["costCenterDisplayProperty"];
+            this.generalLedgerAccountFundsCenter = _data["generalLedgerAccountFundsCenter"];
         }
     }
 
@@ -34943,16 +33796,18 @@ export class GetTransferBudgetDetailForViewDto implements IGetTransferBudgetDeta
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["transferBudgetDetail"] = this.transferBudgetDetail ? this.transferBudgetDetail.toJSON() : <any>undefined;
-        data["costCenterCostCenterName"] = this.costCenterCostCenterName;
-        data["generalLedgerMappingGLAccount"] = this.generalLedgerMappingGLAccount;
+        data["transferBudgetDocumentNo"] = this.transferBudgetDocumentNo;
+        data["costCenterDisplayProperty"] = this.costCenterDisplayProperty;
+        data["generalLedgerAccountFundsCenter"] = this.generalLedgerAccountFundsCenter;
         return data;
     }
 }
 
 export interface IGetTransferBudgetDetailForViewDto {
     transferBudgetDetail: TransferBudgetDetailDto;
-    costCenterCostCenterName: string | undefined;
-    generalLedgerMappingGLAccount: string | undefined;
+    transferBudgetDocumentNo: string | undefined;
+    costCenterDisplayProperty: string | undefined;
+    generalLedgerAccountFundsCenter: string | undefined;
 }
 
 export class GetTransferBudgetForEditOutput implements IGetTransferBudgetForEditOutput {
@@ -35025,110 +33880,6 @@ export class GetTransferBudgetForViewDto implements IGetTransferBudgetForViewDto
 
 export interface IGetTransferBudgetForViewDto {
     transferBudget: TransferBudgetDto;
-}
-
-export class GetTravelRequestForEditOutput implements IGetTravelRequestForEditOutput {
-    travelRequest!: CreateOrEditTravelRequestDto;
-    userName!: string | undefined;
-    airportDisplayProperty!: string | undefined;
-    airportDisplayProperty2!: string | undefined;
-    userName2!: string | undefined;
-
-    constructor(data?: IGetTravelRequestForEditOutput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.travelRequest = _data["travelRequest"] ? CreateOrEditTravelRequestDto.fromJS(_data["travelRequest"]) : <any>undefined;
-            this.userName = _data["userName"];
-            this.airportDisplayProperty = _data["airportDisplayProperty"];
-            this.airportDisplayProperty2 = _data["airportDisplayProperty2"];
-            this.userName2 = _data["userName2"];
-        }
-    }
-
-    static fromJS(data: any): GetTravelRequestForEditOutput {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetTravelRequestForEditOutput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["travelRequest"] = this.travelRequest ? this.travelRequest.toJSON() : <any>undefined;
-        data["userName"] = this.userName;
-        data["airportDisplayProperty"] = this.airportDisplayProperty;
-        data["airportDisplayProperty2"] = this.airportDisplayProperty2;
-        data["userName2"] = this.userName2;
-        return data;
-    }
-}
-
-export interface IGetTravelRequestForEditOutput {
-    travelRequest: CreateOrEditTravelRequestDto;
-    userName: string | undefined;
-    airportDisplayProperty: string | undefined;
-    airportDisplayProperty2: string | undefined;
-    userName2: string | undefined;
-}
-
-export class GetTravelRequestForViewDto implements IGetTravelRequestForViewDto {
-    travelRequest!: TravelRequestDto;
-    userName!: string | undefined;
-    airportDisplayProperty!: string | undefined;
-    airportDisplayProperty2!: string | undefined;
-    userName2!: string | undefined;
-
-    constructor(data?: IGetTravelRequestForViewDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.travelRequest = _data["travelRequest"] ? TravelRequestDto.fromJS(_data["travelRequest"]) : <any>undefined;
-            this.userName = _data["userName"];
-            this.airportDisplayProperty = _data["airportDisplayProperty"];
-            this.airportDisplayProperty2 = _data["airportDisplayProperty2"];
-            this.userName2 = _data["userName2"];
-        }
-    }
-
-    static fromJS(data: any): GetTravelRequestForViewDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetTravelRequestForViewDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["travelRequest"] = this.travelRequest ? this.travelRequest.toJSON() : <any>undefined;
-        data["userName"] = this.userName;
-        data["airportDisplayProperty"] = this.airportDisplayProperty;
-        data["airportDisplayProperty2"] = this.airportDisplayProperty2;
-        data["userName2"] = this.userName2;
-        return data;
-    }
-}
-
-export interface IGetTravelRequestForViewDto {
-    travelRequest: TravelRequestDto;
-    userName: string | undefined;
-    airportDisplayProperty: string | undefined;
-    airportDisplayProperty2: string | undefined;
-    userName2: string | undefined;
 }
 
 export class GetUNSPSCForEditOutput implements IGetUNSPSCForEditOutput {
@@ -39188,54 +37939,6 @@ export interface IPagedResultDtoOfGeneralLedgerAccountCostCenterLookupTableDto {
     items: GeneralLedgerAccountCostCenterLookupTableDto[] | undefined;
 }
 
-export class PagedResultDtoOfGetAirportForViewDto implements IPagedResultDtoOfGetAirportForViewDto {
-    totalCount!: number;
-    items!: GetAirportForViewDto[] | undefined;
-
-    constructor(data?: IPagedResultDtoOfGetAirportForViewDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.totalCount = _data["totalCount"];
-            if (Array.isArray(_data["items"])) {
-                this.items = [] as any;
-                for (let item of _data["items"])
-                    this.items!.push(GetAirportForViewDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): PagedResultDtoOfGetAirportForViewDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PagedResultDtoOfGetAirportForViewDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["totalCount"] = this.totalCount;
-        if (Array.isArray(this.items)) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-export interface IPagedResultDtoOfGetAirportForViewDto {
-    totalCount: number;
-    items: GetAirportForViewDto[] | undefined;
-}
-
 export class PagedResultDtoOfGetAllSendAttemptsOutput implements IPagedResultDtoOfGetAllSendAttemptsOutput {
     totalCount!: number;
     items!: GetAllSendAttemptsOutput[] | undefined;
@@ -39906,54 +38609,6 @@ export class PagedResultDtoOfGetTransferBudgetForViewDto implements IPagedResult
 export interface IPagedResultDtoOfGetTransferBudgetForViewDto {
     totalCount: number;
     items: GetTransferBudgetForViewDto[] | undefined;
-}
-
-export class PagedResultDtoOfGetTravelRequestForViewDto implements IPagedResultDtoOfGetTravelRequestForViewDto {
-    totalCount!: number;
-    items!: GetTravelRequestForViewDto[] | undefined;
-
-    constructor(data?: IPagedResultDtoOfGetTravelRequestForViewDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.totalCount = _data["totalCount"];
-            if (Array.isArray(_data["items"])) {
-                this.items = [] as any;
-                for (let item of _data["items"])
-                    this.items!.push(GetTravelRequestForViewDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): PagedResultDtoOfGetTravelRequestForViewDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PagedResultDtoOfGetTravelRequestForViewDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["totalCount"] = this.totalCount;
-        if (Array.isArray(this.items)) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-export interface IPagedResultDtoOfGetTravelRequestForViewDto {
-    totalCount: number;
-    items: GetTravelRequestForViewDto[] | undefined;
 }
 
 export class PagedResultDtoOfGetUNSPSCForViewDto implements IPagedResultDtoOfGetUNSPSCForViewDto {
@@ -40866,150 +39521,6 @@ export class PagedResultDtoOfTransferBudgetDetailCostCenterLookupTableDto implem
 export interface IPagedResultDtoOfTransferBudgetDetailCostCenterLookupTableDto {
     totalCount: number;
     items: TransferBudgetDetailCostCenterLookupTableDto[] | undefined;
-}
-
-export class PagedResultDtoOfTransferBudgetDetailGeneralLedgerMappingLookupTableDto implements IPagedResultDtoOfTransferBudgetDetailGeneralLedgerMappingLookupTableDto {
-    totalCount!: number;
-    items!: TransferBudgetDetailGeneralLedgerMappingLookupTableDto[] | undefined;
-
-    constructor(data?: IPagedResultDtoOfTransferBudgetDetailGeneralLedgerMappingLookupTableDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.totalCount = _data["totalCount"];
-            if (Array.isArray(_data["items"])) {
-                this.items = [] as any;
-                for (let item of _data["items"])
-                    this.items!.push(TransferBudgetDetailGeneralLedgerMappingLookupTableDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): PagedResultDtoOfTransferBudgetDetailGeneralLedgerMappingLookupTableDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PagedResultDtoOfTransferBudgetDetailGeneralLedgerMappingLookupTableDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["totalCount"] = this.totalCount;
-        if (Array.isArray(this.items)) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-export interface IPagedResultDtoOfTransferBudgetDetailGeneralLedgerMappingLookupTableDto {
-    totalCount: number;
-    items: TransferBudgetDetailGeneralLedgerMappingLookupTableDto[] | undefined;
-}
-
-export class PagedResultDtoOfTravelRequestAirportLookupTableDto implements IPagedResultDtoOfTravelRequestAirportLookupTableDto {
-    totalCount!: number;
-    items!: TravelRequestAirportLookupTableDto[] | undefined;
-
-    constructor(data?: IPagedResultDtoOfTravelRequestAirportLookupTableDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.totalCount = _data["totalCount"];
-            if (Array.isArray(_data["items"])) {
-                this.items = [] as any;
-                for (let item of _data["items"])
-                    this.items!.push(TravelRequestAirportLookupTableDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): PagedResultDtoOfTravelRequestAirportLookupTableDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PagedResultDtoOfTravelRequestAirportLookupTableDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["totalCount"] = this.totalCount;
-        if (Array.isArray(this.items)) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-export interface IPagedResultDtoOfTravelRequestAirportLookupTableDto {
-    totalCount: number;
-    items: TravelRequestAirportLookupTableDto[] | undefined;
-}
-
-export class PagedResultDtoOfTravelRequestUserLookupTableDto implements IPagedResultDtoOfTravelRequestUserLookupTableDto {
-    totalCount!: number;
-    items!: TravelRequestUserLookupTableDto[] | undefined;
-
-    constructor(data?: IPagedResultDtoOfTravelRequestUserLookupTableDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.totalCount = _data["totalCount"];
-            if (Array.isArray(_data["items"])) {
-                this.items = [] as any;
-                for (let item of _data["items"])
-                    this.items!.push(TravelRequestUserLookupTableDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): PagedResultDtoOfTravelRequestUserLookupTableDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PagedResultDtoOfTravelRequestUserLookupTableDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["totalCount"] = this.totalCount;
-        if (Array.isArray(this.items)) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-export interface IPagedResultDtoOfTravelRequestUserLookupTableDto {
-    totalCount: number;
-    items: TravelRequestUserLookupTableDto[] | undefined;
 }
 
 export class PagedResultDtoOfUserDelegationDto implements IPagedResultDtoOfUserDelegationDto {
@@ -44303,8 +42814,14 @@ export class TransferBudgetDetailDto implements ITransferBudgetDetailDto {
     period!: string | undefined;
     amount!: number;
     transferType!: string | undefined;
+    transferBudgetId!: string;
     costCenterId!: string;
-    generalLedgerMappingId!: string | undefined;
+    costCenterCode!: string | undefined;
+    costCenterName!: string | undefined;
+    departmentName!: string | undefined;
+    generalLedgerAccountId!: string | undefined;
+    fundsCenter!: string | undefined;
+    fundsCenterDescription!: string | undefined;
     id!: string;
 
     constructor(data?: ITransferBudgetDetailDto) {
@@ -44321,8 +42838,14 @@ export class TransferBudgetDetailDto implements ITransferBudgetDetailDto {
             this.period = _data["period"];
             this.amount = _data["amount"];
             this.transferType = _data["transferType"];
+            this.transferBudgetId = _data["transferBudgetId"];
             this.costCenterId = _data["costCenterId"];
-            this.generalLedgerMappingId = _data["generalLedgerMappingId"];
+            this.costCenterCode = _data["costCenterCode"];
+            this.costCenterName = _data["costCenterName"];
+            this.departmentName = _data["departmentName"];
+            this.generalLedgerAccountId = _data["generalLedgerAccountId"];
+            this.fundsCenter = _data["fundsCenter"];
+            this.fundsCenterDescription = _data["fundsCenterDescription"];
             this.id = _data["id"];
         }
     }
@@ -44339,8 +42862,14 @@ export class TransferBudgetDetailDto implements ITransferBudgetDetailDto {
         data["period"] = this.period;
         data["amount"] = this.amount;
         data["transferType"] = this.transferType;
+        data["transferBudgetId"] = this.transferBudgetId;
         data["costCenterId"] = this.costCenterId;
-        data["generalLedgerMappingId"] = this.generalLedgerMappingId;
+        data["costCenterCode"] = this.costCenterCode;
+        data["costCenterName"] = this.costCenterName;
+        data["departmentName"] = this.departmentName;
+        data["generalLedgerAccountId"] = this.generalLedgerAccountId;
+        data["fundsCenter"] = this.fundsCenter;
+        data["fundsCenterDescription"] = this.fundsCenterDescription;
         data["id"] = this.id;
         return data;
     }
@@ -44350,16 +42879,22 @@ export interface ITransferBudgetDetailDto {
     period: string | undefined;
     amount: number;
     transferType: string | undefined;
+    transferBudgetId: string;
     costCenterId: string;
-    generalLedgerMappingId: string | undefined;
+    costCenterCode: string | undefined;
+    costCenterName: string | undefined;
+    departmentName: string | undefined;
+    generalLedgerAccountId: string | undefined;
+    fundsCenter: string | undefined;
+    fundsCenterDescription: string | undefined;
     id: string;
 }
 
-export class TransferBudgetDetailGeneralLedgerMappingLookupTableDto implements ITransferBudgetDetailGeneralLedgerMappingLookupTableDto {
+export class TransferBudgetDetailGeneralLedgerAccountLookupTableDto implements ITransferBudgetDetailGeneralLedgerAccountLookupTableDto {
     id!: string | undefined;
     displayName!: string | undefined;
 
-    constructor(data?: ITransferBudgetDetailGeneralLedgerMappingLookupTableDto) {
+    constructor(data?: ITransferBudgetDetailGeneralLedgerAccountLookupTableDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -44375,9 +42910,9 @@ export class TransferBudgetDetailGeneralLedgerMappingLookupTableDto implements I
         }
     }
 
-    static fromJS(data: any): TransferBudgetDetailGeneralLedgerMappingLookupTableDto {
+    static fromJS(data: any): TransferBudgetDetailGeneralLedgerAccountLookupTableDto {
         data = typeof data === 'object' ? data : {};
-        let result = new TransferBudgetDetailGeneralLedgerMappingLookupTableDto();
+        let result = new TransferBudgetDetailGeneralLedgerAccountLookupTableDto();
         result.init(data);
         return result;
     }
@@ -44390,7 +42925,47 @@ export class TransferBudgetDetailGeneralLedgerMappingLookupTableDto implements I
     }
 }
 
-export interface ITransferBudgetDetailGeneralLedgerMappingLookupTableDto {
+export interface ITransferBudgetDetailGeneralLedgerAccountLookupTableDto {
+    id: string | undefined;
+    displayName: string | undefined;
+}
+
+export class TransferBudgetDetailTransferBudgetLookupTableDto implements ITransferBudgetDetailTransferBudgetLookupTableDto {
+    id!: string | undefined;
+    displayName!: string | undefined;
+
+    constructor(data?: ITransferBudgetDetailTransferBudgetLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.displayName = _data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): TransferBudgetDetailTransferBudgetLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TransferBudgetDetailTransferBudgetLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data;
+    }
+}
+
+export interface ITransferBudgetDetailTransferBudgetLookupTableDto {
     id: string | undefined;
     displayName: string | undefined;
 }
@@ -44449,175 +43024,6 @@ export interface ITransferBudgetDto {
     reason: string | undefined;
     location: string | undefined;
     id: string;
-}
-
-export class TravelRequestAirportLookupTableDto implements ITravelRequestAirportLookupTableDto {
-    id!: string | undefined;
-    displayName!: string | undefined;
-
-    constructor(data?: ITravelRequestAirportLookupTableDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.displayName = _data["displayName"];
-        }
-    }
-
-    static fromJS(data: any): TravelRequestAirportLookupTableDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new TravelRequestAirportLookupTableDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["displayName"] = this.displayName;
-        return data;
-    }
-}
-
-export interface ITravelRequestAirportLookupTableDto {
-    id: string | undefined;
-    displayName: string | undefined;
-}
-
-export class TravelRequestDto implements ITravelRequestDto {
-    requestNo!: string | undefined;
-    travelStatus!: TravelStatus;
-    travelType!: TravelType;
-    requestDate!: DateTime;
-    camp!: string | undefined;
-    transportBus!: string | undefined;
-    userTravel!: number | undefined;
-    airportFrom!: string | undefined;
-    airportTo!: string | undefined;
-    createdBy!: number | undefined;
-    id!: string;
-
-    constructor(data?: ITravelRequestDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.requestNo = _data["requestNo"];
-            this.travelStatus = _data["travelStatus"];
-            this.travelType = _data["travelType"];
-            this.requestDate = _data["requestDate"] ? DateTime.fromISO(_data["requestDate"].toString()) : <any>undefined;
-            this.camp = _data["camp"];
-            this.transportBus = _data["transportBus"];
-            this.userTravel = _data["userTravel"];
-            this.airportFrom = _data["airportFrom"];
-            this.airportTo = _data["airportTo"];
-            this.createdBy = _data["createdBy"];
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): TravelRequestDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new TravelRequestDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["requestNo"] = this.requestNo;
-        data["travelStatus"] = this.travelStatus;
-        data["travelType"] = this.travelType;
-        data["requestDate"] = this.requestDate ? this.requestDate.toString() : <any>undefined;
-        data["camp"] = this.camp;
-        data["transportBus"] = this.transportBus;
-        data["userTravel"] = this.userTravel;
-        data["airportFrom"] = this.airportFrom;
-        data["airportTo"] = this.airportTo;
-        data["createdBy"] = this.createdBy;
-        data["id"] = this.id;
-        return data;
-    }
-}
-
-export interface ITravelRequestDto {
-    requestNo: string | undefined;
-    travelStatus: TravelStatus;
-    travelType: TravelType;
-    requestDate: DateTime;
-    camp: string | undefined;
-    transportBus: string | undefined;
-    userTravel: number | undefined;
-    airportFrom: string | undefined;
-    airportTo: string | undefined;
-    createdBy: number | undefined;
-    id: string;
-}
-
-export class TravelRequestUserLookupTableDto implements ITravelRequestUserLookupTableDto {
-    id!: number;
-    displayName!: string | undefined;
-
-    constructor(data?: ITravelRequestUserLookupTableDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.displayName = _data["displayName"];
-        }
-    }
-
-    static fromJS(data: any): TravelRequestUserLookupTableDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new TravelRequestUserLookupTableDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["displayName"] = this.displayName;
-        return data;
-    }
-}
-
-export interface ITravelRequestUserLookupTableDto {
-    id: number;
-    displayName: string | undefined;
-}
-
-export enum TravelStatus {
-    New = 0,
-    Submitted = 1,
-    Booking = 2,
-    Scheduled = 3,
-    Completed = 4,
-}
-
-export enum TravelType {
-    OffSite = 0,
-    OnSite = 1,
 }
 
 export class TwitterExternalLoginProviderSettings implements ITwitterExternalLoginProviderSettings {

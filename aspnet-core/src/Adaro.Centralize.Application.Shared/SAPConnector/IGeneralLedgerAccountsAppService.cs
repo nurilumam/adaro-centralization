@@ -4,6 +4,7 @@ using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Adaro.Centralize.SAPConnector.Dtos;
 using Adaro.Centralize.Dto;
+using System.Collections.Generic;
 
 namespace Adaro.Centralize.SAPConnector
 {
@@ -22,6 +23,8 @@ namespace Adaro.Centralize.SAPConnector
         Task<FileDto> GetGeneralLedgerAccountsToExcel(GetAllGeneralLedgerAccountsForExcelInput input);
 
         Task<PagedResultDto<GeneralLedgerAccountCostCenterLookupTableDto>> GetAllCostCenterForLookupTable(GetAllForLookupTableInput input);
+
+        Task<List<GetGeneralLedgerAccountForViewDto>> GetByCostCenterCode(string CostCenterCode);
 
     }
 }

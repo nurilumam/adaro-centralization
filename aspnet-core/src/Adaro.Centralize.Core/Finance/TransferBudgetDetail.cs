@@ -1,4 +1,5 @@
-﻿using Adaro.Centralize.SAPConnector;
+﻿using Adaro.Centralize.Finance;
+using Adaro.Centralize.SAPConnector;
 using Adaro.Centralize.SAPConnector;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -20,6 +21,11 @@ namespace Adaro.Centralize.Finance
 
         [Required]
         public virtual string TransferType { get; set; }
+
+        public virtual Guid? TransferBudgetId { get; set; }
+
+        [ForeignKey("TransferBudgetId")]
+        public TransferBudget TransferBudgetFk { get; set; }
 
         public virtual Guid CostCenterId { get; set; }
 

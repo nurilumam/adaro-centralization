@@ -206,16 +206,7 @@
                                                 {{ l('NoData') }}
                                             </div>
 
-                                            <div class="primeng-paging-container d-none">
-                                                <p-paginator
-                                                    [rows]="primengTableHelperCostCenterFrom.defaultRecordsCountPerPage"
-                                                    #paginator (onPageChange)="getTransferBudgetSender($event)"
-                                                    [totalRecords]="primengTableHelperCostCenterFrom.totalRecordsCount"
-                                                    [rowsPerPageOptions]="primengTableHelperCostCenterFrom.predefinedRecordsCountPerPage"
-                                                    [showCurrentPageReport]="true" [currentPageReportTemplate]="
-                                                'TotalRecordsCount' | localize : primengTableHelperCostCenterFrom.totalRecordsCount
-                                            "></p-paginator>
-                                            </div>
+
                                         </div>
 
                                     </div>
@@ -296,16 +287,6 @@
                                                 {{ l('NoData') }}
                                             </div>
 
-                                            <div class="primeng-paging-container d-none">
-                                                <p-paginator
-                                                    [rows]="primengTableHelperCostCenterTo.defaultRecordsCountPerPage"
-                                                    #paginator (onPageChange)="getTransferBudgetReceiver($event)"
-                                                    [totalRecords]="primengTableHelperCostCenterTo.totalRecordsCount"
-                                                    [rowsPerPageOptions]="primengTableHelperCostCenterTo.predefinedRecordsCountPerPage"
-                                                    [showCurrentPageReport]="true" [currentPageReportTemplate]="
-                                                'TotalRecordsCount' | localize : primengTableHelperCostCenterTo.totalRecordsCount
-                                            "></p-paginator>
-                                            </div>
                                         </div>
 
                                     </div>

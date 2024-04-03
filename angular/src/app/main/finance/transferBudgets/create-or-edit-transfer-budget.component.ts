@@ -1,22 +1,16 @@
-﻿import { Component, ViewChild, Injector, Output, EventEmitter, OnInit, ElementRef } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap/modal';
+﻿import { Component, ViewChild, Injector, OnInit } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { TransferBudgetsServiceProxy, CreateOrEditTransferBudgetDto, CreateOrEditTransferBudgetDetailDto, OrganizationUnitDto, OrganizationUnitServiceProxy, CostCentersServiceProxy } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { DateTime } from 'luxon';
 import { ActivatedRoute, Router } from '@angular/router';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
-import { Observable } from '@node_modules/rxjs';
 import { BreadcrumbItem } from '@app/shared/common/sub-header/sub-header.component';
-
 import { DateTimeService } from '@app/shared/common/timing/date-time.service';
-
 import { LookupPageCostCenterLookupTableModalComponent } from './lookupPage-costCenter-lookup-table-modal.component';
 import { LazyLoadEvent } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Paginator } from 'primeng/paginator';
 import { PrimengTableHelper } from 'shared/helpers/PrimengTableHelper';
-import { forEach } from 'lodash-es';
 
 @Component({
     styleUrls: ['./create-or-edit-transfer-budget.component.less'],
@@ -72,8 +66,6 @@ export class CreateOrEditTransferBudgetComponent extends AppComponentBase implem
         injector: Injector,
         private _activatedRoute: ActivatedRoute,
         private _transferBudgetsServiceProxy: TransferBudgetsServiceProxy,
-        private _router: Router,
-        private _dateTimeService: DateTimeService,
         private _organizationUnitServiceProxy: OrganizationUnitServiceProxy,
         private _costCentersServiceProxy: CostCentersServiceProxy,
     ) {
@@ -132,10 +124,10 @@ export class CreateOrEditTransferBudgetComponent extends AppComponentBase implem
             this.costCenterCodeReceiver = costCenterReceiver.costCenterCode.substring(0, (costCenterReceiver.costCenterCode.length - 3));
         });
 
-        this.transferBudget.details = [];
+        this.transferBudget.detailReceivers = [];
         this.primengTableHelperCostCenterTo.showLoadingIndicator();
-        this.primengTableHelperCostCenterTo.totalRecordsCount = this.transferBudget.details.length;
-        this.primengTableHelperCostCenterTo.records = this.transferBudget.details;
+        this.primengTableHelperCostCenterTo.totalRecordsCount = this.transferBudget.detailReceivers.length;
+        this.primengTableHelperCostCenterTo.records = this.transferBudget.detailReceivers;
         this.primengTableHelperCostCenterTo.hideLoadingIndicator();
     }
 
@@ -170,7 +162,7 @@ export class CreateOrEditTransferBudgetComponent extends AppComponentBase implem
                     this.saving = false;
                 })
             )
-            .subscribe((x) => {
+            .subscribe(() => {
                 this.saving = false;
                 this.notify.info(this.l('SavedSuccessfully'));
                 this.transferBudget = new CreateOrEditTransferBudgetDto();
@@ -228,23 +220,28 @@ export class CreateOrEditTransferBudgetComponent extends AppComponentBase implem
     }
 
 
-    getTransferBudgetSender(event?: LazyLoadEvent) {
-        if (this.transferBudget.details == undefined) {
-            this.transferBudget.details = [];
+    getTransferBudgetSender() {
+        if (this.transferBudget.detailSenders == undefined) {
+            this.transferBudget.detailSenders = [];
         }
 
 
-        this.costCenterFrom.costCenterId = this.costCenterId;
         this.costCenterFrom = new CreateOrEditTransferBudgetDetailDto();
-        this.costCenterFrom.id = this.costCenterId;
+        this.costCenterFrom.costCenterId = this.costCenterId;
         this.costCenterFrom.costCenterCode = this.lookupPageCostCenterLookupTableModal.costCenterCode;
         this.costCenterFrom.costCenterName = this.lookupPageCostCenterLookupTableModal.costCenterName;
         this.costCenterFrom.departmentName = this.lookupPageCostCenterLookupTableModal.departmentName;
-        this.transferBudget.details.push(this.costCenterFrom);
 
+        let result = this.transferBudget.detailSenders.filter(obj => {
+            return obj.costCenterCode === this.costCenterFrom.costCenterCode;
+        });
+          
+        if(result.length>0) return;
+
+        this.transferBudget.detailSenders.push(this.costCenterFrom);
         this.primengTableHelperCostCenterFrom.showLoadingIndicator();
-        this.primengTableHelperCostCenterFrom.totalRecordsCount = this.transferBudget.details.length;
-        this.primengTableHelperCostCenterFrom.records = this.transferBudget.details;
+        this.primengTableHelperCostCenterFrom.totalRecordsCount = this.transferBudget.detailSenders.length;
+        this.primengTableHelperCostCenterFrom.records = this.transferBudget.detailSenders;
         this.primengTableHelperCostCenterFrom.hideLoadingIndicator();
 
         if(this.primengTableHelperCostCenterFrom.records.length>0){
@@ -253,9 +250,9 @@ export class CreateOrEditTransferBudgetComponent extends AppComponentBase implem
         }
     }
 
-    getTransferBudgetReceiver(event?: LazyLoadEvent) {
-        if (this.transferBudget.details == undefined) {
-            this.transferBudget.details = [];
+    getTransferBudgetReceiver() {
+        if (this.transferBudget.detailReceivers == undefined) {
+            this.transferBudget.detailReceivers = [];
         }
 
         this.costCenterTo = new CreateOrEditTransferBudgetDetailDto();
@@ -263,36 +260,36 @@ export class CreateOrEditTransferBudgetComponent extends AppComponentBase implem
 
         console.log(this.lookupFrom);
         this.costCenterTo.costCenterId = this.costCenterId;
-
-        // period!: string;
-        // amount!: number;
-        // transferType!: string;
-        // costCenterId!: string;
-        // generalLedgerMappingId!: string | undefined;
-        // id!: string | undefined;
-
         this.costCenterTo.costCenterCode = this.lookupPageCostCenterLookupTableModal.costCenterCode;
         this.costCenterTo.costCenterName = this.lookupPageCostCenterLookupTableModal.costCenterName;
         this.costCenterTo.departmentName = this.lookupPageCostCenterLookupTableModal.departmentName;
-        this.transferBudget.details.push(this.costCenterTo);
+
+        let result = this.transferBudget.detailReceivers.filter(obj => {
+            return obj.costCenterCode === this.costCenterTo.costCenterCode;
+        });
+          
+        if(result.length>0) return;
+
+
+        this.transferBudget.detailReceivers.push(this.costCenterTo);
 
         this.primengTableHelperCostCenterTo.showLoadingIndicator();
-        this.primengTableHelperCostCenterTo.totalRecordsCount = this.transferBudget.details.length;
-        this.primengTableHelperCostCenterTo.records = this.transferBudget.details;
+        this.primengTableHelperCostCenterTo.totalRecordsCount = this.transferBudget.detailReceivers.length;
+        this.primengTableHelperCostCenterTo.records = this.transferBudget.detailReceivers;
         this.primengTableHelperCostCenterTo.hideLoadingIndicator();
         
     }
 
     deleteBudgetItemSender(transferBudgetItem: CreateOrEditTransferBudgetDetailDto) {
 
-        this.transferBudget.details.splice(
-            this.transferBudget.details.findIndex(item => item.id === transferBudgetItem.id), 1);
+        this.transferBudget.detailSenders.splice(
+            this.transferBudget.detailSenders.findIndex(item => item.id === transferBudgetItem.id), 1);
 
         // this.transferBudget.details.push(this.costCenterFrom);
 
         this.primengTableHelperCostCenterFrom.showLoadingIndicator();
-        this.primengTableHelperCostCenterFrom.totalRecordsCount = this.transferBudget.details.length;
-        this.primengTableHelperCostCenterFrom.records = this.transferBudget.details;
+        this.primengTableHelperCostCenterFrom.totalRecordsCount = this.transferBudget.detailSenders.length;
+        this.primengTableHelperCostCenterFrom.records = this.transferBudget.detailSenders;
         this.primengTableHelperCostCenterFrom.hideLoadingIndicator();
 
         if(this.primengTableHelperCostCenterFrom.records.length==0){
@@ -302,19 +299,19 @@ export class CreateOrEditTransferBudgetComponent extends AppComponentBase implem
 
     deleteBudgetItemReceiver(transferBudgetItem: CreateOrEditTransferBudgetDetailDto) {
 
-        this.transferBudget.details.splice(
-            this.transferBudget.details.findIndex(item => item.id === transferBudgetItem.id), 1);
+        this.transferBudget.detailReceivers.splice(
+            this.transferBudget.detailReceivers.findIndex(item => item.id === transferBudgetItem.id), 1);
 
 
         this.primengTableHelperCostCenterTo.showLoadingIndicator();
-        this.primengTableHelperCostCenterTo.totalRecordsCount = this.transferBudget.details.length;
-        this.primengTableHelperCostCenterTo.records = this.transferBudget.details;
+        this.primengTableHelperCostCenterTo.totalRecordsCount = this.transferBudget.detailReceivers.length;
+        this.primengTableHelperCostCenterTo.records = this.transferBudget.detailReceivers;
         this.primengTableHelperCostCenterTo.hideLoadingIndicator();
     }
 
 
 
-    onRowEditInit(product: CreateOrEditTransferBudgetDetailDto) {
+    onRowEditInit() {
         // this.clonedProducts[product.id] = {...product};
     }
 
