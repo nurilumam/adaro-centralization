@@ -6677,1996 +6677,6 @@ export class EditionServiceProxy {
 }
 
 @Injectable()
-export class EKKOsServiceProxy {
-    private http: HttpClient;
-    private baseUrl: string;
-    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
-
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
-        this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
-    }
-
-    /**
-     * @param filter (optional) 
-     * @param mANDTFilter (optional) 
-     * @param eBELNFilter (optional) 
-     * @param bUKRSFilter (optional) 
-     * @param bSTYPFilter (optional) 
-     * @param bSARTFilter (optional) 
-     * @param bSAKZFilter (optional) 
-     * @param lOEKZFilter (optional) 
-     * @param sTATUFilter (optional) 
-     * @param maxAEDATFilter (optional) 
-     * @param minAEDATFilter (optional) 
-     * @param eRNAMFilter (optional) 
-     * @param maxPINCRFilter (optional) 
-     * @param minPINCRFilter (optional) 
-     * @param maxLPONRFilter (optional) 
-     * @param minLPONRFilter (optional) 
-     * @param lIFNRFilter (optional) 
-     * @param zTERMFilter (optional) 
-     * @param maxZBD1TFilter (optional) 
-     * @param minZBD1TFilter (optional) 
-     * @param maxZBD2TFilter (optional) 
-     * @param minZBD2TFilter (optional) 
-     * @param maxZBD3TFilter (optional) 
-     * @param minZBD3TFilter (optional) 
-     * @param maxZBD1PFilter (optional) 
-     * @param minZBD1PFilter (optional) 
-     * @param maxZBD2PFilter (optional) 
-     * @param minZBD2PFilter (optional) 
-     * @param eKORGFilter (optional) 
-     * @param eKGRPFilter (optional) 
-     * @param wAERSFilter (optional) 
-     * @param maxWKURSFilter (optional) 
-     * @param minWKURSFilter (optional) 
-     * @param kUFIXFilter (optional) 
-     * @param maxBEDATFilter (optional) 
-     * @param minBEDATFilter (optional) 
-     * @param maxKDATBFilter (optional) 
-     * @param minKDATBFilter (optional) 
-     * @param maxKDATEFilter (optional) 
-     * @param minKDATEFilter (optional) 
-     * @param maxBWBDTFilter (optional) 
-     * @param minBWBDTFilter (optional) 
-     * @param maxGWLDTFilter (optional) 
-     * @param minGWLDTFilter (optional) 
-     * @param maxIHRANFilter (optional) 
-     * @param minIHRANFilter (optional) 
-     * @param kUNNRFilter (optional) 
-     * @param kONNRFilter (optional) 
-     * @param aBGRUFilter (optional) 
-     * @param aUTLFFilter (optional) 
-     * @param wEAKTFilter (optional) 
-     * @param rESWKFilter (optional) 
-     * @param lBLIFFilter (optional) 
-     * @param iNCO1Filter (optional) 
-     * @param iNCO2Filter (optional) 
-     * @param sUBMIFilter (optional) 
-     * @param kNUMVFilter (optional) 
-     * @param kALSMFilter (optional) 
-     * @param pROCSTATFilter (optional) 
-     * @param uNSEZFilter (optional) 
-     * @param fRGGRFilter (optional) 
-     * @param fRGSXFilter (optional) 
-     * @param fRGKEFilter (optional) 
-     * @param fRGZUFilter (optional) 
-     * @param aDRNRFilter (optional) 
-     * @param sorting (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
-     * @return Success
-     */
-    getAll(filter: string | undefined, mANDTFilter: string | undefined, eBELNFilter: string | undefined, bUKRSFilter: string | undefined, bSTYPFilter: string | undefined, bSARTFilter: string | undefined, bSAKZFilter: string | undefined, lOEKZFilter: string | undefined, sTATUFilter: string | undefined, maxAEDATFilter: DateTime | undefined, minAEDATFilter: DateTime | undefined, eRNAMFilter: string | undefined, maxPINCRFilter: number | undefined, minPINCRFilter: number | undefined, maxLPONRFilter: number | undefined, minLPONRFilter: number | undefined, lIFNRFilter: string | undefined, zTERMFilter: string | undefined, maxZBD1TFilter: number | undefined, minZBD1TFilter: number | undefined, maxZBD2TFilter: number | undefined, minZBD2TFilter: number | undefined, maxZBD3TFilter: number | undefined, minZBD3TFilter: number | undefined, maxZBD1PFilter: number | undefined, minZBD1PFilter: number | undefined, maxZBD2PFilter: number | undefined, minZBD2PFilter: number | undefined, eKORGFilter: string | undefined, eKGRPFilter: string | undefined, wAERSFilter: string | undefined, maxWKURSFilter: number | undefined, minWKURSFilter: number | undefined, kUFIXFilter: string | undefined, maxBEDATFilter: DateTime | undefined, minBEDATFilter: DateTime | undefined, maxKDATBFilter: DateTime | undefined, minKDATBFilter: DateTime | undefined, maxKDATEFilter: DateTime | undefined, minKDATEFilter: DateTime | undefined, maxBWBDTFilter: DateTime | undefined, minBWBDTFilter: DateTime | undefined, maxGWLDTFilter: DateTime | undefined, minGWLDTFilter: DateTime | undefined, maxIHRANFilter: DateTime | undefined, minIHRANFilter: DateTime | undefined, kUNNRFilter: string | undefined, kONNRFilter: string | undefined, aBGRUFilter: string | undefined, aUTLFFilter: string | undefined, wEAKTFilter: string | undefined, rESWKFilter: string | undefined, lBLIFFilter: string | undefined, iNCO1Filter: string | undefined, iNCO2Filter: string | undefined, sUBMIFilter: string | undefined, kNUMVFilter: string | undefined, kALSMFilter: string | undefined, pROCSTATFilter: string | undefined, uNSEZFilter: string | undefined, fRGGRFilter: string | undefined, fRGSXFilter: string | undefined, fRGKEFilter: string | undefined, fRGZUFilter: string | undefined, aDRNRFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetEkkoForViewDto> {
-        let url_ = this.baseUrl + "/api/services/app/EKKOs/GetAll?";
-        if (filter === null)
-            throw new Error("The parameter 'filter' cannot be null.");
-        else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (mANDTFilter === null)
-            throw new Error("The parameter 'mANDTFilter' cannot be null.");
-        else if (mANDTFilter !== undefined)
-            url_ += "MANDTFilter=" + encodeURIComponent("" + mANDTFilter) + "&";
-        if (eBELNFilter === null)
-            throw new Error("The parameter 'eBELNFilter' cannot be null.");
-        else if (eBELNFilter !== undefined)
-            url_ += "EBELNFilter=" + encodeURIComponent("" + eBELNFilter) + "&";
-        if (bUKRSFilter === null)
-            throw new Error("The parameter 'bUKRSFilter' cannot be null.");
-        else if (bUKRSFilter !== undefined)
-            url_ += "BUKRSFilter=" + encodeURIComponent("" + bUKRSFilter) + "&";
-        if (bSTYPFilter === null)
-            throw new Error("The parameter 'bSTYPFilter' cannot be null.");
-        else if (bSTYPFilter !== undefined)
-            url_ += "BSTYPFilter=" + encodeURIComponent("" + bSTYPFilter) + "&";
-        if (bSARTFilter === null)
-            throw new Error("The parameter 'bSARTFilter' cannot be null.");
-        else if (bSARTFilter !== undefined)
-            url_ += "BSARTFilter=" + encodeURIComponent("" + bSARTFilter) + "&";
-        if (bSAKZFilter === null)
-            throw new Error("The parameter 'bSAKZFilter' cannot be null.");
-        else if (bSAKZFilter !== undefined)
-            url_ += "BSAKZFilter=" + encodeURIComponent("" + bSAKZFilter) + "&";
-        if (lOEKZFilter === null)
-            throw new Error("The parameter 'lOEKZFilter' cannot be null.");
-        else if (lOEKZFilter !== undefined)
-            url_ += "LOEKZFilter=" + encodeURIComponent("" + lOEKZFilter) + "&";
-        if (sTATUFilter === null)
-            throw new Error("The parameter 'sTATUFilter' cannot be null.");
-        else if (sTATUFilter !== undefined)
-            url_ += "STATUFilter=" + encodeURIComponent("" + sTATUFilter) + "&";
-        if (maxAEDATFilter === null)
-            throw new Error("The parameter 'maxAEDATFilter' cannot be null.");
-        else if (maxAEDATFilter !== undefined)
-            url_ += "MaxAEDATFilter=" + encodeURIComponent(maxAEDATFilter ? "" + maxAEDATFilter.toString() : "") + "&";
-        if (minAEDATFilter === null)
-            throw new Error("The parameter 'minAEDATFilter' cannot be null.");
-        else if (minAEDATFilter !== undefined)
-            url_ += "MinAEDATFilter=" + encodeURIComponent(minAEDATFilter ? "" + minAEDATFilter.toString() : "") + "&";
-        if (eRNAMFilter === null)
-            throw new Error("The parameter 'eRNAMFilter' cannot be null.");
-        else if (eRNAMFilter !== undefined)
-            url_ += "ERNAMFilter=" + encodeURIComponent("" + eRNAMFilter) + "&";
-        if (maxPINCRFilter === null)
-            throw new Error("The parameter 'maxPINCRFilter' cannot be null.");
-        else if (maxPINCRFilter !== undefined)
-            url_ += "MaxPINCRFilter=" + encodeURIComponent("" + maxPINCRFilter) + "&";
-        if (minPINCRFilter === null)
-            throw new Error("The parameter 'minPINCRFilter' cannot be null.");
-        else if (minPINCRFilter !== undefined)
-            url_ += "MinPINCRFilter=" + encodeURIComponent("" + minPINCRFilter) + "&";
-        if (maxLPONRFilter === null)
-            throw new Error("The parameter 'maxLPONRFilter' cannot be null.");
-        else if (maxLPONRFilter !== undefined)
-            url_ += "MaxLPONRFilter=" + encodeURIComponent("" + maxLPONRFilter) + "&";
-        if (minLPONRFilter === null)
-            throw new Error("The parameter 'minLPONRFilter' cannot be null.");
-        else if (minLPONRFilter !== undefined)
-            url_ += "MinLPONRFilter=" + encodeURIComponent("" + minLPONRFilter) + "&";
-        if (lIFNRFilter === null)
-            throw new Error("The parameter 'lIFNRFilter' cannot be null.");
-        else if (lIFNRFilter !== undefined)
-            url_ += "LIFNRFilter=" + encodeURIComponent("" + lIFNRFilter) + "&";
-        if (zTERMFilter === null)
-            throw new Error("The parameter 'zTERMFilter' cannot be null.");
-        else if (zTERMFilter !== undefined)
-            url_ += "ZTERMFilter=" + encodeURIComponent("" + zTERMFilter) + "&";
-        if (maxZBD1TFilter === null)
-            throw new Error("The parameter 'maxZBD1TFilter' cannot be null.");
-        else if (maxZBD1TFilter !== undefined)
-            url_ += "MaxZBD1TFilter=" + encodeURIComponent("" + maxZBD1TFilter) + "&";
-        if (minZBD1TFilter === null)
-            throw new Error("The parameter 'minZBD1TFilter' cannot be null.");
-        else if (minZBD1TFilter !== undefined)
-            url_ += "MinZBD1TFilter=" + encodeURIComponent("" + minZBD1TFilter) + "&";
-        if (maxZBD2TFilter === null)
-            throw new Error("The parameter 'maxZBD2TFilter' cannot be null.");
-        else if (maxZBD2TFilter !== undefined)
-            url_ += "MaxZBD2TFilter=" + encodeURIComponent("" + maxZBD2TFilter) + "&";
-        if (minZBD2TFilter === null)
-            throw new Error("The parameter 'minZBD2TFilter' cannot be null.");
-        else if (minZBD2TFilter !== undefined)
-            url_ += "MinZBD2TFilter=" + encodeURIComponent("" + minZBD2TFilter) + "&";
-        if (maxZBD3TFilter === null)
-            throw new Error("The parameter 'maxZBD3TFilter' cannot be null.");
-        else if (maxZBD3TFilter !== undefined)
-            url_ += "MaxZBD3TFilter=" + encodeURIComponent("" + maxZBD3TFilter) + "&";
-        if (minZBD3TFilter === null)
-            throw new Error("The parameter 'minZBD3TFilter' cannot be null.");
-        else if (minZBD3TFilter !== undefined)
-            url_ += "MinZBD3TFilter=" + encodeURIComponent("" + minZBD3TFilter) + "&";
-        if (maxZBD1PFilter === null)
-            throw new Error("The parameter 'maxZBD1PFilter' cannot be null.");
-        else if (maxZBD1PFilter !== undefined)
-            url_ += "MaxZBD1PFilter=" + encodeURIComponent("" + maxZBD1PFilter) + "&";
-        if (minZBD1PFilter === null)
-            throw new Error("The parameter 'minZBD1PFilter' cannot be null.");
-        else if (minZBD1PFilter !== undefined)
-            url_ += "MinZBD1PFilter=" + encodeURIComponent("" + minZBD1PFilter) + "&";
-        if (maxZBD2PFilter === null)
-            throw new Error("The parameter 'maxZBD2PFilter' cannot be null.");
-        else if (maxZBD2PFilter !== undefined)
-            url_ += "MaxZBD2PFilter=" + encodeURIComponent("" + maxZBD2PFilter) + "&";
-        if (minZBD2PFilter === null)
-            throw new Error("The parameter 'minZBD2PFilter' cannot be null.");
-        else if (minZBD2PFilter !== undefined)
-            url_ += "MinZBD2PFilter=" + encodeURIComponent("" + minZBD2PFilter) + "&";
-        if (eKORGFilter === null)
-            throw new Error("The parameter 'eKORGFilter' cannot be null.");
-        else if (eKORGFilter !== undefined)
-            url_ += "EKORGFilter=" + encodeURIComponent("" + eKORGFilter) + "&";
-        if (eKGRPFilter === null)
-            throw new Error("The parameter 'eKGRPFilter' cannot be null.");
-        else if (eKGRPFilter !== undefined)
-            url_ += "EKGRPFilter=" + encodeURIComponent("" + eKGRPFilter) + "&";
-        if (wAERSFilter === null)
-            throw new Error("The parameter 'wAERSFilter' cannot be null.");
-        else if (wAERSFilter !== undefined)
-            url_ += "WAERSFilter=" + encodeURIComponent("" + wAERSFilter) + "&";
-        if (maxWKURSFilter === null)
-            throw new Error("The parameter 'maxWKURSFilter' cannot be null.");
-        else if (maxWKURSFilter !== undefined)
-            url_ += "MaxWKURSFilter=" + encodeURIComponent("" + maxWKURSFilter) + "&";
-        if (minWKURSFilter === null)
-            throw new Error("The parameter 'minWKURSFilter' cannot be null.");
-        else if (minWKURSFilter !== undefined)
-            url_ += "MinWKURSFilter=" + encodeURIComponent("" + minWKURSFilter) + "&";
-        if (kUFIXFilter === null)
-            throw new Error("The parameter 'kUFIXFilter' cannot be null.");
-        else if (kUFIXFilter !== undefined)
-            url_ += "KUFIXFilter=" + encodeURIComponent("" + kUFIXFilter) + "&";
-        if (maxBEDATFilter === null)
-            throw new Error("The parameter 'maxBEDATFilter' cannot be null.");
-        else if (maxBEDATFilter !== undefined)
-            url_ += "MaxBEDATFilter=" + encodeURIComponent(maxBEDATFilter ? "" + maxBEDATFilter.toString() : "") + "&";
-        if (minBEDATFilter === null)
-            throw new Error("The parameter 'minBEDATFilter' cannot be null.");
-        else if (minBEDATFilter !== undefined)
-            url_ += "MinBEDATFilter=" + encodeURIComponent(minBEDATFilter ? "" + minBEDATFilter.toString() : "") + "&";
-        if (maxKDATBFilter === null)
-            throw new Error("The parameter 'maxKDATBFilter' cannot be null.");
-        else if (maxKDATBFilter !== undefined)
-            url_ += "MaxKDATBFilter=" + encodeURIComponent(maxKDATBFilter ? "" + maxKDATBFilter.toString() : "") + "&";
-        if (minKDATBFilter === null)
-            throw new Error("The parameter 'minKDATBFilter' cannot be null.");
-        else if (minKDATBFilter !== undefined)
-            url_ += "MinKDATBFilter=" + encodeURIComponent(minKDATBFilter ? "" + minKDATBFilter.toString() : "") + "&";
-        if (maxKDATEFilter === null)
-            throw new Error("The parameter 'maxKDATEFilter' cannot be null.");
-        else if (maxKDATEFilter !== undefined)
-            url_ += "MaxKDATEFilter=" + encodeURIComponent(maxKDATEFilter ? "" + maxKDATEFilter.toString() : "") + "&";
-        if (minKDATEFilter === null)
-            throw new Error("The parameter 'minKDATEFilter' cannot be null.");
-        else if (minKDATEFilter !== undefined)
-            url_ += "MinKDATEFilter=" + encodeURIComponent(minKDATEFilter ? "" + minKDATEFilter.toString() : "") + "&";
-        if (maxBWBDTFilter === null)
-            throw new Error("The parameter 'maxBWBDTFilter' cannot be null.");
-        else if (maxBWBDTFilter !== undefined)
-            url_ += "MaxBWBDTFilter=" + encodeURIComponent(maxBWBDTFilter ? "" + maxBWBDTFilter.toString() : "") + "&";
-        if (minBWBDTFilter === null)
-            throw new Error("The parameter 'minBWBDTFilter' cannot be null.");
-        else if (minBWBDTFilter !== undefined)
-            url_ += "MinBWBDTFilter=" + encodeURIComponent(minBWBDTFilter ? "" + minBWBDTFilter.toString() : "") + "&";
-        if (maxGWLDTFilter === null)
-            throw new Error("The parameter 'maxGWLDTFilter' cannot be null.");
-        else if (maxGWLDTFilter !== undefined)
-            url_ += "MaxGWLDTFilter=" + encodeURIComponent(maxGWLDTFilter ? "" + maxGWLDTFilter.toString() : "") + "&";
-        if (minGWLDTFilter === null)
-            throw new Error("The parameter 'minGWLDTFilter' cannot be null.");
-        else if (minGWLDTFilter !== undefined)
-            url_ += "MinGWLDTFilter=" + encodeURIComponent(minGWLDTFilter ? "" + minGWLDTFilter.toString() : "") + "&";
-        if (maxIHRANFilter === null)
-            throw new Error("The parameter 'maxIHRANFilter' cannot be null.");
-        else if (maxIHRANFilter !== undefined)
-            url_ += "MaxIHRANFilter=" + encodeURIComponent(maxIHRANFilter ? "" + maxIHRANFilter.toString() : "") + "&";
-        if (minIHRANFilter === null)
-            throw new Error("The parameter 'minIHRANFilter' cannot be null.");
-        else if (minIHRANFilter !== undefined)
-            url_ += "MinIHRANFilter=" + encodeURIComponent(minIHRANFilter ? "" + minIHRANFilter.toString() : "") + "&";
-        if (kUNNRFilter === null)
-            throw new Error("The parameter 'kUNNRFilter' cannot be null.");
-        else if (kUNNRFilter !== undefined)
-            url_ += "KUNNRFilter=" + encodeURIComponent("" + kUNNRFilter) + "&";
-        if (kONNRFilter === null)
-            throw new Error("The parameter 'kONNRFilter' cannot be null.");
-        else if (kONNRFilter !== undefined)
-            url_ += "KONNRFilter=" + encodeURIComponent("" + kONNRFilter) + "&";
-        if (aBGRUFilter === null)
-            throw new Error("The parameter 'aBGRUFilter' cannot be null.");
-        else if (aBGRUFilter !== undefined)
-            url_ += "ABGRUFilter=" + encodeURIComponent("" + aBGRUFilter) + "&";
-        if (aUTLFFilter === null)
-            throw new Error("The parameter 'aUTLFFilter' cannot be null.");
-        else if (aUTLFFilter !== undefined)
-            url_ += "AUTLFFilter=" + encodeURIComponent("" + aUTLFFilter) + "&";
-        if (wEAKTFilter === null)
-            throw new Error("The parameter 'wEAKTFilter' cannot be null.");
-        else if (wEAKTFilter !== undefined)
-            url_ += "WEAKTFilter=" + encodeURIComponent("" + wEAKTFilter) + "&";
-        if (rESWKFilter === null)
-            throw new Error("The parameter 'rESWKFilter' cannot be null.");
-        else if (rESWKFilter !== undefined)
-            url_ += "RESWKFilter=" + encodeURIComponent("" + rESWKFilter) + "&";
-        if (lBLIFFilter === null)
-            throw new Error("The parameter 'lBLIFFilter' cannot be null.");
-        else if (lBLIFFilter !== undefined)
-            url_ += "LBLIFFilter=" + encodeURIComponent("" + lBLIFFilter) + "&";
-        if (iNCO1Filter === null)
-            throw new Error("The parameter 'iNCO1Filter' cannot be null.");
-        else if (iNCO1Filter !== undefined)
-            url_ += "INCO1Filter=" + encodeURIComponent("" + iNCO1Filter) + "&";
-        if (iNCO2Filter === null)
-            throw new Error("The parameter 'iNCO2Filter' cannot be null.");
-        else if (iNCO2Filter !== undefined)
-            url_ += "INCO2Filter=" + encodeURIComponent("" + iNCO2Filter) + "&";
-        if (sUBMIFilter === null)
-            throw new Error("The parameter 'sUBMIFilter' cannot be null.");
-        else if (sUBMIFilter !== undefined)
-            url_ += "SUBMIFilter=" + encodeURIComponent("" + sUBMIFilter) + "&";
-        if (kNUMVFilter === null)
-            throw new Error("The parameter 'kNUMVFilter' cannot be null.");
-        else if (kNUMVFilter !== undefined)
-            url_ += "KNUMVFilter=" + encodeURIComponent("" + kNUMVFilter) + "&";
-        if (kALSMFilter === null)
-            throw new Error("The parameter 'kALSMFilter' cannot be null.");
-        else if (kALSMFilter !== undefined)
-            url_ += "KALSMFilter=" + encodeURIComponent("" + kALSMFilter) + "&";
-        if (pROCSTATFilter === null)
-            throw new Error("The parameter 'pROCSTATFilter' cannot be null.");
-        else if (pROCSTATFilter !== undefined)
-            url_ += "PROCSTATFilter=" + encodeURIComponent("" + pROCSTATFilter) + "&";
-        if (uNSEZFilter === null)
-            throw new Error("The parameter 'uNSEZFilter' cannot be null.");
-        else if (uNSEZFilter !== undefined)
-            url_ += "UNSEZFilter=" + encodeURIComponent("" + uNSEZFilter) + "&";
-        if (fRGGRFilter === null)
-            throw new Error("The parameter 'fRGGRFilter' cannot be null.");
-        else if (fRGGRFilter !== undefined)
-            url_ += "FRGGRFilter=" + encodeURIComponent("" + fRGGRFilter) + "&";
-        if (fRGSXFilter === null)
-            throw new Error("The parameter 'fRGSXFilter' cannot be null.");
-        else if (fRGSXFilter !== undefined)
-            url_ += "FRGSXFilter=" + encodeURIComponent("" + fRGSXFilter) + "&";
-        if (fRGKEFilter === null)
-            throw new Error("The parameter 'fRGKEFilter' cannot be null.");
-        else if (fRGKEFilter !== undefined)
-            url_ += "FRGKEFilter=" + encodeURIComponent("" + fRGKEFilter) + "&";
-        if (fRGZUFilter === null)
-            throw new Error("The parameter 'fRGZUFilter' cannot be null.");
-        else if (fRGZUFilter !== undefined)
-            url_ += "FRGZUFilter=" + encodeURIComponent("" + fRGZUFilter) + "&";
-        if (aDRNRFilter === null)
-            throw new Error("The parameter 'aDRNRFilter' cannot be null.");
-        else if (aDRNRFilter !== undefined)
-            url_ += "ADRNRFilter=" + encodeURIComponent("" + aDRNRFilter) + "&";
-        if (sorting === null)
-            throw new Error("The parameter 'sorting' cannot be null.");
-        else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (skipCount === null)
-            throw new Error("The parameter 'skipCount' cannot be null.");
-        else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
-        if (maxResultCount === null)
-            throw new Error("The parameter 'maxResultCount' cannot be null.");
-        else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAll(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetAll(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<PagedResultDtoOfGetEkkoForViewDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<PagedResultDtoOfGetEkkoForViewDto>;
-        }));
-    }
-
-    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetEkkoForViewDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PagedResultDtoOfGetEkkoForViewDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param id (optional) 
-     * @return Success
-     */
-    getEkkoForView(id: string | undefined): Observable<GetEkkoForViewDto> {
-        let url_ = this.baseUrl + "/api/services/app/EKKOs/GetEkkoForView?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetEkkoForView(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetEkkoForView(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<GetEkkoForViewDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<GetEkkoForViewDto>;
-        }));
-    }
-
-    protected processGetEkkoForView(response: HttpResponseBase): Observable<GetEkkoForViewDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetEkkoForViewDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param id (optional) 
-     * @return Success
-     */
-    getEkkoForEdit(id: string | undefined): Observable<GetEkkoForEditOutput> {
-        let url_ = this.baseUrl + "/api/services/app/EKKOs/GetEkkoForEdit?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetEkkoForEdit(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetEkkoForEdit(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<GetEkkoForEditOutput>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<GetEkkoForEditOutput>;
-        }));
-    }
-
-    protected processGetEkkoForEdit(response: HttpResponseBase): Observable<GetEkkoForEditOutput> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetEkkoForEditOutput.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    createOrEdit(body: CreateOrEditEkkoDto | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/EKKOs/CreateOrEdit";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processCreateOrEdit(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processCreateOrEdit(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<void>;
-        }));
-    }
-
-    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return _observableOf(null as any);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param id (optional) 
-     * @return Success
-     */
-    delete(id: string | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/EKKOs/Delete?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-            })
-        };
-
-        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processDelete(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processDelete(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<void>;
-        }));
-    }
-
-    protected processDelete(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return _observableOf(null as any);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param filter (optional) 
-     * @param mANDTFilter (optional) 
-     * @param eBELNFilter (optional) 
-     * @param bUKRSFilter (optional) 
-     * @param bSTYPFilter (optional) 
-     * @param bSARTFilter (optional) 
-     * @param bSAKZFilter (optional) 
-     * @param lOEKZFilter (optional) 
-     * @param sTATUFilter (optional) 
-     * @param maxAEDATFilter (optional) 
-     * @param minAEDATFilter (optional) 
-     * @param eRNAMFilter (optional) 
-     * @param maxPINCRFilter (optional) 
-     * @param minPINCRFilter (optional) 
-     * @param maxLPONRFilter (optional) 
-     * @param minLPONRFilter (optional) 
-     * @param lIFNRFilter (optional) 
-     * @param zTERMFilter (optional) 
-     * @param maxZBD1TFilter (optional) 
-     * @param minZBD1TFilter (optional) 
-     * @param maxZBD2TFilter (optional) 
-     * @param minZBD2TFilter (optional) 
-     * @param maxZBD3TFilter (optional) 
-     * @param minZBD3TFilter (optional) 
-     * @param maxZBD1PFilter (optional) 
-     * @param minZBD1PFilter (optional) 
-     * @param maxZBD2PFilter (optional) 
-     * @param minZBD2PFilter (optional) 
-     * @param eKORGFilter (optional) 
-     * @param eKGRPFilter (optional) 
-     * @param wAERSFilter (optional) 
-     * @param maxWKURSFilter (optional) 
-     * @param minWKURSFilter (optional) 
-     * @param kUFIXFilter (optional) 
-     * @param maxBEDATFilter (optional) 
-     * @param minBEDATFilter (optional) 
-     * @param maxKDATBFilter (optional) 
-     * @param minKDATBFilter (optional) 
-     * @param maxKDATEFilter (optional) 
-     * @param minKDATEFilter (optional) 
-     * @param maxBWBDTFilter (optional) 
-     * @param minBWBDTFilter (optional) 
-     * @param maxGWLDTFilter (optional) 
-     * @param minGWLDTFilter (optional) 
-     * @param maxIHRANFilter (optional) 
-     * @param minIHRANFilter (optional) 
-     * @param kUNNRFilter (optional) 
-     * @param kONNRFilter (optional) 
-     * @param aBGRUFilter (optional) 
-     * @param aUTLFFilter (optional) 
-     * @param wEAKTFilter (optional) 
-     * @param rESWKFilter (optional) 
-     * @param lBLIFFilter (optional) 
-     * @param iNCO1Filter (optional) 
-     * @param iNCO2Filter (optional) 
-     * @param sUBMIFilter (optional) 
-     * @param kNUMVFilter (optional) 
-     * @param kALSMFilter (optional) 
-     * @param pROCSTATFilter (optional) 
-     * @param uNSEZFilter (optional) 
-     * @param fRGGRFilter (optional) 
-     * @param fRGSXFilter (optional) 
-     * @param fRGKEFilter (optional) 
-     * @param fRGZUFilter (optional) 
-     * @param aDRNRFilter (optional) 
-     * @return Success
-     */
-    getEkkosToExcel(filter: string | undefined, mANDTFilter: string | undefined, eBELNFilter: string | undefined, bUKRSFilter: string | undefined, bSTYPFilter: string | undefined, bSARTFilter: string | undefined, bSAKZFilter: string | undefined, lOEKZFilter: string | undefined, sTATUFilter: string | undefined, maxAEDATFilter: DateTime | undefined, minAEDATFilter: DateTime | undefined, eRNAMFilter: string | undefined, maxPINCRFilter: number | undefined, minPINCRFilter: number | undefined, maxLPONRFilter: number | undefined, minLPONRFilter: number | undefined, lIFNRFilter: string | undefined, zTERMFilter: string | undefined, maxZBD1TFilter: number | undefined, minZBD1TFilter: number | undefined, maxZBD2TFilter: number | undefined, minZBD2TFilter: number | undefined, maxZBD3TFilter: number | undefined, minZBD3TFilter: number | undefined, maxZBD1PFilter: number | undefined, minZBD1PFilter: number | undefined, maxZBD2PFilter: number | undefined, minZBD2PFilter: number | undefined, eKORGFilter: string | undefined, eKGRPFilter: string | undefined, wAERSFilter: string | undefined, maxWKURSFilter: number | undefined, minWKURSFilter: number | undefined, kUFIXFilter: string | undefined, maxBEDATFilter: DateTime | undefined, minBEDATFilter: DateTime | undefined, maxKDATBFilter: DateTime | undefined, minKDATBFilter: DateTime | undefined, maxKDATEFilter: DateTime | undefined, minKDATEFilter: DateTime | undefined, maxBWBDTFilter: DateTime | undefined, minBWBDTFilter: DateTime | undefined, maxGWLDTFilter: DateTime | undefined, minGWLDTFilter: DateTime | undefined, maxIHRANFilter: DateTime | undefined, minIHRANFilter: DateTime | undefined, kUNNRFilter: string | undefined, kONNRFilter: string | undefined, aBGRUFilter: string | undefined, aUTLFFilter: string | undefined, wEAKTFilter: string | undefined, rESWKFilter: string | undefined, lBLIFFilter: string | undefined, iNCO1Filter: string | undefined, iNCO2Filter: string | undefined, sUBMIFilter: string | undefined, kNUMVFilter: string | undefined, kALSMFilter: string | undefined, pROCSTATFilter: string | undefined, uNSEZFilter: string | undefined, fRGGRFilter: string | undefined, fRGSXFilter: string | undefined, fRGKEFilter: string | undefined, fRGZUFilter: string | undefined, aDRNRFilter: string | undefined): Observable<FileDto> {
-        let url_ = this.baseUrl + "/api/services/app/EKKOs/GetEkkosToExcel?";
-        if (filter === null)
-            throw new Error("The parameter 'filter' cannot be null.");
-        else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (mANDTFilter === null)
-            throw new Error("The parameter 'mANDTFilter' cannot be null.");
-        else if (mANDTFilter !== undefined)
-            url_ += "MANDTFilter=" + encodeURIComponent("" + mANDTFilter) + "&";
-        if (eBELNFilter === null)
-            throw new Error("The parameter 'eBELNFilter' cannot be null.");
-        else if (eBELNFilter !== undefined)
-            url_ += "EBELNFilter=" + encodeURIComponent("" + eBELNFilter) + "&";
-        if (bUKRSFilter === null)
-            throw new Error("The parameter 'bUKRSFilter' cannot be null.");
-        else if (bUKRSFilter !== undefined)
-            url_ += "BUKRSFilter=" + encodeURIComponent("" + bUKRSFilter) + "&";
-        if (bSTYPFilter === null)
-            throw new Error("The parameter 'bSTYPFilter' cannot be null.");
-        else if (bSTYPFilter !== undefined)
-            url_ += "BSTYPFilter=" + encodeURIComponent("" + bSTYPFilter) + "&";
-        if (bSARTFilter === null)
-            throw new Error("The parameter 'bSARTFilter' cannot be null.");
-        else if (bSARTFilter !== undefined)
-            url_ += "BSARTFilter=" + encodeURIComponent("" + bSARTFilter) + "&";
-        if (bSAKZFilter === null)
-            throw new Error("The parameter 'bSAKZFilter' cannot be null.");
-        else if (bSAKZFilter !== undefined)
-            url_ += "BSAKZFilter=" + encodeURIComponent("" + bSAKZFilter) + "&";
-        if (lOEKZFilter === null)
-            throw new Error("The parameter 'lOEKZFilter' cannot be null.");
-        else if (lOEKZFilter !== undefined)
-            url_ += "LOEKZFilter=" + encodeURIComponent("" + lOEKZFilter) + "&";
-        if (sTATUFilter === null)
-            throw new Error("The parameter 'sTATUFilter' cannot be null.");
-        else if (sTATUFilter !== undefined)
-            url_ += "STATUFilter=" + encodeURIComponent("" + sTATUFilter) + "&";
-        if (maxAEDATFilter === null)
-            throw new Error("The parameter 'maxAEDATFilter' cannot be null.");
-        else if (maxAEDATFilter !== undefined)
-            url_ += "MaxAEDATFilter=" + encodeURIComponent(maxAEDATFilter ? "" + maxAEDATFilter.toString() : "") + "&";
-        if (minAEDATFilter === null)
-            throw new Error("The parameter 'minAEDATFilter' cannot be null.");
-        else if (minAEDATFilter !== undefined)
-            url_ += "MinAEDATFilter=" + encodeURIComponent(minAEDATFilter ? "" + minAEDATFilter.toString() : "") + "&";
-        if (eRNAMFilter === null)
-            throw new Error("The parameter 'eRNAMFilter' cannot be null.");
-        else if (eRNAMFilter !== undefined)
-            url_ += "ERNAMFilter=" + encodeURIComponent("" + eRNAMFilter) + "&";
-        if (maxPINCRFilter === null)
-            throw new Error("The parameter 'maxPINCRFilter' cannot be null.");
-        else if (maxPINCRFilter !== undefined)
-            url_ += "MaxPINCRFilter=" + encodeURIComponent("" + maxPINCRFilter) + "&";
-        if (minPINCRFilter === null)
-            throw new Error("The parameter 'minPINCRFilter' cannot be null.");
-        else if (minPINCRFilter !== undefined)
-            url_ += "MinPINCRFilter=" + encodeURIComponent("" + minPINCRFilter) + "&";
-        if (maxLPONRFilter === null)
-            throw new Error("The parameter 'maxLPONRFilter' cannot be null.");
-        else if (maxLPONRFilter !== undefined)
-            url_ += "MaxLPONRFilter=" + encodeURIComponent("" + maxLPONRFilter) + "&";
-        if (minLPONRFilter === null)
-            throw new Error("The parameter 'minLPONRFilter' cannot be null.");
-        else if (minLPONRFilter !== undefined)
-            url_ += "MinLPONRFilter=" + encodeURIComponent("" + minLPONRFilter) + "&";
-        if (lIFNRFilter === null)
-            throw new Error("The parameter 'lIFNRFilter' cannot be null.");
-        else if (lIFNRFilter !== undefined)
-            url_ += "LIFNRFilter=" + encodeURIComponent("" + lIFNRFilter) + "&";
-        if (zTERMFilter === null)
-            throw new Error("The parameter 'zTERMFilter' cannot be null.");
-        else if (zTERMFilter !== undefined)
-            url_ += "ZTERMFilter=" + encodeURIComponent("" + zTERMFilter) + "&";
-        if (maxZBD1TFilter === null)
-            throw new Error("The parameter 'maxZBD1TFilter' cannot be null.");
-        else if (maxZBD1TFilter !== undefined)
-            url_ += "MaxZBD1TFilter=" + encodeURIComponent("" + maxZBD1TFilter) + "&";
-        if (minZBD1TFilter === null)
-            throw new Error("The parameter 'minZBD1TFilter' cannot be null.");
-        else if (minZBD1TFilter !== undefined)
-            url_ += "MinZBD1TFilter=" + encodeURIComponent("" + minZBD1TFilter) + "&";
-        if (maxZBD2TFilter === null)
-            throw new Error("The parameter 'maxZBD2TFilter' cannot be null.");
-        else if (maxZBD2TFilter !== undefined)
-            url_ += "MaxZBD2TFilter=" + encodeURIComponent("" + maxZBD2TFilter) + "&";
-        if (minZBD2TFilter === null)
-            throw new Error("The parameter 'minZBD2TFilter' cannot be null.");
-        else if (minZBD2TFilter !== undefined)
-            url_ += "MinZBD2TFilter=" + encodeURIComponent("" + minZBD2TFilter) + "&";
-        if (maxZBD3TFilter === null)
-            throw new Error("The parameter 'maxZBD3TFilter' cannot be null.");
-        else if (maxZBD3TFilter !== undefined)
-            url_ += "MaxZBD3TFilter=" + encodeURIComponent("" + maxZBD3TFilter) + "&";
-        if (minZBD3TFilter === null)
-            throw new Error("The parameter 'minZBD3TFilter' cannot be null.");
-        else if (minZBD3TFilter !== undefined)
-            url_ += "MinZBD3TFilter=" + encodeURIComponent("" + minZBD3TFilter) + "&";
-        if (maxZBD1PFilter === null)
-            throw new Error("The parameter 'maxZBD1PFilter' cannot be null.");
-        else if (maxZBD1PFilter !== undefined)
-            url_ += "MaxZBD1PFilter=" + encodeURIComponent("" + maxZBD1PFilter) + "&";
-        if (minZBD1PFilter === null)
-            throw new Error("The parameter 'minZBD1PFilter' cannot be null.");
-        else if (minZBD1PFilter !== undefined)
-            url_ += "MinZBD1PFilter=" + encodeURIComponent("" + minZBD1PFilter) + "&";
-        if (maxZBD2PFilter === null)
-            throw new Error("The parameter 'maxZBD2PFilter' cannot be null.");
-        else if (maxZBD2PFilter !== undefined)
-            url_ += "MaxZBD2PFilter=" + encodeURIComponent("" + maxZBD2PFilter) + "&";
-        if (minZBD2PFilter === null)
-            throw new Error("The parameter 'minZBD2PFilter' cannot be null.");
-        else if (minZBD2PFilter !== undefined)
-            url_ += "MinZBD2PFilter=" + encodeURIComponent("" + minZBD2PFilter) + "&";
-        if (eKORGFilter === null)
-            throw new Error("The parameter 'eKORGFilter' cannot be null.");
-        else if (eKORGFilter !== undefined)
-            url_ += "EKORGFilter=" + encodeURIComponent("" + eKORGFilter) + "&";
-        if (eKGRPFilter === null)
-            throw new Error("The parameter 'eKGRPFilter' cannot be null.");
-        else if (eKGRPFilter !== undefined)
-            url_ += "EKGRPFilter=" + encodeURIComponent("" + eKGRPFilter) + "&";
-        if (wAERSFilter === null)
-            throw new Error("The parameter 'wAERSFilter' cannot be null.");
-        else if (wAERSFilter !== undefined)
-            url_ += "WAERSFilter=" + encodeURIComponent("" + wAERSFilter) + "&";
-        if (maxWKURSFilter === null)
-            throw new Error("The parameter 'maxWKURSFilter' cannot be null.");
-        else if (maxWKURSFilter !== undefined)
-            url_ += "MaxWKURSFilter=" + encodeURIComponent("" + maxWKURSFilter) + "&";
-        if (minWKURSFilter === null)
-            throw new Error("The parameter 'minWKURSFilter' cannot be null.");
-        else if (minWKURSFilter !== undefined)
-            url_ += "MinWKURSFilter=" + encodeURIComponent("" + minWKURSFilter) + "&";
-        if (kUFIXFilter === null)
-            throw new Error("The parameter 'kUFIXFilter' cannot be null.");
-        else if (kUFIXFilter !== undefined)
-            url_ += "KUFIXFilter=" + encodeURIComponent("" + kUFIXFilter) + "&";
-        if (maxBEDATFilter === null)
-            throw new Error("The parameter 'maxBEDATFilter' cannot be null.");
-        else if (maxBEDATFilter !== undefined)
-            url_ += "MaxBEDATFilter=" + encodeURIComponent(maxBEDATFilter ? "" + maxBEDATFilter.toString() : "") + "&";
-        if (minBEDATFilter === null)
-            throw new Error("The parameter 'minBEDATFilter' cannot be null.");
-        else if (minBEDATFilter !== undefined)
-            url_ += "MinBEDATFilter=" + encodeURIComponent(minBEDATFilter ? "" + minBEDATFilter.toString() : "") + "&";
-        if (maxKDATBFilter === null)
-            throw new Error("The parameter 'maxKDATBFilter' cannot be null.");
-        else if (maxKDATBFilter !== undefined)
-            url_ += "MaxKDATBFilter=" + encodeURIComponent(maxKDATBFilter ? "" + maxKDATBFilter.toString() : "") + "&";
-        if (minKDATBFilter === null)
-            throw new Error("The parameter 'minKDATBFilter' cannot be null.");
-        else if (minKDATBFilter !== undefined)
-            url_ += "MinKDATBFilter=" + encodeURIComponent(minKDATBFilter ? "" + minKDATBFilter.toString() : "") + "&";
-        if (maxKDATEFilter === null)
-            throw new Error("The parameter 'maxKDATEFilter' cannot be null.");
-        else if (maxKDATEFilter !== undefined)
-            url_ += "MaxKDATEFilter=" + encodeURIComponent(maxKDATEFilter ? "" + maxKDATEFilter.toString() : "") + "&";
-        if (minKDATEFilter === null)
-            throw new Error("The parameter 'minKDATEFilter' cannot be null.");
-        else if (minKDATEFilter !== undefined)
-            url_ += "MinKDATEFilter=" + encodeURIComponent(minKDATEFilter ? "" + minKDATEFilter.toString() : "") + "&";
-        if (maxBWBDTFilter === null)
-            throw new Error("The parameter 'maxBWBDTFilter' cannot be null.");
-        else if (maxBWBDTFilter !== undefined)
-            url_ += "MaxBWBDTFilter=" + encodeURIComponent(maxBWBDTFilter ? "" + maxBWBDTFilter.toString() : "") + "&";
-        if (minBWBDTFilter === null)
-            throw new Error("The parameter 'minBWBDTFilter' cannot be null.");
-        else if (minBWBDTFilter !== undefined)
-            url_ += "MinBWBDTFilter=" + encodeURIComponent(minBWBDTFilter ? "" + minBWBDTFilter.toString() : "") + "&";
-        if (maxGWLDTFilter === null)
-            throw new Error("The parameter 'maxGWLDTFilter' cannot be null.");
-        else if (maxGWLDTFilter !== undefined)
-            url_ += "MaxGWLDTFilter=" + encodeURIComponent(maxGWLDTFilter ? "" + maxGWLDTFilter.toString() : "") + "&";
-        if (minGWLDTFilter === null)
-            throw new Error("The parameter 'minGWLDTFilter' cannot be null.");
-        else if (minGWLDTFilter !== undefined)
-            url_ += "MinGWLDTFilter=" + encodeURIComponent(minGWLDTFilter ? "" + minGWLDTFilter.toString() : "") + "&";
-        if (maxIHRANFilter === null)
-            throw new Error("The parameter 'maxIHRANFilter' cannot be null.");
-        else if (maxIHRANFilter !== undefined)
-            url_ += "MaxIHRANFilter=" + encodeURIComponent(maxIHRANFilter ? "" + maxIHRANFilter.toString() : "") + "&";
-        if (minIHRANFilter === null)
-            throw new Error("The parameter 'minIHRANFilter' cannot be null.");
-        else if (minIHRANFilter !== undefined)
-            url_ += "MinIHRANFilter=" + encodeURIComponent(minIHRANFilter ? "" + minIHRANFilter.toString() : "") + "&";
-        if (kUNNRFilter === null)
-            throw new Error("The parameter 'kUNNRFilter' cannot be null.");
-        else if (kUNNRFilter !== undefined)
-            url_ += "KUNNRFilter=" + encodeURIComponent("" + kUNNRFilter) + "&";
-        if (kONNRFilter === null)
-            throw new Error("The parameter 'kONNRFilter' cannot be null.");
-        else if (kONNRFilter !== undefined)
-            url_ += "KONNRFilter=" + encodeURIComponent("" + kONNRFilter) + "&";
-        if (aBGRUFilter === null)
-            throw new Error("The parameter 'aBGRUFilter' cannot be null.");
-        else if (aBGRUFilter !== undefined)
-            url_ += "ABGRUFilter=" + encodeURIComponent("" + aBGRUFilter) + "&";
-        if (aUTLFFilter === null)
-            throw new Error("The parameter 'aUTLFFilter' cannot be null.");
-        else if (aUTLFFilter !== undefined)
-            url_ += "AUTLFFilter=" + encodeURIComponent("" + aUTLFFilter) + "&";
-        if (wEAKTFilter === null)
-            throw new Error("The parameter 'wEAKTFilter' cannot be null.");
-        else if (wEAKTFilter !== undefined)
-            url_ += "WEAKTFilter=" + encodeURIComponent("" + wEAKTFilter) + "&";
-        if (rESWKFilter === null)
-            throw new Error("The parameter 'rESWKFilter' cannot be null.");
-        else if (rESWKFilter !== undefined)
-            url_ += "RESWKFilter=" + encodeURIComponent("" + rESWKFilter) + "&";
-        if (lBLIFFilter === null)
-            throw new Error("The parameter 'lBLIFFilter' cannot be null.");
-        else if (lBLIFFilter !== undefined)
-            url_ += "LBLIFFilter=" + encodeURIComponent("" + lBLIFFilter) + "&";
-        if (iNCO1Filter === null)
-            throw new Error("The parameter 'iNCO1Filter' cannot be null.");
-        else if (iNCO1Filter !== undefined)
-            url_ += "INCO1Filter=" + encodeURIComponent("" + iNCO1Filter) + "&";
-        if (iNCO2Filter === null)
-            throw new Error("The parameter 'iNCO2Filter' cannot be null.");
-        else if (iNCO2Filter !== undefined)
-            url_ += "INCO2Filter=" + encodeURIComponent("" + iNCO2Filter) + "&";
-        if (sUBMIFilter === null)
-            throw new Error("The parameter 'sUBMIFilter' cannot be null.");
-        else if (sUBMIFilter !== undefined)
-            url_ += "SUBMIFilter=" + encodeURIComponent("" + sUBMIFilter) + "&";
-        if (kNUMVFilter === null)
-            throw new Error("The parameter 'kNUMVFilter' cannot be null.");
-        else if (kNUMVFilter !== undefined)
-            url_ += "KNUMVFilter=" + encodeURIComponent("" + kNUMVFilter) + "&";
-        if (kALSMFilter === null)
-            throw new Error("The parameter 'kALSMFilter' cannot be null.");
-        else if (kALSMFilter !== undefined)
-            url_ += "KALSMFilter=" + encodeURIComponent("" + kALSMFilter) + "&";
-        if (pROCSTATFilter === null)
-            throw new Error("The parameter 'pROCSTATFilter' cannot be null.");
-        else if (pROCSTATFilter !== undefined)
-            url_ += "PROCSTATFilter=" + encodeURIComponent("" + pROCSTATFilter) + "&";
-        if (uNSEZFilter === null)
-            throw new Error("The parameter 'uNSEZFilter' cannot be null.");
-        else if (uNSEZFilter !== undefined)
-            url_ += "UNSEZFilter=" + encodeURIComponent("" + uNSEZFilter) + "&";
-        if (fRGGRFilter === null)
-            throw new Error("The parameter 'fRGGRFilter' cannot be null.");
-        else if (fRGGRFilter !== undefined)
-            url_ += "FRGGRFilter=" + encodeURIComponent("" + fRGGRFilter) + "&";
-        if (fRGSXFilter === null)
-            throw new Error("The parameter 'fRGSXFilter' cannot be null.");
-        else if (fRGSXFilter !== undefined)
-            url_ += "FRGSXFilter=" + encodeURIComponent("" + fRGSXFilter) + "&";
-        if (fRGKEFilter === null)
-            throw new Error("The parameter 'fRGKEFilter' cannot be null.");
-        else if (fRGKEFilter !== undefined)
-            url_ += "FRGKEFilter=" + encodeURIComponent("" + fRGKEFilter) + "&";
-        if (fRGZUFilter === null)
-            throw new Error("The parameter 'fRGZUFilter' cannot be null.");
-        else if (fRGZUFilter !== undefined)
-            url_ += "FRGZUFilter=" + encodeURIComponent("" + fRGZUFilter) + "&";
-        if (aDRNRFilter === null)
-            throw new Error("The parameter 'aDRNRFilter' cannot be null.");
-        else if (aDRNRFilter !== undefined)
-            url_ += "ADRNRFilter=" + encodeURIComponent("" + aDRNRFilter) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetEkkosToExcel(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetEkkosToExcel(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<FileDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<FileDto>;
-        }));
-    }
-
-    protected processGetEkkosToExcel(response: HttpResponseBase): Observable<FileDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = FileDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-}
-
-@Injectable()
-export class EKPOsServiceProxy {
-    private http: HttpClient;
-    private baseUrl: string;
-    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
-
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
-        this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
-    }
-
-    /**
-     * @param filter (optional) 
-     * @param mANDTFilter (optional) 
-     * @param eBELNFilter (optional) 
-     * @param maxEBELPFilter (optional) 
-     * @param minEBELPFilter (optional) 
-     * @param uNIQUEIDFilter (optional) 
-     * @param lOEKZFilter (optional) 
-     * @param sTATUFilter (optional) 
-     * @param maxAEDATFilter (optional) 
-     * @param minAEDATFilter (optional) 
-     * @param tXZ01Filter (optional) 
-     * @param mATNRFilter (optional) 
-     * @param eMATNFilter (optional) 
-     * @param bUKRSFilter (optional) 
-     * @param wERKSFilter (optional) 
-     * @param lGORTFilter (optional) 
-     * @param bEDNRFilter (optional) 
-     * @param mATKLFilter (optional) 
-     * @param iNFNRFilter (optional) 
-     * @param iDNLFFilter (optional) 
-     * @param maxKTMNGFilter (optional) 
-     * @param minKTMNGFilter (optional) 
-     * @param maxMENGEFilter (optional) 
-     * @param minMENGEFilter (optional) 
-     * @param mEINSFilter (optional) 
-     * @param bPRMEFilter (optional) 
-     * @param maxBPUMZFilter (optional) 
-     * @param minBPUMZFilter (optional) 
-     * @param maxBPUMNFilter (optional) 
-     * @param minBPUMNFilter (optional) 
-     * @param maxUMREZFilter (optional) 
-     * @param minUMREZFilter (optional) 
-     * @param maxUMRENFilter (optional) 
-     * @param minUMRENFilter (optional) 
-     * @param maxNETPRFilter (optional) 
-     * @param minNETPRFilter (optional) 
-     * @param maxPEINHFilter (optional) 
-     * @param minPEINHFilter (optional) 
-     * @param maxNETWRFilter (optional) 
-     * @param minNETWRFilter (optional) 
-     * @param maxBRTWRFilter (optional) 
-     * @param minBRTWRFilter (optional) 
-     * @param maxAGDATFilter (optional) 
-     * @param minAGDATFilter (optional) 
-     * @param maxWEBAZFilter (optional) 
-     * @param minWEBAZFilter (optional) 
-     * @param mWSKZFilter (optional) 
-     * @param bONUSFilter (optional) 
-     * @param iNSMKFilter (optional) 
-     * @param sPINFFilter (optional) 
-     * @param pRSDRFilter (optional) 
-     * @param bWTARFilter (optional) 
-     * @param bWTTYFilter (optional) 
-     * @param aBSKZFilter (optional) 
-     * @param pSTYPFilter (optional) 
-     * @param kNTTPFilter (optional) 
-     * @param kONNRFilter (optional) 
-     * @param maxKTPNRFilter (optional) 
-     * @param minKTPNRFilter (optional) 
-     * @param maxPACKNOFilter (optional) 
-     * @param minPACKNOFilter (optional) 
-     * @param aNFNRFilter (optional) 
-     * @param bANFNFilter (optional) 
-     * @param maxBNFPOFilter (optional) 
-     * @param minBNFPOFilter (optional) 
-     * @param sorting (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
-     * @return Success
-     */
-    getAll(filter: string | undefined, mANDTFilter: string | undefined, eBELNFilter: string | undefined, maxEBELPFilter: number | undefined, minEBELPFilter: number | undefined, uNIQUEIDFilter: string | undefined, lOEKZFilter: string | undefined, sTATUFilter: string | undefined, maxAEDATFilter: DateTime | undefined, minAEDATFilter: DateTime | undefined, tXZ01Filter: string | undefined, mATNRFilter: string | undefined, eMATNFilter: string | undefined, bUKRSFilter: string | undefined, wERKSFilter: string | undefined, lGORTFilter: string | undefined, bEDNRFilter: string | undefined, mATKLFilter: string | undefined, iNFNRFilter: string | undefined, iDNLFFilter: string | undefined, maxKTMNGFilter: number | undefined, minKTMNGFilter: number | undefined, maxMENGEFilter: number | undefined, minMENGEFilter: number | undefined, mEINSFilter: string | undefined, bPRMEFilter: string | undefined, maxBPUMZFilter: number | undefined, minBPUMZFilter: number | undefined, maxBPUMNFilter: number | undefined, minBPUMNFilter: number | undefined, maxUMREZFilter: number | undefined, minUMREZFilter: number | undefined, maxUMRENFilter: number | undefined, minUMRENFilter: number | undefined, maxNETPRFilter: number | undefined, minNETPRFilter: number | undefined, maxPEINHFilter: number | undefined, minPEINHFilter: number | undefined, maxNETWRFilter: number | undefined, minNETWRFilter: number | undefined, maxBRTWRFilter: number | undefined, minBRTWRFilter: number | undefined, maxAGDATFilter: DateTime | undefined, minAGDATFilter: DateTime | undefined, maxWEBAZFilter: number | undefined, minWEBAZFilter: number | undefined, mWSKZFilter: string | undefined, bONUSFilter: string | undefined, iNSMKFilter: string | undefined, sPINFFilter: string | undefined, pRSDRFilter: string | undefined, bWTARFilter: string | undefined, bWTTYFilter: string | undefined, aBSKZFilter: string | undefined, pSTYPFilter: string | undefined, kNTTPFilter: string | undefined, kONNRFilter: string | undefined, maxKTPNRFilter: number | undefined, minKTPNRFilter: number | undefined, maxPACKNOFilter: number | undefined, minPACKNOFilter: number | undefined, aNFNRFilter: string | undefined, bANFNFilter: string | undefined, maxBNFPOFilter: number | undefined, minBNFPOFilter: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetEKPOForViewDto> {
-        let url_ = this.baseUrl + "/api/services/app/EKPOs/GetAll?";
-        if (filter === null)
-            throw new Error("The parameter 'filter' cannot be null.");
-        else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (mANDTFilter === null)
-            throw new Error("The parameter 'mANDTFilter' cannot be null.");
-        else if (mANDTFilter !== undefined)
-            url_ += "MANDTFilter=" + encodeURIComponent("" + mANDTFilter) + "&";
-        if (eBELNFilter === null)
-            throw new Error("The parameter 'eBELNFilter' cannot be null.");
-        else if (eBELNFilter !== undefined)
-            url_ += "EBELNFilter=" + encodeURIComponent("" + eBELNFilter) + "&";
-        if (maxEBELPFilter === null)
-            throw new Error("The parameter 'maxEBELPFilter' cannot be null.");
-        else if (maxEBELPFilter !== undefined)
-            url_ += "MaxEBELPFilter=" + encodeURIComponent("" + maxEBELPFilter) + "&";
-        if (minEBELPFilter === null)
-            throw new Error("The parameter 'minEBELPFilter' cannot be null.");
-        else if (minEBELPFilter !== undefined)
-            url_ += "MinEBELPFilter=" + encodeURIComponent("" + minEBELPFilter) + "&";
-        if (uNIQUEIDFilter === null)
-            throw new Error("The parameter 'uNIQUEIDFilter' cannot be null.");
-        else if (uNIQUEIDFilter !== undefined)
-            url_ += "UNIQUEIDFilter=" + encodeURIComponent("" + uNIQUEIDFilter) + "&";
-        if (lOEKZFilter === null)
-            throw new Error("The parameter 'lOEKZFilter' cannot be null.");
-        else if (lOEKZFilter !== undefined)
-            url_ += "LOEKZFilter=" + encodeURIComponent("" + lOEKZFilter) + "&";
-        if (sTATUFilter === null)
-            throw new Error("The parameter 'sTATUFilter' cannot be null.");
-        else if (sTATUFilter !== undefined)
-            url_ += "STATUFilter=" + encodeURIComponent("" + sTATUFilter) + "&";
-        if (maxAEDATFilter === null)
-            throw new Error("The parameter 'maxAEDATFilter' cannot be null.");
-        else if (maxAEDATFilter !== undefined)
-            url_ += "MaxAEDATFilter=" + encodeURIComponent(maxAEDATFilter ? "" + maxAEDATFilter.toString() : "") + "&";
-        if (minAEDATFilter === null)
-            throw new Error("The parameter 'minAEDATFilter' cannot be null.");
-        else if (minAEDATFilter !== undefined)
-            url_ += "MinAEDATFilter=" + encodeURIComponent(minAEDATFilter ? "" + minAEDATFilter.toString() : "") + "&";
-        if (tXZ01Filter === null)
-            throw new Error("The parameter 'tXZ01Filter' cannot be null.");
-        else if (tXZ01Filter !== undefined)
-            url_ += "TXZ01Filter=" + encodeURIComponent("" + tXZ01Filter) + "&";
-        if (mATNRFilter === null)
-            throw new Error("The parameter 'mATNRFilter' cannot be null.");
-        else if (mATNRFilter !== undefined)
-            url_ += "MATNRFilter=" + encodeURIComponent("" + mATNRFilter) + "&";
-        if (eMATNFilter === null)
-            throw new Error("The parameter 'eMATNFilter' cannot be null.");
-        else if (eMATNFilter !== undefined)
-            url_ += "EMATNFilter=" + encodeURIComponent("" + eMATNFilter) + "&";
-        if (bUKRSFilter === null)
-            throw new Error("The parameter 'bUKRSFilter' cannot be null.");
-        else if (bUKRSFilter !== undefined)
-            url_ += "BUKRSFilter=" + encodeURIComponent("" + bUKRSFilter) + "&";
-        if (wERKSFilter === null)
-            throw new Error("The parameter 'wERKSFilter' cannot be null.");
-        else if (wERKSFilter !== undefined)
-            url_ += "WERKSFilter=" + encodeURIComponent("" + wERKSFilter) + "&";
-        if (lGORTFilter === null)
-            throw new Error("The parameter 'lGORTFilter' cannot be null.");
-        else if (lGORTFilter !== undefined)
-            url_ += "LGORTFilter=" + encodeURIComponent("" + lGORTFilter) + "&";
-        if (bEDNRFilter === null)
-            throw new Error("The parameter 'bEDNRFilter' cannot be null.");
-        else if (bEDNRFilter !== undefined)
-            url_ += "BEDNRFilter=" + encodeURIComponent("" + bEDNRFilter) + "&";
-        if (mATKLFilter === null)
-            throw new Error("The parameter 'mATKLFilter' cannot be null.");
-        else if (mATKLFilter !== undefined)
-            url_ += "MATKLFilter=" + encodeURIComponent("" + mATKLFilter) + "&";
-        if (iNFNRFilter === null)
-            throw new Error("The parameter 'iNFNRFilter' cannot be null.");
-        else if (iNFNRFilter !== undefined)
-            url_ += "INFNRFilter=" + encodeURIComponent("" + iNFNRFilter) + "&";
-        if (iDNLFFilter === null)
-            throw new Error("The parameter 'iDNLFFilter' cannot be null.");
-        else if (iDNLFFilter !== undefined)
-            url_ += "IDNLFFilter=" + encodeURIComponent("" + iDNLFFilter) + "&";
-        if (maxKTMNGFilter === null)
-            throw new Error("The parameter 'maxKTMNGFilter' cannot be null.");
-        else if (maxKTMNGFilter !== undefined)
-            url_ += "MaxKTMNGFilter=" + encodeURIComponent("" + maxKTMNGFilter) + "&";
-        if (minKTMNGFilter === null)
-            throw new Error("The parameter 'minKTMNGFilter' cannot be null.");
-        else if (minKTMNGFilter !== undefined)
-            url_ += "MinKTMNGFilter=" + encodeURIComponent("" + minKTMNGFilter) + "&";
-        if (maxMENGEFilter === null)
-            throw new Error("The parameter 'maxMENGEFilter' cannot be null.");
-        else if (maxMENGEFilter !== undefined)
-            url_ += "MaxMENGEFilter=" + encodeURIComponent("" + maxMENGEFilter) + "&";
-        if (minMENGEFilter === null)
-            throw new Error("The parameter 'minMENGEFilter' cannot be null.");
-        else if (minMENGEFilter !== undefined)
-            url_ += "MinMENGEFilter=" + encodeURIComponent("" + minMENGEFilter) + "&";
-        if (mEINSFilter === null)
-            throw new Error("The parameter 'mEINSFilter' cannot be null.");
-        else if (mEINSFilter !== undefined)
-            url_ += "MEINSFilter=" + encodeURIComponent("" + mEINSFilter) + "&";
-        if (bPRMEFilter === null)
-            throw new Error("The parameter 'bPRMEFilter' cannot be null.");
-        else if (bPRMEFilter !== undefined)
-            url_ += "BPRMEFilter=" + encodeURIComponent("" + bPRMEFilter) + "&";
-        if (maxBPUMZFilter === null)
-            throw new Error("The parameter 'maxBPUMZFilter' cannot be null.");
-        else if (maxBPUMZFilter !== undefined)
-            url_ += "MaxBPUMZFilter=" + encodeURIComponent("" + maxBPUMZFilter) + "&";
-        if (minBPUMZFilter === null)
-            throw new Error("The parameter 'minBPUMZFilter' cannot be null.");
-        else if (minBPUMZFilter !== undefined)
-            url_ += "MinBPUMZFilter=" + encodeURIComponent("" + minBPUMZFilter) + "&";
-        if (maxBPUMNFilter === null)
-            throw new Error("The parameter 'maxBPUMNFilter' cannot be null.");
-        else if (maxBPUMNFilter !== undefined)
-            url_ += "MaxBPUMNFilter=" + encodeURIComponent("" + maxBPUMNFilter) + "&";
-        if (minBPUMNFilter === null)
-            throw new Error("The parameter 'minBPUMNFilter' cannot be null.");
-        else if (minBPUMNFilter !== undefined)
-            url_ += "MinBPUMNFilter=" + encodeURIComponent("" + minBPUMNFilter) + "&";
-        if (maxUMREZFilter === null)
-            throw new Error("The parameter 'maxUMREZFilter' cannot be null.");
-        else if (maxUMREZFilter !== undefined)
-            url_ += "MaxUMREZFilter=" + encodeURIComponent("" + maxUMREZFilter) + "&";
-        if (minUMREZFilter === null)
-            throw new Error("The parameter 'minUMREZFilter' cannot be null.");
-        else if (minUMREZFilter !== undefined)
-            url_ += "MinUMREZFilter=" + encodeURIComponent("" + minUMREZFilter) + "&";
-        if (maxUMRENFilter === null)
-            throw new Error("The parameter 'maxUMRENFilter' cannot be null.");
-        else if (maxUMRENFilter !== undefined)
-            url_ += "MaxUMRENFilter=" + encodeURIComponent("" + maxUMRENFilter) + "&";
-        if (minUMRENFilter === null)
-            throw new Error("The parameter 'minUMRENFilter' cannot be null.");
-        else if (minUMRENFilter !== undefined)
-            url_ += "MinUMRENFilter=" + encodeURIComponent("" + minUMRENFilter) + "&";
-        if (maxNETPRFilter === null)
-            throw new Error("The parameter 'maxNETPRFilter' cannot be null.");
-        else if (maxNETPRFilter !== undefined)
-            url_ += "MaxNETPRFilter=" + encodeURIComponent("" + maxNETPRFilter) + "&";
-        if (minNETPRFilter === null)
-            throw new Error("The parameter 'minNETPRFilter' cannot be null.");
-        else if (minNETPRFilter !== undefined)
-            url_ += "MinNETPRFilter=" + encodeURIComponent("" + minNETPRFilter) + "&";
-        if (maxPEINHFilter === null)
-            throw new Error("The parameter 'maxPEINHFilter' cannot be null.");
-        else if (maxPEINHFilter !== undefined)
-            url_ += "MaxPEINHFilter=" + encodeURIComponent("" + maxPEINHFilter) + "&";
-        if (minPEINHFilter === null)
-            throw new Error("The parameter 'minPEINHFilter' cannot be null.");
-        else if (minPEINHFilter !== undefined)
-            url_ += "MinPEINHFilter=" + encodeURIComponent("" + minPEINHFilter) + "&";
-        if (maxNETWRFilter === null)
-            throw new Error("The parameter 'maxNETWRFilter' cannot be null.");
-        else if (maxNETWRFilter !== undefined)
-            url_ += "MaxNETWRFilter=" + encodeURIComponent("" + maxNETWRFilter) + "&";
-        if (minNETWRFilter === null)
-            throw new Error("The parameter 'minNETWRFilter' cannot be null.");
-        else if (minNETWRFilter !== undefined)
-            url_ += "MinNETWRFilter=" + encodeURIComponent("" + minNETWRFilter) + "&";
-        if (maxBRTWRFilter === null)
-            throw new Error("The parameter 'maxBRTWRFilter' cannot be null.");
-        else if (maxBRTWRFilter !== undefined)
-            url_ += "MaxBRTWRFilter=" + encodeURIComponent("" + maxBRTWRFilter) + "&";
-        if (minBRTWRFilter === null)
-            throw new Error("The parameter 'minBRTWRFilter' cannot be null.");
-        else if (minBRTWRFilter !== undefined)
-            url_ += "MinBRTWRFilter=" + encodeURIComponent("" + minBRTWRFilter) + "&";
-        if (maxAGDATFilter === null)
-            throw new Error("The parameter 'maxAGDATFilter' cannot be null.");
-        else if (maxAGDATFilter !== undefined)
-            url_ += "MaxAGDATFilter=" + encodeURIComponent(maxAGDATFilter ? "" + maxAGDATFilter.toString() : "") + "&";
-        if (minAGDATFilter === null)
-            throw new Error("The parameter 'minAGDATFilter' cannot be null.");
-        else if (minAGDATFilter !== undefined)
-            url_ += "MinAGDATFilter=" + encodeURIComponent(minAGDATFilter ? "" + minAGDATFilter.toString() : "") + "&";
-        if (maxWEBAZFilter === null)
-            throw new Error("The parameter 'maxWEBAZFilter' cannot be null.");
-        else if (maxWEBAZFilter !== undefined)
-            url_ += "MaxWEBAZFilter=" + encodeURIComponent("" + maxWEBAZFilter) + "&";
-        if (minWEBAZFilter === null)
-            throw new Error("The parameter 'minWEBAZFilter' cannot be null.");
-        else if (minWEBAZFilter !== undefined)
-            url_ += "MinWEBAZFilter=" + encodeURIComponent("" + minWEBAZFilter) + "&";
-        if (mWSKZFilter === null)
-            throw new Error("The parameter 'mWSKZFilter' cannot be null.");
-        else if (mWSKZFilter !== undefined)
-            url_ += "MWSKZFilter=" + encodeURIComponent("" + mWSKZFilter) + "&";
-        if (bONUSFilter === null)
-            throw new Error("The parameter 'bONUSFilter' cannot be null.");
-        else if (bONUSFilter !== undefined)
-            url_ += "BONUSFilter=" + encodeURIComponent("" + bONUSFilter) + "&";
-        if (iNSMKFilter === null)
-            throw new Error("The parameter 'iNSMKFilter' cannot be null.");
-        else if (iNSMKFilter !== undefined)
-            url_ += "INSMKFilter=" + encodeURIComponent("" + iNSMKFilter) + "&";
-        if (sPINFFilter === null)
-            throw new Error("The parameter 'sPINFFilter' cannot be null.");
-        else if (sPINFFilter !== undefined)
-            url_ += "SPINFFilter=" + encodeURIComponent("" + sPINFFilter) + "&";
-        if (pRSDRFilter === null)
-            throw new Error("The parameter 'pRSDRFilter' cannot be null.");
-        else if (pRSDRFilter !== undefined)
-            url_ += "PRSDRFilter=" + encodeURIComponent("" + pRSDRFilter) + "&";
-        if (bWTARFilter === null)
-            throw new Error("The parameter 'bWTARFilter' cannot be null.");
-        else if (bWTARFilter !== undefined)
-            url_ += "BWTARFilter=" + encodeURIComponent("" + bWTARFilter) + "&";
-        if (bWTTYFilter === null)
-            throw new Error("The parameter 'bWTTYFilter' cannot be null.");
-        else if (bWTTYFilter !== undefined)
-            url_ += "BWTTYFilter=" + encodeURIComponent("" + bWTTYFilter) + "&";
-        if (aBSKZFilter === null)
-            throw new Error("The parameter 'aBSKZFilter' cannot be null.");
-        else if (aBSKZFilter !== undefined)
-            url_ += "ABSKZFilter=" + encodeURIComponent("" + aBSKZFilter) + "&";
-        if (pSTYPFilter === null)
-            throw new Error("The parameter 'pSTYPFilter' cannot be null.");
-        else if (pSTYPFilter !== undefined)
-            url_ += "PSTYPFilter=" + encodeURIComponent("" + pSTYPFilter) + "&";
-        if (kNTTPFilter === null)
-            throw new Error("The parameter 'kNTTPFilter' cannot be null.");
-        else if (kNTTPFilter !== undefined)
-            url_ += "KNTTPFilter=" + encodeURIComponent("" + kNTTPFilter) + "&";
-        if (kONNRFilter === null)
-            throw new Error("The parameter 'kONNRFilter' cannot be null.");
-        else if (kONNRFilter !== undefined)
-            url_ += "KONNRFilter=" + encodeURIComponent("" + kONNRFilter) + "&";
-        if (maxKTPNRFilter === null)
-            throw new Error("The parameter 'maxKTPNRFilter' cannot be null.");
-        else if (maxKTPNRFilter !== undefined)
-            url_ += "MaxKTPNRFilter=" + encodeURIComponent("" + maxKTPNRFilter) + "&";
-        if (minKTPNRFilter === null)
-            throw new Error("The parameter 'minKTPNRFilter' cannot be null.");
-        else if (minKTPNRFilter !== undefined)
-            url_ += "MinKTPNRFilter=" + encodeURIComponent("" + minKTPNRFilter) + "&";
-        if (maxPACKNOFilter === null)
-            throw new Error("The parameter 'maxPACKNOFilter' cannot be null.");
-        else if (maxPACKNOFilter !== undefined)
-            url_ += "MaxPACKNOFilter=" + encodeURIComponent("" + maxPACKNOFilter) + "&";
-        if (minPACKNOFilter === null)
-            throw new Error("The parameter 'minPACKNOFilter' cannot be null.");
-        else if (minPACKNOFilter !== undefined)
-            url_ += "MinPACKNOFilter=" + encodeURIComponent("" + minPACKNOFilter) + "&";
-        if (aNFNRFilter === null)
-            throw new Error("The parameter 'aNFNRFilter' cannot be null.");
-        else if (aNFNRFilter !== undefined)
-            url_ += "ANFNRFilter=" + encodeURIComponent("" + aNFNRFilter) + "&";
-        if (bANFNFilter === null)
-            throw new Error("The parameter 'bANFNFilter' cannot be null.");
-        else if (bANFNFilter !== undefined)
-            url_ += "BANFNFilter=" + encodeURIComponent("" + bANFNFilter) + "&";
-        if (maxBNFPOFilter === null)
-            throw new Error("The parameter 'maxBNFPOFilter' cannot be null.");
-        else if (maxBNFPOFilter !== undefined)
-            url_ += "MaxBNFPOFilter=" + encodeURIComponent("" + maxBNFPOFilter) + "&";
-        if (minBNFPOFilter === null)
-            throw new Error("The parameter 'minBNFPOFilter' cannot be null.");
-        else if (minBNFPOFilter !== undefined)
-            url_ += "MinBNFPOFilter=" + encodeURIComponent("" + minBNFPOFilter) + "&";
-        if (sorting === null)
-            throw new Error("The parameter 'sorting' cannot be null.");
-        else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (skipCount === null)
-            throw new Error("The parameter 'skipCount' cannot be null.");
-        else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
-        if (maxResultCount === null)
-            throw new Error("The parameter 'maxResultCount' cannot be null.");
-        else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAll(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetAll(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<PagedResultDtoOfGetEKPOForViewDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<PagedResultDtoOfGetEKPOForViewDto>;
-        }));
-    }
-
-    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetEKPOForViewDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PagedResultDtoOfGetEKPOForViewDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param id (optional) 
-     * @return Success
-     */
-    getEKPOForView(id: string | undefined): Observable<GetEKPOForViewDto> {
-        let url_ = this.baseUrl + "/api/services/app/EKPOs/GetEKPOForView?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetEKPOForView(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetEKPOForView(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<GetEKPOForViewDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<GetEKPOForViewDto>;
-        }));
-    }
-
-    protected processGetEKPOForView(response: HttpResponseBase): Observable<GetEKPOForViewDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetEKPOForViewDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param id (optional) 
-     * @return Success
-     */
-    getEKPOForEdit(id: string | undefined): Observable<GetEKPOForEditOutput> {
-        let url_ = this.baseUrl + "/api/services/app/EKPOs/GetEKPOForEdit?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetEKPOForEdit(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetEKPOForEdit(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<GetEKPOForEditOutput>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<GetEKPOForEditOutput>;
-        }));
-    }
-
-    protected processGetEKPOForEdit(response: HttpResponseBase): Observable<GetEKPOForEditOutput> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetEKPOForEditOutput.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    createOrEdit(body: CreateOrEditEKPODto | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/EKPOs/CreateOrEdit";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processCreateOrEdit(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processCreateOrEdit(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<void>;
-        }));
-    }
-
-    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return _observableOf(null as any);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param id (optional) 
-     * @return Success
-     */
-    delete(id: string | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/EKPOs/Delete?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-            })
-        };
-
-        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processDelete(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processDelete(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<void>;
-        }));
-    }
-
-    protected processDelete(response: HttpResponseBase): Observable<void> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return _observableOf(null as any);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param filter (optional) 
-     * @param mANDTFilter (optional) 
-     * @param eBELNFilter (optional) 
-     * @param maxEBELPFilter (optional) 
-     * @param minEBELPFilter (optional) 
-     * @param uNIQUEIDFilter (optional) 
-     * @param lOEKZFilter (optional) 
-     * @param sTATUFilter (optional) 
-     * @param maxAEDATFilter (optional) 
-     * @param minAEDATFilter (optional) 
-     * @param tXZ01Filter (optional) 
-     * @param mATNRFilter (optional) 
-     * @param eMATNFilter (optional) 
-     * @param bUKRSFilter (optional) 
-     * @param wERKSFilter (optional) 
-     * @param lGORTFilter (optional) 
-     * @param bEDNRFilter (optional) 
-     * @param mATKLFilter (optional) 
-     * @param iNFNRFilter (optional) 
-     * @param iDNLFFilter (optional) 
-     * @param maxKTMNGFilter (optional) 
-     * @param minKTMNGFilter (optional) 
-     * @param maxMENGEFilter (optional) 
-     * @param minMENGEFilter (optional) 
-     * @param mEINSFilter (optional) 
-     * @param bPRMEFilter (optional) 
-     * @param maxBPUMZFilter (optional) 
-     * @param minBPUMZFilter (optional) 
-     * @param maxBPUMNFilter (optional) 
-     * @param minBPUMNFilter (optional) 
-     * @param maxUMREZFilter (optional) 
-     * @param minUMREZFilter (optional) 
-     * @param maxUMRENFilter (optional) 
-     * @param minUMRENFilter (optional) 
-     * @param maxNETPRFilter (optional) 
-     * @param minNETPRFilter (optional) 
-     * @param maxPEINHFilter (optional) 
-     * @param minPEINHFilter (optional) 
-     * @param maxNETWRFilter (optional) 
-     * @param minNETWRFilter (optional) 
-     * @param maxBRTWRFilter (optional) 
-     * @param minBRTWRFilter (optional) 
-     * @param maxAGDATFilter (optional) 
-     * @param minAGDATFilter (optional) 
-     * @param maxWEBAZFilter (optional) 
-     * @param minWEBAZFilter (optional) 
-     * @param mWSKZFilter (optional) 
-     * @param bONUSFilter (optional) 
-     * @param iNSMKFilter (optional) 
-     * @param sPINFFilter (optional) 
-     * @param pRSDRFilter (optional) 
-     * @param bWTARFilter (optional) 
-     * @param bWTTYFilter (optional) 
-     * @param aBSKZFilter (optional) 
-     * @param pSTYPFilter (optional) 
-     * @param kNTTPFilter (optional) 
-     * @param kONNRFilter (optional) 
-     * @param maxKTPNRFilter (optional) 
-     * @param minKTPNRFilter (optional) 
-     * @param maxPACKNOFilter (optional) 
-     * @param minPACKNOFilter (optional) 
-     * @param aNFNRFilter (optional) 
-     * @param bANFNFilter (optional) 
-     * @param maxBNFPOFilter (optional) 
-     * @param minBNFPOFilter (optional) 
-     * @return Success
-     */
-    getEKPOsToExcel(filter: string | undefined, mANDTFilter: string | undefined, eBELNFilter: string | undefined, maxEBELPFilter: number | undefined, minEBELPFilter: number | undefined, uNIQUEIDFilter: string | undefined, lOEKZFilter: string | undefined, sTATUFilter: string | undefined, maxAEDATFilter: DateTime | undefined, minAEDATFilter: DateTime | undefined, tXZ01Filter: string | undefined, mATNRFilter: string | undefined, eMATNFilter: string | undefined, bUKRSFilter: string | undefined, wERKSFilter: string | undefined, lGORTFilter: string | undefined, bEDNRFilter: string | undefined, mATKLFilter: string | undefined, iNFNRFilter: string | undefined, iDNLFFilter: string | undefined, maxKTMNGFilter: number | undefined, minKTMNGFilter: number | undefined, maxMENGEFilter: number | undefined, minMENGEFilter: number | undefined, mEINSFilter: string | undefined, bPRMEFilter: string | undefined, maxBPUMZFilter: number | undefined, minBPUMZFilter: number | undefined, maxBPUMNFilter: number | undefined, minBPUMNFilter: number | undefined, maxUMREZFilter: number | undefined, minUMREZFilter: number | undefined, maxUMRENFilter: number | undefined, minUMRENFilter: number | undefined, maxNETPRFilter: number | undefined, minNETPRFilter: number | undefined, maxPEINHFilter: number | undefined, minPEINHFilter: number | undefined, maxNETWRFilter: number | undefined, minNETWRFilter: number | undefined, maxBRTWRFilter: number | undefined, minBRTWRFilter: number | undefined, maxAGDATFilter: DateTime | undefined, minAGDATFilter: DateTime | undefined, maxWEBAZFilter: number | undefined, minWEBAZFilter: number | undefined, mWSKZFilter: string | undefined, bONUSFilter: string | undefined, iNSMKFilter: string | undefined, sPINFFilter: string | undefined, pRSDRFilter: string | undefined, bWTARFilter: string | undefined, bWTTYFilter: string | undefined, aBSKZFilter: string | undefined, pSTYPFilter: string | undefined, kNTTPFilter: string | undefined, kONNRFilter: string | undefined, maxKTPNRFilter: number | undefined, minKTPNRFilter: number | undefined, maxPACKNOFilter: number | undefined, minPACKNOFilter: number | undefined, aNFNRFilter: string | undefined, bANFNFilter: string | undefined, maxBNFPOFilter: number | undefined, minBNFPOFilter: number | undefined): Observable<FileDto> {
-        let url_ = this.baseUrl + "/api/services/app/EKPOs/GetEKPOsToExcel?";
-        if (filter === null)
-            throw new Error("The parameter 'filter' cannot be null.");
-        else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (mANDTFilter === null)
-            throw new Error("The parameter 'mANDTFilter' cannot be null.");
-        else if (mANDTFilter !== undefined)
-            url_ += "MANDTFilter=" + encodeURIComponent("" + mANDTFilter) + "&";
-        if (eBELNFilter === null)
-            throw new Error("The parameter 'eBELNFilter' cannot be null.");
-        else if (eBELNFilter !== undefined)
-            url_ += "EBELNFilter=" + encodeURIComponent("" + eBELNFilter) + "&";
-        if (maxEBELPFilter === null)
-            throw new Error("The parameter 'maxEBELPFilter' cannot be null.");
-        else if (maxEBELPFilter !== undefined)
-            url_ += "MaxEBELPFilter=" + encodeURIComponent("" + maxEBELPFilter) + "&";
-        if (minEBELPFilter === null)
-            throw new Error("The parameter 'minEBELPFilter' cannot be null.");
-        else if (minEBELPFilter !== undefined)
-            url_ += "MinEBELPFilter=" + encodeURIComponent("" + minEBELPFilter) + "&";
-        if (uNIQUEIDFilter === null)
-            throw new Error("The parameter 'uNIQUEIDFilter' cannot be null.");
-        else if (uNIQUEIDFilter !== undefined)
-            url_ += "UNIQUEIDFilter=" + encodeURIComponent("" + uNIQUEIDFilter) + "&";
-        if (lOEKZFilter === null)
-            throw new Error("The parameter 'lOEKZFilter' cannot be null.");
-        else if (lOEKZFilter !== undefined)
-            url_ += "LOEKZFilter=" + encodeURIComponent("" + lOEKZFilter) + "&";
-        if (sTATUFilter === null)
-            throw new Error("The parameter 'sTATUFilter' cannot be null.");
-        else if (sTATUFilter !== undefined)
-            url_ += "STATUFilter=" + encodeURIComponent("" + sTATUFilter) + "&";
-        if (maxAEDATFilter === null)
-            throw new Error("The parameter 'maxAEDATFilter' cannot be null.");
-        else if (maxAEDATFilter !== undefined)
-            url_ += "MaxAEDATFilter=" + encodeURIComponent(maxAEDATFilter ? "" + maxAEDATFilter.toString() : "") + "&";
-        if (minAEDATFilter === null)
-            throw new Error("The parameter 'minAEDATFilter' cannot be null.");
-        else if (minAEDATFilter !== undefined)
-            url_ += "MinAEDATFilter=" + encodeURIComponent(minAEDATFilter ? "" + minAEDATFilter.toString() : "") + "&";
-        if (tXZ01Filter === null)
-            throw new Error("The parameter 'tXZ01Filter' cannot be null.");
-        else if (tXZ01Filter !== undefined)
-            url_ += "TXZ01Filter=" + encodeURIComponent("" + tXZ01Filter) + "&";
-        if (mATNRFilter === null)
-            throw new Error("The parameter 'mATNRFilter' cannot be null.");
-        else if (mATNRFilter !== undefined)
-            url_ += "MATNRFilter=" + encodeURIComponent("" + mATNRFilter) + "&";
-        if (eMATNFilter === null)
-            throw new Error("The parameter 'eMATNFilter' cannot be null.");
-        else if (eMATNFilter !== undefined)
-            url_ += "EMATNFilter=" + encodeURIComponent("" + eMATNFilter) + "&";
-        if (bUKRSFilter === null)
-            throw new Error("The parameter 'bUKRSFilter' cannot be null.");
-        else if (bUKRSFilter !== undefined)
-            url_ += "BUKRSFilter=" + encodeURIComponent("" + bUKRSFilter) + "&";
-        if (wERKSFilter === null)
-            throw new Error("The parameter 'wERKSFilter' cannot be null.");
-        else if (wERKSFilter !== undefined)
-            url_ += "WERKSFilter=" + encodeURIComponent("" + wERKSFilter) + "&";
-        if (lGORTFilter === null)
-            throw new Error("The parameter 'lGORTFilter' cannot be null.");
-        else if (lGORTFilter !== undefined)
-            url_ += "LGORTFilter=" + encodeURIComponent("" + lGORTFilter) + "&";
-        if (bEDNRFilter === null)
-            throw new Error("The parameter 'bEDNRFilter' cannot be null.");
-        else if (bEDNRFilter !== undefined)
-            url_ += "BEDNRFilter=" + encodeURIComponent("" + bEDNRFilter) + "&";
-        if (mATKLFilter === null)
-            throw new Error("The parameter 'mATKLFilter' cannot be null.");
-        else if (mATKLFilter !== undefined)
-            url_ += "MATKLFilter=" + encodeURIComponent("" + mATKLFilter) + "&";
-        if (iNFNRFilter === null)
-            throw new Error("The parameter 'iNFNRFilter' cannot be null.");
-        else if (iNFNRFilter !== undefined)
-            url_ += "INFNRFilter=" + encodeURIComponent("" + iNFNRFilter) + "&";
-        if (iDNLFFilter === null)
-            throw new Error("The parameter 'iDNLFFilter' cannot be null.");
-        else if (iDNLFFilter !== undefined)
-            url_ += "IDNLFFilter=" + encodeURIComponent("" + iDNLFFilter) + "&";
-        if (maxKTMNGFilter === null)
-            throw new Error("The parameter 'maxKTMNGFilter' cannot be null.");
-        else if (maxKTMNGFilter !== undefined)
-            url_ += "MaxKTMNGFilter=" + encodeURIComponent("" + maxKTMNGFilter) + "&";
-        if (minKTMNGFilter === null)
-            throw new Error("The parameter 'minKTMNGFilter' cannot be null.");
-        else if (minKTMNGFilter !== undefined)
-            url_ += "MinKTMNGFilter=" + encodeURIComponent("" + minKTMNGFilter) + "&";
-        if (maxMENGEFilter === null)
-            throw new Error("The parameter 'maxMENGEFilter' cannot be null.");
-        else if (maxMENGEFilter !== undefined)
-            url_ += "MaxMENGEFilter=" + encodeURIComponent("" + maxMENGEFilter) + "&";
-        if (minMENGEFilter === null)
-            throw new Error("The parameter 'minMENGEFilter' cannot be null.");
-        else if (minMENGEFilter !== undefined)
-            url_ += "MinMENGEFilter=" + encodeURIComponent("" + minMENGEFilter) + "&";
-        if (mEINSFilter === null)
-            throw new Error("The parameter 'mEINSFilter' cannot be null.");
-        else if (mEINSFilter !== undefined)
-            url_ += "MEINSFilter=" + encodeURIComponent("" + mEINSFilter) + "&";
-        if (bPRMEFilter === null)
-            throw new Error("The parameter 'bPRMEFilter' cannot be null.");
-        else if (bPRMEFilter !== undefined)
-            url_ += "BPRMEFilter=" + encodeURIComponent("" + bPRMEFilter) + "&";
-        if (maxBPUMZFilter === null)
-            throw new Error("The parameter 'maxBPUMZFilter' cannot be null.");
-        else if (maxBPUMZFilter !== undefined)
-            url_ += "MaxBPUMZFilter=" + encodeURIComponent("" + maxBPUMZFilter) + "&";
-        if (minBPUMZFilter === null)
-            throw new Error("The parameter 'minBPUMZFilter' cannot be null.");
-        else if (minBPUMZFilter !== undefined)
-            url_ += "MinBPUMZFilter=" + encodeURIComponent("" + minBPUMZFilter) + "&";
-        if (maxBPUMNFilter === null)
-            throw new Error("The parameter 'maxBPUMNFilter' cannot be null.");
-        else if (maxBPUMNFilter !== undefined)
-            url_ += "MaxBPUMNFilter=" + encodeURIComponent("" + maxBPUMNFilter) + "&";
-        if (minBPUMNFilter === null)
-            throw new Error("The parameter 'minBPUMNFilter' cannot be null.");
-        else if (minBPUMNFilter !== undefined)
-            url_ += "MinBPUMNFilter=" + encodeURIComponent("" + minBPUMNFilter) + "&";
-        if (maxUMREZFilter === null)
-            throw new Error("The parameter 'maxUMREZFilter' cannot be null.");
-        else if (maxUMREZFilter !== undefined)
-            url_ += "MaxUMREZFilter=" + encodeURIComponent("" + maxUMREZFilter) + "&";
-        if (minUMREZFilter === null)
-            throw new Error("The parameter 'minUMREZFilter' cannot be null.");
-        else if (minUMREZFilter !== undefined)
-            url_ += "MinUMREZFilter=" + encodeURIComponent("" + minUMREZFilter) + "&";
-        if (maxUMRENFilter === null)
-            throw new Error("The parameter 'maxUMRENFilter' cannot be null.");
-        else if (maxUMRENFilter !== undefined)
-            url_ += "MaxUMRENFilter=" + encodeURIComponent("" + maxUMRENFilter) + "&";
-        if (minUMRENFilter === null)
-            throw new Error("The parameter 'minUMRENFilter' cannot be null.");
-        else if (minUMRENFilter !== undefined)
-            url_ += "MinUMRENFilter=" + encodeURIComponent("" + minUMRENFilter) + "&";
-        if (maxNETPRFilter === null)
-            throw new Error("The parameter 'maxNETPRFilter' cannot be null.");
-        else if (maxNETPRFilter !== undefined)
-            url_ += "MaxNETPRFilter=" + encodeURIComponent("" + maxNETPRFilter) + "&";
-        if (minNETPRFilter === null)
-            throw new Error("The parameter 'minNETPRFilter' cannot be null.");
-        else if (minNETPRFilter !== undefined)
-            url_ += "MinNETPRFilter=" + encodeURIComponent("" + minNETPRFilter) + "&";
-        if (maxPEINHFilter === null)
-            throw new Error("The parameter 'maxPEINHFilter' cannot be null.");
-        else if (maxPEINHFilter !== undefined)
-            url_ += "MaxPEINHFilter=" + encodeURIComponent("" + maxPEINHFilter) + "&";
-        if (minPEINHFilter === null)
-            throw new Error("The parameter 'minPEINHFilter' cannot be null.");
-        else if (minPEINHFilter !== undefined)
-            url_ += "MinPEINHFilter=" + encodeURIComponent("" + minPEINHFilter) + "&";
-        if (maxNETWRFilter === null)
-            throw new Error("The parameter 'maxNETWRFilter' cannot be null.");
-        else if (maxNETWRFilter !== undefined)
-            url_ += "MaxNETWRFilter=" + encodeURIComponent("" + maxNETWRFilter) + "&";
-        if (minNETWRFilter === null)
-            throw new Error("The parameter 'minNETWRFilter' cannot be null.");
-        else if (minNETWRFilter !== undefined)
-            url_ += "MinNETWRFilter=" + encodeURIComponent("" + minNETWRFilter) + "&";
-        if (maxBRTWRFilter === null)
-            throw new Error("The parameter 'maxBRTWRFilter' cannot be null.");
-        else if (maxBRTWRFilter !== undefined)
-            url_ += "MaxBRTWRFilter=" + encodeURIComponent("" + maxBRTWRFilter) + "&";
-        if (minBRTWRFilter === null)
-            throw new Error("The parameter 'minBRTWRFilter' cannot be null.");
-        else if (minBRTWRFilter !== undefined)
-            url_ += "MinBRTWRFilter=" + encodeURIComponent("" + minBRTWRFilter) + "&";
-        if (maxAGDATFilter === null)
-            throw new Error("The parameter 'maxAGDATFilter' cannot be null.");
-        else if (maxAGDATFilter !== undefined)
-            url_ += "MaxAGDATFilter=" + encodeURIComponent(maxAGDATFilter ? "" + maxAGDATFilter.toString() : "") + "&";
-        if (minAGDATFilter === null)
-            throw new Error("The parameter 'minAGDATFilter' cannot be null.");
-        else if (minAGDATFilter !== undefined)
-            url_ += "MinAGDATFilter=" + encodeURIComponent(minAGDATFilter ? "" + minAGDATFilter.toString() : "") + "&";
-        if (maxWEBAZFilter === null)
-            throw new Error("The parameter 'maxWEBAZFilter' cannot be null.");
-        else if (maxWEBAZFilter !== undefined)
-            url_ += "MaxWEBAZFilter=" + encodeURIComponent("" + maxWEBAZFilter) + "&";
-        if (minWEBAZFilter === null)
-            throw new Error("The parameter 'minWEBAZFilter' cannot be null.");
-        else if (minWEBAZFilter !== undefined)
-            url_ += "MinWEBAZFilter=" + encodeURIComponent("" + minWEBAZFilter) + "&";
-        if (mWSKZFilter === null)
-            throw new Error("The parameter 'mWSKZFilter' cannot be null.");
-        else if (mWSKZFilter !== undefined)
-            url_ += "MWSKZFilter=" + encodeURIComponent("" + mWSKZFilter) + "&";
-        if (bONUSFilter === null)
-            throw new Error("The parameter 'bONUSFilter' cannot be null.");
-        else if (bONUSFilter !== undefined)
-            url_ += "BONUSFilter=" + encodeURIComponent("" + bONUSFilter) + "&";
-        if (iNSMKFilter === null)
-            throw new Error("The parameter 'iNSMKFilter' cannot be null.");
-        else if (iNSMKFilter !== undefined)
-            url_ += "INSMKFilter=" + encodeURIComponent("" + iNSMKFilter) + "&";
-        if (sPINFFilter === null)
-            throw new Error("The parameter 'sPINFFilter' cannot be null.");
-        else if (sPINFFilter !== undefined)
-            url_ += "SPINFFilter=" + encodeURIComponent("" + sPINFFilter) + "&";
-        if (pRSDRFilter === null)
-            throw new Error("The parameter 'pRSDRFilter' cannot be null.");
-        else if (pRSDRFilter !== undefined)
-            url_ += "PRSDRFilter=" + encodeURIComponent("" + pRSDRFilter) + "&";
-        if (bWTARFilter === null)
-            throw new Error("The parameter 'bWTARFilter' cannot be null.");
-        else if (bWTARFilter !== undefined)
-            url_ += "BWTARFilter=" + encodeURIComponent("" + bWTARFilter) + "&";
-        if (bWTTYFilter === null)
-            throw new Error("The parameter 'bWTTYFilter' cannot be null.");
-        else if (bWTTYFilter !== undefined)
-            url_ += "BWTTYFilter=" + encodeURIComponent("" + bWTTYFilter) + "&";
-        if (aBSKZFilter === null)
-            throw new Error("The parameter 'aBSKZFilter' cannot be null.");
-        else if (aBSKZFilter !== undefined)
-            url_ += "ABSKZFilter=" + encodeURIComponent("" + aBSKZFilter) + "&";
-        if (pSTYPFilter === null)
-            throw new Error("The parameter 'pSTYPFilter' cannot be null.");
-        else if (pSTYPFilter !== undefined)
-            url_ += "PSTYPFilter=" + encodeURIComponent("" + pSTYPFilter) + "&";
-        if (kNTTPFilter === null)
-            throw new Error("The parameter 'kNTTPFilter' cannot be null.");
-        else if (kNTTPFilter !== undefined)
-            url_ += "KNTTPFilter=" + encodeURIComponent("" + kNTTPFilter) + "&";
-        if (kONNRFilter === null)
-            throw new Error("The parameter 'kONNRFilter' cannot be null.");
-        else if (kONNRFilter !== undefined)
-            url_ += "KONNRFilter=" + encodeURIComponent("" + kONNRFilter) + "&";
-        if (maxKTPNRFilter === null)
-            throw new Error("The parameter 'maxKTPNRFilter' cannot be null.");
-        else if (maxKTPNRFilter !== undefined)
-            url_ += "MaxKTPNRFilter=" + encodeURIComponent("" + maxKTPNRFilter) + "&";
-        if (minKTPNRFilter === null)
-            throw new Error("The parameter 'minKTPNRFilter' cannot be null.");
-        else if (minKTPNRFilter !== undefined)
-            url_ += "MinKTPNRFilter=" + encodeURIComponent("" + minKTPNRFilter) + "&";
-        if (maxPACKNOFilter === null)
-            throw new Error("The parameter 'maxPACKNOFilter' cannot be null.");
-        else if (maxPACKNOFilter !== undefined)
-            url_ += "MaxPACKNOFilter=" + encodeURIComponent("" + maxPACKNOFilter) + "&";
-        if (minPACKNOFilter === null)
-            throw new Error("The parameter 'minPACKNOFilter' cannot be null.");
-        else if (minPACKNOFilter !== undefined)
-            url_ += "MinPACKNOFilter=" + encodeURIComponent("" + minPACKNOFilter) + "&";
-        if (aNFNRFilter === null)
-            throw new Error("The parameter 'aNFNRFilter' cannot be null.");
-        else if (aNFNRFilter !== undefined)
-            url_ += "ANFNRFilter=" + encodeURIComponent("" + aNFNRFilter) + "&";
-        if (bANFNFilter === null)
-            throw new Error("The parameter 'bANFNFilter' cannot be null.");
-        else if (bANFNFilter !== undefined)
-            url_ += "BANFNFilter=" + encodeURIComponent("" + bANFNFilter) + "&";
-        if (maxBNFPOFilter === null)
-            throw new Error("The parameter 'maxBNFPOFilter' cannot be null.");
-        else if (maxBNFPOFilter !== undefined)
-            url_ += "MaxBNFPOFilter=" + encodeURIComponent("" + maxBNFPOFilter) + "&";
-        if (minBNFPOFilter === null)
-            throw new Error("The parameter 'minBNFPOFilter' cannot be null.");
-        else if (minBNFPOFilter !== undefined)
-            url_ += "MinBNFPOFilter=" + encodeURIComponent("" + minBNFPOFilter) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetEKPOsToExcel(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetEKPOsToExcel(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<FileDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<FileDto>;
-        }));
-    }
-
-    protected processGetEKPOsToExcel(response: HttpResponseBase): Observable<FileDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = FileDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-}
-
-@Injectable()
 export class EnumTablesServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -11347,62 +9357,6 @@ export class JobSynchronizesServiceProxy {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
             result200 = PagedResultDtoOfGetJobSynchronizeForViewDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param id (optional) 
-     * @return Success
-     */
-    getJobSynchronizeForView(id: string | undefined): Observable<GetJobSynchronizeForViewDto> {
-        let url_ = this.baseUrl + "/api/services/app/JobSynchronizes/GetJobSynchronizeForView?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetJobSynchronizeForView(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetJobSynchronizeForView(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<GetJobSynchronizeForViewDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<GetJobSynchronizeForViewDto>;
-        }));
-    }
-
-    protected processGetJobSynchronizeForView(response: HttpResponseBase): Observable<GetJobSynchronizeForViewDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetJobSynchronizeForViewDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -18690,186 +16644,6 @@ export class RptProcurementAdjustsServiceProxy {
 }
 
 @Injectable()
-export class SAPSynchServiceServiceProxy {
-    private http: HttpClient;
-    private baseUrl: string;
-    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
-
-    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
-        this.http = http;
-        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
-    }
-
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    synchronizeFromSAP(body: CostCenterSynchDto | undefined): Observable<DtoResponseModel> {
-        let url_ = this.baseUrl + "/api/services/app/SAPSynchService/SynchronizeFromSAP";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processSynchronizeFromSAP(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processSynchronizeFromSAP(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<DtoResponseModel>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<DtoResponseModel>;
-        }));
-    }
-
-    protected processSynchronizeFromSAP(response: HttpResponseBase): Observable<DtoResponseModel> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = DtoResponseModel.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    purchasingDocumentHeader(body: PurchasingOrderSynchDto | undefined): Observable<DtoResponseModel> {
-        let url_ = this.baseUrl + "/api/services/app/SAPSynchService/PurchasingDocumentHeader";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processPurchasingDocumentHeader(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processPurchasingDocumentHeader(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<DtoResponseModel>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<DtoResponseModel>;
-        }));
-    }
-
-    protected processPurchasingDocumentHeader(response: HttpResponseBase): Observable<DtoResponseModel> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = DtoResponseModel.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param body (optional) 
-     * @return Success
-     */
-    purchasingDocumentItem(body: PurchasingOrderSynchDto | undefined): Observable<DtoResponseModel> {
-        let url_ = this.baseUrl + "/api/services/app/SAPSynchService/PurchasingDocumentItem";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(body);
-
-        let options_ : any = {
-            body: content_,
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processPurchasingDocumentItem(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processPurchasingDocumentItem(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<DtoResponseModel>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<DtoResponseModel>;
-        }));
-    }
-
-    protected processPurchasingDocumentItem(response: HttpResponseBase): Observable<DtoResponseModel> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = DtoResponseModel.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-}
-
-@Injectable()
 export class SessionServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -21590,7 +19364,7 @@ export class TokenAuthServiceProxy {
 }
 
 @Injectable()
-export class TransferBudgetItemsServiceProxy {
+export class TransferBudgetDetailsServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -21602,62 +19376,47 @@ export class TransferBudgetItemsServiceProxy {
 
     /**
      * @param filter (optional) 
-     * @param periodFromFilter (optional) 
-     * @param maxAmountFromFilter (optional) 
-     * @param minAmountFromFilter (optional) 
-     * @param periodToFilter (optional) 
-     * @param maxAmountToFilter (optional) 
-     * @param minAmountToFilter (optional) 
-     * @param transferBudgetDisplayPropertyFilter (optional) 
-     * @param costCenterDisplayPropertyFilter (optional) 
-     * @param costCenterDisplayProperty2Filter (optional) 
+     * @param periodFilter (optional) 
+     * @param maxAmountFilter (optional) 
+     * @param minAmountFilter (optional) 
+     * @param transferTypeFilter (optional) 
+     * @param costCenterCostCenterNameFilter (optional) 
+     * @param generalLedgerMappingGLAccountFilter (optional) 
      * @param sorting (optional) 
      * @param skipCount (optional) 
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAll(filter: string | undefined, periodFromFilter: string | undefined, maxAmountFromFilter: number | undefined, minAmountFromFilter: number | undefined, periodToFilter: string | undefined, maxAmountToFilter: number | undefined, minAmountToFilter: number | undefined, transferBudgetDisplayPropertyFilter: string | undefined, costCenterDisplayPropertyFilter: string | undefined, costCenterDisplayProperty2Filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetTransferBudgetItemForViewDto> {
-        let url_ = this.baseUrl + "/api/services/app/TransferBudgetItems/GetAll?";
+    getAll(filter: string | undefined, periodFilter: string | undefined, maxAmountFilter: number | undefined, minAmountFilter: number | undefined, transferTypeFilter: string | undefined, costCenterCostCenterNameFilter: string | undefined, generalLedgerMappingGLAccountFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetTransferBudgetDetailForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/TransferBudgetDetails/GetAll?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
             url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (periodFromFilter === null)
-            throw new Error("The parameter 'periodFromFilter' cannot be null.");
-        else if (periodFromFilter !== undefined)
-            url_ += "PeriodFromFilter=" + encodeURIComponent("" + periodFromFilter) + "&";
-        if (maxAmountFromFilter === null)
-            throw new Error("The parameter 'maxAmountFromFilter' cannot be null.");
-        else if (maxAmountFromFilter !== undefined)
-            url_ += "MaxAmountFromFilter=" + encodeURIComponent("" + maxAmountFromFilter) + "&";
-        if (minAmountFromFilter === null)
-            throw new Error("The parameter 'minAmountFromFilter' cannot be null.");
-        else if (minAmountFromFilter !== undefined)
-            url_ += "MinAmountFromFilter=" + encodeURIComponent("" + minAmountFromFilter) + "&";
-        if (periodToFilter === null)
-            throw new Error("The parameter 'periodToFilter' cannot be null.");
-        else if (periodToFilter !== undefined)
-            url_ += "PeriodToFilter=" + encodeURIComponent("" + periodToFilter) + "&";
-        if (maxAmountToFilter === null)
-            throw new Error("The parameter 'maxAmountToFilter' cannot be null.");
-        else if (maxAmountToFilter !== undefined)
-            url_ += "MaxAmountToFilter=" + encodeURIComponent("" + maxAmountToFilter) + "&";
-        if (minAmountToFilter === null)
-            throw new Error("The parameter 'minAmountToFilter' cannot be null.");
-        else if (minAmountToFilter !== undefined)
-            url_ += "MinAmountToFilter=" + encodeURIComponent("" + minAmountToFilter) + "&";
-        if (transferBudgetDisplayPropertyFilter === null)
-            throw new Error("The parameter 'transferBudgetDisplayPropertyFilter' cannot be null.");
-        else if (transferBudgetDisplayPropertyFilter !== undefined)
-            url_ += "TransferBudgetDisplayPropertyFilter=" + encodeURIComponent("" + transferBudgetDisplayPropertyFilter) + "&";
-        if (costCenterDisplayPropertyFilter === null)
-            throw new Error("The parameter 'costCenterDisplayPropertyFilter' cannot be null.");
-        else if (costCenterDisplayPropertyFilter !== undefined)
-            url_ += "CostCenterDisplayPropertyFilter=" + encodeURIComponent("" + costCenterDisplayPropertyFilter) + "&";
-        if (costCenterDisplayProperty2Filter === null)
-            throw new Error("The parameter 'costCenterDisplayProperty2Filter' cannot be null.");
-        else if (costCenterDisplayProperty2Filter !== undefined)
-            url_ += "CostCenterDisplayProperty2Filter=" + encodeURIComponent("" + costCenterDisplayProperty2Filter) + "&";
+        if (periodFilter === null)
+            throw new Error("The parameter 'periodFilter' cannot be null.");
+        else if (periodFilter !== undefined)
+            url_ += "PeriodFilter=" + encodeURIComponent("" + periodFilter) + "&";
+        if (maxAmountFilter === null)
+            throw new Error("The parameter 'maxAmountFilter' cannot be null.");
+        else if (maxAmountFilter !== undefined)
+            url_ += "MaxAmountFilter=" + encodeURIComponent("" + maxAmountFilter) + "&";
+        if (minAmountFilter === null)
+            throw new Error("The parameter 'minAmountFilter' cannot be null.");
+        else if (minAmountFilter !== undefined)
+            url_ += "MinAmountFilter=" + encodeURIComponent("" + minAmountFilter) + "&";
+        if (transferTypeFilter === null)
+            throw new Error("The parameter 'transferTypeFilter' cannot be null.");
+        else if (transferTypeFilter !== undefined)
+            url_ += "TransferTypeFilter=" + encodeURIComponent("" + transferTypeFilter) + "&";
+        if (costCenterCostCenterNameFilter === null)
+            throw new Error("The parameter 'costCenterCostCenterNameFilter' cannot be null.");
+        else if (costCenterCostCenterNameFilter !== undefined)
+            url_ += "CostCenterCostCenterNameFilter=" + encodeURIComponent("" + costCenterCostCenterNameFilter) + "&";
+        if (generalLedgerMappingGLAccountFilter === null)
+            throw new Error("The parameter 'generalLedgerMappingGLAccountFilter' cannot be null.");
+        else if (generalLedgerMappingGLAccountFilter !== undefined)
+            url_ += "GeneralLedgerMappingGLAccountFilter=" + encodeURIComponent("" + generalLedgerMappingGLAccountFilter) + "&";
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -21687,14 +19446,14 @@ export class TransferBudgetItemsServiceProxy {
                 try {
                     return this.processGetAll(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<PagedResultDtoOfGetTransferBudgetItemForViewDto>;
+                    return _observableThrow(e) as any as Observable<PagedResultDtoOfGetTransferBudgetDetailForViewDto>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<PagedResultDtoOfGetTransferBudgetItemForViewDto>;
+                return _observableThrow(response_) as any as Observable<PagedResultDtoOfGetTransferBudgetDetailForViewDto>;
         }));
     }
 
-    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetTransferBudgetItemForViewDto> {
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetTransferBudgetDetailForViewDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -21705,7 +19464,7 @@ export class TransferBudgetItemsServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PagedResultDtoOfGetTransferBudgetItemForViewDto.fromJS(resultData200);
+            result200 = PagedResultDtoOfGetTransferBudgetDetailForViewDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -21720,64 +19479,8 @@ export class TransferBudgetItemsServiceProxy {
      * @param id (optional) 
      * @return Success
      */
-    getTransferBudgetItemForView(id: string | undefined): Observable<GetTransferBudgetItemForViewDto> {
-        let url_ = this.baseUrl + "/api/services/app/TransferBudgetItems/GetTransferBudgetItemForView?";
-        if (id === null)
-            throw new Error("The parameter 'id' cannot be null.");
-        else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetTransferBudgetItemForView(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetTransferBudgetItemForView(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<GetTransferBudgetItemForViewDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<GetTransferBudgetItemForViewDto>;
-        }));
-    }
-
-    protected processGetTransferBudgetItemForView(response: HttpResponseBase): Observable<GetTransferBudgetItemForViewDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetTransferBudgetItemForViewDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param id (optional) 
-     * @return Success
-     */
-    getTransferBudgetItemForEdit(id: string | undefined): Observable<GetTransferBudgetItemForEditOutput> {
-        let url_ = this.baseUrl + "/api/services/app/TransferBudgetItems/GetTransferBudgetItemForEdit?";
+    getTransferBudgetDetailForEdit(id: string | undefined): Observable<GetTransferBudgetDetailForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/TransferBudgetDetails/GetTransferBudgetDetailForEdit?";
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
@@ -21793,20 +19496,20 @@ export class TransferBudgetItemsServiceProxy {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetTransferBudgetItemForEdit(response_);
+            return this.processGetTransferBudgetDetailForEdit(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processGetTransferBudgetItemForEdit(response_ as any);
+                    return this.processGetTransferBudgetDetailForEdit(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<GetTransferBudgetItemForEditOutput>;
+                    return _observableThrow(e) as any as Observable<GetTransferBudgetDetailForEditOutput>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<GetTransferBudgetItemForEditOutput>;
+                return _observableThrow(response_) as any as Observable<GetTransferBudgetDetailForEditOutput>;
         }));
     }
 
-    protected processGetTransferBudgetItemForEdit(response: HttpResponseBase): Observable<GetTransferBudgetItemForEditOutput> {
+    protected processGetTransferBudgetDetailForEdit(response: HttpResponseBase): Observable<GetTransferBudgetDetailForEditOutput> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -21817,7 +19520,7 @@ export class TransferBudgetItemsServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = GetTransferBudgetItemForEditOutput.fromJS(resultData200);
+            result200 = GetTransferBudgetDetailForEditOutput.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -21832,8 +19535,8 @@ export class TransferBudgetItemsServiceProxy {
      * @param body (optional) 
      * @return Success
      */
-    createOrEdit(body: CreateOrEditTransferBudgetItemDto | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/TransferBudgetItems/CreateOrEdit";
+    createOrEdit(body: CreateOrEditTransferBudgetDetailDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/TransferBudgetDetails/CreateOrEdit";
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = JSON.stringify(body);
@@ -21885,7 +19588,7 @@ export class TransferBudgetItemsServiceProxy {
      * @return Success
      */
     delete(id: string | undefined): Observable<void> {
-        let url_ = this.baseUrl + "/api/services/app/TransferBudgetItems/Delete?";
+        let url_ = this.baseUrl + "/api/services/app/TransferBudgetDetails/Delete?";
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
@@ -21934,185 +19637,13 @@ export class TransferBudgetItemsServiceProxy {
 
     /**
      * @param filter (optional) 
-     * @param periodFromFilter (optional) 
-     * @param maxAmountFromFilter (optional) 
-     * @param minAmountFromFilter (optional) 
-     * @param periodToFilter (optional) 
-     * @param maxAmountToFilter (optional) 
-     * @param minAmountToFilter (optional) 
-     * @param transferBudgetDisplayPropertyFilter (optional) 
-     * @param costCenterDisplayPropertyFilter (optional) 
-     * @param costCenterDisplayProperty2Filter (optional) 
-     * @return Success
-     */
-    getTransferBudgetItemsToExcel(filter: string | undefined, periodFromFilter: string | undefined, maxAmountFromFilter: number | undefined, minAmountFromFilter: number | undefined, periodToFilter: string | undefined, maxAmountToFilter: number | undefined, minAmountToFilter: number | undefined, transferBudgetDisplayPropertyFilter: string | undefined, costCenterDisplayPropertyFilter: string | undefined, costCenterDisplayProperty2Filter: string | undefined): Observable<FileDto> {
-        let url_ = this.baseUrl + "/api/services/app/TransferBudgetItems/GetTransferBudgetItemsToExcel?";
-        if (filter === null)
-            throw new Error("The parameter 'filter' cannot be null.");
-        else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (periodFromFilter === null)
-            throw new Error("The parameter 'periodFromFilter' cannot be null.");
-        else if (periodFromFilter !== undefined)
-            url_ += "PeriodFromFilter=" + encodeURIComponent("" + periodFromFilter) + "&";
-        if (maxAmountFromFilter === null)
-            throw new Error("The parameter 'maxAmountFromFilter' cannot be null.");
-        else if (maxAmountFromFilter !== undefined)
-            url_ += "MaxAmountFromFilter=" + encodeURIComponent("" + maxAmountFromFilter) + "&";
-        if (minAmountFromFilter === null)
-            throw new Error("The parameter 'minAmountFromFilter' cannot be null.");
-        else if (minAmountFromFilter !== undefined)
-            url_ += "MinAmountFromFilter=" + encodeURIComponent("" + minAmountFromFilter) + "&";
-        if (periodToFilter === null)
-            throw new Error("The parameter 'periodToFilter' cannot be null.");
-        else if (periodToFilter !== undefined)
-            url_ += "PeriodToFilter=" + encodeURIComponent("" + periodToFilter) + "&";
-        if (maxAmountToFilter === null)
-            throw new Error("The parameter 'maxAmountToFilter' cannot be null.");
-        else if (maxAmountToFilter !== undefined)
-            url_ += "MaxAmountToFilter=" + encodeURIComponent("" + maxAmountToFilter) + "&";
-        if (minAmountToFilter === null)
-            throw new Error("The parameter 'minAmountToFilter' cannot be null.");
-        else if (minAmountToFilter !== undefined)
-            url_ += "MinAmountToFilter=" + encodeURIComponent("" + minAmountToFilter) + "&";
-        if (transferBudgetDisplayPropertyFilter === null)
-            throw new Error("The parameter 'transferBudgetDisplayPropertyFilter' cannot be null.");
-        else if (transferBudgetDisplayPropertyFilter !== undefined)
-            url_ += "TransferBudgetDisplayPropertyFilter=" + encodeURIComponent("" + transferBudgetDisplayPropertyFilter) + "&";
-        if (costCenterDisplayPropertyFilter === null)
-            throw new Error("The parameter 'costCenterDisplayPropertyFilter' cannot be null.");
-        else if (costCenterDisplayPropertyFilter !== undefined)
-            url_ += "CostCenterDisplayPropertyFilter=" + encodeURIComponent("" + costCenterDisplayPropertyFilter) + "&";
-        if (costCenterDisplayProperty2Filter === null)
-            throw new Error("The parameter 'costCenterDisplayProperty2Filter' cannot be null.");
-        else if (costCenterDisplayProperty2Filter !== undefined)
-            url_ += "CostCenterDisplayProperty2Filter=" + encodeURIComponent("" + costCenterDisplayProperty2Filter) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetTransferBudgetItemsToExcel(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetTransferBudgetItemsToExcel(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<FileDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<FileDto>;
-        }));
-    }
-
-    protected processGetTransferBudgetItemsToExcel(response: HttpResponseBase): Observable<FileDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = FileDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param filter (optional) 
      * @param sorting (optional) 
      * @param skipCount (optional) 
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAllTransferBudgetForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto> {
-        let url_ = this.baseUrl + "/api/services/app/TransferBudgetItems/GetAllTransferBudgetForLookupTable?";
-        if (filter === null)
-            throw new Error("The parameter 'filter' cannot be null.");
-        else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
-        if (sorting === null)
-            throw new Error("The parameter 'sorting' cannot be null.");
-        else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
-        if (skipCount === null)
-            throw new Error("The parameter 'skipCount' cannot be null.");
-        else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
-        if (maxResultCount === null)
-            throw new Error("The parameter 'maxResultCount' cannot be null.");
-        else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAllTransferBudgetForLookupTable(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetAllTransferBudgetForLookupTable(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<PagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<PagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto>;
-        }));
-    }
-
-    protected processGetAllTransferBudgetForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto.fromJS(resultData200);
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
-     * @param filter (optional) 
-     * @param sorting (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
-     * @return Success
-     */
-    getAllCostCenterForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto> {
-        let url_ = this.baseUrl + "/api/services/app/TransferBudgetItems/GetAllCostCenterForLookupTable?";
+    getAllCostCenterForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTransferBudgetDetailCostCenterLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/TransferBudgetDetails/GetAllCostCenterForLookupTable?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
@@ -22146,14 +19677,14 @@ export class TransferBudgetItemsServiceProxy {
                 try {
                     return this.processGetAllCostCenterForLookupTable(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<PagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto>;
+                    return _observableThrow(e) as any as Observable<PagedResultDtoOfTransferBudgetDetailCostCenterLookupTableDto>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<PagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto>;
+                return _observableThrow(response_) as any as Observable<PagedResultDtoOfTransferBudgetDetailCostCenterLookupTableDto>;
         }));
     }
 
-    protected processGetAllCostCenterForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto> {
+    protected processGetAllCostCenterForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfTransferBudgetDetailCostCenterLookupTableDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -22164,7 +19695,78 @@ export class TransferBudgetItemsServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result200 = PagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto.fromJS(resultData200);
+            result200 = PagedResultDtoOfTransferBudgetDetailCostCenterLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllGeneralLedgerMappingForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTransferBudgetDetailGeneralLedgerMappingLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/TransferBudgetDetails/GetAllGeneralLedgerMappingForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllGeneralLedgerMappingForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllGeneralLedgerMappingForLookupTable(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<PagedResultDtoOfTransferBudgetDetailGeneralLedgerMappingLookupTableDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<PagedResultDtoOfTransferBudgetDetailGeneralLedgerMappingLookupTableDto>;
+        }));
+    }
+
+    protected processGetAllGeneralLedgerMappingForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfTransferBudgetDetailGeneralLedgerMappingLookupTableDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTransferBudgetDetailGeneralLedgerMappingLookupTableDto.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -30112,462 +27714,6 @@ export interface ICreateOrEditDataProductionDto {
     id: string | undefined;
 }
 
-export class CreateOrEditEKPODto implements ICreateOrEditEKPODto {
-    mandt!: string | undefined;
-    ebeln!: string | undefined;
-    ebelp!: number | undefined;
-    uniqueid!: string | undefined;
-    loekz!: string | undefined;
-    statu!: string | undefined;
-    aedat!: DateTime | undefined;
-    txZ01!: string | undefined;
-    matnr!: string | undefined;
-    ematn!: string | undefined;
-    bukrs!: string | undefined;
-    werks!: string | undefined;
-    lgort!: string | undefined;
-    bednr!: string | undefined;
-    matkl!: string | undefined;
-    infnr!: string | undefined;
-    idnlf!: string | undefined;
-    ktmng!: number | undefined;
-    menge!: number | undefined;
-    meins!: string | undefined;
-    bprme!: string | undefined;
-    bpumz!: number | undefined;
-    bpumn!: number | undefined;
-    umrez!: number | undefined;
-    umren!: number | undefined;
-    netpr!: number | undefined;
-    peinh!: number | undefined;
-    netwr!: number | undefined;
-    brtwr!: number | undefined;
-    agdat!: DateTime | undefined;
-    webaz!: number | undefined;
-    mwskz!: string | undefined;
-    bonus!: string | undefined;
-    insmk!: string | undefined;
-    spinf!: string | undefined;
-    prsdr!: string | undefined;
-    bwtar!: string | undefined;
-    bwtty!: string | undefined;
-    abskz!: string | undefined;
-    pstyp!: string | undefined;
-    knttp!: string | undefined;
-    konnr!: string | undefined;
-    ktpnr!: number | undefined;
-    packno!: number | undefined;
-    anfnr!: string | undefined;
-    banfn!: string | undefined;
-    bnfpo!: number | undefined;
-    id!: string | undefined;
-
-    constructor(data?: ICreateOrEditEKPODto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.mandt = _data["mandt"];
-            this.ebeln = _data["ebeln"];
-            this.ebelp = _data["ebelp"];
-            this.uniqueid = _data["uniqueid"];
-            this.loekz = _data["loekz"];
-            this.statu = _data["statu"];
-            this.aedat = _data["aedat"] ? DateTime.fromISO(_data["aedat"].toString()) : <any>undefined;
-            this.txZ01 = _data["txZ01"];
-            this.matnr = _data["matnr"];
-            this.ematn = _data["ematn"];
-            this.bukrs = _data["bukrs"];
-            this.werks = _data["werks"];
-            this.lgort = _data["lgort"];
-            this.bednr = _data["bednr"];
-            this.matkl = _data["matkl"];
-            this.infnr = _data["infnr"];
-            this.idnlf = _data["idnlf"];
-            this.ktmng = _data["ktmng"];
-            this.menge = _data["menge"];
-            this.meins = _data["meins"];
-            this.bprme = _data["bprme"];
-            this.bpumz = _data["bpumz"];
-            this.bpumn = _data["bpumn"];
-            this.umrez = _data["umrez"];
-            this.umren = _data["umren"];
-            this.netpr = _data["netpr"];
-            this.peinh = _data["peinh"];
-            this.netwr = _data["netwr"];
-            this.brtwr = _data["brtwr"];
-            this.agdat = _data["agdat"] ? DateTime.fromISO(_data["agdat"].toString()) : <any>undefined;
-            this.webaz = _data["webaz"];
-            this.mwskz = _data["mwskz"];
-            this.bonus = _data["bonus"];
-            this.insmk = _data["insmk"];
-            this.spinf = _data["spinf"];
-            this.prsdr = _data["prsdr"];
-            this.bwtar = _data["bwtar"];
-            this.bwtty = _data["bwtty"];
-            this.abskz = _data["abskz"];
-            this.pstyp = _data["pstyp"];
-            this.knttp = _data["knttp"];
-            this.konnr = _data["konnr"];
-            this.ktpnr = _data["ktpnr"];
-            this.packno = _data["packno"];
-            this.anfnr = _data["anfnr"];
-            this.banfn = _data["banfn"];
-            this.bnfpo = _data["bnfpo"];
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): CreateOrEditEKPODto {
-        data = typeof data === 'object' ? data : {};
-        let result = new CreateOrEditEKPODto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["mandt"] = this.mandt;
-        data["ebeln"] = this.ebeln;
-        data["ebelp"] = this.ebelp;
-        data["uniqueid"] = this.uniqueid;
-        data["loekz"] = this.loekz;
-        data["statu"] = this.statu;
-        data["aedat"] = this.aedat ? this.aedat.toString() : <any>undefined;
-        data["txZ01"] = this.txZ01;
-        data["matnr"] = this.matnr;
-        data["ematn"] = this.ematn;
-        data["bukrs"] = this.bukrs;
-        data["werks"] = this.werks;
-        data["lgort"] = this.lgort;
-        data["bednr"] = this.bednr;
-        data["matkl"] = this.matkl;
-        data["infnr"] = this.infnr;
-        data["idnlf"] = this.idnlf;
-        data["ktmng"] = this.ktmng;
-        data["menge"] = this.menge;
-        data["meins"] = this.meins;
-        data["bprme"] = this.bprme;
-        data["bpumz"] = this.bpumz;
-        data["bpumn"] = this.bpumn;
-        data["umrez"] = this.umrez;
-        data["umren"] = this.umren;
-        data["netpr"] = this.netpr;
-        data["peinh"] = this.peinh;
-        data["netwr"] = this.netwr;
-        data["brtwr"] = this.brtwr;
-        data["agdat"] = this.agdat ? this.agdat.toString() : <any>undefined;
-        data["webaz"] = this.webaz;
-        data["mwskz"] = this.mwskz;
-        data["bonus"] = this.bonus;
-        data["insmk"] = this.insmk;
-        data["spinf"] = this.spinf;
-        data["prsdr"] = this.prsdr;
-        data["bwtar"] = this.bwtar;
-        data["bwtty"] = this.bwtty;
-        data["abskz"] = this.abskz;
-        data["pstyp"] = this.pstyp;
-        data["knttp"] = this.knttp;
-        data["konnr"] = this.konnr;
-        data["ktpnr"] = this.ktpnr;
-        data["packno"] = this.packno;
-        data["anfnr"] = this.anfnr;
-        data["banfn"] = this.banfn;
-        data["bnfpo"] = this.bnfpo;
-        data["id"] = this.id;
-        return data;
-    }
-}
-
-export interface ICreateOrEditEKPODto {
-    mandt: string | undefined;
-    ebeln: string | undefined;
-    ebelp: number | undefined;
-    uniqueid: string | undefined;
-    loekz: string | undefined;
-    statu: string | undefined;
-    aedat: DateTime | undefined;
-    txZ01: string | undefined;
-    matnr: string | undefined;
-    ematn: string | undefined;
-    bukrs: string | undefined;
-    werks: string | undefined;
-    lgort: string | undefined;
-    bednr: string | undefined;
-    matkl: string | undefined;
-    infnr: string | undefined;
-    idnlf: string | undefined;
-    ktmng: number | undefined;
-    menge: number | undefined;
-    meins: string | undefined;
-    bprme: string | undefined;
-    bpumz: number | undefined;
-    bpumn: number | undefined;
-    umrez: number | undefined;
-    umren: number | undefined;
-    netpr: number | undefined;
-    peinh: number | undefined;
-    netwr: number | undefined;
-    brtwr: number | undefined;
-    agdat: DateTime | undefined;
-    webaz: number | undefined;
-    mwskz: string | undefined;
-    bonus: string | undefined;
-    insmk: string | undefined;
-    spinf: string | undefined;
-    prsdr: string | undefined;
-    bwtar: string | undefined;
-    bwtty: string | undefined;
-    abskz: string | undefined;
-    pstyp: string | undefined;
-    knttp: string | undefined;
-    konnr: string | undefined;
-    ktpnr: number | undefined;
-    packno: number | undefined;
-    anfnr: string | undefined;
-    banfn: string | undefined;
-    bnfpo: number | undefined;
-    id: string | undefined;
-}
-
-export class CreateOrEditEkkoDto implements ICreateOrEditEkkoDto {
-    mandt!: string | undefined;
-    ebeln!: string | undefined;
-    bukrs!: string | undefined;
-    bstyp!: string | undefined;
-    bsart!: string | undefined;
-    bsakz!: string | undefined;
-    loekz!: string | undefined;
-    statu!: string | undefined;
-    aedat!: DateTime | undefined;
-    ernam!: string | undefined;
-    pincr!: number | undefined;
-    lponr!: number | undefined;
-    lifnr!: string | undefined;
-    zterm!: string | undefined;
-    zbD1T!: number | undefined;
-    zbD2T!: number | undefined;
-    zbD3T!: number | undefined;
-    zbD1P!: number | undefined;
-    zbD2P!: number | undefined;
-    ekorg!: string | undefined;
-    ekgrp!: string | undefined;
-    waers!: string | undefined;
-    wkurs!: number | undefined;
-    kufix!: string | undefined;
-    bedat!: DateTime | undefined;
-    kdatb!: DateTime | undefined;
-    kdate!: DateTime | undefined;
-    bwbdt!: DateTime | undefined;
-    gwldt!: DateTime | undefined;
-    ihran!: DateTime | undefined;
-    kunnr!: string | undefined;
-    konnr!: string | undefined;
-    abgru!: string | undefined;
-    autlf!: string | undefined;
-    weakt!: string | undefined;
-    reswk!: string | undefined;
-    lblif!: string | undefined;
-    incO1!: string | undefined;
-    incO2!: string | undefined;
-    submi!: string | undefined;
-    knumv!: string | undefined;
-    kalsm!: string | undefined;
-    procstat!: string | undefined;
-    unsez!: string | undefined;
-    frggr!: string | undefined;
-    frgsx!: string | undefined;
-    frgke!: string | undefined;
-    frgzu!: string | undefined;
-    adrnr!: string | undefined;
-    id!: string | undefined;
-
-    constructor(data?: ICreateOrEditEkkoDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.mandt = _data["mandt"];
-            this.ebeln = _data["ebeln"];
-            this.bukrs = _data["bukrs"];
-            this.bstyp = _data["bstyp"];
-            this.bsart = _data["bsart"];
-            this.bsakz = _data["bsakz"];
-            this.loekz = _data["loekz"];
-            this.statu = _data["statu"];
-            this.aedat = _data["aedat"] ? DateTime.fromISO(_data["aedat"].toString()) : <any>undefined;
-            this.ernam = _data["ernam"];
-            this.pincr = _data["pincr"];
-            this.lponr = _data["lponr"];
-            this.lifnr = _data["lifnr"];
-            this.zterm = _data["zterm"];
-            this.zbD1T = _data["zbD1T"];
-            this.zbD2T = _data["zbD2T"];
-            this.zbD3T = _data["zbD3T"];
-            this.zbD1P = _data["zbD1P"];
-            this.zbD2P = _data["zbD2P"];
-            this.ekorg = _data["ekorg"];
-            this.ekgrp = _data["ekgrp"];
-            this.waers = _data["waers"];
-            this.wkurs = _data["wkurs"];
-            this.kufix = _data["kufix"];
-            this.bedat = _data["bedat"] ? DateTime.fromISO(_data["bedat"].toString()) : <any>undefined;
-            this.kdatb = _data["kdatb"] ? DateTime.fromISO(_data["kdatb"].toString()) : <any>undefined;
-            this.kdate = _data["kdate"] ? DateTime.fromISO(_data["kdate"].toString()) : <any>undefined;
-            this.bwbdt = _data["bwbdt"] ? DateTime.fromISO(_data["bwbdt"].toString()) : <any>undefined;
-            this.gwldt = _data["gwldt"] ? DateTime.fromISO(_data["gwldt"].toString()) : <any>undefined;
-            this.ihran = _data["ihran"] ? DateTime.fromISO(_data["ihran"].toString()) : <any>undefined;
-            this.kunnr = _data["kunnr"];
-            this.konnr = _data["konnr"];
-            this.abgru = _data["abgru"];
-            this.autlf = _data["autlf"];
-            this.weakt = _data["weakt"];
-            this.reswk = _data["reswk"];
-            this.lblif = _data["lblif"];
-            this.incO1 = _data["incO1"];
-            this.incO2 = _data["incO2"];
-            this.submi = _data["submi"];
-            this.knumv = _data["knumv"];
-            this.kalsm = _data["kalsm"];
-            this.procstat = _data["procstat"];
-            this.unsez = _data["unsez"];
-            this.frggr = _data["frggr"];
-            this.frgsx = _data["frgsx"];
-            this.frgke = _data["frgke"];
-            this.frgzu = _data["frgzu"];
-            this.adrnr = _data["adrnr"];
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): CreateOrEditEkkoDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new CreateOrEditEkkoDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["mandt"] = this.mandt;
-        data["ebeln"] = this.ebeln;
-        data["bukrs"] = this.bukrs;
-        data["bstyp"] = this.bstyp;
-        data["bsart"] = this.bsart;
-        data["bsakz"] = this.bsakz;
-        data["loekz"] = this.loekz;
-        data["statu"] = this.statu;
-        data["aedat"] = this.aedat ? this.aedat.toString() : <any>undefined;
-        data["ernam"] = this.ernam;
-        data["pincr"] = this.pincr;
-        data["lponr"] = this.lponr;
-        data["lifnr"] = this.lifnr;
-        data["zterm"] = this.zterm;
-        data["zbD1T"] = this.zbD1T;
-        data["zbD2T"] = this.zbD2T;
-        data["zbD3T"] = this.zbD3T;
-        data["zbD1P"] = this.zbD1P;
-        data["zbD2P"] = this.zbD2P;
-        data["ekorg"] = this.ekorg;
-        data["ekgrp"] = this.ekgrp;
-        data["waers"] = this.waers;
-        data["wkurs"] = this.wkurs;
-        data["kufix"] = this.kufix;
-        data["bedat"] = this.bedat ? this.bedat.toString() : <any>undefined;
-        data["kdatb"] = this.kdatb ? this.kdatb.toString() : <any>undefined;
-        data["kdate"] = this.kdate ? this.kdate.toString() : <any>undefined;
-        data["bwbdt"] = this.bwbdt ? this.bwbdt.toString() : <any>undefined;
-        data["gwldt"] = this.gwldt ? this.gwldt.toString() : <any>undefined;
-        data["ihran"] = this.ihran ? this.ihran.toString() : <any>undefined;
-        data["kunnr"] = this.kunnr;
-        data["konnr"] = this.konnr;
-        data["abgru"] = this.abgru;
-        data["autlf"] = this.autlf;
-        data["weakt"] = this.weakt;
-        data["reswk"] = this.reswk;
-        data["lblif"] = this.lblif;
-        data["incO1"] = this.incO1;
-        data["incO2"] = this.incO2;
-        data["submi"] = this.submi;
-        data["knumv"] = this.knumv;
-        data["kalsm"] = this.kalsm;
-        data["procstat"] = this.procstat;
-        data["unsez"] = this.unsez;
-        data["frggr"] = this.frggr;
-        data["frgsx"] = this.frgsx;
-        data["frgke"] = this.frgke;
-        data["frgzu"] = this.frgzu;
-        data["adrnr"] = this.adrnr;
-        data["id"] = this.id;
-        return data;
-    }
-}
-
-export interface ICreateOrEditEkkoDto {
-    mandt: string | undefined;
-    ebeln: string | undefined;
-    bukrs: string | undefined;
-    bstyp: string | undefined;
-    bsart: string | undefined;
-    bsakz: string | undefined;
-    loekz: string | undefined;
-    statu: string | undefined;
-    aedat: DateTime | undefined;
-    ernam: string | undefined;
-    pincr: number | undefined;
-    lponr: number | undefined;
-    lifnr: string | undefined;
-    zterm: string | undefined;
-    zbD1T: number | undefined;
-    zbD2T: number | undefined;
-    zbD3T: number | undefined;
-    zbD1P: number | undefined;
-    zbD2P: number | undefined;
-    ekorg: string | undefined;
-    ekgrp: string | undefined;
-    waers: string | undefined;
-    wkurs: number | undefined;
-    kufix: string | undefined;
-    bedat: DateTime | undefined;
-    kdatb: DateTime | undefined;
-    kdate: DateTime | undefined;
-    bwbdt: DateTime | undefined;
-    gwldt: DateTime | undefined;
-    ihran: DateTime | undefined;
-    kunnr: string | undefined;
-    konnr: string | undefined;
-    abgru: string | undefined;
-    autlf: string | undefined;
-    weakt: string | undefined;
-    reswk: string | undefined;
-    lblif: string | undefined;
-    incO1: string | undefined;
-    incO2: string | undefined;
-    submi: string | undefined;
-    knumv: string | undefined;
-    kalsm: string | undefined;
-    procstat: string | undefined;
-    unsez: string | undefined;
-    frggr: string | undefined;
-    frgsx: string | undefined;
-    frgke: string | undefined;
-    frgzu: string | undefined;
-    adrnr: string | undefined;
-    id: string | undefined;
-}
-
 export class CreateOrEditEnumTableDto implements ICreateOrEditEnumTableDto {
     enumCode!: string;
     enumValue!: string;
@@ -31156,6 +28302,62 @@ export interface ICreateOrEditRptProcurementAdjustDto {
     id: string | undefined;
 }
 
+export class CreateOrEditTransferBudgetDetailDto implements ICreateOrEditTransferBudgetDetailDto {
+    period!: string;
+    amount!: number;
+    transferType!: string;
+    costCenterId!: string;
+    generalLedgerMappingId!: string | undefined;
+    id!: string | undefined;
+
+    constructor(data?: ICreateOrEditTransferBudgetDetailDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.period = _data["period"];
+            this.amount = _data["amount"];
+            this.transferType = _data["transferType"];
+            this.costCenterId = _data["costCenterId"];
+            this.generalLedgerMappingId = _data["generalLedgerMappingId"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditTransferBudgetDetailDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditTransferBudgetDetailDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["period"] = this.period;
+        data["amount"] = this.amount;
+        data["transferType"] = this.transferType;
+        data["costCenterId"] = this.costCenterId;
+        data["generalLedgerMappingId"] = this.generalLedgerMappingId;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface ICreateOrEditTransferBudgetDetailDto {
+    period: string;
+    amount: number;
+    transferType: string;
+    costCenterId: string;
+    generalLedgerMappingId: string | undefined;
+    id: string | undefined;
+}
+
 export class CreateOrEditTransferBudgetDto implements ICreateOrEditTransferBudgetDto {
     documentNo!: string;
     department!: string;
@@ -31165,8 +28367,7 @@ export class CreateOrEditTransferBudgetDto implements ICreateOrEditTransferBudge
     reason!: string;
     scopeofWork!: string;
     location!: string;
-    transferBudgetItemFromDtos!: CreateOrEditTransferBudgetItemDto[] | undefined;
-    transferBudgetItemToDtos!: CreateOrEditTransferBudgetItemDto[] | undefined;
+    details!: TransferBudgetDetailDto[] | undefined;
     id!: string | undefined;
 
     constructor(data?: ICreateOrEditTransferBudgetDto) {
@@ -31188,15 +28389,10 @@ export class CreateOrEditTransferBudgetDto implements ICreateOrEditTransferBudge
             this.reason = _data["reason"];
             this.scopeofWork = _data["scopeofWork"];
             this.location = _data["location"];
-            if (Array.isArray(_data["transferBudgetItemFromDtos"])) {
-                this.transferBudgetItemFromDtos = [] as any;
-                for (let item of _data["transferBudgetItemFromDtos"])
-                    this.transferBudgetItemFromDtos!.push(CreateOrEditTransferBudgetItemDto.fromJS(item));
-            }
-            if (Array.isArray(_data["transferBudgetItemToDtos"])) {
-                this.transferBudgetItemToDtos = [] as any;
-                for (let item of _data["transferBudgetItemToDtos"])
-                    this.transferBudgetItemToDtos!.push(CreateOrEditTransferBudgetItemDto.fromJS(item));
+            if (Array.isArray(_data["details"])) {
+                this.details = [] as any;
+                for (let item of _data["details"])
+                    this.details!.push(TransferBudgetDetailDto.fromJS(item));
             }
             this.id = _data["id"];
         }
@@ -31219,15 +28415,10 @@ export class CreateOrEditTransferBudgetDto implements ICreateOrEditTransferBudge
         data["reason"] = this.reason;
         data["scopeofWork"] = this.scopeofWork;
         data["location"] = this.location;
-        if (Array.isArray(this.transferBudgetItemFromDtos)) {
-            data["transferBudgetItemFromDtos"] = [];
-            for (let item of this.transferBudgetItemFromDtos)
-                data["transferBudgetItemFromDtos"].push(item.toJSON());
-        }
-        if (Array.isArray(this.transferBudgetItemToDtos)) {
-            data["transferBudgetItemToDtos"] = [];
-            for (let item of this.transferBudgetItemToDtos)
-                data["transferBudgetItemToDtos"].push(item.toJSON());
+        if (Array.isArray(this.details)) {
+            data["details"] = [];
+            for (let item of this.details)
+                data["details"].push(item.toJSON());
         }
         data["id"] = this.id;
         return data;
@@ -31243,72 +28434,7 @@ export interface ICreateOrEditTransferBudgetDto {
     reason: string;
     scopeofWork: string;
     location: string;
-    transferBudgetItemFromDtos: CreateOrEditTransferBudgetItemDto[] | undefined;
-    transferBudgetItemToDtos: CreateOrEditTransferBudgetItemDto[] | undefined;
-    id: string | undefined;
-}
-
-export class CreateOrEditTransferBudgetItemDto implements ICreateOrEditTransferBudgetItemDto {
-    transferBudgetId!: string;
-    costCenterId!: string;
-    period!: string;
-    amount!: number;
-    costCenterCode!: string;
-    costCenterName!: string | undefined;
-    departmentName!: string | undefined;
-    id!: string | undefined;
-
-    constructor(data?: ICreateOrEditTransferBudgetItemDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.transferBudgetId = _data["transferBudgetId"];
-            this.costCenterId = _data["costCenterId"];
-            this.period = _data["period"];
-            this.amount = _data["amount"];
-            this.costCenterCode = _data["costCenterCode"];
-            this.costCenterName = _data["costCenterName"];
-            this.departmentName = _data["departmentName"];
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): CreateOrEditTransferBudgetItemDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new CreateOrEditTransferBudgetItemDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["transferBudgetId"] = this.transferBudgetId;
-        data["costCenterId"] = this.costCenterId;
-        data["period"] = this.period;
-        data["amount"] = this.amount;
-        data["costCenterCode"] = this.costCenterCode;
-        data["costCenterName"] = this.costCenterName;
-        data["departmentName"] = this.departmentName;
-        data["id"] = this.id;
-        return data;
-    }
-}
-
-export interface ICreateOrEditTransferBudgetItemDto {
-    transferBudgetId: string;
-    costCenterId: string;
-    period: string;
-    amount: number;
-    costCenterCode: string;
-    costCenterName: string | undefined;
-    departmentName: string | undefined;
+    details: TransferBudgetDetailDto[] | undefined;
     id: string | undefined;
 }
 
@@ -33055,214 +30181,6 @@ export interface IDynamicPropertyValueDto {
     id: number;
 }
 
-export class EKPODto implements IEKPODto {
-    mandt!: string | undefined;
-    ebeln!: string | undefined;
-    ebelp!: number | undefined;
-    uniqueid!: string | undefined;
-    loekz!: string | undefined;
-    aedat!: DateTime | undefined;
-    txZ01!: string | undefined;
-    matnr!: string | undefined;
-    bukrs!: string | undefined;
-    bednr!: string | undefined;
-    matkl!: string | undefined;
-    infnr!: string | undefined;
-    idnlf!: string | undefined;
-    ktmng!: number | undefined;
-    menge!: number | undefined;
-    meins!: string | undefined;
-    bprme!: string | undefined;
-    bpumz!: number | undefined;
-    bpumn!: number | undefined;
-    umrez!: number | undefined;
-    umren!: number | undefined;
-    netpr!: number | undefined;
-    peinh!: number | undefined;
-    netwr!: number | undefined;
-    brtwr!: number | undefined;
-    agdat!: DateTime | undefined;
-    webaz!: number | undefined;
-    mwskz!: string | undefined;
-    bonus!: string | undefined;
-    insmk!: string | undefined;
-    spinf!: string | undefined;
-    prsdr!: string | undefined;
-    bwtar!: string | undefined;
-    bwtty!: string | undefined;
-    abskz!: string | undefined;
-    pstyp!: string | undefined;
-    knttp!: string | undefined;
-    konnr!: string | undefined;
-    ktpnr!: number | undefined;
-    packno!: number | undefined;
-    anfnr!: string | undefined;
-    banfn!: string | undefined;
-    bnfpo!: number | undefined;
-    id!: string;
-
-    constructor(data?: IEKPODto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.mandt = _data["mandt"];
-            this.ebeln = _data["ebeln"];
-            this.ebelp = _data["ebelp"];
-            this.uniqueid = _data["uniqueid"];
-            this.loekz = _data["loekz"];
-            this.aedat = _data["aedat"] ? DateTime.fromISO(_data["aedat"].toString()) : <any>undefined;
-            this.txZ01 = _data["txZ01"];
-            this.matnr = _data["matnr"];
-            this.bukrs = _data["bukrs"];
-            this.bednr = _data["bednr"];
-            this.matkl = _data["matkl"];
-            this.infnr = _data["infnr"];
-            this.idnlf = _data["idnlf"];
-            this.ktmng = _data["ktmng"];
-            this.menge = _data["menge"];
-            this.meins = _data["meins"];
-            this.bprme = _data["bprme"];
-            this.bpumz = _data["bpumz"];
-            this.bpumn = _data["bpumn"];
-            this.umrez = _data["umrez"];
-            this.umren = _data["umren"];
-            this.netpr = _data["netpr"];
-            this.peinh = _data["peinh"];
-            this.netwr = _data["netwr"];
-            this.brtwr = _data["brtwr"];
-            this.agdat = _data["agdat"] ? DateTime.fromISO(_data["agdat"].toString()) : <any>undefined;
-            this.webaz = _data["webaz"];
-            this.mwskz = _data["mwskz"];
-            this.bonus = _data["bonus"];
-            this.insmk = _data["insmk"];
-            this.spinf = _data["spinf"];
-            this.prsdr = _data["prsdr"];
-            this.bwtar = _data["bwtar"];
-            this.bwtty = _data["bwtty"];
-            this.abskz = _data["abskz"];
-            this.pstyp = _data["pstyp"];
-            this.knttp = _data["knttp"];
-            this.konnr = _data["konnr"];
-            this.ktpnr = _data["ktpnr"];
-            this.packno = _data["packno"];
-            this.anfnr = _data["anfnr"];
-            this.banfn = _data["banfn"];
-            this.bnfpo = _data["bnfpo"];
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): EKPODto {
-        data = typeof data === 'object' ? data : {};
-        let result = new EKPODto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["mandt"] = this.mandt;
-        data["ebeln"] = this.ebeln;
-        data["ebelp"] = this.ebelp;
-        data["uniqueid"] = this.uniqueid;
-        data["loekz"] = this.loekz;
-        data["aedat"] = this.aedat ? this.aedat.toString() : <any>undefined;
-        data["txZ01"] = this.txZ01;
-        data["matnr"] = this.matnr;
-        data["bukrs"] = this.bukrs;
-        data["bednr"] = this.bednr;
-        data["matkl"] = this.matkl;
-        data["infnr"] = this.infnr;
-        data["idnlf"] = this.idnlf;
-        data["ktmng"] = this.ktmng;
-        data["menge"] = this.menge;
-        data["meins"] = this.meins;
-        data["bprme"] = this.bprme;
-        data["bpumz"] = this.bpumz;
-        data["bpumn"] = this.bpumn;
-        data["umrez"] = this.umrez;
-        data["umren"] = this.umren;
-        data["netpr"] = this.netpr;
-        data["peinh"] = this.peinh;
-        data["netwr"] = this.netwr;
-        data["brtwr"] = this.brtwr;
-        data["agdat"] = this.agdat ? this.agdat.toString() : <any>undefined;
-        data["webaz"] = this.webaz;
-        data["mwskz"] = this.mwskz;
-        data["bonus"] = this.bonus;
-        data["insmk"] = this.insmk;
-        data["spinf"] = this.spinf;
-        data["prsdr"] = this.prsdr;
-        data["bwtar"] = this.bwtar;
-        data["bwtty"] = this.bwtty;
-        data["abskz"] = this.abskz;
-        data["pstyp"] = this.pstyp;
-        data["knttp"] = this.knttp;
-        data["konnr"] = this.konnr;
-        data["ktpnr"] = this.ktpnr;
-        data["packno"] = this.packno;
-        data["anfnr"] = this.anfnr;
-        data["banfn"] = this.banfn;
-        data["bnfpo"] = this.bnfpo;
-        data["id"] = this.id;
-        return data;
-    }
-}
-
-export interface IEKPODto {
-    mandt: string | undefined;
-    ebeln: string | undefined;
-    ebelp: number | undefined;
-    uniqueid: string | undefined;
-    loekz: string | undefined;
-    aedat: DateTime | undefined;
-    txZ01: string | undefined;
-    matnr: string | undefined;
-    bukrs: string | undefined;
-    bednr: string | undefined;
-    matkl: string | undefined;
-    infnr: string | undefined;
-    idnlf: string | undefined;
-    ktmng: number | undefined;
-    menge: number | undefined;
-    meins: string | undefined;
-    bprme: string | undefined;
-    bpumz: number | undefined;
-    bpumn: number | undefined;
-    umrez: number | undefined;
-    umren: number | undefined;
-    netpr: number | undefined;
-    peinh: number | undefined;
-    netwr: number | undefined;
-    brtwr: number | undefined;
-    agdat: DateTime | undefined;
-    webaz: number | undefined;
-    mwskz: string | undefined;
-    bonus: string | undefined;
-    insmk: string | undefined;
-    spinf: string | undefined;
-    prsdr: string | undefined;
-    bwtar: string | undefined;
-    bwtty: string | undefined;
-    abskz: string | undefined;
-    pstyp: string | undefined;
-    knttp: string | undefined;
-    konnr: string | undefined;
-    ktpnr: number | undefined;
-    packno: number | undefined;
-    anfnr: string | undefined;
-    banfn: string | undefined;
-    bnfpo: number | undefined;
-    id: string;
-}
-
 export class EditionCreateDto implements IEditionCreateDto {
     id!: number | undefined;
     displayName!: string;
@@ -33692,154 +30610,6 @@ export class EditionsSelectOutput implements IEditionsSelectOutput {
 export interface IEditionsSelectOutput {
     allFeatures: FlatFeatureSelectDto[] | undefined;
     editionsWithFeatures: EditionWithFeaturesDto[] | undefined;
-}
-
-export class EkkoDto implements IEkkoDto {
-    mandt!: string | undefined;
-    ebeln!: string | undefined;
-    bukrs!: string | undefined;
-    bstyp!: string | undefined;
-    aedat!: DateTime | undefined;
-    zbD1T!: number | undefined;
-    zbD2T!: number | undefined;
-    zbD3T!: number | undefined;
-    ekgrp!: string | undefined;
-    wkurs!: number | undefined;
-    kufix!: string | undefined;
-    bedat!: DateTime | undefined;
-    kdatb!: DateTime | undefined;
-    kdate!: DateTime | undefined;
-    bwbdt!: DateTime | undefined;
-    gwldt!: DateTime | undefined;
-    ihran!: DateTime | undefined;
-    kunnr!: string | undefined;
-    konnr!: string | undefined;
-    abgru!: string | undefined;
-    autlf!: string | undefined;
-    weakt!: string | undefined;
-    reswk!: string | undefined;
-    lblif!: string | undefined;
-    incO1!: string | undefined;
-    incO2!: string | undefined;
-    submi!: string | undefined;
-    knumv!: string | undefined;
-    id!: string;
-
-    constructor(data?: IEkkoDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.mandt = _data["mandt"];
-            this.ebeln = _data["ebeln"];
-            this.bukrs = _data["bukrs"];
-            this.bstyp = _data["bstyp"];
-            this.aedat = _data["aedat"] ? DateTime.fromISO(_data["aedat"].toString()) : <any>undefined;
-            this.zbD1T = _data["zbD1T"];
-            this.zbD2T = _data["zbD2T"];
-            this.zbD3T = _data["zbD3T"];
-            this.ekgrp = _data["ekgrp"];
-            this.wkurs = _data["wkurs"];
-            this.kufix = _data["kufix"];
-            this.bedat = _data["bedat"] ? DateTime.fromISO(_data["bedat"].toString()) : <any>undefined;
-            this.kdatb = _data["kdatb"] ? DateTime.fromISO(_data["kdatb"].toString()) : <any>undefined;
-            this.kdate = _data["kdate"] ? DateTime.fromISO(_data["kdate"].toString()) : <any>undefined;
-            this.bwbdt = _data["bwbdt"] ? DateTime.fromISO(_data["bwbdt"].toString()) : <any>undefined;
-            this.gwldt = _data["gwldt"] ? DateTime.fromISO(_data["gwldt"].toString()) : <any>undefined;
-            this.ihran = _data["ihran"] ? DateTime.fromISO(_data["ihran"].toString()) : <any>undefined;
-            this.kunnr = _data["kunnr"];
-            this.konnr = _data["konnr"];
-            this.abgru = _data["abgru"];
-            this.autlf = _data["autlf"];
-            this.weakt = _data["weakt"];
-            this.reswk = _data["reswk"];
-            this.lblif = _data["lblif"];
-            this.incO1 = _data["incO1"];
-            this.incO2 = _data["incO2"];
-            this.submi = _data["submi"];
-            this.knumv = _data["knumv"];
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): EkkoDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new EkkoDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["mandt"] = this.mandt;
-        data["ebeln"] = this.ebeln;
-        data["bukrs"] = this.bukrs;
-        data["bstyp"] = this.bstyp;
-        data["aedat"] = this.aedat ? this.aedat.toString() : <any>undefined;
-        data["zbD1T"] = this.zbD1T;
-        data["zbD2T"] = this.zbD2T;
-        data["zbD3T"] = this.zbD3T;
-        data["ekgrp"] = this.ekgrp;
-        data["wkurs"] = this.wkurs;
-        data["kufix"] = this.kufix;
-        data["bedat"] = this.bedat ? this.bedat.toString() : <any>undefined;
-        data["kdatb"] = this.kdatb ? this.kdatb.toString() : <any>undefined;
-        data["kdate"] = this.kdate ? this.kdate.toString() : <any>undefined;
-        data["bwbdt"] = this.bwbdt ? this.bwbdt.toString() : <any>undefined;
-        data["gwldt"] = this.gwldt ? this.gwldt.toString() : <any>undefined;
-        data["ihran"] = this.ihran ? this.ihran.toString() : <any>undefined;
-        data["kunnr"] = this.kunnr;
-        data["konnr"] = this.konnr;
-        data["abgru"] = this.abgru;
-        data["autlf"] = this.autlf;
-        data["weakt"] = this.weakt;
-        data["reswk"] = this.reswk;
-        data["lblif"] = this.lblif;
-        data["incO1"] = this.incO1;
-        data["incO2"] = this.incO2;
-        data["submi"] = this.submi;
-        data["knumv"] = this.knumv;
-        data["id"] = this.id;
-        return data;
-    }
-}
-
-export interface IEkkoDto {
-    mandt: string | undefined;
-    ebeln: string | undefined;
-    bukrs: string | undefined;
-    bstyp: string | undefined;
-    aedat: DateTime | undefined;
-    zbD1T: number | undefined;
-    zbD2T: number | undefined;
-    zbD3T: number | undefined;
-    ekgrp: string | undefined;
-    wkurs: number | undefined;
-    kufix: string | undefined;
-    bedat: DateTime | undefined;
-    kdatb: DateTime | undefined;
-    kdate: DateTime | undefined;
-    bwbdt: DateTime | undefined;
-    gwldt: DateTime | undefined;
-    ihran: DateTime | undefined;
-    kunnr: string | undefined;
-    konnr: string | undefined;
-    abgru: string | undefined;
-    autlf: string | undefined;
-    weakt: string | undefined;
-    reswk: string | undefined;
-    lblif: string | undefined;
-    incO1: string | undefined;
-    incO2: string | undefined;
-    submi: string | undefined;
-    knumv: string | undefined;
-    id: string;
 }
 
 export class EmailSettingsEditDto implements IEmailSettingsEditDto {
@@ -36249,78 +33019,6 @@ export interface IGetDefaultEditionNameOutput {
     name: string | undefined;
 }
 
-export class GetEKPOForEditOutput implements IGetEKPOForEditOutput {
-    ekpo!: CreateOrEditEKPODto;
-
-    constructor(data?: IGetEKPOForEditOutput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.ekpo = _data["ekpo"] ? CreateOrEditEKPODto.fromJS(_data["ekpo"]) : <any>undefined;
-        }
-    }
-
-    static fromJS(data: any): GetEKPOForEditOutput {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetEKPOForEditOutput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["ekpo"] = this.ekpo ? this.ekpo.toJSON() : <any>undefined;
-        return data;
-    }
-}
-
-export interface IGetEKPOForEditOutput {
-    ekpo: CreateOrEditEKPODto;
-}
-
-export class GetEKPOForViewDto implements IGetEKPOForViewDto {
-    ekpo!: EKPODto;
-
-    constructor(data?: IGetEKPOForViewDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.ekpo = _data["ekpo"] ? EKPODto.fromJS(_data["ekpo"]) : <any>undefined;
-        }
-    }
-
-    static fromJS(data: any): GetEKPOForViewDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetEKPOForViewDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["ekpo"] = this.ekpo ? this.ekpo.toJSON() : <any>undefined;
-        return data;
-    }
-}
-
-export interface IGetEKPOForViewDto {
-    ekpo: EKPODto;
-}
-
 export class GetEditionEditOutput implements IGetEditionEditOutput {
     edition!: EditionEditDto;
     featureValues!: NameValueDto[] | undefined;
@@ -36423,78 +33121,6 @@ export class GetEditionTenantStatisticsOutput implements IGetEditionTenantStatis
 
 export interface IGetEditionTenantStatisticsOutput {
     editionStatistics: TenantEdition[] | undefined;
-}
-
-export class GetEkkoForEditOutput implements IGetEkkoForEditOutput {
-    ekko!: CreateOrEditEkkoDto;
-
-    constructor(data?: IGetEkkoForEditOutput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.ekko = _data["ekko"] ? CreateOrEditEkkoDto.fromJS(_data["ekko"]) : <any>undefined;
-        }
-    }
-
-    static fromJS(data: any): GetEkkoForEditOutput {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetEkkoForEditOutput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["ekko"] = this.ekko ? this.ekko.toJSON() : <any>undefined;
-        return data;
-    }
-}
-
-export interface IGetEkkoForEditOutput {
-    ekko: CreateOrEditEkkoDto;
-}
-
-export class GetEkkoForViewDto implements IGetEkkoForViewDto {
-    ekko!: EkkoDto;
-
-    constructor(data?: IGetEkkoForViewDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.ekko = _data["ekko"] ? EkkoDto.fromJS(_data["ekko"]) : <any>undefined;
-        }
-    }
-
-    static fromJS(data: any): GetEkkoForViewDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetEkkoForViewDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["ekko"] = this.ekko ? this.ekko.toJSON() : <any>undefined;
-        return data;
-    }
-}
-
-export interface IGetEkkoForViewDto {
-    ekko: EkkoDto;
 }
 
 export class GetEnumTableForEditOutput implements IGetEnumTableForEditOutput {
@@ -38241,6 +34867,94 @@ export interface IGetTopStatsOutput {
     newUsers: number;
 }
 
+export class GetTransferBudgetDetailForEditOutput implements IGetTransferBudgetDetailForEditOutput {
+    transferBudgetDetail!: CreateOrEditTransferBudgetDetailDto;
+    costCenterCostCenterName!: string | undefined;
+    generalLedgerMappingGLAccount!: string | undefined;
+
+    constructor(data?: IGetTransferBudgetDetailForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.transferBudgetDetail = _data["transferBudgetDetail"] ? CreateOrEditTransferBudgetDetailDto.fromJS(_data["transferBudgetDetail"]) : <any>undefined;
+            this.costCenterCostCenterName = _data["costCenterCostCenterName"];
+            this.generalLedgerMappingGLAccount = _data["generalLedgerMappingGLAccount"];
+        }
+    }
+
+    static fromJS(data: any): GetTransferBudgetDetailForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTransferBudgetDetailForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["transferBudgetDetail"] = this.transferBudgetDetail ? this.transferBudgetDetail.toJSON() : <any>undefined;
+        data["costCenterCostCenterName"] = this.costCenterCostCenterName;
+        data["generalLedgerMappingGLAccount"] = this.generalLedgerMappingGLAccount;
+        return data;
+    }
+}
+
+export interface IGetTransferBudgetDetailForEditOutput {
+    transferBudgetDetail: CreateOrEditTransferBudgetDetailDto;
+    costCenterCostCenterName: string | undefined;
+    generalLedgerMappingGLAccount: string | undefined;
+}
+
+export class GetTransferBudgetDetailForViewDto implements IGetTransferBudgetDetailForViewDto {
+    transferBudgetDetail!: TransferBudgetDetailDto;
+    costCenterCostCenterName!: string | undefined;
+    generalLedgerMappingGLAccount!: string | undefined;
+
+    constructor(data?: IGetTransferBudgetDetailForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.transferBudgetDetail = _data["transferBudgetDetail"] ? TransferBudgetDetailDto.fromJS(_data["transferBudgetDetail"]) : <any>undefined;
+            this.costCenterCostCenterName = _data["costCenterCostCenterName"];
+            this.generalLedgerMappingGLAccount = _data["generalLedgerMappingGLAccount"];
+        }
+    }
+
+    static fromJS(data: any): GetTransferBudgetDetailForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTransferBudgetDetailForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["transferBudgetDetail"] = this.transferBudgetDetail ? this.transferBudgetDetail.toJSON() : <any>undefined;
+        data["costCenterCostCenterName"] = this.costCenterCostCenterName;
+        data["generalLedgerMappingGLAccount"] = this.generalLedgerMappingGLAccount;
+        return data;
+    }
+}
+
+export interface IGetTransferBudgetDetailForViewDto {
+    transferBudgetDetail: TransferBudgetDetailDto;
+    costCenterCostCenterName: string | undefined;
+    generalLedgerMappingGLAccount: string | undefined;
+}
+
 export class GetTransferBudgetForEditOutput implements IGetTransferBudgetForEditOutput {
     transferBudget!: CreateOrEditTransferBudgetDto;
 
@@ -38311,102 +35025,6 @@ export class GetTransferBudgetForViewDto implements IGetTransferBudgetForViewDto
 
 export interface IGetTransferBudgetForViewDto {
     transferBudget: TransferBudgetDto;
-}
-
-export class GetTransferBudgetItemForEditOutput implements IGetTransferBudgetItemForEditOutput {
-    transferBudgetItem!: CreateOrEditTransferBudgetItemDto;
-    transferBudgetDisplayProperty!: string | undefined;
-    costCenterDisplayProperty!: string | undefined;
-    costCenterDisplayProperty2!: string | undefined;
-
-    constructor(data?: IGetTransferBudgetItemForEditOutput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.transferBudgetItem = _data["transferBudgetItem"] ? CreateOrEditTransferBudgetItemDto.fromJS(_data["transferBudgetItem"]) : <any>undefined;
-            this.transferBudgetDisplayProperty = _data["transferBudgetDisplayProperty"];
-            this.costCenterDisplayProperty = _data["costCenterDisplayProperty"];
-            this.costCenterDisplayProperty2 = _data["costCenterDisplayProperty2"];
-        }
-    }
-
-    static fromJS(data: any): GetTransferBudgetItemForEditOutput {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetTransferBudgetItemForEditOutput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["transferBudgetItem"] = this.transferBudgetItem ? this.transferBudgetItem.toJSON() : <any>undefined;
-        data["transferBudgetDisplayProperty"] = this.transferBudgetDisplayProperty;
-        data["costCenterDisplayProperty"] = this.costCenterDisplayProperty;
-        data["costCenterDisplayProperty2"] = this.costCenterDisplayProperty2;
-        return data;
-    }
-}
-
-export interface IGetTransferBudgetItemForEditOutput {
-    transferBudgetItem: CreateOrEditTransferBudgetItemDto;
-    transferBudgetDisplayProperty: string | undefined;
-    costCenterDisplayProperty: string | undefined;
-    costCenterDisplayProperty2: string | undefined;
-}
-
-export class GetTransferBudgetItemForViewDto implements IGetTransferBudgetItemForViewDto {
-    transferBudgetItem!: TransferBudgetItemDto;
-    transferBudgetDisplayProperty!: string | undefined;
-    costCenterDisplayProperty!: string | undefined;
-    costCenterDisplayProperty2!: string | undefined;
-
-    constructor(data?: IGetTransferBudgetItemForViewDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.transferBudgetItem = _data["transferBudgetItem"] ? TransferBudgetItemDto.fromJS(_data["transferBudgetItem"]) : <any>undefined;
-            this.transferBudgetDisplayProperty = _data["transferBudgetDisplayProperty"];
-            this.costCenterDisplayProperty = _data["costCenterDisplayProperty"];
-            this.costCenterDisplayProperty2 = _data["costCenterDisplayProperty2"];
-        }
-    }
-
-    static fromJS(data: any): GetTransferBudgetItemForViewDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetTransferBudgetItemForViewDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["transferBudgetItem"] = this.transferBudgetItem ? this.transferBudgetItem.toJSON() : <any>undefined;
-        data["transferBudgetDisplayProperty"] = this.transferBudgetDisplayProperty;
-        data["costCenterDisplayProperty"] = this.costCenterDisplayProperty;
-        data["costCenterDisplayProperty2"] = this.costCenterDisplayProperty2;
-        return data;
-    }
-}
-
-export interface IGetTransferBudgetItemForViewDto {
-    transferBudgetItem: TransferBudgetItemDto;
-    transferBudgetDisplayProperty: string | undefined;
-    costCenterDisplayProperty: string | undefined;
-    costCenterDisplayProperty2: string | undefined;
 }
 
 export class GetTravelRequestForEditOutput implements IGetTravelRequestForEditOutput {
@@ -42762,102 +39380,6 @@ export interface IPagedResultDtoOfGetDataProductionForViewDto {
     items: GetDataProductionForViewDto[] | undefined;
 }
 
-export class PagedResultDtoOfGetEKPOForViewDto implements IPagedResultDtoOfGetEKPOForViewDto {
-    totalCount!: number;
-    items!: GetEKPOForViewDto[] | undefined;
-
-    constructor(data?: IPagedResultDtoOfGetEKPOForViewDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.totalCount = _data["totalCount"];
-            if (Array.isArray(_data["items"])) {
-                this.items = [] as any;
-                for (let item of _data["items"])
-                    this.items!.push(GetEKPOForViewDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): PagedResultDtoOfGetEKPOForViewDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PagedResultDtoOfGetEKPOForViewDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["totalCount"] = this.totalCount;
-        if (Array.isArray(this.items)) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-export interface IPagedResultDtoOfGetEKPOForViewDto {
-    totalCount: number;
-    items: GetEKPOForViewDto[] | undefined;
-}
-
-export class PagedResultDtoOfGetEkkoForViewDto implements IPagedResultDtoOfGetEkkoForViewDto {
-    totalCount!: number;
-    items!: GetEkkoForViewDto[] | undefined;
-
-    constructor(data?: IPagedResultDtoOfGetEkkoForViewDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.totalCount = _data["totalCount"];
-            if (Array.isArray(_data["items"])) {
-                this.items = [] as any;
-                for (let item of _data["items"])
-                    this.items!.push(GetEkkoForViewDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): PagedResultDtoOfGetEkkoForViewDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PagedResultDtoOfGetEkkoForViewDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["totalCount"] = this.totalCount;
-        if (Array.isArray(this.items)) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-export interface IPagedResultDtoOfGetEkkoForViewDto {
-    totalCount: number;
-    items: GetEkkoForViewDto[] | undefined;
-}
-
 export class PagedResultDtoOfGetEnumTableForViewDto implements IPagedResultDtoOfGetEnumTableForViewDto {
     totalCount!: number;
     items!: GetEnumTableForViewDto[] | undefined;
@@ -43290,6 +39812,54 @@ export interface IPagedResultDtoOfGetRptProcurementAdjustForViewDto {
     items: GetRptProcurementAdjustForViewDto[] | undefined;
 }
 
+export class PagedResultDtoOfGetTransferBudgetDetailForViewDto implements IPagedResultDtoOfGetTransferBudgetDetailForViewDto {
+    totalCount!: number;
+    items!: GetTransferBudgetDetailForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetTransferBudgetDetailForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.totalCount = _data["totalCount"];
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(GetTransferBudgetDetailForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetTransferBudgetDetailForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetTransferBudgetDetailForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IPagedResultDtoOfGetTransferBudgetDetailForViewDto {
+    totalCount: number;
+    items: GetTransferBudgetDetailForViewDto[] | undefined;
+}
+
 export class PagedResultDtoOfGetTransferBudgetForViewDto implements IPagedResultDtoOfGetTransferBudgetForViewDto {
     totalCount!: number;
     items!: GetTransferBudgetForViewDto[] | undefined;
@@ -43336,54 +39906,6 @@ export class PagedResultDtoOfGetTransferBudgetForViewDto implements IPagedResult
 export interface IPagedResultDtoOfGetTransferBudgetForViewDto {
     totalCount: number;
     items: GetTransferBudgetForViewDto[] | undefined;
-}
-
-export class PagedResultDtoOfGetTransferBudgetItemForViewDto implements IPagedResultDtoOfGetTransferBudgetItemForViewDto {
-    totalCount!: number;
-    items!: GetTransferBudgetItemForViewDto[] | undefined;
-
-    constructor(data?: IPagedResultDtoOfGetTransferBudgetItemForViewDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.totalCount = _data["totalCount"];
-            if (Array.isArray(_data["items"])) {
-                this.items = [] as any;
-                for (let item of _data["items"])
-                    this.items!.push(GetTransferBudgetItemForViewDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): PagedResultDtoOfGetTransferBudgetItemForViewDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PagedResultDtoOfGetTransferBudgetItemForViewDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["totalCount"] = this.totalCount;
-        if (Array.isArray(this.items)) {
-            data["items"] = [];
-            for (let item of this.items)
-                data["items"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-export interface IPagedResultDtoOfGetTransferBudgetItemForViewDto {
-    totalCount: number;
-    items: GetTransferBudgetItemForViewDto[] | undefined;
 }
 
 export class PagedResultDtoOfGetTravelRequestForViewDto implements IPagedResultDtoOfGetTravelRequestForViewDto {
@@ -44298,11 +40820,11 @@ export interface IPagedResultDtoOfTenantListDto {
     items: TenantListDto[] | undefined;
 }
 
-export class PagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto implements IPagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto {
+export class PagedResultDtoOfTransferBudgetDetailCostCenterLookupTableDto implements IPagedResultDtoOfTransferBudgetDetailCostCenterLookupTableDto {
     totalCount!: number;
-    items!: TransferBudgetItemCostCenterLookupTableDto[] | undefined;
+    items!: TransferBudgetDetailCostCenterLookupTableDto[] | undefined;
 
-    constructor(data?: IPagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto) {
+    constructor(data?: IPagedResultDtoOfTransferBudgetDetailCostCenterLookupTableDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -44317,14 +40839,14 @@ export class PagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto implemen
             if (Array.isArray(_data["items"])) {
                 this.items = [] as any;
                 for (let item of _data["items"])
-                    this.items!.push(TransferBudgetItemCostCenterLookupTableDto.fromJS(item));
+                    this.items!.push(TransferBudgetDetailCostCenterLookupTableDto.fromJS(item));
             }
         }
     }
 
-    static fromJS(data: any): PagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto {
+    static fromJS(data: any): PagedResultDtoOfTransferBudgetDetailCostCenterLookupTableDto {
         data = typeof data === 'object' ? data : {};
-        let result = new PagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto();
+        let result = new PagedResultDtoOfTransferBudgetDetailCostCenterLookupTableDto();
         result.init(data);
         return result;
     }
@@ -44341,16 +40863,16 @@ export class PagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto implemen
     }
 }
 
-export interface IPagedResultDtoOfTransferBudgetItemCostCenterLookupTableDto {
+export interface IPagedResultDtoOfTransferBudgetDetailCostCenterLookupTableDto {
     totalCount: number;
-    items: TransferBudgetItemCostCenterLookupTableDto[] | undefined;
+    items: TransferBudgetDetailCostCenterLookupTableDto[] | undefined;
 }
 
-export class PagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto implements IPagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto {
+export class PagedResultDtoOfTransferBudgetDetailGeneralLedgerMappingLookupTableDto implements IPagedResultDtoOfTransferBudgetDetailGeneralLedgerMappingLookupTableDto {
     totalCount!: number;
-    items!: TransferBudgetItemTransferBudgetLookupTableDto[] | undefined;
+    items!: TransferBudgetDetailGeneralLedgerMappingLookupTableDto[] | undefined;
 
-    constructor(data?: IPagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto) {
+    constructor(data?: IPagedResultDtoOfTransferBudgetDetailGeneralLedgerMappingLookupTableDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -44365,14 +40887,14 @@ export class PagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto impl
             if (Array.isArray(_data["items"])) {
                 this.items = [] as any;
                 for (let item of _data["items"])
-                    this.items!.push(TransferBudgetItemTransferBudgetLookupTableDto.fromJS(item));
+                    this.items!.push(TransferBudgetDetailGeneralLedgerMappingLookupTableDto.fromJS(item));
             }
         }
     }
 
-    static fromJS(data: any): PagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto {
+    static fromJS(data: any): PagedResultDtoOfTransferBudgetDetailGeneralLedgerMappingLookupTableDto {
         data = typeof data === 'object' ? data : {};
-        let result = new PagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto();
+        let result = new PagedResultDtoOfTransferBudgetDetailGeneralLedgerMappingLookupTableDto();
         result.init(data);
         return result;
     }
@@ -44389,9 +40911,9 @@ export class PagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto impl
     }
 }
 
-export interface IPagedResultDtoOfTransferBudgetItemTransferBudgetLookupTableDto {
+export interface IPagedResultDtoOfTransferBudgetDetailGeneralLedgerMappingLookupTableDto {
     totalCount: number;
-    items: TransferBudgetItemTransferBudgetLookupTableDto[] | undefined;
+    items: TransferBudgetDetailGeneralLedgerMappingLookupTableDto[] | undefined;
 }
 
 export class PagedResultDtoOfTravelRequestAirportLookupTableDto implements IPagedResultDtoOfTravelRequestAirportLookupTableDto {
@@ -44831,54 +41353,6 @@ export enum PaymentPeriodType {
     Weekly = 7,
     Monthly = 30,
     Annual = 365,
-}
-
-export class PurchasingOrderSynchDto implements IPurchasingOrderSynchDto {
-    companyCode!: string | undefined;
-    dateFrom!: DateTime;
-    dateTo!: DateTime;
-    isActive!: boolean;
-
-    constructor(data?: IPurchasingOrderSynchDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.companyCode = _data["companyCode"];
-            this.dateFrom = _data["dateFrom"] ? DateTime.fromISO(_data["dateFrom"].toString()) : <any>undefined;
-            this.dateTo = _data["dateTo"] ? DateTime.fromISO(_data["dateTo"].toString()) : <any>undefined;
-            this.isActive = _data["isActive"];
-        }
-    }
-
-    static fromJS(data: any): PurchasingOrderSynchDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PurchasingOrderSynchDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["companyCode"] = this.companyCode;
-        data["dateFrom"] = this.dateFrom ? this.dateFrom.toString() : <any>undefined;
-        data["dateTo"] = this.dateTo ? this.dateTo.toString() : <any>undefined;
-        data["isActive"] = this.isActive;
-        return data;
-    }
-}
-
-export interface IPurchasingOrderSynchDto {
-    companyCode: string | undefined;
-    dateFrom: DateTime;
-    dateTo: DateTime;
-    isActive: boolean;
 }
 
 export class RecentTenant implements IRecentTenant {
@@ -47785,6 +44259,142 @@ export interface ITopStatsData {
     dashboardPlaceholder2: number;
 }
 
+export class TransferBudgetDetailCostCenterLookupTableDto implements ITransferBudgetDetailCostCenterLookupTableDto {
+    id!: string | undefined;
+    displayName!: string | undefined;
+
+    constructor(data?: ITransferBudgetDetailCostCenterLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.displayName = _data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): TransferBudgetDetailCostCenterLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TransferBudgetDetailCostCenterLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data;
+    }
+}
+
+export interface ITransferBudgetDetailCostCenterLookupTableDto {
+    id: string | undefined;
+    displayName: string | undefined;
+}
+
+export class TransferBudgetDetailDto implements ITransferBudgetDetailDto {
+    period!: string | undefined;
+    amount!: number;
+    transferType!: string | undefined;
+    costCenterId!: string;
+    generalLedgerMappingId!: string | undefined;
+    id!: string;
+
+    constructor(data?: ITransferBudgetDetailDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.period = _data["period"];
+            this.amount = _data["amount"];
+            this.transferType = _data["transferType"];
+            this.costCenterId = _data["costCenterId"];
+            this.generalLedgerMappingId = _data["generalLedgerMappingId"];
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): TransferBudgetDetailDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TransferBudgetDetailDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["period"] = this.period;
+        data["amount"] = this.amount;
+        data["transferType"] = this.transferType;
+        data["costCenterId"] = this.costCenterId;
+        data["generalLedgerMappingId"] = this.generalLedgerMappingId;
+        data["id"] = this.id;
+        return data;
+    }
+}
+
+export interface ITransferBudgetDetailDto {
+    period: string | undefined;
+    amount: number;
+    transferType: string | undefined;
+    costCenterId: string;
+    generalLedgerMappingId: string | undefined;
+    id: string;
+}
+
+export class TransferBudgetDetailGeneralLedgerMappingLookupTableDto implements ITransferBudgetDetailGeneralLedgerMappingLookupTableDto {
+    id!: string | undefined;
+    displayName!: string | undefined;
+
+    constructor(data?: ITransferBudgetDetailGeneralLedgerMappingLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.displayName = _data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): TransferBudgetDetailGeneralLedgerMappingLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TransferBudgetDetailGeneralLedgerMappingLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data;
+    }
+}
+
+export interface ITransferBudgetDetailGeneralLedgerMappingLookupTableDto {
+    id: string | undefined;
+    displayName: string | undefined;
+}
+
 export class TransferBudgetDto implements ITransferBudgetDto {
     documentNo!: string | undefined;
     department!: string | undefined;
@@ -47839,162 +44449,6 @@ export interface ITransferBudgetDto {
     reason: string | undefined;
     location: string | undefined;
     id: string;
-}
-
-export class TransferBudgetItemCostCenterLookupTableDto implements ITransferBudgetItemCostCenterLookupTableDto {
-    id!: string | undefined;
-    displayName!: string | undefined;
-    costCenterCode!: string | undefined;
-    costCenterName!: string | undefined;
-    departmentName!: string | undefined;
-
-    constructor(data?: ITransferBudgetItemCostCenterLookupTableDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.displayName = _data["displayName"];
-            this.costCenterCode = _data["costCenterCode"];
-            this.costCenterName = _data["costCenterName"];
-            this.departmentName = _data["departmentName"];
-        }
-    }
-
-    static fromJS(data: any): TransferBudgetItemCostCenterLookupTableDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new TransferBudgetItemCostCenterLookupTableDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["displayName"] = this.displayName;
-        data["costCenterCode"] = this.costCenterCode;
-        data["costCenterName"] = this.costCenterName;
-        data["departmentName"] = this.departmentName;
-        return data;
-    }
-}
-
-export interface ITransferBudgetItemCostCenterLookupTableDto {
-    id: string | undefined;
-    displayName: string | undefined;
-    costCenterCode: string | undefined;
-    costCenterName: string | undefined;
-    departmentName: string | undefined;
-}
-
-export class TransferBudgetItemDto implements ITransferBudgetItemDto {
-    periodFrom!: string | undefined;
-    amountFrom!: number;
-    periodTo!: string | undefined;
-    amountTo!: number;
-    transferBudgetId!: string | undefined;
-    costCenterIdFrom!: string | undefined;
-    costCenterIdTo!: string | undefined;
-    id!: string;
-
-    constructor(data?: ITransferBudgetItemDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.periodFrom = _data["periodFrom"];
-            this.amountFrom = _data["amountFrom"];
-            this.periodTo = _data["periodTo"];
-            this.amountTo = _data["amountTo"];
-            this.transferBudgetId = _data["transferBudgetId"];
-            this.costCenterIdFrom = _data["costCenterIdFrom"];
-            this.costCenterIdTo = _data["costCenterIdTo"];
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): TransferBudgetItemDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new TransferBudgetItemDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["periodFrom"] = this.periodFrom;
-        data["amountFrom"] = this.amountFrom;
-        data["periodTo"] = this.periodTo;
-        data["amountTo"] = this.amountTo;
-        data["transferBudgetId"] = this.transferBudgetId;
-        data["costCenterIdFrom"] = this.costCenterIdFrom;
-        data["costCenterIdTo"] = this.costCenterIdTo;
-        data["id"] = this.id;
-        return data;
-    }
-}
-
-export interface ITransferBudgetItemDto {
-    periodFrom: string | undefined;
-    amountFrom: number;
-    periodTo: string | undefined;
-    amountTo: number;
-    transferBudgetId: string | undefined;
-    costCenterIdFrom: string | undefined;
-    costCenterIdTo: string | undefined;
-    id: string;
-}
-
-export class TransferBudgetItemTransferBudgetLookupTableDto implements ITransferBudgetItemTransferBudgetLookupTableDto {
-    id!: string | undefined;
-    displayName!: string | undefined;
-
-    constructor(data?: ITransferBudgetItemTransferBudgetLookupTableDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.displayName = _data["displayName"];
-        }
-    }
-
-    static fromJS(data: any): TransferBudgetItemTransferBudgetLookupTableDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new TransferBudgetItemTransferBudgetLookupTableDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["displayName"] = this.displayName;
-        return data;
-    }
-}
-
-export interface ITransferBudgetItemTransferBudgetLookupTableDto {
-    id: string | undefined;
-    displayName: string | undefined;
 }
 
 export class TravelRequestAirportLookupTableDto implements ITravelRequestAirportLookupTableDto {

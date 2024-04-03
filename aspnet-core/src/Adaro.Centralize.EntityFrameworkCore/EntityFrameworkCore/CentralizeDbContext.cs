@@ -5,7 +5,6 @@ using Adaro.Centralize.JobScheduler;
 using Adaro.Centralize.SAPConnector;
 using Adaro.Centralize.MasterDataRequest;
 using Adaro.Centralize.MasterData;
-using Adaro.Centralize.Travel;
 using Abp.Zero.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Adaro.Centralize.Authorization.Delegation;
@@ -58,10 +57,6 @@ namespace Adaro.Centralize.EntityFrameworkCore
         public virtual DbSet<MaterialGroup> MaterialGroups { get; set; }
 
         public virtual DbSet<UNSPSC> UNSPSCs { get; set; }
-
-        public virtual DbSet<TravelRequest> TravelRequests { get; set; }
-
-        public virtual DbSet<Airport> Airports { get; set; }
 
         /* Define an IDbSet for each entity of the application */
 
@@ -192,14 +187,6 @@ namespace Adaro.Centralize.EntityFrameworkCore
             modelBuilder.Entity<UNSPSC>(u =>
                        {
                            u.HasIndex(e => new { e.TenantId });
-                       });
-            modelBuilder.Entity<TravelRequest>(t =>
-                       {
-                           t.HasIndex(e => new { e.TenantId });
-                       });
-            modelBuilder.Entity<Airport>(a =>
-                       {
-                           a.HasIndex(e => new { e.TenantId });
                        });
             modelBuilder.Entity<BinaryObject>(b =>
                        {

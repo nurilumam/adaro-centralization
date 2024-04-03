@@ -19,7 +19,7 @@ namespace Adaro.Centralize.Finance
 
         Task<PagedResultDto<TransferBudgetDetailCostCenterLookupTableDto>> GetAllCostCenterForLookupTable(GetAllForLookupTableInput input);
 
-        Task<PagedResultDto<TransferBudgetDetailGeneralLedgerMappingLookupTableDto>> GetAllGeneralLedgerMappingForLookupTable(GetAllForLookupTableInput input);
+        Task<PagedResultDto<TransferBudgetDetailGeneralLedgerAccountLookupTableDto>> GetAllGeneralLedgerAccountForLookupTable(GetAllForLookupTableInput input);
 
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Adaro.Centralize.SAPConnector;
-using Adaro.Centralize.MasterData;
+using Adaro.Centralize.SAPConnector;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,14 +14,11 @@ namespace Adaro.Centralize.Finance
         public int? TenantId { get; set; }
 
         [Required]
-        [StringLength(TransferBudgetDetailConsts.MaxPeriodLength, MinimumLength = TransferBudgetDetailConsts.MinPeriodLength)]
         public virtual string Period { get; set; }
 
-        [Required]
         public virtual decimal Amount { get; set; }
 
         [Required]
-        [StringLength(TransferBudgetDetailConsts.MaxTransferTypeLength, MinimumLength = TransferBudgetDetailConsts.MinTransferTypeLength)]
         public virtual string TransferType { get; set; }
 
         public virtual Guid CostCenterId { get; set; }
@@ -29,10 +26,10 @@ namespace Adaro.Centralize.Finance
         [ForeignKey("CostCenterId")]
         public CostCenter CostCenterFk { get; set; }
 
-        public virtual Guid? GeneralLedgerMappingId { get; set; }
+        public virtual Guid? GeneralLedgerAccountId { get; set; }
 
-        [ForeignKey("GeneralLedgerMappingId")]
-        public GeneralLedgerMapping GeneralLedgerMappingFk { get; set; }
+        [ForeignKey("GeneralLedgerAccountId")]
+        public GeneralLedgerAccount GeneralLedgerAccountFk { get; set; }
 
     }
 }

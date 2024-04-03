@@ -12,8 +12,6 @@ using Adaro.Centralize.MasterDataRequest.Dtos;
 using Adaro.Centralize.MasterDataRequest;
 using Adaro.Centralize.MasterData.Dtos;
 using Adaro.Centralize.MasterData;
-using Adaro.Centralize.Travel.Dtos;
-using Adaro.Centralize.Travel;
 using Abp.Application.Editions;
 using Abp.Application.Features;
 using Abp.Auditing;
@@ -98,10 +96,6 @@ namespace Adaro.Centralize
             configuration.CreateMap<MaterialGroupDto, MaterialGroup>().ReverseMap();
             configuration.CreateMap<CreateOrEditUNSPSCDto, UNSPSC>().ReverseMap();
             configuration.CreateMap<UNSPSCDto, UNSPSC>().ReverseMap();
-            configuration.CreateMap<CreateOrEditTravelRequestDto, TravelRequest>().ReverseMap();
-            configuration.CreateMap<TravelRequestDto, TravelRequest>().ReverseMap();
-            configuration.CreateMap<CreateOrEditAirportDto, Airport>().ReverseMap();
-            configuration.CreateMap<AirportDto, Airport>().ReverseMap();
             //Inputs
             configuration.CreateMap<CheckboxInputType, FeatureInputTypeDto>();
             configuration.CreateMap<SingleLineStringInputType, FeatureInputTypeDto>();

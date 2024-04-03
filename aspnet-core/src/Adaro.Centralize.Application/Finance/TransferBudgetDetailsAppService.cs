@@ -1,5 +1,5 @@
 ﻿using Adaro.Centralize.SAPConnector;
-using Adaro.Centralize.MasterData;
+using Adaro.Centralize.SAPConnector;
 
 using System;
 using System.Linq;
@@ -25,13 +25,13 @@ namespace Adaro.Centralize.Finance
     {
         private readonly IRepository<TransferBudgetDetail, Guid> _transferBudgetDetailRepository;
         private readonly IRepository<CostCenter, Guid> _lookup_costCenterRepository;
-        private readonly IRepository<GeneralLedgerMapping, Guid> _lookup_generalLedgerMappingRepository;
+        private readonly IRepository<GeneralLedgerAccount, Guid> _lookup_generalLedgerAccountRepository;
 
-        public TransferBudgetDetailsAppService(IRepository<TransferBudgetDetail, Guid> transferBudgetDetailRepository, IRepository<CostCenter, Guid> lookup_costCenterRepository, IRepository<GeneralLedgerMapping, Guid> lookup_generalLedgerMappingRepository)
+        public TransferBudgetDetailsAppService(IRepository<TransferBudgetDetail, Guid> transferBudgetDetailRepository, IRepository<CostCenter, Guid> lookup_costCenterRepository, IRepository<GeneralLedgerAccount, Guid> lookup_generalLedgerAccountRepository)
         {
             _transferBudgetDetailRepository = transferBudgetDetailRepository;
             _lookup_costCenterRepository = lookup_costCenterRepository;
-            _lookup_generalLedgerMappingRepository = lookup_generalLedgerMappingRepository;
+            _lookup_generalLedgerAccountRepository = lookup_generalLedgerAccountRepository;
 
         }
 
@@ -40,14 +40,16 @@ namespace Adaro.Centralize.Finance
 
             var filteredTransferBudgetDetails = _transferBudgetDetailRepository.GetAll()
                         .Include(e => e.CostCenterFk)
-                        .Include(e => e.GeneralLedgerMappingFk)
+                        .Include(e => e.GeneralLedgerAccountFk)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Period.Contains(input.Filter) || e.TransferType.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PeriodFilter), e => e.Period.Contains(input.PeriodFilter))
                         .WhereIf(input.MinAmountFilter != null, e => e.Amount >= input.MinAmountFilter)
                         .WhereIf(input.MaxAmountFilter != null, e => e.Amount <= input.MaxAmountFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.TransferTypeFilter), e => e.TransferType.Contains(input.TransferTypeFilter))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.CostCenterCostCenterNameFilter), e => e.CostCenterFk != null && e.CostCenterFk.CostCenterName == input.CostCenterCostCenterNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.GeneralLedgerMappingGLAccountFilter), e => e.GeneralLedgerMappingFk != null && e.GeneralLedgerMappingFk.GLAccount == input.GeneralLedgerMappingGLAccountFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.CostCenterDisplayPropertyFilter), e => string.Format("{1} {0}", e.CostCenterFk == null || e.CostCenterFk.CostCenterName == null ? "" : e.CostCenterFk.CostCenterName.ToString()
+, e.CostCenterFk == null || e.CostCenterFk.CostCenterCode == null ? "" : e.CostCenterFk.CostCenterCode.ToString()
+) == input.CostCenterDisplayPropertyFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.GeneralLedgerAccountFundsCenterFilter), e => e.GeneralLedgerAccountFk != null && e.GeneralLedgerAccountFk.FundsCenter == input.GeneralLedgerAccountFundsCenterFilter);
 
             var pagedAndFilteredTransferBudgetDetails = filteredTransferBudgetDetails
                 .OrderBy(input.Sorting ?? "id asc")
@@ -57,7 +59,7 @@ namespace Adaro.Centralize.Finance
                                         join o1 in _lookup_costCenterRepository.GetAll() on o.CostCenterId equals o1.Id into j1
                                         from s1 in j1.DefaultIfEmpty()
 
-                                        join o2 in _lookup_generalLedgerMappingRepository.GetAll() on o.GeneralLedgerMappingId equals o2.Id into j2
+                                        join o2 in _lookup_generalLedgerAccountRepository.GetAll() on o.GeneralLedgerAccountId equals o2.Id into j2
                                         from s2 in j2.DefaultIfEmpty()
 
                                         select new
@@ -67,8 +69,10 @@ namespace Adaro.Centralize.Finance
                                             o.Amount,
                                             o.TransferType,
                                             Id = o.Id,
-                                            CostCenterCostCenterName = s1 == null || s1.CostCenterName == null ? "" : s1.CostCenterName.ToString(),
-                                            GeneralLedgerMappingGLAccount = s2 == null || s2.GLAccount == null ? "" : s2.GLAccount.ToString()
+                                            CostCenterDisplayProperty = string.Format("{1} {0}", s1 == null || s1.CostCenterName == null ? "" : s1.CostCenterName.ToString()
+                        , s1 == null || s1.CostCenterCode == null ? "" : s1.CostCenterCode.ToString()
+                        ),
+                                            GeneralLedgerAccountFundsCenter = s2 == null || s2.FundsCenter == null ? "" : s2.FundsCenter.ToString()
                                         };
 
             var totalCount = await filteredTransferBudgetDetails.CountAsync();
@@ -88,8 +92,8 @@ namespace Adaro.Centralize.Finance
                         TransferType = o.TransferType,
                         Id = o.Id,
                     },
-                    CostCenterCostCenterName = o.CostCenterCostCenterName,
-                    GeneralLedgerMappingGLAccount = o.GeneralLedgerMappingGLAccount
+                    CostCenterDisplayProperty = o.CostCenterDisplayProperty,
+                    GeneralLedgerAccountFundsCenter = o.GeneralLedgerAccountFundsCenter
                 };
 
                 results.Add(res);
@@ -112,13 +116,13 @@ namespace Adaro.Centralize.Finance
             if (output.TransferBudgetDetail.CostCenterId != null)
             {
                 var _lookupCostCenter = await _lookup_costCenterRepository.FirstOrDefaultAsync((Guid)output.TransferBudgetDetail.CostCenterId);
-                output.CostCenterCostCenterName = _lookupCostCenter?.CostCenterName?.ToString();
+                output.CostCenterDisplayProperty = string.Format("{1} {0}", _lookupCostCenter.CostCenterName, _lookupCostCenter.CostCenterCode);
             }
 
-            if (output.TransferBudgetDetail.GeneralLedgerMappingId != null)
+            if (output.TransferBudgetDetail.GeneralLedgerAccountId != null)
             {
-                var _lookupGeneralLedgerMapping = await _lookup_generalLedgerMappingRepository.FirstOrDefaultAsync((Guid)output.TransferBudgetDetail.GeneralLedgerMappingId);
-                output.GeneralLedgerMappingGLAccount = _lookupGeneralLedgerMapping?.GLAccount?.ToString();
+                var _lookupGeneralLedgerAccount = await _lookup_generalLedgerAccountRepository.FirstOrDefaultAsync((Guid)output.TransferBudgetDetail.GeneralLedgerAccountId);
+                output.GeneralLedgerAccountFundsCenter = _lookupGeneralLedgerAccount?.FundsCenter?.ToString();
             }
 
             return output;
@@ -169,7 +173,7 @@ namespace Adaro.Centralize.Finance
         {
             var query = _lookup_costCenterRepository.GetAll().WhereIf(
                    !string.IsNullOrWhiteSpace(input.Filter),
-                  e => e.CostCenterName != null && e.CostCenterName.Contains(input.Filter)
+                  e => string.Format("{1} {0}", e.CostCenterName, e.CostCenterCode).Contains(input.Filter)
                );
 
             var totalCount = await query.CountAsync();
@@ -184,7 +188,7 @@ namespace Adaro.Centralize.Finance
                 lookupTableDtoList.Add(new TransferBudgetDetailCostCenterLookupTableDto
                 {
                     Id = costCenter.Id.ToString(),
-                    DisplayName = costCenter.CostCenterName?.ToString()
+                    DisplayName = string.Format("{1} {0}", costCenter.CostCenterName, costCenter.CostCenterCode)
                 });
             }
 
@@ -195,30 +199,30 @@ namespace Adaro.Centralize.Finance
         }
 
         [AbpAuthorize(AppPermissions.Pages_TransferBudgetDetails)]
-        public async Task<PagedResultDto<TransferBudgetDetailGeneralLedgerMappingLookupTableDto>> GetAllGeneralLedgerMappingForLookupTable(GetAllForLookupTableInput input)
+        public async Task<PagedResultDto<TransferBudgetDetailGeneralLedgerAccountLookupTableDto>> GetAllGeneralLedgerAccountForLookupTable(GetAllForLookupTableInput input)
         {
-            var query = _lookup_generalLedgerMappingRepository.GetAll().WhereIf(
+            var query = _lookup_generalLedgerAccountRepository.GetAll().WhereIf(
                    !string.IsNullOrWhiteSpace(input.Filter),
-                  e => e.GLAccount != null && e.GLAccount.Contains(input.Filter)
+                  e => e.FundsCenter != null && e.FundsCenter.Contains(input.Filter)
                );
 
             var totalCount = await query.CountAsync();
 
-            var generalLedgerMappingList = await query
+            var generalLedgerAccountList = await query
                 .PageBy(input)
                 .ToListAsync();
 
-            var lookupTableDtoList = new List<TransferBudgetDetailGeneralLedgerMappingLookupTableDto>();
-            foreach (var generalLedgerMapping in generalLedgerMappingList)
+            var lookupTableDtoList = new List<TransferBudgetDetailGeneralLedgerAccountLookupTableDto>();
+            foreach (var generalLedgerAccount in generalLedgerAccountList)
             {
-                lookupTableDtoList.Add(new TransferBudgetDetailGeneralLedgerMappingLookupTableDto
+                lookupTableDtoList.Add(new TransferBudgetDetailGeneralLedgerAccountLookupTableDto
                 {
-                    Id = generalLedgerMapping.Id.ToString(),
-                    DisplayName = generalLedgerMapping.GLAccount?.ToString()
+                    Id = generalLedgerAccount.Id.ToString(),
+                    DisplayName = generalLedgerAccount.FundsCenter?.ToString()
                 });
             }
 
-            return new PagedResultDto<TransferBudgetDetailGeneralLedgerMappingLookupTableDto>(
+            return new PagedResultDto<TransferBudgetDetailGeneralLedgerAccountLookupTableDto>(
                 totalCount,
                 lookupTableDtoList
             );

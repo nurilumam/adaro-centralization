@@ -4,9 +4,9 @@
     {
         public TransferBudgetDetailDto TransferBudgetDetail { get; set; }
 
-        public string CostCenterCostCenterName { get; set; }
+        public string CostCenterDisplayProperty { get; set; }
 
-        public string GeneralLedgerMappingGLAccount { get; set; }
+        public string GeneralLedgerAccountFundsCenter { get; set; }
 
     }
 }

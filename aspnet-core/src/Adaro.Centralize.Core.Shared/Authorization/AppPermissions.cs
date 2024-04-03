@@ -36,11 +36,6 @@
         public const string Pages_LookupPages_Edit = "Pages.LookupPages.Edit";
         public const string Pages_LookupPages_Delete = "Pages.LookupPages.Delete";
 
-        public const string Pages_TransferBudgetItems = "Pages.TransferBudgetItems";
-        public const string Pages_TransferBudgetItems_Create = "Pages.TransferBudgetItems.Create";
-        public const string Pages_TransferBudgetItems_Edit = "Pages.TransferBudgetItems.Edit";
-        public const string Pages_TransferBudgetItems_Delete = "Pages.TransferBudgetItems.Delete";
-
         public const string Pages_TransferBudgets = "Pages.TransferBudgets";
         public const string Pages_TransferBudgets_Create = "Pages.TransferBudgets.Create";
         public const string Pages_TransferBudgets_Edit = "Pages.TransferBudgets.Edit";
@@ -100,16 +95,6 @@
         public const string Pages_UNSPSCs_Create = "Pages.UNSPSCs.Create";
         public const string Pages_UNSPSCs_Edit = "Pages.UNSPSCs.Edit";
         public const string Pages_UNSPSCs_Delete = "Pages.UNSPSCs.Delete";
-
-        public const string Pages_TravelRequests = "Pages.TravelRequests";
-        public const string Pages_TravelRequests_Create = "Pages.TravelRequests.Create";
-        public const string Pages_TravelRequests_Edit = "Pages.TravelRequests.Edit";
-        public const string Pages_TravelRequests_Delete = "Pages.TravelRequests.Delete";
-
-        public const string Pages_Airports = "Pages.Airports";
-        public const string Pages_Airports_Create = "Pages.Airports.Create";
-        public const string Pages_Airports_Edit = "Pages.Airports.Edit";
-        public const string Pages_Airports_Delete = "Pages.Airports.Delete";
 
         //COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
 

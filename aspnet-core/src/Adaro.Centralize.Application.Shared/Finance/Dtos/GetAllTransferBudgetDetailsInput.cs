@@ -14,9 +14,9 @@ namespace Adaro.Centralize.Finance.Dtos
 
         public string TransferTypeFilter { get; set; }
 
-        public string CostCenterCostCenterNameFilter { get; set; }
+        public string CostCenterDisplayPropertyFilter { get; set; }
 
-        public string GeneralLedgerMappingGLAccountFilter { get; set; }
+        public string GeneralLedgerAccountFundsCenterFilter { get; set; }
 
     }
 }

@@ -13,7 +13,7 @@ namespace Adaro.Centralize.Finance.Dtos
 
         public Guid CostCenterId { get; set; }
 
-        public Guid? GeneralLedgerMappingId { get; set; }
+        public Guid? GeneralLedgerAccountId { get; set; }
 
     }
 }

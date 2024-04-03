@@ -60,11 +60,6 @@ namespace Adaro.Centralize.Authorization
             lookupPages.CreateChildPermission(AppPermissions.Pages_LookupPages_Edit, L("EditLookupPage"));
             lookupPages.CreateChildPermission(AppPermissions.Pages_LookupPages_Delete, L("DeleteLookupPage"));
 
-            var transferBudgetItems = pages.CreateChildPermission(AppPermissions.Pages_TransferBudgetItems, L("TransferBudgetItems"));
-            transferBudgetItems.CreateChildPermission(AppPermissions.Pages_TransferBudgetItems_Create, L("CreateNewTransferBudgetItem"));
-            transferBudgetItems.CreateChildPermission(AppPermissions.Pages_TransferBudgetItems_Edit, L("EditTransferBudgetItem"));
-            transferBudgetItems.CreateChildPermission(AppPermissions.Pages_TransferBudgetItems_Delete, L("DeleteTransferBudgetItem"));
-
             var transferBudgets = pages.CreateChildPermission(AppPermissions.Pages_TransferBudgets, L("TransferBudgets"));
             transferBudgets.CreateChildPermission(AppPermissions.Pages_TransferBudgets_Create, L("CreateNewTransferBudget"));
             transferBudgets.CreateChildPermission(AppPermissions.Pages_TransferBudgets_Edit, L("EditTransferBudget"));
@@ -124,16 +119,6 @@ namespace Adaro.Centralize.Authorization
             unspsCs.CreateChildPermission(AppPermissions.Pages_UNSPSCs_Create, L("CreateNewUNSPSC"));
             unspsCs.CreateChildPermission(AppPermissions.Pages_UNSPSCs_Edit, L("EditUNSPSC"));
             unspsCs.CreateChildPermission(AppPermissions.Pages_UNSPSCs_Delete, L("DeleteUNSPSC"));
-
-            var travelRequests = pages.CreateChildPermission(AppPermissions.Pages_TravelRequests, L("TravelRequests"));
-            travelRequests.CreateChildPermission(AppPermissions.Pages_TravelRequests_Create, L("CreateNewTravelRequest"));
-            travelRequests.CreateChildPermission(AppPermissions.Pages_TravelRequests_Edit, L("EditTravelRequest"));
-            travelRequests.CreateChildPermission(AppPermissions.Pages_TravelRequests_Delete, L("DeleteTravelRequest"));
-
-            var airports = pages.CreateChildPermission(AppPermissions.Pages_Airports, L("Airports"));
-            airports.CreateChildPermission(AppPermissions.Pages_Airports_Create, L("CreateNewAirport"));
-            airports.CreateChildPermission(AppPermissions.Pages_Airports_Edit, L("EditAirport"));
-            airports.CreateChildPermission(AppPermissions.Pages_Airports_Delete, L("DeleteAirport"));
 
             pages.CreateChildPermission(AppPermissions.Pages_DemoUiComponents, L("DemoUiComponents"));
 

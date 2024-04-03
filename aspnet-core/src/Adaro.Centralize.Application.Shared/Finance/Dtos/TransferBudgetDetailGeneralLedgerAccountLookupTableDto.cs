@@ -1,8 +1,8 @@
 ﻿using Abp.Application.Services.Dto;
 
-namespace Adaro.Centralize.Travel.Dtos
+namespace Adaro.Centralize.Finance.Dtos
 {
-    public class TravelRequestAirportLookupTableDto
+    public class TransferBudgetDetailGeneralLedgerAccountLookupTableDto
     {
         public string Id { get; set; }
 
